@@ -6,6 +6,19 @@ defineOptions({ name: 'DashboardAnalysis' })
 <template>
   <div class="analysis">
     <icon-selector />
+    <a-form>
+      <a-form-item label="test">
+        <icon-selector />
+      </a-form-item>
+    </a-form>
+    <a-dropdown>
+      <a class="ant-dropdown-link" @click.prevent>
+        Hover me
+      </a>
+      <template #overlay>
+        asdasds
+      </template>
+    </a-dropdown>
   </div>
 </template>
 

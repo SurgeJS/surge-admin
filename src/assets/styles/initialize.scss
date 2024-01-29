@@ -25,6 +25,9 @@ a {
   text-decoration: none;
 }
 
+svg{
+  //font-size: theme('fontSize.xs');
+}
 
 /* 设置滚动条的样式 */
 ::-webkit-scrollbar {

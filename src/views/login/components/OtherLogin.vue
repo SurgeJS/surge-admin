@@ -33,7 +33,7 @@ const otherLoginMethods = [
         :title="item.title"
         placement="bottom"
     >
-      <component class="text-main cursor-pointer" :is="item.icon" />
+      <component class="text-main text-xl cursor-pointer" :is="item.icon" />
     </a-tooltip>
   </a-flex>
 </template>
