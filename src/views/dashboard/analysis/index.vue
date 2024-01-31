@@ -1,24 +1,17 @@
 <script lang="ts" setup>
+import AntDesignIconJson from '@iconify/json/json/ant-design.json'
 
 defineOptions({ name: 'DashboardAnalysis' })
+const icons = Object.keys(AntDesignIconJson.icons).map(key=>`${AntDesignIconJson.prefix}:${key}`)
 </script>
 
 <template>
   <div class="analysis">
-    <icon-selector />
     <a-form>
       <a-form-item label="test">
-        <icon-selector />
+        <icon-select :icons="icons" />
       </a-form-item>
     </a-form>
-    <a-dropdown>
-      <a class="ant-dropdown-link" @click.prevent>
-        Hover me
-      </a>
-      <template #overlay>
-        asdasds
-      </template>
-    </a-dropdown>
   </div>
 </template>
 
