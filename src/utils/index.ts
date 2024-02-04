@@ -27,3 +27,13 @@ export const temporaryClearTransition = (callback: () => void,time: number = 200
         document.body.classList.remove('noTransition')
     },time)
 }
+
+
+// 异步等待
+export const asyncWait = async (millisecond:number) => {
+    return new Promise(resolve => {
+        setTimeout(() => {
+            resolve(undefined)
+        },millisecond)
+    })
+}
