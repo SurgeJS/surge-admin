@@ -3,7 +3,10 @@ import AntDesignIconJson from '@iconify/json/json/ant-design.json'
 import { ref } from 'vue'
 
 defineOptions({ name: 'DashboardAnalysis' })
-const icons = [ ...Object.keys(AntDesignIconJson.icons).map(key=>`${AntDesignIconJson.prefix}:${key}`),...Object.keys(AntDesignIconJson.icons).map(key=>`${AntDesignIconJson.prefix}:${key}`) ]
+const icons = [
+  ...Object.keys(AntDesignIconJson.icons).map(key => `${ AntDesignIconJson.prefix }:${ key }`)
+  // ...Object.keys(AntDesignIconJson.icons).map(key => `${ AntDesignIconJson.prefix }:${ key }`)
+]
 const icon = ref()
 </script>
 
