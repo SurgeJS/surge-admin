@@ -17,6 +17,7 @@ const icon = ref()
         <icon-select v-model:current="icon" :icons="icons" />
       </a-form-item>
     </a-form>
+
   </div>
 </template>
 
