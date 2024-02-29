@@ -4,6 +4,7 @@ import '@/assets/index'
 import { setupRouter } from '@/router'
 import { setupStore } from '@/store'
 import setupComponents from '@/components'
+import { setupDirectives } from '@/directives'
 
 const bootStart = async () => {
     const app = createApp(App)
@@ -14,6 +15,10 @@ const bootStart = async () => {
     // 挂载状态管理
     setupStore(app)
 
+    // 挂载全局指令
+    setupDirectives(app)
+
+    // 挂载路由
     await setupRouter(app)
 
     app.mount('#app')

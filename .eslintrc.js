@@ -37,13 +37,6 @@ module.exports = defineConfig({
     '@typescript-eslint/no-explicit-any': 'off',
     // 禁用 caller 或 callee
     '@typescript-eslint/no-non-null-assertion': 'off',
-    // 禁止出现空函数
-    '@typescript-eslint/no-unused-vars': [
-      'error',
-      {
-        vars: 'all',args: 'after-used',ignoreRestSiblings: false
-      }
-    ],
     // 禁止与 null 进行比较 ,该规则旨在通过确保与 null 比较时只等于 null，而不同时等于 undefined， 来减少潜在的 bug 和 意外行为。因此，它也将标记使用 == 和 != 与
     // null比较的情况。
     '@typescript-eslint/no-use-before-define': 'off',

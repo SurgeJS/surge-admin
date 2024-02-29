@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import AntDesignIconJson from '@iconify/json/json/ant-design.json'
 import { ref } from 'vue'
+import day from '@/utils/day'
 
 defineOptions({ name: 'DashboardAnalysis' })
 const icons = [
@@ -8,6 +9,7 @@ const icons = [
   // ...Object.keys(AntDesignIconJson.icons).map(key => `${ AntDesignIconJson.prefix }:${ key }`)
 ]
 const icon = ref()
+console.log(day(new Date().getTime()).fromNow())
 </script>
 
 <template>
@@ -17,7 +19,6 @@ const icon = ref()
         <icon-select v-model:current="icon" :icons="icons" />
       </a-form-item>
     </a-form>
-
   </div>
 </template>
 

@@ -33,6 +33,8 @@ export interface CacheTemplate<T> {
      * 删除缓存
      */
     remove(): void
+
+    // TODO:扩展是否存在
 }
 
 /**

@@ -12,6 +12,7 @@ const mainAxiosInstance = axios.create({
     timeout: 10000
 })
 
+// TODO:扩展 meta
 mainAxiosInstance.interceptors.request.use(config => {
     return config
 },error => {
