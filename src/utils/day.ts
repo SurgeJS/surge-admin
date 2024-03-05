@@ -14,16 +14,16 @@ day.locale('zh-cn')
 export type DateType = string | number | day.Dayjs | Date | null | undefined
 
 // 日期格式化类型
-export type DateFormat = 'YYYY-MM-DD HH:mm:ss' | string
+export type DateFormat = 'YYYY-MM-DD' | 'YYYY-MM-DD HH:mm:ss' | string
 
 export class DayJs {
     // 格式化日期
-    static format(date: DateType,dateFormat: DateFormat = 'YYYY-MM-DD HH:mm:ss') {
+    static format(date: DateType,dateFormat: DateFormat = 'YYYY-MM-DD') {
         return day(date).format(dateFormat)
     }
 
     // 格式化当前系统日期
-    static formatCurrent(dateFormat: DateFormat = 'YYYY-MM-DD HH:mm:ss') {
+    static formatCurrent(dateFormat: DateFormat = 'YYYY-MM-DD') {
         return day().format(dateFormat)
     }
 
@@ -53,4 +53,4 @@ export class DayJs {
     }
 }
 
-
+export default day

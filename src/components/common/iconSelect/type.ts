@@ -4,5 +4,5 @@ export interface IconSelectProps {
     icons: string[]
 
     // 当前选中的图标
-    current: string
+    value: string
 }
