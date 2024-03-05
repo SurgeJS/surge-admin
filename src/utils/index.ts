@@ -2,7 +2,7 @@
  * 策略模式
  * [状态, 状态为true时执行的回调函数]
  */
-export type TacticsAction = [ boolean, () => void ]
+export type TacticsAction = [ boolean,() => void ]
 
 // 执行策略模式
 export const runTacticsAction = (tacticsAction: TacticsAction[]) => tacticsAction.some(([ flag,action ]) => {
@@ -36,7 +36,7 @@ export const temporaryClearTransition = (callback: () => void,time: number = 200
 
 
 // 异步等待
-export const asyncWait = async (millisecond:number) => {
+export const asyncWait = async (millisecond: number) => {
     return new Promise(resolve => {
         setTimeout(() => {
             resolve(undefined)

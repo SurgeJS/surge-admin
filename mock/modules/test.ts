@@ -6,6 +6,7 @@ export default [
         method: 'post',
         timeout: 1000,
         response(opt) {
+            const { pageSize,pageNo,name,id } = opt.body
             const result: Recordable[] = []
             for (let i = 0; i < 500; i++) {
                 result.push({
@@ -13,6 +14,8 @@ export default [
                     name: `测试-${ i }`
                 })
             }
+            console.log(opt)
+            console.log(pageNo)
             return {
                 code: 200,
                 msg: '操作成功',
