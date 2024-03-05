@@ -1,7 +1,7 @@
 import { ProxyOptions } from 'vite'
 
 // 代理配置
-export const proxyConfig = (viteEnv: ImportMetaEnv): Record<string, string | ProxyOptions> => ({
+export const proxyConfig = (viteEnv: ImportMetaEnv): Recordable<string | ProxyOptions> => ({
     [viteEnv.VITE_PROXY_PATH]: {
         target: viteEnv.VITE_GLOB_API_URL,
         changeOrigin: true,

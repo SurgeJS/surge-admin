@@ -53,7 +53,7 @@ const selectIcon = (icon:string) => {
           style="width: calc(100% - 52px)"
       />
       <a-button class="flex-center">
-          <svg-icon size="18" :icon="iconValue||'ant-design:appstore-twotone'" />
+          <svg-icon size="14" :icon="iconValue||'ant-design:appstore-twotone'" />
       </a-button>
     </a-input-group>
     <template #title>

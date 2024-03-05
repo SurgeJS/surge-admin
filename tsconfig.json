@@ -16,8 +16,7 @@
     "resolveJsonModule": true,
     "noUnusedLocals": false,
     "isolatedModules": true,
-    "noUnusedParameters": true,
-
+    "noUnusedParameters": false,
     "experimentalDecorators": true,
     "skipLibCheck": true,
     "lib": ["dom", "esnext"],

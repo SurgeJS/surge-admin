@@ -1,3 +1,9 @@
+/**
+ * 策略模式
+ * [状态, 状态为true时执行的回调函数]
+ */
+export type TacticsAction = [ boolean, () => void ]
+
 // 执行策略模式
 export const runTacticsAction = (tacticsAction: TacticsAction[]) => tacticsAction.some(([ flag,action ]) => {
     flag && action()
@@ -5,7 +11,7 @@ export const runTacticsAction = (tacticsAction: TacticsAction[]) => tacticsActio
 })
 
 // 设置CSS变量
-export const setCSSVariable = (variable: Record<string,string>) => {
+export const setCSSVariable = (variable: Recordable<string>) => {
     const htmlElement = document.querySelector('html')
     if (!htmlElement) return
     Object.keys(variable).forEach(key => {

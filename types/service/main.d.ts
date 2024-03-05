@@ -13,14 +13,14 @@ declare namespace MainService {
     }
 
     // 结果扩展
-    type Result<Data = any,Expand = Record<string,unknown>> = BaseResult<Data> & Expand
+    type Result<Data = any,Expand = Recordable<unknown>> = BaseResult<Data> & Expand
 
     // 分页
     interface Pagination {
         // 页数
-        page: number
+        pageNo: number
         // 每页数量
-        size: number
+        pageSize: number
     }
 
     // 包装 接口请求分页

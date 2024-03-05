@@ -6,7 +6,7 @@ import useTabBarStore from '@/store/modules/tabBar'
 import { RouteAuthModeEnum } from '@/enums/auth'
 import RouterConfig from '@/config/router'
 import { RouterTool } from '@/router/uitls/tool'
-import { runTacticsAction } from '@/utils'
+import { runTacticsAction,TacticsAction } from '@/utils'
 import { message } from 'ant-design-vue'
 import { tokenCache } from '@/store/cache'
 

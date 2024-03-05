@@ -25,6 +25,8 @@ module.exports = defineConfig({
     'plugin:@typescript-eslint/recommended'
   ],
   rules: {
+    // 禁用参数未使用报错
+    '@typescript-eslint/no-unused-vars': 'off',
     // 不禁用 debugger
     '@typescript-eslint/ban-ts-comment': 'off',
     // 强制把变量的使用限制在其定义的作用域范围内

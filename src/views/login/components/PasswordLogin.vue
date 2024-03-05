@@ -17,7 +17,7 @@ const form: UserModel.PasswordLoginParams = reactive({
   username: 'admin',
   password: '123456'
 })
-const rules: Record<string,Rule[]> = {
+const rules: Recordable<Rule[]> = {
   username: [
     {
       message: '请输入账号',

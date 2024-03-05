@@ -141,12 +141,4 @@ export default [
             }
         }
     }
-    // {
-    //     url: '/mock/getUserList',
-    //     method: 'post',
-    //     timeout: 1000,
-    //     response(opt) {
-    //
-    //     }
-    // }
 ] as MockMethod[]
