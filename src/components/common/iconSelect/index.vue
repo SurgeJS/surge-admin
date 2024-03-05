@@ -50,12 +50,10 @@ const selectIcon = (icon:string) => {
           v-model:value="iconValue"
           placeholder="请选择图标"
           readonly
-          style="width: calc(100% - 32px)"
+          style="width: calc(100% - 52px)"
       />
-      <a-button>
-        <template #icon>
-          <svg-icon :icon="iconValue||'ant-design:more-outlined'" />
-        </template>
+      <a-button class="flex-center">
+          <svg-icon size="18" :icon="iconValue||'ant-design:appstore-twotone'" />
       </a-button>
     </a-input-group>
     <template #title>
