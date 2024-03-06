@@ -14,9 +14,6 @@ export default [
                     name: `测试-${ i }`
                 })
             }
-            console.log(opt)
-            console.log(pageNo)
-            console.log(list.slice(pageSize * (pageNo - 1),(pageSize * (pageNo - 1)) + pageSize))
             const result = list.slice(pageSize * (pageNo - 1),(pageSize * (pageNo - 1)) + pageSize)
             return {
                 code: 200,

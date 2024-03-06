@@ -1,21 +1,37 @@
 <template>
   <div class="w-h-full overflow-auto">
-    <a-button @click="test">{{ isFetching }}</a-button>
-    <a-button @click="reRequest">重新请求</a-button>
-    <a-table
-        @change="tableChange"
-        :pagination="pagination"
-        size="small"
-        :columns="columns"
-        :data-source="data?.list"
-        :loading="isFetching" />
+    <a-card>
+      <a-form layout="inline">
+        <a-form-item label="id" name="id">
+          <a-input v-model:value="query.id" />
+        </a-form-item>
+        <a-form-item label="名称" name="name">
+          <a-input v-model:value="query.name" />
+        </a-form-item>
+        <a-form-item>
+          <a-space>
+            <a-button type="primary">搜索</a-button>
+            <a-button>重置</a-button>
+          </a-space>
+        </a-form-item>
+      </a-form>
+    </a-card>
+    <br>
+    <a-card>
+      <a-table
+          :columns="columns"
+          :data-source="data?.list"
+          :loading="isFetching"
+          :pagination="pagination"
+          size="small"
+          @change="tableChange" />
+    </a-card>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { TestApi } from '@/services/api/test'
-import { computed } from 'vue'
-import useFormQuery from '@/hooks/common/useFormQuery'
+import { computed,ref } from 'vue'
 
 const columns = [
   {
@@ -30,10 +46,10 @@ const columns = [
   }
 ]
 
-const { query,$reset } = useFormQuery({
+const query = ref({
   pageSize: 10,
   pageNo: 2,
-  name: null,
+  name: '',
   id: null
 })
 
@@ -43,13 +59,10 @@ const pagination = computed(() => ({
   pageSize: query.value.pageSize
 }))
 
-const { isLoading,data,refetch,isFetching } = TestApi.useGetTodoList(pagination,query)
+const { isLoading,data,refetch,isFetching } = TestApi.useGetTodoList(query)
 
-const test = () => {
-  query.value.pageSize = 2
-}
 
-const reRequest = () => {
+const reset = () => {
   refetch()
 }
 

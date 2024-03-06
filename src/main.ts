@@ -4,7 +4,7 @@ import '@/assets/index'
 import { setupRouter } from '@/router'
 import { setupStore } from '@/store'
 import setupComponents from '@/components'
-import { VueQueryPlugin } from '@tanstack/vue-query'
+import setupVuePlugins from '@/plugins'
 
 const bootStart = async () => {
     const app = createApp(App)
@@ -18,7 +18,8 @@ const bootStart = async () => {
     // 挂载路由
     await setupRouter(app)
 
-    app.use(VueQueryPlugin)
+    // 挂载插件
+    setupVuePlugins(app)
 
     app.mount('#app')
 }
