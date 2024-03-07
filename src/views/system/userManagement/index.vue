@@ -1,37 +1,8 @@
-<template>
-  <div class="w-h-full overflow-auto">
-    <a-card>
-      <a-form layout="inline">
-        <a-form-item label="id" name="id">
-          <a-input v-model:value="query.id" />
-        </a-form-item>
-        <a-form-item label="名称" name="name">
-          <a-input v-model:value="query.name" />
-        </a-form-item>
-        <a-form-item>
-          <a-space>
-            <a-button type="primary">搜索</a-button>
-            <a-button>重置</a-button>
-          </a-space>
-        </a-form-item>
-      </a-form>
-    </a-card>
-    <br>
-    <a-card>
-      <a-table
-          :columns="columns"
-          :data-source="data?.list"
-          :loading="isFetching"
-          :pagination="pagination"
-          size="small"
-          @change="tableChange" />
-    </a-card>
-  </div>
-</template>
-
 <script lang="ts" setup>
-import { TestApi } from '@/services/api/test'
 import { computed,ref } from 'vue'
+import TestApiHook from '@/services/apiHooks/test'
+import { useForm } from 'ant-design-vue/es/form'
+import useTablePagination from '@/hooks/common/useTablePagination'
 
 const columns = [
   {
@@ -48,30 +19,56 @@ const columns = [
 
 const query = ref({
   pageSize: 10,
-  pageNo: 2,
-  name: '',
-  id: null
+  pageNo: 1,
+  name: undefined,
+  id: undefined
 })
 
-const pagination = computed(() => ({
-  total: data?.value?.total,
-  current: query.value.pageNo,
-  pageSize: query.value.pageSize
-}))
-
-const { isLoading,data,refetch,isFetching } = TestApi.useGetTodoList(query)
-
+const { resetFields,validateInfos } = useForm(query)
+const { data,refetch,isFetching } = TestApiHook.useGetTodoList(query)
+const { pagination,resetPagination,onTableChange } = useTablePagination(query,computed(() => data.value?.total))
 
 const reset = () => {
+  resetPagination()
+  resetFields()
   refetch()
 }
 
-const tableChange = (pag: { pageSize: number;current: number }) => {
-  query.value.pageNo = pag.current
-  query.value.pageSize = pag.pageSize
+const onSearch = () => {
+  resetPagination()
+  refetch()
 }
 </script>
-
+<template>
+  <div class="w-h-full overflow-auto">
+    <a-card>
+      <a-form layout="inline">
+        <a-form-item label="id" v-bind="validateInfos.id">
+          <a-input v-model:value="query.id" />
+        </a-form-item>
+        <a-form-item label="名称" v-bind="validateInfos.name">
+          <a-input v-model:value="query.name" />
+        </a-form-item>
+        <a-form-item>
+          <a-space>
+            <a-button :loading="isFetching" @click="onSearch" type="primary">搜索</a-button>
+            <a-button @click="reset">重置</a-button>
+          </a-space>
+        </a-form-item>
+      </a-form>
+    </a-card>
+    <br>
+    <a-card>
+      <a-table
+          :columns="columns"
+          :data-source="data?.list"
+          :loading="isFetching"
+          :pagination="pagination"
+          size="small"
+          @change="onTableChange" />
+    </a-card>
+  </div>
+</template>
 <style scoped>
 
 </style>

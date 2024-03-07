@@ -30,7 +30,7 @@ mockAxiosInstance.interceptors.response.use(config => {
 })
 
 // 用泛型包装
-export const mockRequest = <Data = {},Expand = {},Params = {}>(config: AxiosRequestConfig) => {
+export const mockRequest = <Data = any,Expand = Recordable,Params = Recordable>(config: AxiosRequestConfig) => {
     return mockAxiosInstance.request<Data,MainService.Result<Data,Expand>,Params>(config)
 }
 

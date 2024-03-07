@@ -16,13 +16,16 @@ declare namespace MainService {
     type Result<Data = any,Expand = Recordable<unknown>> = BaseResult<Data> & Expand
 
     // 分页
-    interface Pagination {
+    interface Page {
         // 页数
         pageNo: number
+
         // 每页数量
         pageSize: number
+
+        [key: string]: any
     }
 
     // 包装 接口请求分页
-    type WrapperPage<Q> = Pagination & Q
+    type WrapperPage<Q> = Page & Q
 }
