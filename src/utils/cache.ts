@@ -34,7 +34,10 @@ export interface CacheTemplate<T> {
      */
     remove(): void
 
-    // TODO:扩展是否存在
+    /**
+     * 是否存在
+     */
+    isExist():boolean
 }
 
 /**
@@ -75,6 +78,16 @@ export const createCacheTemplate = <T>(key: string,type: CacheType = CacheType.C
                     return store.session.remove(key)
                 case CacheType.Cookie:
                     return Cookies.remove(key)
+            }
+        },
+        isExist() {
+            switch (type) {
+                case CacheType.LOCAL:
+                    return store.has(key)
+                case CacheType.SESSION:
+                    return store.session.has(key)
+                case CacheType.Cookie:
+                    return Boolean(Cookies.get(key))
             }
         }
     }
