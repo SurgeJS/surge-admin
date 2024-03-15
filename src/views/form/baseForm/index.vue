@@ -38,16 +38,7 @@ defineOptions({ name: 'BaseForm' })
 
 <template>
   <div>
-<!--    <base-table-->
-<!--        :columns="columns" :data-source="dataSource" heading="表格标题"-->
-<!--        @resize-column="handleResizeColumn" />-->
-    <div class="w-[500px] h-[500px] bg-white overflow-auto">
-      <LazyLoad v-for="item in 20" :key="item" v-slot="{isVisible}">
-        <div class="bg-red-200 mb-1.5 h-[40px]">
-          <span v-if="isVisible">511</span>
-        </div>
-      </LazyLoad>
-    </div>
+    <div class="w-[500px] h-[500px] bg-white overflow-auto" />
   </div>
 </template>
 

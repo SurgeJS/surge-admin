@@ -19,6 +19,7 @@
     "noUnusedParameters": false,
     "experimentalDecorators": true,
     "skipLibCheck": true,
+    "noEmit": true,
     "lib": ["dom", "esnext"],
     "types": ["node"],
     "typeRoots": ["./node_modules/@types/", "./types", "./node_modules"],

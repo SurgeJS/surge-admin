@@ -27,7 +27,7 @@ export default defineConfig(({ mode }) => {
             extensions: [ '.js','.ts','.tsx','.jsx','.vue' ]
         },
         build: {
-            reportCompressedSize: false,
+            reportCompressedSize: true,
             sourcemap: false,
             minify: 'terser',
             brotliSize: true,

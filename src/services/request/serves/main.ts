@@ -35,7 +35,7 @@ mainAxiosInstance.interceptors.response.use(config => {
 const mainRequest = <Data = {},Expand = {},Params = {}>(config: AxiosRequestConfig) => {
     return mainAxiosInstance.request<Data,MainService.Result<Data,Expand>,Params>(config)
 }
-mainRequest({ loading: 5 })
+
 export default { mainAxiosInstance,mainRequest }
 
 

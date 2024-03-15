@@ -5,14 +5,12 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite --open",
-    "build": "vue-tsc --noEmit --skipLibCheck && vite build  --mode production",
-    "build:test": "vue-tsc --noEmit && vite build --mode test",
-    "build:no-check": "vite build",
+    "build:prod": "vue-tsc && vite build  --mode production",
+    "build:test": "vue-tsc && vite build --mode test",
     "typecheck": "vue-tsc --noEmit --skipLibCheck",
     "lint": "eslint src --fix --ext .ts,.tsx,.vue,.js,.jsx",
     "preview": "vite preview --open --port 9999",
     "lint-staged": "lint-staged --no-stash",
-    "prepare": "husky install",
     "commit": "git cz",
     "add-commit": "git add . && git cz"
   },
