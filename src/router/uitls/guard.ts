@@ -3,12 +3,11 @@ import { useTitle } from '@vueuse/core'
 import NProgress from 'nprogress'
 import useAuthStore from '@/store/modules/auth'
 import useTabBarStore from '@/store/modules/tabBar'
-import { RouteAuthModeEnum } from '@/enums/auth'
 import RouterConfig from '@/config/router'
 import { RouterTool } from '@/router/uitls/tool'
 import { runTacticsAction,TacticsAction } from '@/utils'
 import { message } from 'ant-design-vue'
-import { tokenCache } from '@/store/cache'
+import { tokenCache } from '@/store/caches'
 
 export const createGuard = (router: Router) => {
     // 跳转之前
@@ -32,14 +31,14 @@ export const createGuard = (router: Router) => {
         const handleRouteAuthMode = async () => {
             switch (routeAuthMode) {
                 // 前端路由鉴权模式
-                case RouteAuthModeEnum.FRONT:
+                case 'web':
                     // 初始化路由和菜单
                     initFrontRouteAuth()
                     // 初始化标签栏
                     initializeTabBar($state.routes)
                     break
                 // 服务端路由鉴权模式
-                case RouteAuthModeEnum.SERVER:
+                case 'service':
                     // 初始化路由和菜单
                     await initServerRouteAuth()
                     // 初始化标签栏

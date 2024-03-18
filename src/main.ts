@@ -4,7 +4,7 @@ import '@/assets/index'
 import { setupRouter } from '@/router'
 import { setupStore } from '@/store'
 import setupComponents from '@/components'
-import setupVuePlugins from '@/plugins'
+import setupVuePlugins from '@/utils/plugins'
 
 const bootStart = async () => {
     const app = createApp(App)

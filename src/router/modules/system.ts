@@ -10,11 +10,11 @@ export default {
     children: [
         {
             path: '/system/userManagement',
-            name: 'system_userManagement',
+            name: 'system/userManagement',
             meta: {
                 title: '用户管理'
             },
-            component: 'self'
+            component: 'submenu'
         }
     ]
 } as Route.RouteRecordRaw

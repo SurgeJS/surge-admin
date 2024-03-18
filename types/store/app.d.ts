@@ -1,5 +1,4 @@
 // 页面切换动画  左滑淡出 | 右滑淡出 | 缩放淡入淡出
-
 declare type PageAnimationMode = | 'left-slide-fade' | 'right-slide-fade' | 'zoom-fade'
 
 // 布局模式：侧边 | 混合侧边 | 顶部

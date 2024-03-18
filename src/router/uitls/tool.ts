@@ -3,7 +3,6 @@ import { RouteRecordRaw } from 'vue-router'
 import { Sort } from '@/enums/common'
 import RegularUtils from '@/utils/regular'
 import { RoleEnum } from '@/enums/auth'
-import RouterConfig from '@/config/router'
 
 // 路由工具
 export class RouterTool {
@@ -71,7 +70,7 @@ export class RouterTool {
     // 获取页面组件
     static getViewComponent(route: Route.RouteRecordRaw) {
         // 组件路径
-        const componentPath = this.transformRouteNameToComponentPath(route.name as string)
+        const componentPath = `/src/views/${ route.name }/index.vue`
         const viewComponent = Object.keys(this.VIEW_COMPONENTS).find(path => path === componentPath)
         if (!viewComponent) console.warn('没有找到组件：',componentPath)
         return this.VIEW_COMPONENTS[viewComponent as string]
@@ -83,20 +82,20 @@ export class RouterTool {
         if (this.isExternalLink(route.path)) return undefined
         let vueRoute = { ...route,component: undefined } as RouteRecordRaw
         switch (route.component) {
-            // 空白页面
-            case 'blank':
+            // 单页面
+            case 'single':
+                vueRoute.component = this.getViewComponent(route)
+                break
+            // 子菜单
+            case 'submenu':
                 vueRoute.component = this.getViewComponent(route)
                 break
             // 菜单
-            case 'self':
-                vueRoute.component = this.getViewComponent(route)
-                break
-            // 没有目录的菜单
-            case 'basic-self':
+            case 'menu':
                 // 一级路由转二级路由
                 vueRoute = {
-                    path: `${ route.path }${ RouterConfig.BASIC_SELF_CONTAINER_ROUTE_PATH_SUFFIX }`,
-                    name: `${ route.path }${ RouterConfig.BASIC_SELF_CONTAINER_ROUTE_PATH_SUFFIX }`,
+                    path: route.path,
+                    name: route.path,
                     redirect: route.path,
                     component: () => import('@/layout/index.vue'),
                     children: [
@@ -115,8 +114,8 @@ export class RouterTool {
                 }
                 vueRoute.component = () => import('@/layout/index.vue')
                 break
-            // 多级布局
-            case 'multi':
+            // 目录
+            case 'directory':
                 vueRoute.component = undefined
                 break
         }
@@ -131,11 +130,6 @@ export class RouterTool {
             vueRoute && vueRoutes.push(vueRoute)
             return vueRoutes
         },[])
-    }
-
-    // 路由name 转 组件路径
-    static transformRouteNameToComponentPath(name: string) {
-        return `/src/views/${ name.replaceAll('_','/') }/index.vue`
     }
 
     // 排序路由, 默认升序

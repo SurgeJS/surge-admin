@@ -3,6 +3,7 @@ import { RouteLocationMatched,useRoute,useRouter } from 'vue-router'
 import { ref,watch } from 'vue'
 import useAppStore from '@/store/modules/app'
 import RouterConfig from '@/config/router'
+import menu from '@/layout/components/Menu.vue'
 
 interface Breadcrumb {
     key: string
@@ -25,7 +26,7 @@ const routeMatchedToBreadcrumb = (routeMatched: RouteLocationMatched[]) => route
     }
 })
 
-const accessMenu = (menu) => {
+const accessMenu = (submenu) => {
     router.push(menu.key)
 }
 

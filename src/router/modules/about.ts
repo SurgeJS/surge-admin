@@ -8,9 +8,9 @@ export default {
         roles: [ RoleEnum.SUPER ],
         icon: 'ant-design:like-filled',
         order: 3,
-        permissions: [ 'test', 'test1' ],
+        permissions: [ 'test','test1' ],
         affix: true
     },
-    component: 'basic-self'
+    component: 'menu'
 } as Route.RouteRecordRaw
 

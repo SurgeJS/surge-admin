@@ -5,6 +5,7 @@ import useAuthStore from '@/store/modules/auth'
 import { useRoute,useRouter } from 'vue-router'
 import Logo from '@/layout/components/Logo.vue'
 import MixSidebarDrawers from '@/layout/components/Sidebar/components/MixSidebar/components/MixSidebarDrawers.vue'
+import menu from '@/layout/components/Menu.vue'
 
 defineOptions({ name: 'MixSidebar' })
 
@@ -21,7 +22,7 @@ const collapsedIcon = computed(() => sidebar.isCollapsedMix ?
                                      IAntDesignDoubleRightOutlined :
                                      IAntDesignDoubleLeftOutlined)
 
-const handleMixMenuItem = (menu: Route.RouteRecordRaw) => {
+const handleMixMenuItem = (submenu: Route.RouteRecordRaw) => {
   temporaryActivePath.value = menu.path
   if (menu.children?.length) {
     menus.value = menu.children

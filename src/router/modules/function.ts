@@ -10,16 +10,16 @@ export default {
     children: [
         {
             path: '/function/maps',
-            name: 'function_maps',
+            name: 'function/maps',
             meta: {
                 title: '地图'
             },
-            component: 'multi',
+            component: 'directory',
             children: [
                 {
                     path: '/function/maps/twoDimensionalMap',
-                    name: 'function_maps_twoDimensionalMap',
-                    component: 'self',
+                    name: 'function/maps/twoDimensionalMap',
+                    component: 'submenu',
                     meta: {
                         title: '二维地图'
                     }
@@ -28,32 +28,32 @@ export default {
         },
         {
             path: '/function/multilevelMenu',
-            name: 'function_multilevelMenu',
+            name: 'function/multilevelMenu',
             meta: {
                 title: '多级菜单'
             },
-            component: 'multi',
+            component: 'directory',
             children: [
                 {
                     path: '/function/multilevelMenu/menu-1',
-                    name: 'function_multilevelMenu_menu-1',
-                    component: 'multi',
+                    name: 'function/multilevelMenu/menu-1',
+                    component: 'directory',
                     meta: {
                         title: 'menu-1'
                     },
                     children: [
                         {
                             path: '/function/multilevelMenu/menu-1/menu-1-1',
-                            name: 'function_multilevelMenu_menu-1_menu-1-1',
-                            component: 'multi',
+                            name: 'function/multilevelMenu/menu-1/menu-1-1',
+                            component: 'directory',
                             meta: {
                                 title: 'menu-1-1'
                             },
                             children: [
                                 {
                                     path: '/function/multilevelMenu/menu-1/menu-1-1/menu-1-1-1',
-                                    name: 'function_multilevelMenu_menu-1_menu-1-1_menu-1-1-1',
-                                    component: 'self',
+                                    name: 'function/multilevelMenu/menu-1/menu-1-1/menu-1-1-1',
+                                    component: 'submenu',
                                     meta: {
                                         title: 'menu-1-1-1'
                                     }
@@ -62,8 +62,8 @@ export default {
                         },
                         {
                             path: '/function/multilevelMenu/menu-1/menu-1-2',
-                            name: 'function_multilevelMenu_menu-1_menu-1-2',
-                            component: 'self',
+                            name: 'function/multilevelMenu/menu-1/menu-1-2',
+                            component: 'submenu',
                             meta: {
                                 title: 'menu-1-2'
                             }
@@ -74,8 +74,8 @@ export default {
         },
         {
             path: '/function/print',
-            name: 'function_print',
-            component: 'self',
+            name: 'function/print',
+            component: 'submenu',
             meta: {
                 title: '打印'
             }

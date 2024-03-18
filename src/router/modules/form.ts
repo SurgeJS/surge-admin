@@ -10,11 +10,11 @@ export default {
     children: [
         {
             path: '/form/baseForm',
-            name: 'form_baseForm',
+            name: 'form/baseForm',
             meta: {
                 title: '基础表单'
             },
-            component: 'self'
+            component: 'submenu'
         }
     ]
 } as Route.RouteRecordRaw

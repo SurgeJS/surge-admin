@@ -23,7 +23,7 @@ export default defineComponent({
                 const icon = () => item.meta?.icon ?
                     (<svg-icon icon={ item.meta?.icon }></svg-icon>) :
                     undefined
-                if (item.component === 'self' || item.component === 'basic-self') {
+                if (item.component === 'submenu' || item.component === 'menu') {
                     return (
                         <a-menu-item disabled={ item.meta?.disabledMenu } onClick={ () => router.push(item.path) }
                                      key={ item.path }
@@ -33,7 +33,7 @@ export default defineComponent({
                     )
                 }
 
-                if (item.component === 'basic' || item.component === 'multi') {
+                if (item.component === 'basic' || item.component === 'directory') {
                     return (
                         <a-sub-menu v-slots={ { icon, title: () => item.meta?.title } }
                                     key={ item.path }>

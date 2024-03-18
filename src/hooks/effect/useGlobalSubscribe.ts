@@ -2,7 +2,7 @@ import { useEventListener } from '@vueuse/core'
 import useAppStore from '@/store/modules/app'
 import { theme } from 'ant-design-vue'
 import { watch } from 'vue'
-import { appCache } from '@/store/cache'
+import { appCache } from '@/store/caches'
 
 // 全局订阅(包含事件、监听器)
 export const useGlobalSubscribe = () => {

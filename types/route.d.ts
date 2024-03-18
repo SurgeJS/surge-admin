@@ -1,14 +1,15 @@
 declare namespace Route {
     /**
      * 路由组件类型
-     * basic 基础布局，具有公共部分的布局
-     * blank 空白页面
-     * multi 多级路由布局
-     * self 子路由
+     * @description single 单页面
+     * @description basic 基础布局，具有公共部分的布局
+     * @description directory 目录
+     * @description submenu 子菜单（配合 basic | directory 一起用）
+     * @description menu 子路由
      * */
-    type RouteComponentType = 'basic' | 'blank' | 'multi' | 'self' | 'basic-self'
+    type RouteComponentType = 'single' | 'basic' | 'directory' | 'submenu' | 'menu'
 
-    interface RouteRecordRaw extends Omit<import('vue-router').RouteRecordRaw, 'component' | 'components' | 'children' | 'name'> {
+    interface RouteRecordRaw extends Omit<import('vue-router').RouteRecordRaw,'component' | 'components' | 'children' | 'name'> {
         // 组件类型
         component: RouteComponentType
 

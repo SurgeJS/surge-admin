@@ -5,7 +5,7 @@ import router from '@/router'
 import { RouterTool } from '@/router/uitls/tool'
 import RouterConfig from '@/config/router'
 import Hint from '@/config/hint'
-import { tokenCache } from '@/store/cache'
+import { tokenCache } from '@/store/caches'
 import ServicesConfig from '@/config/services'
 
 const useAuthStore = defineStore('Auth',{
@@ -18,7 +18,7 @@ const useAuthStore = defineStore('Auth',{
         // 用户信息
         userinfo: null,
         // 路由鉴权模式
-        routeAuthMode: RouterConfig.ROUTE_AUTH_MODE,
+        routeAuthMode: 'web',
         // 是否已生成路由
         isGeneratedRoutes: false,
         // 用户的路由
