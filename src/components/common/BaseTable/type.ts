@@ -1,4 +1,4 @@
-import { SuperTableProps } from '@/components/antd/SuperTable/typs'
+import { SuperTableProps } from '@/components/antd/SuperTable/type'
 
 export interface BaseTableProps extends SuperTableProps{
     // 标题

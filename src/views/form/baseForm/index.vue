@@ -1,44 +1,52 @@
-<script generic="T" lang="ts" setup>
+<script lang="ts" setup>
+import { ref } from 'vue'
 
-defineOptions({ name: 'BaseForm' })
-//
-// const columns = [
-//   {
-//     title: '名称',
-//     dataIndex: 'name',
-//     width: 50,
-//     resizable: true
-//   },
-//   {
-//     title: '年龄',
-//     dataIndex: 'age',
-//     width: 50
-//   },
-//   {
-//     title: '地址',
-//     dataIndex: 'address',
-//     width: 50
-//   },
-//   {
-//     title: '操作',
-//     dataIndex: 'operation',
-//     width: 50
-//   }
-// ]
-// const data = []
-//
-//
-// const dataSource = ref(data)
-//
-// function handleResizeColumn(w,col) {
-//   col.width = w
-// }
+const columns = [
+  {
+    title: '名称',
+    dataIndex: 'name',
+    resizable: true,
+    width: 100,
+    minWidth: 100,
+    maxWidth: 200
+  },
+  {
+    title: '年龄',
+    dataIndex: 'age'
+  },
+  {
+    title: '地址',
+    dataIndex: 'address'
+  },
+  {
+    title: '操作',
+    dataIndex: 'operation'
+  }
+]
+
+
+const dataSource = ref<Recordable[]>([])
+
+for (let i = 1; i <= 500; i++) {
+  dataSource.value.push({
+    name: '名称' + i,
+    age: i,
+    address: '地址' + i
+  })
+}
 
 </script>
 
 <template>
-  <div>
-    <div class="w-[500px] h-[500px] bg-white overflow-auto" />
+  <div class="w-h-full overflow-auto">
+    <super-table :data-source="dataSource" :columns="columns">
+      <template #bodyCell="{column,record}">
+        <template v-if="column.dataIndex === 'operation'">
+          {{ record }}
+        </template>
+      </template>
+      <template #footer="s">{{ s }}</template>
+    </super-table>
   </div>
 </template>
 

@@ -2,9 +2,7 @@
 </script>
 
 <template>
-  <div>
-    <super-table row-drag />
-  </div>
+  <div />
 </template>
 
 <style scoped>

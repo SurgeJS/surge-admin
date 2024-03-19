@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed,ref } from 'vue'
+import { computed,ref,useAttrs } from 'vue'
 import TestApiHook from '@/services/apiHooks/test'
 import { useForm } from 'ant-design-vue/es/form'
 import useTablePagination from '@/hooks/common/useTablePagination'
@@ -27,7 +27,7 @@ const query = ref({
 const { resetFields,validateInfos } = useForm(query)
 const { data,refetch,isFetching } = TestApiHook.useGetTodoList(query)
 const { pagination,resetPagination,onTableChange } = useTablePagination(query,computed(() => data.value?.total))
-
+useAttrs()
 const reset = () => {
   resetPagination()
   resetFields()
