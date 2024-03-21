@@ -94,8 +94,8 @@ export class RouterTool {
             case 'menu':
                 // 一级路由转二级路由
                 vueRoute = {
-                    path: route.path,
-                    name: route.path,
+                    path: route.path + '-container',
+                    name: route.path + '-container',
                     redirect: route.path,
                     component: () => import('@/layout/index.vue'),
                     children: [

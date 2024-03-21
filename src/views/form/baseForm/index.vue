@@ -3,7 +3,7 @@ import { ref } from 'vue'
 
 const columns = [
   {
-    title: '名称',
+    title: '用户名称',
     dataIndex: 'name',
     resizable: true,
     width: 100,
@@ -15,7 +15,7 @@ const columns = [
     dataIndex: 'age'
   },
   {
-    title: '地址',
+    title: '居住地址',
     dataIndex: 'address'
   },
   {
@@ -34,19 +34,18 @@ for (let i = 1; i <= 500; i++) {
     address: '地址' + i
   })
 }
-
 </script>
 
 <template>
   <div class="w-h-full overflow-auto">
-    <super-table :data-source="dataSource" :columns="columns">
-      <template #bodyCell="{column,record}">
-        <template v-if="column.dataIndex === 'operation'">
-          {{ record }}
-        </template>
+    <base-table heading="基础表头" :columns="columns" :data-source="dataSource">
+      <template #header-extra>
+        <a-button type="primary">添加</a-button>
       </template>
-      <template #footer="s">{{ s }}</template>
-    </super-table>
+    </base-table>
+    <div class="w-[500px] h-[500px] overflow-auto">
+      <div class="w-[1000px]" />
+    </div>
   </div>
 </template>
 

@@ -1,14 +1,25 @@
-import { TableProps } from 'ant-design-vue'
 import type { ColumnType,FilterDropdownProps } from 'ant-design-vue/es/table/interface'
 import { ExpandedRowRender,RenderExpandIcon } from 'ant-design-vue/es/vc-table/interface'
+import { TableProps } from 'ant-design-vue'
 
-export interface SuperTableProps extends TableProps {
-    // 行拖拽
-    rowDrag?: boolean
-    // 列拖拽
-    colDrag?: boolean
+// 自定义列配置
+export interface SuperTableColumn extends ColumnType<Recordable> {
+    // rowDrag?: boolean
 }
 
+// 自定义属性
+export interface SuperTableProps extends Omit<TableProps,'columns'> {
+    // // 行拖拽
+    // rowDrag?: boolean
+    //
+    // // 列拖拽
+    // colDrag?: boolean
+
+    // 自定义列配置
+    columns?: SuperTableColumn[]
+}
+
+// antd table 原有的插槽
 export interface TableSlots {
     // 个性化单元格
     bodyCell?(props: {
@@ -47,6 +58,16 @@ export interface TableSlots {
     title?(props: Recordable[]): void
 }
 
+// 自定义插槽
 export interface SuperTableSlots extends TableSlots {
 
+}
+
+// 自定义事件
+export interface SuperTableEmits {
+    // 列拖拽事件
+    (e: 'dragCol'): void
+
+    // 行拖拽事件
+    (e: 'dragRow'): void
 }

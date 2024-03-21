@@ -122,6 +122,7 @@ const useAuthStore = defineStore('Auth',{
             this.routes = RouterTool.getUserRouteList(this.roles)
             // 自定义路由转Vue路由
             const vueRoutes = RouterTool.transformCustomRoutesToVueRoutes(this.routes)
+            console.log(vueRoutes)
             // 添加路由
             vueRoutes.forEach(route => router.addRoute(route))
             this.isGeneratedRoutes = true

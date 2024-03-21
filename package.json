@@ -5,8 +5,8 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite --open",
-    "build:prod": "vue-tsc && vite build  --mode production",
-    "build:test": "vue-tsc && vite build --mode test",
+    "build:prod": "vue-tsc --noEmit --skipLibCheck && vite build  --mode production",
+    "build:test": "vue-tsc --noEmit --skipLibCheck && vite build --mode test",
     "typecheck": "vue-tsc --noEmit --skipLibCheck",
     "lint": "eslint src --fix --ext .ts,.tsx,.vue,.js,.jsx",
     "preview": "vite preview --open --port 9999",
@@ -27,10 +27,10 @@
     "pinia": "^2.1.7",
     "print-js": "^1.6.0",
     "qs": "^6.11.2",
-    "sortablejs": "^1.15.2",
     "store2": "^2.14.2",
     "vue": "^3.4.21",
-    "vue-router": "^4.2.5"
+    "vue-draggable-plus": "^0.3.5",
+    "vue-router": "^4.3.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^18.4.3",
@@ -44,8 +44,8 @@
     "@types/sortablejs": "^1.15.7",
     "@typescript-eslint/eslint-plugin": "^6.15.0",
     "@typescript-eslint/parser": "^6.15.0",
-    "@vitejs/plugin-legacy": "^5.3.0",
-    "@vitejs/plugin-vue": "^5.0.4",
+    "@vitejs/plugin-legacy": "^5.3.2",
+    "@vitejs/plugin-vue": "^4.6.2",
     "@vitejs/plugin-vue-jsx": "^3.1.0",
     "@vue/eslint-config-typescript": "^12.0.0",
     "autoprefixer": "^10.4.16",
