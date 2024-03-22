@@ -5,6 +5,7 @@ export default [
         url: '/mock/getTodos',
         method: 'post',
         timeout: 1000,
+        statusCode: 500,
         response(opt) {
             const { pageSize,pageNo,name,id } = opt.body
             const list: Recordable[] = []

@@ -1,5 +1,3 @@
-import { AxiosError } from 'axios'
-import RegularUtils from '@/utils/regular'
 import ServicesConfig from '@/config/services'
 import { message } from 'ant-design-vue'
 
@@ -13,16 +11,18 @@ export const handleRepeatErrorMessage = (messageContent: string) => {
     lastMessage = messageContent
 }
 
-// 处理拦截器错误
-export const handleInterceptorError = (axiosError: AxiosError) => {
-    // 提取Code
-    const code = RegularUtils.extractNumbers(axiosError.message)
-    let message = ServicesConfig.ERROR_STATUS_CODE.get(code)
-    if (message) return handleRepeatErrorMessage(message)
-
-    ServicesConfig.INTERCEPTOR_ERROR_MESSAGE.forEach((value,key) => {
-        if (axiosError.message.includes(key)) message = value
+export const handleRequestError = (err) => {
+    Object.keys(ServicesConfig.REQUEST_ERROR).forEach(key => {
+        if ((err.message as string).includes(key)) handleRepeatErrorMessage(ServicesConfig.REQUEST_ERROR[key])
     })
-
-    message && handleRepeatErrorMessage(message)
 }
+const test: MainService.R<{ test1: number },{ test2: string }> = {
+    code: 5,
+    msg: '',
+    $responseBody: '' as any,
+    result: {
+        test1: 666
+    },
+    test2: 's'
+}
+console.log(test)

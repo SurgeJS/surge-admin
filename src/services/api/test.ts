@@ -1,4 +1,5 @@
 import { mockRequest } from '@/services/request/serves/mock'
+import { alovaInstance } from '@/services/request/serves/test'
 
 export class TestApi {
     static getTodoList = (query) => mockRequest({
@@ -11,4 +12,6 @@ export class TestApi {
         url: '/getProductList',
         method: 'post'
     })
+
+    static getATodoList = (query) => alovaInstance.Post<MainService.Result>('/getTodos',query)
 }

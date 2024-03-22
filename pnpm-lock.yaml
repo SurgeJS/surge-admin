@@ -1,6 +1,9 @@
 lockfileVersion: '6.0'
 
 dependencies:
+  '@alova/scene-vue':
+    specifier: ^1.4.5
+    version: 1.4.5
   '@tanstack/vue-query':
     specifier: ^5.24.8
     version: 5.24.8(vue@3.4.21)
@@ -10,6 +13,9 @@ dependencies:
   '@vueuse/core':
     specifier: ^10.9.0
     version: 10.9.0(vue@3.4.21)
+  alova:
+    specifier: ^2.18.0
+    version: 2.18.0
   ant-design-vue:
     specifier: ^4.1.2
     version: 4.1.2(vue@3.4.21)
@@ -183,6 +189,10 @@ packages:
     resolution: {integrity: sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==}
     engines: {node: '>=10'}
     dev: true
+
+  /@alova/scene-vue@1.4.5:
+    resolution: {integrity: sha512-ro0oohwqfQjKQZ1QdJCL8HBZ/N4/tZMsADpg/nuAEytUsSuLFYn1CsdJqEAwUdr5UPxZGfWjCRtlmwXBrdy2dw==}
+    dev: false
 
   /@ampproject/remapping@2.2.1:
     resolution: {integrity: sha512-lFMjJTrFL3j7L9yBxwYfCq2k6qqwHyzuUl/XBnif78PWTJYyL/dfowQHWE3sp6U6ZzqWiiIZnpTMO96zhkjwtg==}
@@ -2860,6 +2870,11 @@ packages:
       require-from-string: 2.0.2
       uri-js: 4.4.1
     dev: true
+
+  /alova@2.18.0:
+    resolution: {integrity: sha512-fUJFUH2L8san78D7MLg9sVNG7zcqaKl4ZsMbwELdLdWcGC661ZeQut1hn90LeYKPXromKoEqZcpLWYm4kQBGoQ==}
+    engines: {node: '>= 0.12.0'}
+    dev: false
 
   /ansi-escapes@4.3.2:
     resolution: {integrity: sha512-gKXj5ALrKWQLsYG9jlTRmR/xKluxHV+Z9QEwNIgCfM1/uwPMCuzVVnh5mwTd+OuBZcwSIMbqssNWRm1lE51QaQ==}

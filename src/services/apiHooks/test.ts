@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/vue-query'
 import { TestApi } from '@/services/api/test'
 import { message } from 'ant-design-vue'
 import useComputedPage from '@/hooks/common/useComputedPage'
+import { usePagination } from '@alova/scene-vue'
 
 export default class TestApiHook {
     static useGetTodoList = (query: Ref<Recordable>) => {
@@ -27,4 +28,9 @@ export default class TestApiHook {
             return result
         }
     })
+
+
+    static useGetATodoList(query: Ref<Recordable>) {
+        return usePagination((pageNo,pageSize) => TestApi.getATodoList({ pageNo,pageSize }))
+    }
 }
