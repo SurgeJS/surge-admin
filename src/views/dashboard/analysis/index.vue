@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import AntDesignIconJson from '@iconify/json/json/ant-design.json'
 import { ref } from 'vue'
-import { alovaInstance } from '@/services/request/serves/test'
+import { TestApi } from '@/services/api/test'
 
 defineOptions({ name: 'DashboardAnalysis' })
 const icons = [
@@ -9,7 +9,7 @@ const icons = [
 ]
 const icon = ref()
 const test = async () => {
-  const data = await alovaInstance.Post('/getTodos',{ pageSize: 10,pageNo: 1 })
+  const data = await TestApi.getATodoList({ pageNo: 1,pageSize: 10 })
   console.log(data)
 }
 </script>

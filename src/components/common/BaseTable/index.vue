@@ -55,13 +55,13 @@ console.log(col)
             <i-antd:column-height-outlined class="cursor-pointer" />
           </a-tooltip>
           <template #overlay>
-            <a-menu selectable v-model:selected-keys="currentDensity" :items="densityList" />
+            <a-menu v-model:selected-keys="currentDensity" :items="densityList" selectable />
           </template>
         </a-dropdown>
-        <a-popover title="列设置" trigger="click" placement="bottomLeft">
+        <a-popover placement="bottomLeft" title="列设置" trigger="click">
           <template #content>
-            <vue-draggable animation="150" ref="el" v-model="col">
-              <div class="flex-y-center gap-2" v-for="item in col" :key="item.key">
+            <vue-draggable ref="el" v-model="col" animation="150">
+              <div v-for="item in col" :key="item.key" class="flex-y-center gap-2 mb-2">
                 <i-antd:holder-outlined class="cursor-pointer text-xs" />
                 <a-checkbox />
                 <span>{{ item.title }}</span>
@@ -75,7 +75,7 @@ console.log(col)
         </a-popover>
       </div>
     </div>
-    <super-table v-bind="superTableProps" :size="props.size||currentDensity[0]" :columns="tableColumns" />
+    <super-table :columns="tableColumns" :size="props.size||currentDensity[0]" v-bind="superTableProps" />
   </a-card>
 </template>
 

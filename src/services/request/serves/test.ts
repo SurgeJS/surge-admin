@@ -26,4 +26,14 @@ export const alovaInstance = createAlova({
     }
 })
 
-
+alovaInstance.Post<{ list: any[] }>('/test').then(data => {
+    /*
+     * Data的类型应该是
+     *  {
+     *      code: number
+     *      msg: string
+     *      data: { list: any[] }
+     *  }
+     * */
+    console.log(data)
+})

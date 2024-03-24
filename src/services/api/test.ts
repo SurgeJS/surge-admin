@@ -13,5 +13,5 @@ export class TestApi {
         method: 'post'
     })
 
-    static getATodoList = (query) => alovaInstance.Post<MainService.Result>('/getTodos',query)
+    static getATodoList = (query) => alovaInstance.Post<MainService.R>('/getTodos',query)
 }

@@ -29,4 +29,3 @@ const mainRequest = <Data = {},Expand = {},Params = {}>(config: AxiosRequestConf
 
 export default { mainAxiosInstance,mainRequest }
 
-

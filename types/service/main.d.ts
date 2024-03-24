@@ -1,5 +1,12 @@
 // 主服务
 declare namespace MainService {
+
+    interface Result<D = any> {
+        code: number
+        msg: string
+        data: D
+    }
+
     // 基础响应结构
     type R<Data = any,Expand = Recordable> = {
         // 系统状态
