@@ -5,6 +5,8 @@ import { TableProps } from 'ant-design-vue'
 // 自定义列配置
 export interface SuperTableColumn extends ColumnType<Recordable> {
     // rowDrag?: boolean
+    // 隐藏列
+    hide?: boolean
 }
 
 // 自定义属性

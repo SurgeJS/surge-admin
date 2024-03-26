@@ -1,7 +1,8 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
+import { SuperTableColumn } from '@/components/antd/SuperTable/type'
 
-const columns = [
+const columns = ref<SuperTableColumn[]>([
   {
     title: '用户名称',
     dataIndex: 'name',
@@ -22,7 +23,7 @@ const columns = [
     title: '操作',
     dataIndex: 'operation'
   }
-]
+])
 
 
 const dataSource = ref<Recordable[]>([])
@@ -38,14 +39,11 @@ for (let i = 1; i <= 500; i++) {
 
 <template>
   <div class="w-h-full overflow-auto">
-    <base-table heading="基础表头" :columns="columns" :data-source="dataSource">
+    <base-table heading="基础表头" v-model:columns="columns" :data-source="dataSource">
       <template #header-extra>
         <a-button type="primary">添加</a-button>
       </template>
     </base-table>
-    <div class="w-[500px] h-[500px] overflow-auto">
-      <div class="w-[1000px]" />
-    </div>
   </div>
 </template>
 

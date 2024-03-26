@@ -27,6 +27,8 @@ export default defineConfig(({ mode }) => {
             extensions: [ '.js','.ts','.tsx','.jsx','.vue' ]
         },
         build: {
+            // 消除打包大小超过500kb警告
+            chunkSizeWarningLimit: 4000,
             reportCompressedSize: true,
             sourcemap: false,
             minify: 'terser',

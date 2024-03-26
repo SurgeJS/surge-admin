@@ -14,13 +14,21 @@ export type UsePaginationQueryType<S,E,R,T,RC,RE,RH,LD extends unknown[]> =
          * @param {boolean} initiate 重置后是否发起请求
          * */
         resetQuery(initiate: boolean): void
+
         // 分页配置用于antd table组件
         pagination: Ref<TablePaginationConfig>,
+
         // antd table组件的事件
         antdTableOnChange(currentPage: { current: number,pageSize: number }): void
+
     }
 
-// 分页查询
+/**
+ * 分页查询
+ * @param query 查询对象
+ * @param fn 查询函数
+ * @param config usePagination config
+ */
 export const usePaginationQuery = <
     S extends Ref,
     E extends Ref,

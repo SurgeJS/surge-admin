@@ -1,11 +1,13 @@
-<script lang="ts" setup>
+<script lang="ts"
+        setup>
 import { BaseTableProps } from '@/components/common/BaseTable/type'
-import useOmit from '@/hooks/common/useOmit'
-import { ItemType } from 'ant-design-vue'
+import useOmitProps from '@/hooks/common/useOmitProps'
 import { computed,ref } from 'vue'
-import { cloneDeep } from 'lodash-es'
 import { VueDraggable } from 'vue-draggable-plus'
 import { SizeType } from 'ant-design-vue/es/config-provider'
+import { densityList } from '@/components/common/BaseTable/data'
+import { SuperTableColumn } from '@/components/antd/SuperTable/type'
+import { cloneDeep } from 'lodash-es'
 
 const props = withDefaults(defineProps<BaseTableProps>(),{
   showHeader: true,
@@ -15,37 +17,28 @@ const props = withDefaults(defineProps<BaseTableProps>(),{
   indentSize: 15
 })
 
-const superTableProps = useOmit(props,[ 'hideHeader','hideToolBar','heading' ])
+const tableColumns = defineModel<SuperTableColumn[]>('columns')
 
-// 密度列表
-const densityList: ItemType[] = [
-  {
-    label: '默认',
-    key: 'large'
-  },
-  {
-    label: '中等',
-    key: 'middle'
-  },
-  {
-    label: '紧凑',
-    key: 'small'
-  }
-]
+const initialTableColumns = ref<SuperTableColumn[]>(cloneDeep(props.columns) || [])
+
+// 超级表格Props
+const superTableProps = useOmitProps(props,[ 'hideHeader','hideToolBar','heading' ])
 
 // 当前密度
 const currentDensity = ref([ 'large' ])
 
-const tableColumns = computed(() => cloneDeep(props.columns) || [])
-const col = computed(() => tableColumns.value.map(item => ({ key: item.dataIndex as string,title: item.title })))
-console.log(col)
-
 const size = computed(() => props.size || currentDensity.value[0])
+
+const resetColumns = () => {
+  tableColumns.value = [ ...initialTableColumns.value ]
+}
 </script>
 
 <template>
   <a-card>
-    <div v-if="!hideHeader" class="h-[36px] mb-3 flex-y-center justify-between">
+    <div
+        v-if="!hideHeader"
+        class="h-[36px] mb-3 flex-y-center justify-between">
       <h3 class="inline-flex tracking-wider h-[34px] items-center gap-1">
         <span class="inline-block w-[5px] h-[60%] bg-primary rounded" />
         {{ heading }}
@@ -58,15 +51,34 @@ const size = computed(() => props.size || currentDensity.value[0])
             <i-antd:column-height-outlined class="cursor-pointer" />
           </a-tooltip>
           <template #overlay>
-            <a-menu v-model:selected-keys="currentDensity" :items="densityList" selectable />
+            <a-menu
+                v-model:selected-keys="currentDensity"
+                :items="densityList"
+                selectable />
           </template>
         </a-dropdown>
-        <a-popover placement="bottomLeft" title="列设置" trigger="click">
+        <a-popover
+            placement="bottomLeft"
+            trigger="click">
+          <template #title>
+            <a-flex gap="middle" justify="space-between">
+              <span>列设置</span>
+              <a-button @click="resetColumns" type="link" size="small">重置</a-button>
+            </a-flex>
+          </template>
           <template #content>
-            <vue-draggable ref="el" v-model="col" :animation="150">
-              <div v-for="item in col" :key="item.key" class="flex-y-center gap-2 mb-2">
-                <i-antd:holder-outlined class="cursor-pointer text-xs" />
-                <a-checkbox />
+            <vue-draggable
+                handle=".drag"
+                v-model="tableColumns"
+                :animation="150">
+              <div
+                  v-for="item in tableColumns"
+                  :key="item.key"
+                  class="flex-y-center gap-2 py-2">
+                <i-antd:holder-outlined class="drag cursor-grabbing text-xs" />
+                <a-checkbox
+                    :checked="!item.hide"
+                    @change="()=>item.hide=!item.hide" />
                 <span>{{ item.title }}</span>
               </div>
             </vue-draggable>
@@ -78,7 +90,10 @@ const size = computed(() => props.size || currentDensity.value[0])
         </a-popover>
       </div>
     </div>
-    <super-table v-bind="superTableProps" :columns="tableColumns" :size="size as SizeType" />
+    <super-table
+        v-bind="superTableProps"
+        :columns="tableColumns"
+        :size="size as SizeType" />
   </a-card>
 </template>
 

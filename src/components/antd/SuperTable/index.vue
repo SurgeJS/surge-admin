@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { SuperTableEmits,SuperTableProps,SuperTableSlots } from '@/components/antd/SuperTable/type'
 import { Table } from 'ant-design-vue'
-import { ref } from 'vue'
-import useOmit from '@/hooks/common/useOmit'
+import { computed,ref } from 'vue'
+import useOmitProps from '@/hooks/common/useOmitProps'
 
 const slots = defineSlots<SuperTableSlots>()
 const emits = defineEmits<SuperTableEmits>()
@@ -16,14 +16,15 @@ const props = withDefaults(defineProps<SuperTableProps>(),{
 })
 
 // antd table props
-const aTableProps = useOmit(props,[ ])
+const aTableProps = useOmitProps(props,[])
 
 const tableRef = ref<InstanceType<typeof Table> | null>(null)
 
+const tableColumns = computed(() => props.columns?.filter(item => !item.hide))
 </script>
 
 <template>
-  <a-table ref="tableRef" v-bind="aTableProps">
+  <a-table ref="tableRef" v-bind="aTableProps" :columns="tableColumns">
     <template v-for="(slot,key) in slots" #[key]="scope">
       <slot :name="key" v-bind="scope||{}" />
     </template>

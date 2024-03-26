@@ -23,8 +23,7 @@ const query = ref({
 })
 
 const { resetFields,validateInfos } = useForm(query)
-// const { data,loading,total,page,pageSize,reload } = TestApiHook.useGetTodoList(query)
-const { data,loading,reload,pagination,antdTableOnChange,resetQuery } = TestApiHook.useGetTodoListB(query)
+const { data,loading,reload,pagination,antdTableOnChange,resetQuery } = TestApiHook.useGetTodoList(query)
 
 </script>
 <template>

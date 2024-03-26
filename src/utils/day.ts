@@ -16,7 +16,7 @@ export type DateType = string | number | day.Dayjs | Date | null | undefined
 // 日期格式化类型
 export type DateFormat = 'YYYY-MM-DD' | 'YYYY-MM-DD HH:mm:ss' | string
 
-export class DayJs {
+export class DayJsUtils {
     // 格式化日期
     static format(date: DateType,dateFormat: DateFormat = 'YYYY-MM-DD') {
         return day(date).format(dateFormat)
