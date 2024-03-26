@@ -16,13 +16,4 @@ export const handleRequestError = (err) => {
         if ((err.message as string).includes(key)) handleRepeatErrorMessage(ServicesConfig.REQUEST_ERROR[key])
     })
 }
-const test: MainService.R<{ test1: number },{ test2: string }> = {
-    code: 5,
-    msg: '',
-    $responseBody: '' as any,
-    result: {
-        test1: 666
-    },
-    test2: 's'
-}
-console.log(test)
+

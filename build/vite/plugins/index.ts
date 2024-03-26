@@ -1,7 +1,6 @@
 // 导出vite插件
 import { PluginOption } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import { mockPlugin } from './plugins/mock'
 import { htmlPlugin } from './plugins/html'
 import { compressPlugin } from './plugins/compress'
 import vueJsx from '@vitejs/plugin-vue-jsx'
@@ -9,6 +8,7 @@ import legacy from '@vitejs/plugin-legacy'
 import { VitePWA } from 'vite-plugin-pwa'
 import { unPlugin } from './plugins/unplugin'
 import { localSvgPlugin } from './plugins/localSvg'
+import { vitePluginFakeServer } from 'vite-plugin-fake-server'
 
 export const createVitePlugins = (viteEnv: ImportMetaEnv): PluginOption[] => {
     const { VITE_USE_MOCK,VITE_LEGACY,VITE_USE_PWA } = viteEnv
@@ -24,11 +24,13 @@ export const createVitePlugins = (viteEnv: ImportMetaEnv): PluginOption[] => {
         compressPlugin(viteEnv),
         // 配置icon1
         ...unPlugin(),
-        // mock
-        VITE_USE_MOCK && mockPlugin(viteEnv),
         // 兼容一些旧版浏览器
         VITE_LEGACY && legacy({ targets: [ 'defaults','not IE 11' ] }),
         // PWA
-        VITE_USE_PWA && VitePWA({})
+        VITE_USE_PWA && VitePWA({}),
+        // 数据模拟
+        VITE_USE_MOCK && vitePluginFakeServer({
+            enableProd: true
+        })
     ]
 }

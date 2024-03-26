@@ -35,7 +35,7 @@ const rules: Recordable<Rule[]> = {
 const handleLogin = async () => {
   await formRef.value?.validate()
   toggleLoading(true)
-  await authStore.passwordLogin(form).finally(() => toggleLoading(false)).catch(e=>e)
+  await authStore.passwordLogin(form).finally(() => toggleLoading(false)).catch(e => e)
 }
 </script>
 

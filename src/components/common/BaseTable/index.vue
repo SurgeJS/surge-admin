@@ -5,6 +5,7 @@ import { ItemType } from 'ant-design-vue'
 import { computed,ref } from 'vue'
 import { cloneDeep } from 'lodash-es'
 import { VueDraggable } from 'vue-draggable-plus'
+import { SizeType } from 'ant-design-vue/es/config-provider'
 
 const props = withDefaults(defineProps<BaseTableProps>(),{
   showHeader: true,
@@ -38,6 +39,8 @@ const currentDensity = ref([ 'large' ])
 const tableColumns = computed(() => cloneDeep(props.columns) || [])
 const col = computed(() => tableColumns.value.map(item => ({ key: item.dataIndex as string,title: item.title })))
 console.log(col)
+
+const size = computed(() => props.size || currentDensity.value[0])
 </script>
 
 <template>
@@ -60,7 +63,7 @@ console.log(col)
         </a-dropdown>
         <a-popover placement="bottomLeft" title="列设置" trigger="click">
           <template #content>
-            <vue-draggable ref="el" v-model="col" animation="150">
+            <vue-draggable ref="el" v-model="col" :animation="150">
               <div v-for="item in col" :key="item.key" class="flex-y-center gap-2 mb-2">
                 <i-antd:holder-outlined class="cursor-pointer text-xs" />
                 <a-checkbox />
@@ -75,7 +78,7 @@ console.log(col)
         </a-popover>
       </div>
     </div>
-    <super-table :columns="tableColumns" :size="props.size||currentDensity[0]" v-bind="superTableProps" />
+    <super-table v-bind="superTableProps" :columns="tableColumns" :size="size as SizeType" />
   </a-card>
 </template>
 

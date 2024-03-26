@@ -1,29 +1,16 @@
-import { mockRequest } from '@/services/request/serves/mock'
+import { alovaInstance } from '@/services/request/serves/mock'
 
 // 用户相关的Api
 export abstract class UserApi {
     // 密码登录
-    static passwordLogin = (data: UserModel.PasswordLoginParams) => mockRequest<null,UserModel.PasswordLoginModel>({
-        method: 'POST',
-        url: '/passwordLogin',
-        data
-    })
+    static passwordLogin = (data: UserModel.PasswordLoginParams) => alovaInstance.Post<Result<null,UserModel.PasswordLoginModel>>('/passwordLogin',data)
 
     // 获取用户信息
-    static getUserinfo = () => mockRequest<UserModel.UserDetailsModel>({
-        method: 'GET',
-        url: '/getUserinfo'
-    })
+    static getUserinfo = () => alovaInstance.Get<Result<UserModel.UserDetailsModel>>('/getUserinfo')
 
     // 获取用户路由
-    static getRoutes = () => mockRequest<UserModel.UserRoutesModel>({
-        method: 'GET',
-        url: '/getRoutes'
-    })
+    static getRoutes = () => alovaInstance.Get<Result<UserModel.UserRoutesModel>>('/getRoutes')
 
     // 退出登录
-    static signOut = () => mockRequest({
-        method: 'GET',
-        url: '/signOut'
-    })
+    static signOut = () => alovaInstance.Get<Result>('/signOut')
 }

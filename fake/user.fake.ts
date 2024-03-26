@@ -1,12 +1,9 @@
-import { MockMethod } from 'vite-plugin-mock'
+import { defineFakeRoute } from 'vite-plugin-fake-server/client'
 
-
-export default [
+export default defineFakeRoute([
     {
         url: '/mock/passwordLogin',
         method: 'post',
-        // timeout: 5000,
-        // statusCode: 400,
         response: () => {
             return {
                 code: 200,
@@ -18,8 +15,6 @@ export default [
     {
         url: '/mock/getUserinfo',
         method: 'get',
-        // timeout: 5000,
-        // statusCode: 500,
         response: () => {
             return {
                 code: 200,
@@ -44,18 +39,17 @@ export default [
     {
         url: '/mock/signOut',
         method: 'get',
-        timeout: 0,
         response: () => {
             return {
-                code: 300,
-                msg: 'ok'
+                code: 200,
+                msg: 'ok',
+                result: null
             }
         }
     },
     {
         url: '/mock/getRoutes',
         method: 'get',
-        timeout: 0,
         response: () => {
             return {
                 code: 200,
@@ -141,4 +135,6 @@ export default [
             }
         }
     }
-] as MockMethod[]
+])
+
+

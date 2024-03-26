@@ -1,36 +1,24 @@
 import { Ref } from 'vue'
-import { useQuery } from '@tanstack/vue-query'
 import { TestApi } from '@/services/api/test'
-import { message } from 'ant-design-vue'
-import useComputedPage from '@/hooks/common/useComputedPage'
 import { usePagination } from '@alova/scene-vue'
+import { usePaginationQuery } from '@/hooks/service/usePaginationQuery'
 
 export default class TestApiHook {
-    static useGetTodoList = (query: Ref<Recordable>) => {
-        const page = useComputedPage(query)
-        return useQuery({
-            queryKey: [ 'useGetTodoList',page ],
-            queryFn: async () => {
-                const { result,code,msg } = await TestApi.getTodoList(query.value)
-                if (code !== 200) {
-                    message.error(msg ?? 'Todo列表获取失败')
-                    return Promise.reject()
-                }
-                return result
-            }
-        })
-    }
-
-    static useGetProductList = () => useQuery({
-        queryKey: [ 'useGetProductList' ],
-        queryFn: async () => {
-            const { result } = await TestApi.getProductList()
-            return result
+    static useGetTodoList = (query: Ref<Recordable>) => usePagination(
+        (pageNo,pageSize) => TestApi.getTodoList({
+            ...query.value,
+            pageNo,
+            pageSize
+        }),
+        {
+            data: ({ result }) => result.list,
+            total: ({ result }) => result.total
         }
-    })
+    )
 
 
-    static useGetATodoList(query: Ref<Recordable>) {
-        return usePagination((pageNo,pageSize) => TestApi.getATodoList({ pageNo,pageSize }))
+    static useGetTodoListB = (query: Ref<Recordable>) => {
+       return usePaginationQuery(query,TestApi.getATodoList)
     }
 }
+

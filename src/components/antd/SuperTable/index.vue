@@ -19,6 +19,7 @@ const props = withDefaults(defineProps<SuperTableProps>(),{
 const aTableProps = useOmit(props,[ ])
 
 const tableRef = ref<InstanceType<typeof Table> | null>(null)
+
 </script>
 
 <template>

@@ -1,26 +1,34 @@
-import axios,{ AxiosRequestConfig } from 'axios'
+import { createAlova } from 'alova'
+import VueHook from 'alova/vue'
+import GlobalFetch from 'alova/GlobalFetch'
+import ServicesConfig from '@/config/services'
+import { message } from 'ant-design-vue'
+import { handleRequestError } from '@/services/request/utils'
 
 
-const mockAxiosInstance = axios.create({
+export const alovaInstance = createAlova({
     baseURL: '/mock',
-    timeout: 10000
+    statesHook: VueHook,
+    timeout: 10000,
+    requestAdapter: GlobalFetch() ,
+    beforeRequest(method) {
+        console.log(method.data)
+    },
+    responded: {
+        async onSuccess(response,method) {
+            const errorMsg = ServicesConfig.STATUS_ERROR[response.status]
+            console.log(response)
+            if (errorMsg) {
+                message.error(errorMsg)
+                return Promise.reject()
+            }
+            const json = await response.json()
+            console.log(json)
+            return json
+        },
+        onError(err,method) {
+            console.log(err)
+            handleRequestError(err)
+        }
+    }
 })
-
-mockAxiosInstance.interceptors.request.use(config => {
-    return config
-},error => {
-    return Promise.reject(error)
-})
-
-mockAxiosInstance.interceptors.response.use(config => {
-    return { ...config.data,$responseBody: config }
-},error => {
-    return Promise.reject(error)
-})
-
-// 用泛型包装
-export const mockRequest = <Data = any,Expand = Recordable,Params = Recordable>(config: AxiosRequestConfig) => {
-    return mockAxiosInstance.request<Data,MainService.Result<Data,Expand>,Params>(config)
-}
-
-export default { mockAxiosInstance }

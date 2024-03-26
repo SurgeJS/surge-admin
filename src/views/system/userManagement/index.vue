@@ -1,8 +1,7 @@
 <script lang="ts" setup>
-import { computed,ref,useAttrs } from 'vue'
+import { ref } from 'vue'
 import TestApiHook from '@/services/apiHooks/test'
 import { useForm } from 'ant-design-vue/es/form'
-import useTablePagination from '@/hooks/common/useTablePagination'
 
 const columns = [
   {
@@ -17,27 +16,16 @@ const columns = [
   }
 ]
 
+
 const query = ref({
-  pageSize: 10,
-  pageNo: 1,
   name: undefined,
   id: undefined
 })
 
 const { resetFields,validateInfos } = useForm(query)
-const { data,refetch,isFetching } = TestApiHook.useGetTodoList(query)
-const { pagination,resetPagination,onTableChange } = useTablePagination(query,computed(() => data.value?.total))
-useAttrs()
-const reset = () => {
-  resetPagination()
-  resetFields()
-  refetch()
-}
+// const { data,loading,total,page,pageSize,reload } = TestApiHook.useGetTodoList(query)
+const { data,loading,reload,pagination,antdTableOnChange,resetQuery } = TestApiHook.useGetTodoListB(query)
 
-const onSearch = () => {
-  resetPagination()
-  refetch()
-}
 </script>
 <template>
   <div class="w-h-full overflow-auto">
@@ -51,8 +39,8 @@ const onSearch = () => {
         </a-form-item>
         <a-form-item>
           <a-space>
-            <a-button :loading="isFetching" @click="onSearch" type="primary">搜索</a-button>
-            <a-button @click="reset">重置</a-button>
+            <a-button :loading="loading" @click="reload" type="primary">搜索</a-button>
+            <a-button @click="resetQuery(true)">重置</a-button>
           </a-space>
         </a-form-item>
       </a-form>
@@ -61,11 +49,11 @@ const onSearch = () => {
     <a-card>
       <a-table
           :columns="columns"
-          :data-source="data?.list"
-          :loading="isFetching"
+          :data-source="data"
+          :loading="loading"
           :pagination="pagination"
-          size="small"
-          @change="onTableChange" />
+          @change="antdTableOnChange"
+      />
     </a-card>
   </div>
 </template>

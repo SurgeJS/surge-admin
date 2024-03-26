@@ -1,14 +1,17 @@
+import useMetaEnv from '@/hooks/common/useMetaEnv'
 import { createAlova } from 'alova'
-import GlobalFetch from 'alova/GlobalFetch'
 import VueHook from 'alova/vue'
+import GlobalFetch from 'alova/GlobalFetch'
 import ServicesConfig from '@/config/services'
 import { message } from 'ant-design-vue'
 import { handleRequestError } from '@/services/request/utils'
 
+const { VITE_PROXY_PATH } = useMetaEnv()
+
 export const alovaInstance = createAlova({
-    baseURL: '/mock',
+    baseURL: VITE_PROXY_PATH,
     statesHook: VueHook,
-    timeout: 1000,
+    timeout: 10000,
     requestAdapter: GlobalFetch(),
     beforeRequest(method) {
         console.log(method.data)
@@ -16,7 +19,10 @@ export const alovaInstance = createAlova({
     responded: {
         async onSuccess(response,method) {
             const errorMsg = ServicesConfig.STATUS_ERROR[response.status]
-            if (errorMsg) return message.error(errorMsg)
+            if (errorMsg) {
+                message.error(errorMsg)
+                return Promise.reject()
+            }
             const json = await response.json()
             return json
         },
@@ -26,14 +32,3 @@ export const alovaInstance = createAlova({
     }
 })
 
-alovaInstance.Post<{ list: any[] }>('/test').then(data => {
-    /*
-     * Data的类型应该是
-     *  {
-     *      code: number
-     *      msg: string
-     *      data: { list: any[] }
-     *  }
-     * */
-    console.log(data)
-})

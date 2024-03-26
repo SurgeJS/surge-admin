@@ -1,17 +1,9 @@
-import { mockRequest } from '@/services/request/serves/mock'
-import { alovaInstance } from '@/services/request/serves/test'
+import { alovaInstance } from '@/services/request/serves/mock'
 
 export class TestApi {
-    static getTodoList = (query) => mockRequest({
-        url: '/getTodos',
-        method: 'post',
-        data: query
-    })
+    static getTodoList = (query) => alovaInstance.Post<Result>('/getTodos',query)
 
-    static getProductList = () => mockRequest({
-        url: '/getProductList',
-        method: 'post'
-    })
+    static getProductList = () => alovaInstance.Post<Result>('/getProductList')
 
-    static getATodoList = (query) => alovaInstance.Post<MainService.R>('/getTodos',query)
+    static getATodoList = (query) => alovaInstance.Post<Result>('/getTodos',query)
 }
