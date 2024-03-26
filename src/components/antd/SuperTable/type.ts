@@ -23,6 +23,11 @@ export interface SuperTableProps extends Omit<TableProps,'columns'> {
 
 // antd table 原有的插槽
 export interface TableSlots {
+    // 额外的展开行
+    expandedRowRender?: ExpandedRowRender<Recordable>
+    // 自定义展开图标
+    expandIcon?: RenderExpandIcon<Recordable>
+
     // 个性化单元格
     bodyCell?(props: {
         text: any;
@@ -37,12 +42,6 @@ export interface TableSlots {
 
     // 自定义空数据时的显示内容
     emptyText?(): void
-
-    // 额外的展开行
-    expandedRowRender?: ExpandedRowRender<Recordable>
-
-    // 自定义展开图标
-    expandIcon?: RenderExpandIcon<Recordable>
 
     // 自定义展开列表头
     expandColumnTitle?(): void

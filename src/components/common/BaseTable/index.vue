@@ -17,9 +17,9 @@ const props = withDefaults(defineProps<BaseTableProps>(),{
   indentSize: 15
 })
 
-const tableColumns = defineModel<SuperTableColumn[]>('columns')
+const tableColumns = defineModel<SuperTableColumn[]>('columns',{ required: true })
 
-const initialTableColumns = ref<SuperTableColumn[]>(cloneDeep(props.columns) || [])
+const initialTableColumns = cloneDeep(tableColumns.value)
 
 // 超级表格Props
 const superTableProps = useOmitProps(props,[ 'hideHeader','hideToolBar','heading' ])
@@ -30,7 +30,7 @@ const currentDensity = ref([ 'large' ])
 const size = computed(() => props.size || currentDensity.value[0])
 
 const resetColumns = () => {
-  tableColumns.value = [ ...initialTableColumns.value ]
+  tableColumns.value = initialTableColumns
 }
 </script>
 
@@ -48,7 +48,7 @@ const resetColumns = () => {
         <a-dropdown trigger="click">
           <a-tooltip>
             <template #title>密度</template>
-            <i-antd:column-height-outlined class="cursor-pointer" />
+            <i-antd:column-height-outlined class="cursor-pointer text-[18px]" />
           </a-tooltip>
           <template #overlay>
             <a-menu
@@ -63,14 +63,14 @@ const resetColumns = () => {
           <template #title>
             <a-flex gap="middle" justify="space-between">
               <span>列设置</span>
-              <a-button @click="resetColumns" type="link" size="small">重置</a-button>
+              <a-button size="small" type="link" @click="resetColumns">重置</a-button>
             </a-flex>
           </template>
           <template #content>
             <vue-draggable
-                handle=".drag"
                 v-model="tableColumns"
-                :animation="150">
+                :animation="150"
+                handle=".drag">
               <div
                   v-for="item in tableColumns"
                   :key="item.key"
@@ -85,15 +85,15 @@ const resetColumns = () => {
           </template>
           <a-tooltip>
             <template #title>列设置</template>
-            <i-antd:setting-outlined class="cursor-pointer" />
+            <i-antd:setting-outlined class="cursor-pointer text-[18px]" />
           </a-tooltip>
         </a-popover>
       </div>
     </div>
     <super-table
-        v-bind="superTableProps"
         :columns="tableColumns"
-        :size="size as SizeType" />
+        :size="size as SizeType"
+        v-bind="superTableProps" />
   </a-card>
 </template>
 
