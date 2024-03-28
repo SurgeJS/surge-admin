@@ -8,6 +8,5 @@ export const htmlPlugin = (viteEnv: ImportMetaEnv) => createHtmlPlugin({
             // index.html 标题
             title: viteEnv.VITE_GLOB_APP_TITLE
         }
-    },
-    viteNext: true
+    }
 })

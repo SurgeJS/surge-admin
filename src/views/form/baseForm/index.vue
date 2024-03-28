@@ -16,12 +16,17 @@ const columns = ref<SuperTableColumn[]>([
     dataIndex: 'age'
   },
   {
+    title: '生日',
+    dataIndex: 'birthday'
+  },
+  {
     title: '居住地址',
     dataIndex: 'address'
   },
   {
     title: '操作',
-    dataIndex: 'operation'
+    dataIndex: 'operation',
+    fixed: 'right'
   }
 ])
 
@@ -32,13 +37,14 @@ for (let i = 1; i <= 500; i++) {
   dataSource.value.push({
     name: '名称' + i,
     age: i,
+    birthday: '生日' + i,
     address: '地址' + i
   })
 }
 </script>
 
 <template>
-  <div class="w-h-full overflow-auto">
+  <div>
     <base-table heading="基础表头" v-model:columns="columns" :data-source="dataSource">
       <template #header-extra>
         <a-button type="primary">添加</a-button>

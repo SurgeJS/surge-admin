@@ -6,7 +6,8 @@ import { omit } from 'lodash-es'
  * @param value 目标对象
  * @param keys 省略的key
  */
-const useOmitProps = <T extends Recordable>(value: T,keys: Array<keyof typeof value>) => {
+const useOmitProps = <T extends Recordable,K extends keyof T>(value: T,keys: K[]) => {
     return computed(() => omit(value,keys))
 }
+
 export default useOmitProps

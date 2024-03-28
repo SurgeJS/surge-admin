@@ -10,7 +10,6 @@ const icons = [
 const icon = ref()
 const test = async () => {
   const data = await TestApi.getATodoList({ pageNo: 1,pageSize: 10 })
-  console.log(data)
 }
 </script>
 

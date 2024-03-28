@@ -30,10 +30,10 @@ const transitionName = computed(() => base.isPageStartAnimation ? base.pageAnima
 <style lang="scss" scoped>
 .layout-main {
   flex: 1;
-  padding: 5px 10px;
+  padding: 0 10px 5px 10px;
   position: relative;
   height: 100%;
   flex-shrink: 0;
-  overflow: hidden;
+  overflow: auto;
 }
 </style>

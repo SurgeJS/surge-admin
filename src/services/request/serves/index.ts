@@ -14,7 +14,7 @@ export const alovaInstance = createAlova({
     timeout: 10000,
     requestAdapter: GlobalFetch(),
     beforeRequest(method) {
-        console.log(method.data)
+        // console.log(method.data)
     },
     responded: {
         async onSuccess(response,method) {

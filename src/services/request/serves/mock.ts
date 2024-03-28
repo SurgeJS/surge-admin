@@ -12,22 +12,22 @@ export const alovaInstance = createAlova({
     timeout: 10000,
     requestAdapter: GlobalFetch() ,
     beforeRequest(method) {
-        console.log(method.data)
+        // console.log(method.data)
     },
     responded: {
         async onSuccess(response,method) {
             const errorMsg = ServicesConfig.STATUS_ERROR[response.status]
-            console.log(response)
+            // console.log(response)
             if (errorMsg) {
                 message.error(errorMsg)
                 return Promise.reject()
             }
             const json = await response.json()
-            console.log(json)
+            // console.log(json)
             return json
         },
         onError(err,method) {
-            console.log(err)
+            // console.log(err)
             handleRequestError(err)
         }
     }
