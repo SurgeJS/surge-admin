@@ -17,8 +17,9 @@ const resetColumns = () => {
 
 <template>
   <div
-      v-if="!props.hideHeader"
-      class="h-[36px] mb-3 flex-y-center justify-between">
+    v-if="!props.hideHeader"
+    class="h-[36px] mb-3 flex-y-center justify-between"
+  >
     <h3 class="inline-flex tracking-wider h-[34px] items-center gap-1 text-[16px]">
       <span class="inline-block w-[5px] h-[60%] bg-primary rounded" />
       <slot name="heading">
@@ -34,32 +35,42 @@ const resetColumns = () => {
         </a-tooltip>
         <template #overlay>
           <a-menu
-              v-model:selected-keys="currentDensity"
-              :items="densityList"
-              selectable />
+            v-model:selected-keys="currentDensity"
+            :items="densityList"
+            selectable
+          />
         </template>
       </a-dropdown>
       <a-popover
-          placement="bottomLeft"
-          trigger="click">
+        placement="bottomLeft"
+        trigger="click"
+      >
         <template #title>
           <a-flex gap="middle" justify="space-between">
             <span>列设置</span>
-            <a-button size="small" type="link" @click="resetColumns">重置</a-button>
+            <a-button
+              size="small"
+              type="link"
+              @click="resetColumns"
+            >
+              重置
+            </a-button>
           </a-flex>
         </template>
         <template #content>
           <vue-draggable
-              v-model="tableColumns"
-              :animation="300"
-              class="flex flex-col gap-2"
-              handle=".drag">
+            v-model="tableColumns"
+            :animation="300"
+            class="flex flex-col gap-2"
+            handle=".drag"
+          >
             <template v-for="item in tableColumns" :key="item.key">
               <div v-if="!item.fixed" class="flex-y-center gap-2 ">
                 <i-antd:holder-outlined class="drag cursor-grabbing text-xs" />
                 <a-checkbox
-                    :checked="!item.hide"
-                    @change="()=>item.hide=!item.hide" />
+                  :checked="!item.hide"
+                  @change="()=>item.hide=!item.hide"
+                />
                 <span>{{ item.title }}</span>
               </div>
             </template>

@@ -28,13 +28,17 @@ const maps: Map[] = [
 </script>
 
 <template>
-    <a-card style="height: 100%">
-        <a-tabs>
-            <a-tab-pane v-for="item in maps" :key="item.label" :tab="item.label">
-                <component :is="item.component" />
-            </a-tab-pane>
-        </a-tabs>
-    </a-card>
+  <a-card style="height: 100%">
+    <a-tabs>
+      <a-tab-pane
+        v-for="item in maps"
+        :key="item.label"
+        :tab="item.label"
+      >
+        <component :is="item.component" />
+      </a-tab-pane>
+    </a-tabs>
+  </a-card>
 </template>
 
 <style lang="scss" scoped>

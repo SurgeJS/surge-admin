@@ -23,7 +23,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <div ref="mapRef" class="baiduMap" />
+  <div ref="mapRef" class="baiduMap" />
 </template>
 
 <style lang="scss" scoped>

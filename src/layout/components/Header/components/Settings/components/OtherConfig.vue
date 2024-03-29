@@ -31,9 +31,14 @@ const { base } = appStore
     </context-menu>
     <context-menu label="组件尺寸">
       <a-select v-model:value="base.pageAnimationMode">
-        <a-select-option v-for="item in animationList" :key="item.value" :value="item.value">{{
+        <a-select-option
+          v-for="item in animationList"
+          :key="item.value"
+          :value="item.value"
+        >
+          {{
             item.label
-                                                                                             }}
+          }}
         </a-select-option>
       </a-select>
     </context-menu>

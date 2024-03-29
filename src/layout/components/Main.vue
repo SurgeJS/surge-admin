@@ -15,10 +15,14 @@ const transitionName = computed(() => base.isPageStartAnimation ? base.pageAnima
 <template>
   <div class="layout-main">
     <router-view
-        v-if="tabBarStore.mainVisible"
-        v-slot="{ Component, route }"
+      v-if="tabBarStore.mainVisible"
+      v-slot="{ Component, route }"
     >
-      <transition :name="transitionName" appear mode="out-in">
+      <transition
+        :name="transitionName"
+        appear
+        mode="out-in"
+      >
         <keep-alive :include="cacheMenus">
           <component :is="Component" :key="route.fullPath" />
         </keep-alive>

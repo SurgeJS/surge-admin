@@ -9,6 +9,6 @@ const iconComponent = computed(()=>!isFullscreen ? IAntDesignExpandOutlined : IA
 
 <template>
   <icon-hover-container @click="toggle">
-  <component :is="iconComponent" />
+    <component :is="iconComponent" />
   </icon-hover-container>
 </template>

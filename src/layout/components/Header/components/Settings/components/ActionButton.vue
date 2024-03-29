@@ -20,10 +20,27 @@ const resetCurrentConfig = () => {
 
 <template>
   <a-flex gap="middle" vertical>
-    <a-button block type="primary" @click="copyCurrentConfig">拷贝当前配置</a-button>
-    <a-button block danger type="primary" @click="resetCurrentConfig">重置当前配置</a-button>
+    <a-button
+      block
+      type="primary"
+      @click="copyCurrentConfig"
+    >
+      拷贝当前配置
+    </a-button>
+    <a-button
+      block
+      danger
+      type="primary"
+      @click="resetCurrentConfig"
+    >
+      重置当前配置
+    </a-button>
   </a-flex>
-  <a-modal v-model:open="visible" hide-cancel title-align="start">
+  <a-modal
+    v-model:open="visible"
+    hide-cancel
+    title-align="start"
+  >
     <template #title>提示</template>
     复制成功，请到
     <a-button type="link">src/store/modules/app/initial.ts</a-button>

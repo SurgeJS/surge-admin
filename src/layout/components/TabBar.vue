@@ -131,26 +131,39 @@ watch(tabBarStore.tabs,() => {
 </script>
 
 <template>
-  <div v-if="header.tabBarVisible" :style="{height:`${header.tabBarHeight}px`}" class="tabBar">
-    <div v-if="scrollBtnVisible" class="tabBar-item action" @click="toScroll('left')">
+  <div
+    v-if="header.tabBarVisible"
+    :style="{height:`${header.tabBarHeight}px`}"
+    class="tabBar"
+  >
+    <div
+      v-if="scrollBtnVisible"
+      class="tabBar-item action"
+      @click="toScroll('left')"
+    >
       <i-ic:baseline-chevron-left />
     </div>
     <div ref="tabBarContainer" class="tabBar-container">
       <div
-          v-for="item in tabBarStore.tabs"
-          :key="item.path"
-          :class="route.path === item.path ? 'active' : undefined"
-          class="tabBar-item"
-          @click="router.push(item.fullPath)">
+        v-for="item in tabBarStore.tabs"
+        :key="item.path"
+        :class="route.path === item.path ? 'active' : undefined"
+        class="tabBar-item"
+        @click="router.push(item.fullPath)"
+      >
         {{ item.meta?.title }}
         <i-ic:round-close
-            v-if="!item.meta?.affix"
-            class="tabBar-item-clear text-xs"
-            @click.stop="tabBarStore.closeTab(item)"
-             />
+          v-if="!item.meta?.affix"
+          class="tabBar-item-clear text-xs"
+          @click.stop="tabBarStore.closeTab(item)"
+        />
       </div>
     </div>
-    <div v-if="scrollBtnVisible" class="tabBar-item action" @click="toScroll('right')">
+    <div
+      v-if="scrollBtnVisible"
+      class="tabBar-item action"
+      @click="toScroll('right')"
+    >
       <i-ic:baseline-chevron-right />
     </div>
     <a-dropdown trigger="click">
@@ -160,10 +173,11 @@ watch(tabBarStore.tabs,() => {
       <template #overlay>
         <a-menu>
           <a-menu-item
-              v-for="item in dropdownList"
-              :key="item.title"
-              :disabled="item.disabled.value"
-              @click="item.handle">
+            v-for="item in dropdownList"
+            :key="item.title"
+            :disabled="item.disabled.value"
+            @click="item.handle"
+          >
             <template #icon>
               <component :is="item.icon" />
             </template>

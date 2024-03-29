@@ -8,7 +8,11 @@ const isHide = computed(() => (sidebar.isCollapsed || base.layoutMode === 'mix-s
 
 <template>
   <div class="logo" :style="{height:`${header.headerHeight}px`}">
-    <img height="28" src="../../assets/images/logo.png" alt="">
+    <img
+      height="28"
+      src="../../assets/images/logo.png"
+      alt=""
+    >
     <span v-if="!isHide" class="logo-text">Simple Admin</span>
   </div>
 </template>

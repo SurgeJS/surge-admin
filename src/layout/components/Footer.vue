@@ -8,8 +8,10 @@ const { footer } = appStore
 
 <template>
   <div
-      v-if="footer.visible" :style="{height:`${footer.height}px`}"
-      class="layoutFooter">
+    v-if="footer.visible"
+    :style="{height:`${footer.height}px`}"
+    class="layoutFooter"
+  >
     Copyright ©2022 Simple Admin
   </div>
 </template>

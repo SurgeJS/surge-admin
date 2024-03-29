@@ -3,6 +3,7 @@
   "private": true,
   "author": "SongPeng",
   "version": "0.0.0",
+  "type": "module",
   "scripts": {
     "dev": "vite --open",
     "build:prod": "vue-tsc --noEmit --skipLibCheck && vite build  --mode production",

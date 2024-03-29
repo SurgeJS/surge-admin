@@ -14,10 +14,10 @@ useGlobalSubscribe()
 
 <template>
   <a-config-provider
-      :locale="zhCN"
-      :auto-insert-space-in-button="appStore.antdConfig.autoInsertSpaceInButton"
-      :component-size="appStore.antdConfig.size"
-      :theme="appStore.themeConfig"
+    :locale="zhCN"
+    :auto-insert-space-in-button="appStore.antdConfig.autoInsertSpaceInButton"
+    :component-size="appStore.antdConfig.size"
+    :theme="appStore.themeConfig"
   >
     <a-app>
       <router-view />

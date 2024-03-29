@@ -13,7 +13,12 @@ const { footer } = appStore
       <a-switch v-model:checked="footer.visible" />
     </context-menu>
     <context-menu label="底部高度">
-      <a-input-number v-model:value="footer.height" :step="10" addon-after="px" mode="button" />
+      <a-input-number
+        v-model:value="footer.height"
+        :step="10"
+        addon-after="px"
+        mode="button"
+      />
     </context-menu>
   </a-flex>
 </template>

@@ -18,23 +18,28 @@ const open = ref(false)
 </script>
 
 <template>
-    <a-drawer v-model:open="open" :width="330" placement="right" title="系统配置">
-        <theme-mode />
-        <theme-color />
-        <layout-mode />
-        <layout-style />
-        <sidebar-config />
-        <header-config />
-        <footer-config />
-        <arco-config />
-        <other-config />
-        <template #footer>
-            <action-button />
-        </template>
-    </a-drawer>
-    <icon-hover-container @click="open=!open">
-      <i-ic:baseline-settings />
-    </icon-hover-container>
+  <a-drawer
+    v-model:open="open"
+    :width="330"
+    placement="right"
+    title="系统配置"
+  >
+    <theme-mode />
+    <theme-color />
+    <layout-mode />
+    <layout-style />
+    <sidebar-config />
+    <header-config />
+    <footer-config />
+    <arco-config />
+    <other-config />
+    <template #footer>
+      <action-button />
+    </template>
+  </a-drawer>
+  <icon-hover-container @click="open=!open">
+    <i-ic:baseline-settings />
+  </icon-hover-container>
 </template>
 
 <style lang="scss" scoped>

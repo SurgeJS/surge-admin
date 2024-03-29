@@ -1,5 +1,5 @@
 <template>
-    <div>submenu-1-1-1</div>
+  <div>submenu-1-1-1</div>
 </template>
 
 <script lang="ts" setup>

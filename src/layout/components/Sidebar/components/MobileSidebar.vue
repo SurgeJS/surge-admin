@@ -11,9 +11,11 @@ const authStore = useAuthStore()
 
 <template>
   <a-drawer
-      v-model:open="sidebar.mobileSidebarVisible"
-      :closable="false"
-      :width="sidebar.sidebarWidth" placement="left">
+    v-model:open="sidebar.mobileSidebarVisible"
+    :closable="false"
+    :width="sidebar.sidebarWidth"
+    placement="left"
+  >
     <div :class="appStore.dynamicSidebarDark.className" class="mobileSidebar ">
       <logo />
       <div class="mobileSidebar-container">

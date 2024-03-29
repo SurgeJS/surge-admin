@@ -27,40 +27,40 @@ const switchStyle = (option:LayoutStyleOption) => {
 </script>
 
 <template>
-    <a-divider>
-        布局风格
-    </a-divider>
-    <div class="layoutStyle">
-        <layout-card
-                v-for="item in layoutStyleList"
-                :key="item.value"
-                :active="item.value === base.layoutStyle"
-                :popover-content="item.label"
-                @click-card="switchStyle(item)"
-        >
-            <div v-if="item.value === 'side-dark'" class="vertical">
-                <div class="side dark" />
-                <div class="container">
-                    <div class="header" />
-                    <div class="main" />
-                </div>
-            </div>
-            <div v-if="item.value === 'side-top-dark'" class="vertical">
-                <div class="side dark" />
-                <div class="container">
-                    <div class="header dark" />
-                    <div class="main" />
-                </div>
-            </div>
-            <div v-if="item.value === 'side-top-light'" class="vertical">
-                <div class="side light" />
-                <div class="container">
-                    <div class="header light" />
-                    <div class="main" />
-                </div>
-            </div>
-        </layout-card>
-    </div>
+  <a-divider>
+    布局风格
+  </a-divider>
+  <div class="layoutStyle">
+    <layout-card
+      v-for="item in layoutStyleList"
+      :key="item.value"
+      :active="item.value === base.layoutStyle"
+      :popover-content="item.label"
+      @click-card="switchStyle(item)"
+    >
+      <div v-if="item.value === 'side-dark'" class="vertical">
+        <div class="side dark" />
+        <div class="container">
+          <div class="header" />
+          <div class="main" />
+        </div>
+      </div>
+      <div v-if="item.value === 'side-top-dark'" class="vertical">
+        <div class="side dark" />
+        <div class="container">
+          <div class="header dark" />
+          <div class="main" />
+        </div>
+      </div>
+      <div v-if="item.value === 'side-top-light'" class="vertical">
+        <div class="side light" />
+        <div class="container">
+          <div class="header light" />
+          <div class="main" />
+        </div>
+      </div>
+    </layout-card>
+  </div>
 </template>
 
 <style lang="scss" scoped>

@@ -24,7 +24,11 @@ const tableColumns = computed(() => props.columns?.filter(item => !item.hide))
 </script>
 
 <template>
-  <a-table ref="tableRef" v-bind="aTableProps" :columns="tableColumns">
+  <a-table
+    ref="tableRef"
+    v-bind="aTableProps"
+    :columns="tableColumns"
+  >
     <template v-for="(slot,key) in slots" #[key]="scope">
       <slot :name="key" v-bind="scope||{}" />
     </template>

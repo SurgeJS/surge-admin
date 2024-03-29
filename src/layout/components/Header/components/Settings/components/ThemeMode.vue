@@ -20,8 +20,12 @@ watch(() => appStore.base.themeMode,() => {
   <a-flex gap="middle" vertical>
     <config-menu label="深色主题">
       <a-switch
-          v-model:checked="isDark" checked-color="#464e62" class="themeSwitch" unchecked-color="#464e62"
-          @change="onUpdate">
+        v-model:checked="isDark"
+        checked-color="#464e62"
+        class="themeSwitch"
+        unchecked-color="#464e62"
+        @change="onUpdate"
+      >
         <template #checkedChildren>
           <i-ic:baseline-mode-night class="text-[#4f60fc]" />
         </template>
@@ -32,8 +36,11 @@ watch(() => appStore.base.themeMode,() => {
     </config-menu>
     <config-menu label="跟随系统">
       <a-switch
-          v-model:checked="appStore.base.themeModeFollowSystem" checked-color="#464e62" class="themeSwitch"
-          unchecked-color="#464e62">
+        v-model:checked="appStore.base.themeModeFollowSystem"
+        checked-color="#464e62"
+        class="themeSwitch"
+        unchecked-color="#464e62"
+      >
         <template #checkedChildren>
           <i-ic:round-hdr-auto />
         </template>

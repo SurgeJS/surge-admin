@@ -45,7 +45,11 @@ for (let i = 1; i <= 500; i++) {
 
 <template>
   <div>
-    <base-table heading="基础表头" v-model:columns="columns" :data-source="dataSource">
+    <base-table
+      v-model:columns="columns"
+      heading="基础表头"
+      :data-source="dataSource"
+    >
       <template #header-extra>
         <a-button type="primary">添加</a-button>
       </template>

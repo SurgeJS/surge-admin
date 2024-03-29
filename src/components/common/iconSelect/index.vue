@@ -40,27 +40,29 @@ const selectIcon = (icon:string) => {
 
 <template>
   <a-popover
-      :overlayStyle="{width:popoverWidth}"
-      autoAdjustOverflow
-      placement="bottomRight"
-      trigger="click"
-      @open-change="popoverChange">
+    :overlay-style="{width:popoverWidth}"
+    auto-adjust-overflow
+    placement="bottomRight"
+    trigger="click"
+    @open-change="popoverChange"
+  >
     <a-input-group ref="inputGroupRef" compact>
       <a-input
-          v-model:value="iconValue"
-          placeholder="请选择图标"
-          readonly
-          style="width: calc(100% - 52px)"
+        v-model:value="iconValue"
+        placeholder="请选择图标"
+        readonly
+        style="width: calc(100% - 52px)"
       />
       <a-button class="flex-center">
-          <svg-icon size="14" :icon="iconValue||'ant-design:appstore-twotone'" />
+        <svg-icon size="14" :icon="iconValue||'ant-design:appstore-twotone'" />
       </a-button>
     </a-input-group>
     <template #title>
       <a-input
-          v-model:value="searchText"
-          @change="searchIcon"
-          placeholder="请输入图标名称">
+        v-model:value="searchText"
+        placeholder="请输入图标名称"
+        @change="searchIcon"
+      >
         <template #suffix>
           <i-antd:search-outlined />
         </template>
@@ -68,15 +70,21 @@ const selectIcon = (icon:string) => {
     </template>
     <template #content>
       <div
-          class="max-h-[300px] p-0.5 overflow-auto grid grid-cols-[repeat(auto-fill,40px)] justify-between gap-[5px]">
+        class="max-h-[300px] p-0.5 overflow-auto grid grid-cols-[repeat(auto-fill,40px)] justify-between gap-[5px]"
+      >
         <UseElementVisibility
-            v-for="icon in iconList"
-            :key="icon"
-            :title="icon"
-            @click="selectIcon(icon)"
-            class="w-[100%] h-[40px] border border-solid border-main flex-center rounded cursor-pointer hover:border-primary"
-            v-slot="{ isVisible }">
-          <svg-icon v-show="isVisible" :icon="icon" size="22" />
+          v-for="icon in iconList"
+          :key="icon"
+          v-slot="{ isVisible }"
+          :title="icon"
+          class="w-[100%] h-[40px] border border-solid border-main flex-center rounded cursor-pointer hover:border-primary"
+          @click="selectIcon(icon)"
+        >
+          <svg-icon
+            v-show="isVisible"
+            :icon="icon"
+            size="22"
+          />
         </UseElementVisibility>
       </div>
       <a-empty v-if="!iconList.length" description="没有搜索到图标" />

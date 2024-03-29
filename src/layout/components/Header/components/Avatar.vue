@@ -30,7 +30,6 @@ const signOut = async () => {
       </a-menu>
     </template>
   </a-dropdown>
-
 </template>
 
 <style scoped>

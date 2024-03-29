@@ -107,12 +107,18 @@ watch(searchText,(value) => {
 
 <template>
   <a-modal
-      v-model:open="visible" :align-center="false" :closable="false" title-align="start" width="630px">
+    v-model:open="visible"
+    :align-center="false"
+    :closable="false"
+    title-align="start"
+    width="630px"
+  >
     <a-flex gap="middle" vertical>
       <a-input
-          v-model:value="searchText"
-          autofocus placeholder="请输入你想搜索的菜单"
-          size="large"
+        v-model:value="searchText"
+        autofocus
+        placeholder="请输入你想搜索的菜单"
+        size="large"
       >
         <template #suffix>
           <i-antd:search-outlined />
@@ -120,17 +126,18 @@ watch(searchText,(value) => {
       </a-input>
       <div class="menuSearchModal">
         <div
-            v-for="(item,i) in searchResult"
-            :key="item.path"
-            :class="{active:active===i}"
-            class="menuSearchModal-card"
-            size="small"
-            @click="handleMenuClick(item.path,i)">
+          v-for="(item,i) in searchResult"
+          :key="item.path"
+          :class="{active:active===i}"
+          class="menuSearchModal-card"
+          size="small"
+          @click="handleMenuClick(item.path,i)"
+        >
           <div class="menuSearchModal-card-name">
             <svg-icon :icon="item.icon" />
             <span v-for="(label,index) in item.labels" :key="label">{{ label }}
               <i-antd:right-outlined v-if="index!==item.labels.length-1" class="text-xs" />
-              </span>
+            </span>
           </div>
           <i-ic:outline-subdirectory-arrow-left />
         </div>
@@ -140,15 +147,15 @@ watch(searchText,(value) => {
       <div class="menuSearchModal-footer">
         <div class="menuSearchModal-footer-prompt">
           <div
-              v-for="item in menuSearchKeyPrompt"
-              :key="item.prompt"
-              class="menuSearchModal-footer-prompt-key"
+            v-for="item in menuSearchKeyPrompt"
+            :key="item.prompt"
+            class="menuSearchModal-footer-prompt-key"
           >
             <component
-                v-for="icon in item.icons"
-                :is="icon"
-                :key="icon"
-                class="menuSearchModal-footer-prompt-key-icon"
+              :is="icon"
+              v-for="icon in item.icons"
+              :key="icon"
+              class="menuSearchModal-footer-prompt-key-icon"
             />
             {{ item.prompt }}
           </div>

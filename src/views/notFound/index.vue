@@ -10,10 +10,16 @@ const goHome = () => {
 </script>
 
 <template>
-    <div class="notFound">
-        <i-local-404 class="w-[50%] h-[50%]" />
-        <a-button size="large" type="primary" @click="goHome">返回首页</a-button>
-    </div>
+  <div class="notFound">
+    <i-local-404 class="w-[50%] h-[50%]" />
+    <a-button
+      size="large"
+      type="primary"
+      @click="goHome"
+    >
+      返回首页
+    </a-button>
+  </div>
 </template>
 
 <style lang="scss" scoped>

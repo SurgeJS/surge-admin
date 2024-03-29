@@ -19,13 +19,21 @@ const authStore = useAuthStore()
 </script>
 
 <template>
-  <div :class="appStore.dynamicTopDark.className" :style="{height:`${header.headerHeight}px`}" class="layout-header">
+  <div
+    :class="appStore.dynamicTopDark.className"
+    :style="{height:`${header.headerHeight}px`}"
+    class="layout-header"
+  >
     <a-flex gap="small">
       <menu-collapsed v-if="base.isMobile||base.layoutMode==='side'" />
       <breadcrumb v-if="base.layoutMode!=='top'&&header.breadcrumbVisible&&!base.isMobile" />
       <template v-if="base.layoutMode==='top'&&!base.isMobile">
         <Logo />
-        <Menu :dark="appStore.dynamicTopDark.isDark" :menus="authStore.routes" horizontal />
+        <Menu
+          :dark="appStore.dynamicTopDark.isDark"
+          :menus="authStore.routes"
+          horizontal
+        />
       </template>
     </a-flex>
     <a-flex gap="small" justify="flex-end">

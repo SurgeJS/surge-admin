@@ -1,13 +1,17 @@
 <template>
   <!-- iconify 图标 -->
-  <Icon v-if="!localIcon && iconName" :icon="iconName" :style="style" />
+  <Icon
+    v-if="!localIcon && iconName"
+    :icon="iconName"
+    :style="style"
+  />
   <!-- 本地图标 -->
   <svg
-      v-else
-      :height="size"
-      :style="{ cursor: pointer ? 'pointer' : undefined, color }"
-      :width="size"
-      aria-hidden="true"
+    v-else
+    :height="size"
+    :style="{ cursor: pointer ? 'pointer' : undefined, color }"
+    :width="size"
+    aria-hidden="true"
   >
     <use :xlink:href="iconName" />
   </svg>

@@ -35,9 +35,9 @@ const size = computed(() => props.size || currentDensity.value[0] as SizeType)
       </template>
     </base-table-tool-bar>
     <super-table
-        v-bind="superTableProps"
-        :columns="tableColumns"
-        :size="size"
+      v-bind="superTableProps"
+      :columns="tableColumns"
+      :size="size"
     />
   </a-card>
 </template>

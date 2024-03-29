@@ -13,18 +13,32 @@ const { sidebar } = appStore
       <a-switch v-model:checked="sidebar.isCollapsed" />
     </context-menu>
     <context-menu label="侧边栏折叠宽度">
-      <a-input-number v-model:value="sidebar.sidebarWidth" :step="10" addon-after="px" mode="button" />
+      <a-input-number
+        v-model:value="sidebar.sidebarWidth"
+        :step="10"
+        addon-after="px"
+        mode="button"
+      />
     </context-menu>
     <context-menu label="折叠混合侧边栏">
       <a-switch v-model:checked="sidebar.isCollapsedMix" />
     </context-menu>
     <context-menu label="混合侧边栏宽度">
-      <a-input-number v-model:value="sidebar.mixSidebarWidth" :step="10" addon-after="px" mode="button" />
+      <a-input-number
+        v-model:value="sidebar.mixSidebarWidth"
+        :step="10"
+        addon-after="px"
+        mode="button"
+      />
     </context-menu>
     <context-menu label="侧边栏折叠宽度">
       <a-input-number
-          v-model:value="sidebar.collapsedSidebarWidth" :step="10" addon-after="px" disabled
-          mode="button" />
+        v-model:value="sidebar.collapsedSidebarWidth"
+        :step="10"
+        addon-after="px"
+        disabled
+        mode="button"
+      />
     </context-menu>
     <context-menu label="菜单开启琴模式">
       <a-switch v-model:checked="sidebar.isMenuAccordion" />

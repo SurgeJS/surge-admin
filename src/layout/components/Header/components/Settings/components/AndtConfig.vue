@@ -29,7 +29,12 @@ const { antdConfig } = appStore
   <a-flex gap="middle" vertical>
     <context-menu label="组件尺寸">
       <a-select v-model:value="antdConfig.size" style="width: 120px">
-        <a-select-option v-for="item in componentSize" :key="item.value" :value="item.value">{{ item.label }}
+        <a-select-option
+          v-for="item in componentSize"
+          :key="item.value"
+          :value="item.value"
+        >
+          {{ item.label }}
         </a-select-option>
       </a-select>
     </context-menu>

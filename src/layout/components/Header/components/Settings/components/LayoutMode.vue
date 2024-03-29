@@ -21,40 +21,40 @@ const { base } = appStore
 </script>
 
 <template>
-    <a-divider>
-        布局模式
-    </a-divider>
-    <div class="layoutMode">
-        <layout-card
-                v-for="item in layoutModeList"
-                :key="item.value"
-                :active="item.value === base.layoutMode"
-                :popover-content="item.label"
-                @click-card="base.layoutMode = item.value"
-        >
-            <div v-if="item.value === 'side'" class="vertical">
-                <div class="side" />
-                <div class="container">
-                    <div class="header" />
-                    <div class="main" />
-                </div>
-            </div>
-            <div v-if="item.value === 'mix-side'" class="vertical">
-                <div class="mixSide">
-                    <div />
-                    <div />
-                </div>
-                <div class="container">
-                    <div class="header" />
-                    <div class="main" />
-                </div>
-            </div>
-            <div v-if="item.value === 'top'" class="horizontal">
-                <div class="header primary" />
-                <div class="main" />
-            </div>
-        </layout-card>
-    </div>
+  <a-divider>
+    布局模式
+  </a-divider>
+  <div class="layoutMode">
+    <layout-card
+      v-for="item in layoutModeList"
+      :key="item.value"
+      :active="item.value === base.layoutMode"
+      :popover-content="item.label"
+      @click-card="base.layoutMode = item.value"
+    >
+      <div v-if="item.value === 'side'" class="vertical">
+        <div class="side" />
+        <div class="container">
+          <div class="header" />
+          <div class="main" />
+        </div>
+      </div>
+      <div v-if="item.value === 'mix-side'" class="vertical">
+        <div class="mixSide">
+          <div />
+          <div />
+        </div>
+        <div class="container">
+          <div class="header" />
+          <div class="main" />
+        </div>
+      </div>
+      <div v-if="item.value === 'top'" class="horizontal">
+        <div class="header primary" />
+        <div class="main" />
+      </div>
+    </layout-card>
+  </div>
 </template>
 
 <style lang="scss" scoped>

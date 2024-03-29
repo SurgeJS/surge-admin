@@ -25,19 +25,20 @@ const sidebarWidth = computed(() => {
 </script>
 
 <template>
-    <transition name="fold">
-        <div
-                v-if="!base.isMobile && base.layoutMode!=='top'"
-                :class="appStore.dynamicSidebarDark.className"
-                :style="{width:`${sidebarWidth}px`}"
-                class="layout-sidebar">
-            <transition name="slide-left">
-                <sidebar-component v-if="base.layoutMode==='side'" />
-                <mix-sidebar v-else-if="base.layoutMode==='mix-side'" />
-            </transition>
-        </div>
-    </transition>
-    <mobile-sidebar v-if="base.isMobile" />
+  <transition name="fold">
+    <div
+      v-if="!base.isMobile && base.layoutMode!=='top'"
+      :class="appStore.dynamicSidebarDark.className"
+      :style="{width:`${sidebarWidth}px`}"
+      class="layout-sidebar"
+    >
+      <transition name="slide-left">
+        <sidebar-component v-if="base.layoutMode==='side'" />
+        <mix-sidebar v-else-if="base.layoutMode==='mix-side'" />
+      </transition>
+    </div>
+  </transition>
+  <mobile-sidebar v-if="base.isMobile" />
 </template>
 
 <style lang="scss" scoped>

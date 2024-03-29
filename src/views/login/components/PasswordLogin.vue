@@ -42,12 +42,24 @@ const handleLogin = async () => {
 <template>
   <a-flex gap="middle" vertical>
     <h1>登录</h1>
-    <a-form ref="formRef" :model="form" :rules="rules">
+    <a-form
+      ref="formRef"
+      :model="form"
+      :rules="rules"
+    >
       <a-form-item name="username">
-        <a-input v-model:value="form.username" placeholder="请输入账号" size="large" />
+        <a-input
+          v-model:value="form.username"
+          placeholder="请输入账号"
+          size="large"
+        />
       </a-form-item>
       <a-form-item name="password">
-        <a-input-password v-model:value="form.password" placeholder="请输入密码" size="large" />
+        <a-input-password
+          v-model:value="form.password"
+          placeholder="请输入密码"
+          size="large"
+        />
       </a-form-item>
       <a-form-item>
         <a-flex gap="middle" justify="space-between">
@@ -56,7 +68,15 @@ const handleLogin = async () => {
         </a-flex>
       </a-form-item>
       <a-form-item>
-        <a-button :loading="loading" block size="large" type="primary" @click="handleLogin">登录</a-button>
+        <a-button
+          :loading="loading"
+          block
+          size="large"
+          type="primary"
+          @click="handleLogin"
+        >
+          登录
+        </a-button>
       </a-form-item>
     </a-form>
     <a-flex gap="middle" justify="space-between">

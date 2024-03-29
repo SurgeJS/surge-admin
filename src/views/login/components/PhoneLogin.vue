@@ -20,10 +20,22 @@ const form = {}
         </a-flex>
       </a-form-item>
       <a-form-item>
-        <a-button block size="large" type="primary">登录</a-button>
+        <a-button
+          block
+          size="large"
+          type="primary"
+        >
+          登录
+        </a-button>
       </a-form-item>
       <a-form-item>
-        <a-button block size="large" @click="setAction(LoginAction.PasswordLogin)">返回</a-button>
+        <a-button
+          block
+          size="large"
+          @click="setAction(LoginAction.PasswordLogin)"
+        >
+          返回
+        </a-button>
       </a-form-item>
     </a-form>
   </a-flex>

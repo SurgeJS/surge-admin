@@ -10,10 +10,20 @@ const { header } = appStore
   <a-divider>头部</a-divider>
   <a-flex gap="middle" vertical>
     <context-menu label="头部高度">
-      <a-input-number v-model:value="header.headerHeight" :step="10" addon-after="px" mode="button" />
+      <a-input-number
+        v-model:value="header.headerHeight"
+        :step="10"
+        addon-after="px"
+        mode="button"
+      />
     </context-menu>
     <context-menu label="标签栏高度">
-      <a-input-number v-model:value="header.tabBarHeight" :step="10" addon-after="px" mode="button" />
+      <a-input-number
+        v-model:value="header.tabBarHeight"
+        :step="10"
+        addon-after="px"
+        mode="button"
+      />
     </context-menu>
     <context-menu label="显示标签栏">
       <a-switch v-model:checked="header.tabBarVisible" />

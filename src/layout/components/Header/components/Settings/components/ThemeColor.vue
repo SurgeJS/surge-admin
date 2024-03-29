@@ -4,11 +4,12 @@
   </a-divider>
   <a-flex justify="space-between">
     <div
-        v-for="item in AppConfig.THEME_COLOR"
-        :key="item"
-        :style="{background:item}"
-        class="themeCard"
-        @click="appStore.setThemeColor(item)">
+      v-for="item in AppConfig.THEME_COLOR"
+      :key="item"
+      :style="{background:item}"
+      class="themeCard"
+      @click="appStore.setThemeColor(item)"
+    >
       <i-antd:check-outlined v-if="appStore.base.themeColor===item" />
     </div>
   </a-flex>

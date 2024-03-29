@@ -38,7 +38,13 @@ const { data,loading,reload,pagination,antdTableOnChange,resetQuery } = TestApiH
         </a-form-item>
         <a-form-item>
           <a-space>
-            <a-button :loading="loading" @click="reload" type="primary">搜索</a-button>
+            <a-button
+              :loading="loading"
+              type="primary"
+              @click="reload"
+            >
+              搜索
+            </a-button>
             <a-button @click="resetQuery(true)">重置</a-button>
           </a-space>
         </a-form-item>
@@ -47,11 +53,11 @@ const { data,loading,reload,pagination,antdTableOnChange,resetQuery } = TestApiH
     <br>
     <a-card>
       <a-table
-          :columns="columns"
-          :data-source="data"
-          :loading="loading"
-          :pagination="pagination"
-          @change="antdTableOnChange"
+        :columns="columns"
+        :data-source="data"
+        :loading="loading"
+        :pagination="pagination"
+        @change="antdTableOnChange"
       />
     </a-card>
   </div>

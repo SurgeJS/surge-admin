@@ -12,16 +12,20 @@ const authStore = useAuthStore()
 </script>
 
 <template>
-    <div
-            :class="appStore.dynamicSidebarDark.className" :style="{width:`${appStore.dynamicSidebarWidth}px`}"
-            class="sidebar">
-        <logo />
-        <div class="sidebar-container">
-            <Menu
-                    :collapsed="sidebar.isCollapsed" :dark="appStore.dynamicSidebarDark.isDark"
-                    :menus="authStore.routes" />
-        </div>
+  <div
+    :class="appStore.dynamicSidebarDark.className"
+    :style="{width:`${appStore.dynamicSidebarWidth}px`}"
+    class="sidebar"
+  >
+    <logo />
+    <div class="sidebar-container">
+      <Menu
+        :collapsed="sidebar.isCollapsed"
+        :dark="appStore.dynamicSidebarDark.isDark"
+        :menus="authStore.routes"
+      />
     </div>
+  </div>
 </template>
 
 <style lang="scss" scoped>
