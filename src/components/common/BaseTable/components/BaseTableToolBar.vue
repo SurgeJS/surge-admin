@@ -14,7 +14,6 @@ const resetColumns = () => {
 }
 </script>
 
-
 <template>
   <div
     v-if="!props.hideHeader"
@@ -29,7 +28,7 @@ const resetColumns = () => {
     <div class="flex-center gap-2">
       <slot name="header-extra" />
       <a-dropdown trigger="click">
-        <a-tooltip>
+        <a-tooltip :mouse-enter-delay=".5">
           <template #title>密度</template>
           <i-antd:column-height-outlined class="cursor-pointer text-[16px]" />
         </a-tooltip>
@@ -76,7 +75,7 @@ const resetColumns = () => {
             </template>
           </vue-draggable>
         </template>
-        <a-tooltip>
+        <a-tooltip :mouse-enter-delay=".5">
           <template #title>列设置</template>
           <i-antd:setting-outlined class="cursor-pointer text-[16px]" />
         </a-tooltip>
