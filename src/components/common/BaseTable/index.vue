@@ -3,7 +3,7 @@ import { BaseTableProps } from '@/components/common/BaseTable/utils/type'
 import useOmitProps from '@/hooks/common/useOmitProps'
 import { computed } from 'vue'
 import { SuperTableColumn } from '@/components/antd/SuperTable/utils/type'
-import { useProvideBaseTableStore } from '@/components/common/BaseTable/utils/useBaseTableContext'
+import { useProvideBaseTableStore } from '@/components/common/BaseTable/utils/context'
 import { SizeType } from 'ant-design-vue/es/config-provider'
 
 const props = withDefaults(defineProps<BaseTableProps>(),{

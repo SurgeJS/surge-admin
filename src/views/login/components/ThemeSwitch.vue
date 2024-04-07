@@ -5,14 +5,14 @@ const settingStore = useAppStore()
 </script>
 
 <template>
-  <i-ic:baseline-mode-night
+  <i
     v-if="settingStore.base.themeMode==='dark'"
-    class="text-[#4f60fc] text-xl cursor-pointer"
+    class="i-ant-design:moon-filled text-[#4f60fc]  cursor-pointer"
     @click="settingStore.setThemeMode('light')"
   />
-  <i-ic:baseline-wb-sunny
+  <i
     v-else
-    class="text-[#ffb948] text-xl cursor-pointer"
+    class="i-ant-design:sun-filled text-[#ffb948]  cursor-pointer"
     @click="settingStore.setThemeMode('dark')"
   />
 </template>

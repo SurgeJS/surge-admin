@@ -1,11 +1,11 @@
 <template>
   <div class="w-h-full flex">
     <div v-if="!appStore.base.isMobile" class="w-[50%] h-full bg-primary flex-center">
-      <i-local:login class="w-[80%]" />
+      <div class="i-local:login full-[80%]" />
     </div>
     <div class="relative flex-1 flex-center">
-      <theme-switch class="absolute right-[15px] top-[15px]" />
-      <div class="relative w-[90%] max-w-[400px]">
+      <theme-switch class="full-[24px] absolute right-[15px] top-[15px]" />
+      <div class="relative w-[95%] max-w-[400px]">
         <transition :name="appStore.base.pageAnimationMode" mode="out-in">
           <component :is="LOGIN_ACTION[loginContext.currentLoginAction]" />
         </transition>
@@ -15,7 +15,6 @@
 </template>
 
 <script lang="ts" setup>
-import ThemeSwitch from '@/views/login/components/ThemeSwitch.vue'
 import { useLoginContext } from '@/views/login/utils/useLoginContext'
 import useAppStore from '@/store/modules/app'
 import PasswordLogin from '@/views/login/components/PasswordLogin.vue'

@@ -4,26 +4,28 @@ import useAppStore from '@/store/modules/app'
 import { computed,nextTick } from 'vue'
 
 interface Props {
-    menus: Route.RouteRecordRaw[]
+  menus: Route.RouteRecordRaw[]
 }
 
 defineProps<Props>()
 
 const appStore = useAppStore()
-const { sidebar, header } = appStore
+const { sidebar,header } = appStore
 
-const thumbtackIcon = computed(()=>sidebar.isFixedMixSidebarDrawer ? IAntdPushpinFilled : IAntdPushpinTwotone)
+const thumbtackIcon = computed(() => sidebar.isFixedMixSidebarDrawer
+                                     ? 'i-ant-design:pushpin-filled'
+                                     : 'i-ant-design:pushpin-twotone')
 
 const onBeforeEnter = async (el: HTMLElement) => {
-    await nextTick()
-    const parentElement = el.parentElement?.parentElement
-    if (parentElement) return parentElement.style.overflow = 'visible'
+  await nextTick()
+  const parentElement = el.parentElement?.parentElement
+  if (parentElement) return parentElement.style.overflow = 'visible'
 }
 
 const onAfterLeave = async (el: HTMLElement) => {
-    await nextTick()
-    const parentElement = el.parentElement?.parentElement
-    if (parentElement) parentElement.style.overflow = 'hidden'
+  await nextTick()
+  const parentElement = el.parentElement?.parentElement
+  if (parentElement) parentElement.style.overflow = 'hidden'
 }
 
 </script>
@@ -42,8 +44,8 @@ const onAfterLeave = async (el: HTMLElement) => {
     >
       <div :style="{height:`${header.headerHeight}px`}" class="mixMenuDrawers-header">
         Simple Admin
-        <component
-          :is="thumbtackIcon"
+        <i
+          :class="thumbtackIcon"
           class="mixMenuDrawers-header-fixed text-base"
           @click="appStore.toggleFixedMixSidebarDrawer()"
         />

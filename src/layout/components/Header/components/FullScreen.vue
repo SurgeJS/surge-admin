@@ -4,11 +4,11 @@ import { computed } from 'vue'
 import IconHoverContainer from '@/layout/components/Header/components/IconHoverContainer.vue'
 
 const { isFullscreen,toggle } = useFullscreen()
-const iconComponent = computed(()=>!isFullscreen ? IAntDesignExpandOutlined : IAntDesignCompressOutlined)
+const iconName = computed(() => !isFullscreen ? 'i-ant-design:expand-outlined' : 'i-ant-design:compress-outlined')
 </script>
 
 <template>
   <icon-hover-container @click="toggle">
-    <component :is="iconComponent" />
+    <i :class="iconName" />
   </icon-hover-container>
 </template>

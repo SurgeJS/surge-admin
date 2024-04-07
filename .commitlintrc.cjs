@@ -34,28 +34,8 @@ module.exports = {
         name: 'fix:      修复缺陷'
       },
       {
-        value: 'docs',
-        name: 'docs:     文档更新'
-      },
-      {
-        value: 'style',
-        name: 'style:    代码格式  (不影响代码含义的更改)'
-      },
-      {
-        value: 'refactor',
-        name: 'refactor: 代码重构  (既没有修复错误也没有添加功能的代码更改)'
-      },
-      {
-        value: 'build',
-        name: 'build:    构建相关  (影响构建系统或外部依赖关系的更改)'
-      },
-      {
-        value: 'revert',
-        name: 'revert:   回退代码'
-      },
-      {
         value: 'chore',
-        name: 'chore:    其他修改  (其他不修改src或测试文件的更改)'
+        name: 'chore:    其他修改 '
       }
     ],
     useAI: false,

@@ -32,7 +32,7 @@ const popoverChange = (visible: boolean) => {
 }
 
 // 选择图标
-const selectIcon = (icon:string) => {
+const selectIcon = (icon: string) => {
   iconValue.value = icon
 }
 
@@ -54,7 +54,7 @@ const selectIcon = (icon:string) => {
         style="width: calc(100% - 52px)"
       />
       <a-button class="flex-center">
-        <svg-icon size="14" :icon="iconValue||'ant-design:appstore-twotone'" />
+        <svg-icon :icon="iconValue||'ant-design:appstore-twotone'" />
       </a-button>
     </a-input-group>
     <template #title>
@@ -64,7 +64,7 @@ const selectIcon = (icon:string) => {
         @change="searchIcon"
       >
         <template #suffix>
-          <i-antd:search-outlined />
+          <i class="i-ant-design:search-outlined" />
         </template>
       </a-input>
     </template>

@@ -19,7 +19,7 @@ const tabBarContainer = ref<HTMLElement>()
 
 const dropdownList = [
   {
-    icon: IIcBaselineRefresh,
+    icon: 'i-ant-design:reload-outlined',
     title: '刷新',
     disabled: computed(() => route.path !== route.path),
     handle() {
@@ -27,7 +27,7 @@ const dropdownList = [
     }
   },
   {
-    icon: IIcRoundClose,
+    icon: 'i-ant-design:close-outlined',
     title: '关闭',
     disabled: computed(() => {
       const tab = tabBarStore.tabs.find(item => item.path === route.path)
@@ -39,7 +39,7 @@ const dropdownList = [
     }
   },
   {
-    icon: IIcBaselineFirstPage,
+    icon: 'i-ant-design:vertical-right-outlined',
     title: '关闭左边',
     disabled: computed(() => {
       const index = tabBarStore.getIndex(route.path)
@@ -51,7 +51,7 @@ const dropdownList = [
     }
   },
   {
-    icon: IIcBaselineLastPage,
+    icon: 'i-ant-design:vertical-left-outlined',
     title: '关闭右边',
     disabled: computed(() => {
       const index = tabBarStore.getIndex(route.path)
@@ -63,7 +63,7 @@ const dropdownList = [
     }
   },
   {
-    icon: IIcbaselineSwapHoriz,
+    icon: 'i-ant-design:arrows-alt-outlined',
     title: '关闭其他',
     disabled: computed(() => {
       return !tabBarStore.tabs.some(item => item.path !== route.path && !item.meta?.affix)
@@ -73,7 +73,7 @@ const dropdownList = [
     }
   },
   {
-    icon: IIcBaselineMinus,
+    icon: 'i-ant-design:minus-outlined',
     title: '关闭全部',
     disabled: computed(() => !tabBarStore.tabs.some(item => !item.meta?.affix)),
     handle() {
@@ -141,7 +141,7 @@ watch(tabBarStore.tabs,() => {
       class="tabBar-item action"
       @click="toScroll('left')"
     >
-      <i-ic:baseline-chevron-left />
+      <i class="i-ic:baseline-chevron-left" />
     </div>
     <div ref="tabBarContainer" class="tabBar-container">
       <div
@@ -152,9 +152,9 @@ watch(tabBarStore.tabs,() => {
         @click="router.push(item.fullPath)"
       >
         {{ item.meta?.title }}
-        <i-ic:round-close
+        <i
           v-if="!item.meta?.affix"
-          class="tabBar-item-clear text-xs"
+          class="i-ic:round-close tabBar-item-clear text-xs"
           @click.stop="tabBarStore.closeTab(item)"
         />
       </div>
@@ -164,11 +164,11 @@ watch(tabBarStore.tabs,() => {
       class="tabBar-item action"
       @click="toScroll('right')"
     >
-      <i-ic:baseline-chevron-right />
+      <i class="i-ic:baseline-chevron-right" />
     </div>
     <a-dropdown trigger="click">
       <div class="tabBar-item action">
-        <i-ic:baseline-keyboard-arrow-down />
+        <i class="i-ic:baseline-keyboard-arrow-down" />
       </div>
       <template #overlay>
         <a-menu>
@@ -179,7 +179,7 @@ watch(tabBarStore.tabs,() => {
             @click="item.handle"
           >
             <template #icon>
-              <component :is="item.icon" />
+              <i :class="item.icon" />
             </template>
             {{ item.title }}
           </a-menu-item>

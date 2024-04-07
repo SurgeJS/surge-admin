@@ -5,7 +5,6 @@ import useAuthStore from '@/store/modules/auth'
 import { useRoute,useRouter } from 'vue-router'
 import Logo from '@/layout/components/Logo.vue'
 import MixSidebarDrawers from '@/layout/components/Sidebar/components/MixSidebar/components/MixSidebarDrawers.vue'
-import menu from '@/layout/components/Menu.vue'
 
 defineOptions({ name: 'MixSidebar' })
 
@@ -19,16 +18,16 @@ const menus = ref<Route.RouteRecordRaw[]>([])
 const temporaryActivePath = ref<Nullable<string>>()
 
 const collapsedIcon = computed(() => sidebar.isCollapsedMix ?
-                                     IAntDesignDoubleRightOutlined :
-                                     IAntDesignDoubleLeftOutlined)
+                                     'i-ant-design:double-right-outlined' :
+                                     'i-ant-design:double-left-outlined')
 
 const handleMixMenuItem = (submenu: Route.RouteRecordRaw) => {
-  temporaryActivePath.value = menu.path
-  if (menu.children?.length) {
-    menus.value = menu.children
+  temporaryActivePath.value = submenu.path
+  if (submenu.children?.length) {
+    menus.value = submenu.children
     appStore.toggleMixSidebarDrawerVisible(true)
   } else {
-    router.push(menu.path)
+    router.push(submenu.path)
     if (!sidebar.isFixedMixSidebarDrawer) sidebar.mixSidebarDrawerVisible = false
     menus.value = []
   }
@@ -77,7 +76,7 @@ const onMouseLeave = () => {
       class="mixSidebar-footer"
       @click="()=>appStore.toggleMixSidebarCollapsed()"
     >
-      <component :is="collapsedIcon" />
+      <i :class="collapsedIcon" />
     </div>
     <mix-sidebar-drawers :menus="menus" />
   </div>

@@ -10,7 +10,7 @@
       class="themeCard"
       @click="appStore.setThemeColor(item)"
     >
-      <i-antd:check-outlined v-if="appStore.base.themeColor===item" />
+      <i v-if="appStore.base.themeColor===item" class="i-ant-design:check-outlined" />
     </div>
   </a-flex>
 </template>

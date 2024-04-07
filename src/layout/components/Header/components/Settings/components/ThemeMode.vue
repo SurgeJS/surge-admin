@@ -18,7 +18,7 @@ watch(() => appStore.base.themeMode,() => {
     主题模式
   </a-divider>
   <a-flex gap="middle" vertical>
-    <config-menu label="深色主题">
+    <config-menu label="主题模式">
       <a-switch
         v-model:checked="isDark"
         checked-color="#464e62"
@@ -27,10 +27,10 @@ watch(() => appStore.base.themeMode,() => {
         @change="onUpdate"
       >
         <template #checkedChildren>
-          <i-ic:baseline-mode-night class="text-[#4f60fc]" />
+          <i class="i-ant-design:moon-filled text-[#4f60fc]" />
         </template>
         <template #unCheckedChildren>
-          <i-ic:baseline-wb-sunny class="text-[#ffb948]" />
+          <i class="i-ant-design:sun-filled text-[#ffb948]" />
         </template>
       </a-switch>
     </config-menu>
@@ -42,10 +42,10 @@ watch(() => appStore.base.themeMode,() => {
         unchecked-color="#464e62"
       >
         <template #checkedChildren>
-          <i-ic:round-hdr-auto />
+          <i class="i-ic:round-hdr-auto" />
         </template>
         <template #unCheckedChildren>
-          <i-ic:baseline-do-disturb-on />
+          <i class="i-ic:baseline-do-disturb-on" />
         </template>
       </a-switch>
     </config-menu>

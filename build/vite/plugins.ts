@@ -1,0 +1,59 @@
+// 导出vite插件
+import { PluginOption } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import vueJsx from '@vitejs/plugin-vue-jsx'
+import legacy from '@vitejs/plugin-legacy'
+import { VitePWA } from 'vite-plugin-pwa'
+import { vitePluginFakeServer } from 'vite-plugin-fake-server'
+import { createHtmlPlugin } from 'vite-plugin-html'
+import compress from 'vite-plugin-compression'
+import UnoCSS from 'unocss/vite'
+import Components from 'unplugin-vue-components/dist/vite'
+import { AntDesignVueResolver } from 'unplugin-vue-components/dist/resolvers'
+
+// Vite 插件配置
+export const createVitePlugins = (viteEnv: ImportMetaEnv): PluginOption[] => {
+  const { VITE_USE_MOCK,VITE_LEGACY,VITE_USE_PWA,VITE_BUILD_COMPRESS } = viteEnv
+  return [
+    vue(),
+    // Jsx 语法
+    vueJsx(),
+    // 原子Css
+    UnoCSS(),
+    // 配置 ejs
+    createHtmlPlugin({
+      // 生产环境压缩
+      minify: true,
+      inject: {
+        data: {
+          // index.html 标题
+          title: viteEnv.VITE_GLOB_APP_TITLE
+        }
+      }
+    }),
+    // 组件自动导入
+    Components({
+      // 为全局组件生成 TypeScript 声明
+      // 并指定生成目录
+      dts: 'types/components.d.ts',
+      extensions: [ 'vue','md' ],
+      // allow auto import and register components used in markdown
+      include: [ /\.vue$/,/\.vue\?vue/,/\.md$/ ],
+      resolvers: [
+        AntDesignVueResolver({ importStyle: false })
+      ]
+    }),
+    // 打包压缩
+    VITE_BUILD_COMPRESS !== 'none' && compress({
+      algorithm: VITE_BUILD_COMPRESS
+    }),
+    // 兼容一些旧版浏览器
+    VITE_LEGACY && legacy({ targets: [ 'defaults','not IE 11' ] }),
+    // PWA
+    VITE_USE_PWA && VitePWA({}),
+    // 数据模拟
+    VITE_USE_MOCK && vitePluginFakeServer({
+      enableProd: true
+    })
+  ]
+}

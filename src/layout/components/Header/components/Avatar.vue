@@ -16,9 +16,9 @@ const signOut = async () => {
 <template>
   <a-dropdown>
     <div class="flex-y-center gap-[10px] cursor-pointer">
-      <a-avatar :size="32" shape="square">
+      <a-avatar shape="square">
         <template #icon>
-          <i-local-avatar class="w-[32px] h-[32px]" />
+          <i class="i-local:avatar full-[32px]" />
         </template>
       </a-avatar>
       <span>admin</span>

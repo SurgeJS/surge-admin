@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { densityList } from '@/components/common/BaseTable/utils/data'
-import { useBaseTableStore } from '@/components/common/BaseTable/utils/useBaseTableContext'
+import { useBaseTableStore } from '@/components/common/BaseTable/utils/context'
 import { cloneDeep } from 'lodash-es'
 import { unref } from 'vue'
 import { VueDraggable } from 'vue-draggable-plus'

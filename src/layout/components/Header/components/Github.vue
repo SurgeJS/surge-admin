@@ -4,7 +4,7 @@ import IconHoverContainer from '@/layout/components/Header/components/IconHoverC
 </script>
 <template>
   <icon-hover-container>
-    <i-antd:github-filled />
+    <i class="i-ant-design:github-filled" />
   </icon-hover-container>
 </template>
 

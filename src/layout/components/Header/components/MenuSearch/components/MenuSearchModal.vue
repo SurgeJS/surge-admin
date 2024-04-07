@@ -33,17 +33,6 @@ const searchText = ref('')
 const searchResult = ref<MenuSearchOption[]>([])
 const active = ref(0)
 
-const menuSearchKeyPrompt = [
-  {
-    icons: [ IIcBaselineSubdirectoryArrowLeft ],
-    prompt: '选择'
-  },
-  {
-    icons: [ IIcBaselineArrowUpward,IIcBaselineArrowDownward ],
-    prompt: '切换'
-  }
-]
-
 // 扁平化菜单
 const flattenMenu = (menus: Route.RouteRecordRaw[]): MenuSearchOption[] => {
   const menuList: MenuSearchOption[] = []
@@ -121,7 +110,7 @@ watch(searchText,(value) => {
         size="large"
       >
         <template #suffix>
-          <i-antd:search-outlined />
+          <i class="i-ant-design:search-outlined" />
         </template>
       </a-input>
       <div class="menuSearchModal">
@@ -136,29 +125,33 @@ watch(searchText,(value) => {
           <div class="menuSearchModal-card-name">
             <svg-icon :icon="item.icon" />
             <span v-for="(label,index) in item.labels" :key="label">{{ label }}
-              <i-antd:right-outlined v-if="index!==item.labels.length-1" class="text-xs" />
+              <i v-if="index!==item.labels.length-1" class="i-tabler:arrow-narrow-right text-xs" />
             </span>
           </div>
-          <i-ic:outline-subdirectory-arrow-left />
+          <i class="i-tabler:arrow-back" />
         </div>
       </div>
     </a-flex>
     <template #footer>
       <div class="menuSearchModal-footer">
-        <div class="menuSearchModal-footer-prompt">
-          <div
-            v-for="item in menuSearchKeyPrompt"
-            :key="item.prompt"
-            class="menuSearchModal-footer-prompt-key"
-          >
-            <component
-              :is="icon"
-              v-for="icon in item.icons"
-              :key="icon"
-              class="menuSearchModal-footer-prompt-key-icon"
-            />
-            {{ item.prompt }}
+        <div class="menuSearchModal-footer-keys">
+          <div>
+            <i class="i-tabler:arrow-back" />
           </div>
+          <span>选择</span>
+        </div>
+        <div class="menuSearchModal-footer-keys">
+          <div>
+            <i class="i-tabler:arrow-narrow-up" />
+            <i class="i-tabler:arrow-narrow-down" />
+          </div>
+          <span>切换</span>
+        </div>
+        <div class="menuSearchModal-footer-keys">
+          <div>
+            <i>esc</i>
+          </div>
+          <span>切换</span>
         </div>
       </div>
     </template>
@@ -217,22 +210,21 @@ watch(searchText,(value) => {
   &-footer {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    gap: 10px;
 
-    &-prompt {
+    &-keys {
+      color: theme('textColor.tertiary');
       display: flex;
       align-items: center;
-      gap: 20px;
+      gap: 5px;
 
-      &-key {
+      div {
         display: flex;
         align-items: center;
-        gap: 5px;
-
-        &-icon {
-          box-shadow: inset 0 -2px #cdcde6, inset 0 0 1px 1px #fff,
-          0 1px 2px 1px #1e235a66;
-        }
+        background: theme('colors.fill-secondary');
+        width: 30px;
+        height: 20px;
+        justify-content: center;
       }
     }
   }

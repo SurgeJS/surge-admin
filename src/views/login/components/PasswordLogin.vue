@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import OtherLogin from '@/views/login/components/OtherLogin.vue'
 import { useLoginContext } from '@/views/login/utils/useLoginContext'
 import { reactive,ref } from 'vue'
 import useAuthStore from '@/store/modules/auth'
@@ -84,7 +83,6 @@ const handleLogin = async () => {
       <a-button block @click="loginContext.setAction(LoginAction.QrCodeLogin)">二维码登录</a-button>
       <a-button block @click="loginContext.setAction(LoginAction.Register)">注册</a-button>
     </a-flex>
-    <other-login />
   </a-flex>
 </template>
 
