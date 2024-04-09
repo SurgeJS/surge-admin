@@ -34,9 +34,9 @@ const searchResult = ref<MenuSearchOption[]>([])
 const active = ref(0)
 
 // 扁平化菜单
-const flattenMenu = (menus: Route.RouteRecordRaw[]): MenuSearchOption[] => {
+const flattenMenu = (menus: AppRouteRecordRaw[]): MenuSearchOption[] => {
   const menuList: MenuSearchOption[] = []
-  const handle = (menus: Route.RouteRecordRaw[],iconName?: string | undefined,menuNameList?: string[]) => {
+  const handle = (menus: AppRouteRecordRaw[],iconName?: string | undefined,menuNameList?: string[]) => {
     menus.forEach(menu => {
       const icon = iconName || menu.meta?.icon
       const menuNames = menuNameList || []
@@ -85,7 +85,7 @@ const handleMenuClick = (path: string,i: number) => {
 }
 
 onMounted(() => {
-  menus.value = flattenMenu(authStore.routes as Route.RouteRecordRaw[])
+  menus.value = flattenMenu(authStore.routes as AppRouteRecordRaw[])
   useEventListener(window,'keyup',handleKeyboardEvents)
 })
 

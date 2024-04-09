@@ -21,6 +21,7 @@ import PasswordLogin from '@/views/login/components/PasswordLogin.vue'
 import PhoneLogin from '@/views/login/components/PhoneLogin.vue'
 import QrCodeLogin from '@/views/login/components/QrCodeLogin.vue'
 import Register from '@/views/login/components/Register.vue'
+import ThemeSwitch from '@/views/login/components/ThemeSwitch.vue'
 
 defineOptions({ name: 'Login' })
 // 登录行为

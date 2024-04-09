@@ -120,7 +120,7 @@ useEventListener('resize',() => {
 // 监听路由变化
 watch(() => route.path,() => {
   const { meta,name,path,fullPath } = route
-  tabBarStore.addTab({ meta,name,path,fullPath })
+  tabBarStore.addTab({ meta,name: name as string,path,fullPath })
   scrollToActive()
 },{ immediate: true })
 

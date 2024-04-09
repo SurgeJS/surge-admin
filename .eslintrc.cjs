@@ -41,6 +41,8 @@ module.exports = defineConfig({
     // 多字组件名称
     'vue/multi-word-component-names': 'off',
     // template 静止空内容
-    'vue/valid-template-root': 'off'
+    'vue/valid-template-root': 'off',
+    //
+    'vue/no-mutating-props': 'off'
   }
 })

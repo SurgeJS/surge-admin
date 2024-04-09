@@ -4,56 +4,56 @@ import { useRoute,useRouter } from 'vue-router'
 import useAppStore from '@/store/modules/app'
 
 export default defineComponent({
-    props: {
-        menus: {
-            type: Array as PropType<Route.RouteRecordRaw[]>,
-            required: true
-        },
-        horizontal: Boolean,
-        collapsed: Boolean,
-        dark: Boolean
+  props: {
+    menus: {
+      type: Array as PropType<AppRouteRecordRaw[]>,
+      required: true
     },
-    setup(props) {
-        const route = useRoute()
-        const { sidebar } = useAppStore()
-        const router = useRouter()
-        const renderSubMenu = (menus: Route.RouteRecordRaw[]) => {
-            return menus.map(item => {
-                if (item.meta?.hideMenu) return
-                const icon = () => item.meta?.icon ?
-                    (<svg-icon icon={ item.meta?.icon }></svg-icon>) :
-                    undefined
-                if (item.component === 'submenu' || item.component === 'menu') {
-                    return (
-                        <a-menu-item disabled={ item.meta?.disabledMenu } onClick={ () => router.push(item.path) }
-                                     key={ item.path }
-                                     v-slots={ { icon } }>
-                            { item.meta?.title }
-                        </a-menu-item>
-                    )
-                }
-
-                if (item.component === 'basic' || item.component === 'directory') {
-                    return (
-                        <a-sub-menu v-slots={ { icon, title: () => item.meta?.title } }
-                                    key={ item.path }>
-                            { item.children?.length && renderSubMenu(item.children) }
-                        </a-sub-menu>
-                    )
-                }
-            }).filter(item => item)
+    horizontal: Boolean,
+    collapsed: Boolean,
+    dark: Boolean
+  },
+  setup(props) {
+    const route = useRoute()
+    const { sidebar } = useAppStore()
+    const router = useRouter()
+    const renderSubMenu = (menus: AppRouteRecordRaw[]) => {
+      return menus.map(item => {
+        if (item.meta?.hideMenu) return
+        const icon = () => item.meta?.icon ?
+                           (<svg-icon icon={ item.meta?.icon }></svg-icon>) :
+                           undefined
+        if (item.component === 'submenu' || item.component === 'menu') {
+          return (
+            <a-menu-item disabled={ item.meta?.disabledMenu } onClick={ () => router.push(item.path) }
+                         key={ item.path }
+                         v-slots={ { icon } }>
+              { item.meta?.title }
+            </a-menu-item>
+          )
         }
 
-        return () => (
-            <a-menu theme={ props.dark ? 'dark' : 'light' }
-                    selected-keys={ [ route.path ] }
-                    inline-collapsed={ props.collapsed }
-                    accordion={ sidebar.isMenuAccordion }
-                    mode={ props.horizontal ? 'horizontal' : 'inline' }>
-                { renderSubMenu(props.menus) }
-            </a-menu>
-        )
+        if (item.component === 'basic' || item.component === 'directory') {
+          return (
+            <a-sub-menu v-slots={ { icon,title: () => item.meta?.title } }
+                        key={ item.path }>
+              { item.children?.length && renderSubMenu(item.children) }
+            </a-sub-menu>
+          )
+        }
+      }).filter(item => item)
     }
+
+    return () => (
+      <a-menu theme={ props.dark ? 'dark' : 'light' }
+              selected-keys={ [ route.path ] }
+              inline-collapsed={ props.collapsed }
+              accordion={ sidebar.isMenuAccordion }
+              mode={ props.horizontal ? 'horizontal' : 'inline' }>
+        { renderSubMenu(props.menus) }
+      </a-menu>
+    )
+  }
 })
 </script>
 

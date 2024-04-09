@@ -4,7 +4,7 @@ import useAppStore from '@/store/modules/app'
 import { computed,nextTick } from 'vue'
 
 interface Props {
-  menus: Route.RouteRecordRaw[]
+  menus: AppRouteRecordRaw[]
 }
 
 defineProps<Props>()

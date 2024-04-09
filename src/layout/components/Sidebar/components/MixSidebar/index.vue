@@ -14,14 +14,14 @@ const authStore = useAuthStore()
 const route = useRoute()
 const router = useRouter()
 
-const menus = ref<Route.RouteRecordRaw[]>([])
+const menus = ref<AppRouteRecordRaw[]>([])
 const temporaryActivePath = ref<Nullable<string>>()
 
 const collapsedIcon = computed(() => sidebar.isCollapsedMix ?
                                      'i-ant-design:double-right-outlined' :
                                      'i-ant-design:double-left-outlined')
 
-const handleMixMenuItem = (submenu: Route.RouteRecordRaw) => {
+const handleMixMenuItem = (submenu: AppRouteRecordRaw) => {
   temporaryActivePath.value = submenu.path
   if (submenu.children?.length) {
     menus.value = submenu.children

@@ -1,6 +1,41 @@
 import 'vue-router'
+import { RoleEnum } from '@/enums/auth'
+
 
 declare module 'vue-router' {
-    // 路由元数据
-    interface RouteMeta extends Route.Meta {}
+  // 路由元数据
+  interface RouteMeta {
+    // 名称
+    title: string
+
+    // 细粒度权限
+    permissions?: string[]
+
+    // 角色
+    roles?: RoleEnum[]
+
+    // 忽略鉴权，用户可以直接访问
+    ignoreAuth?: boolean
+
+    // 是否缓存
+    keepAlive?: boolean
+
+    // 是否固定在tab上
+    affix?: boolean
+
+    // 图标
+    icon?: string
+
+    // 内部嵌套地址
+    frameSrc?: string
+
+    // 菜单排序
+    order?: number
+
+    // 隐藏菜单 (可以通过路由访问)
+    hideMenu?: boolean
+
+    // 禁用菜单 (不能通过路由访问)
+    disabledMenu?: boolean
+  }
 }

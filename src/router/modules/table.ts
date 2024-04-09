@@ -1,18 +1,18 @@
 export default {
-  path: '/form',
+  path: '/table',
   component: 'basic',
-  name: 'form',
+  name: 'table',
   meta: {
-    title: '表单',
+    title: '表格',
     icon: 'ant-design:container-outlined',
     order: 1
   },
   children: [
     {
-      path: '/form/baseForm',
-      name: 'form/baseForm',
+      path: '/table/multiFunctionalEnquiryForm',
+      name: 'table/multiFunctionalEnquiryForm',
       meta: {
-        title: '基础表单'
+        title: '多功能查询表格'
       },
       component: 'submenu'
     }

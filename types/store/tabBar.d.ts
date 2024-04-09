@@ -1,16 +1,20 @@
-type RouteLocationNormalizedLoaded = import('vue-router').RouteLocationNormalizedLoaded
+import { RouteLocationNormalizedLoaded,RouteMeta } from 'vue-router'
 
-declare interface Tab extends Pick<RouteLocationNormalizedLoaded, 'fullPath' | 'path' | 'name'> {
-    meta: Route.Meta
-}
 
-declare interface TabBarStore {
+declare global {
+  interface Tab extends Pick<RouteLocationNormalizedLoaded,'fullPath' | 'path'> {
+    name?: string
+    meta: RouteMeta
+  }
+
+  interface TabBarStore {
     // 标签栏
     tabs: Tab[]
 
     // 缓存菜单
-    cacheMenus: import('vue-router')['RouteRecordName']
+    cacheMenus: string[]
 
     // 刷新
     mainVisible: boolean
+  }
 }

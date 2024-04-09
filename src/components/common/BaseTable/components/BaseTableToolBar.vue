@@ -17,9 +17,9 @@ const resetColumns = () => {
 <template>
   <div
     v-if="!props.hideHeader"
-    class="h-[36px] mb-3 flex-y-center justify-between"
+    class="h-[36px] mb-3 flex-y-center justify-between "
   >
-    <h3 class="inline-flex tracking-wider h-[34px] items-center gap-1 text-[16px]">
+    <h3 class="inline-flex tracking-wider h-[34px] items-center gap-1 ">
       <span class="inline-block w-[5px] h-[60%] bg-primary rounded" />
       <slot name="heading">
         {{ props.heading }}
@@ -30,7 +30,7 @@ const resetColumns = () => {
       <a-dropdown trigger="click">
         <a-tooltip :mouse-enter-delay=".5">
           <template #title>密度</template>
-          <i-antd:column-height-outlined class="cursor-pointer text-[16px]" />
+          <i class="i-ant-design:column-height-outlined cursor-pointer " />
         </a-tooltip>
         <template #overlay>
           <a-menu
@@ -65,7 +65,7 @@ const resetColumns = () => {
           >
             <template v-for="item in tableColumns" :key="item.key">
               <div v-if="!item.fixed" class="flex-y-center gap-2 ">
-                <i-antd:holder-outlined class="drag cursor-grabbing text-xs" />
+                <i class="drag i-ant-design:holder-outlined cursor-grabbing text-xs " />
                 <a-checkbox
                   :checked="!item.hide"
                   @change="()=>item.hide=!item.hide"
@@ -77,7 +77,7 @@ const resetColumns = () => {
         </template>
         <a-tooltip :mouse-enter-delay=".5">
           <template #title>列设置</template>
-          <i-antd:setting-outlined class="cursor-pointer text-[16px]" />
+          <i class="i-ant-design:setting-outlined cursor-pointer " />
         </a-tooltip>
       </a-popover>
     </div>

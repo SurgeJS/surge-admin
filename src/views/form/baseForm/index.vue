@@ -1,59 +1,65 @@
-<script lang="ts" setup>
+<script lang="tsx" setup>
 import { ref } from 'vue'
-import { SuperTableColumn } from '@/components/antd/SuperTable/utils/type'
+import { Schema } from '@/components/common/SchemaForm/type/props'
+import { schemaRenderComponent } from '@/components/common/SchemaForm/utils'
 
-const columns = ref<SuperTableColumn[]>([
+const status = ref([
   {
-    title: '用户名称',
-    dataIndex: 'name',
-    resizable: true,
-    width: 100,
-    minWidth: 100,
-    maxWidth: 200
+    value: 'jack',
+    label: 'Jack'
   },
   {
-    title: '年龄',
-    dataIndex: 'age'
+    value: 'lucy',
+    label: 'Lucy'
   },
   {
-    title: '生日',
-    dataIndex: 'birthday'
+    value: 'disabled',
+    label: 'Disabled',
+    disabled: true
   },
   {
-    title: '居住地址',
-    dataIndex: 'address'
-  },
-  {
-    title: '操作',
-    dataIndex: 'operation',
-    fixed: 'right'
+    value: 'yiminghe',
+    label: 'Yiminghe'
   }
 ])
 
+const form = ref<Recordable>({
+  name: '',
+  age: undefined,
+  status: undefined
+})
 
-const dataSource = ref<Recordable[]>([])
-
-for (let i = 1; i <= 500; i++) {
-  dataSource.value.push({
-    name: '名称' + i,
-    age: i,
-    birthday: '生日' + i,
-    address: '地址' + i
-  })
+const schema = ref<Schema<typeof form.value>>({
+  name: {
+    label: '姓名',
+    renderComponent: schemaRenderComponent('input',{
+      placeholder: 'test',
+      onInput(value) {
+        console.log(form.value.name)
+      },
+      suffix: (<div class={ 'bg-red' }>123</div>)
+    })
+  },
+  status: {
+    label: '状态',
+    renderComponent: schemaRenderComponent('select',{
+      options: status.value
+    })
+  },
+  age: {
+    label: '年龄',
+    renderComponent: 'input'
+  }
+})
+const test = () => {
+  status.value[2].label = '2333'
 }
 </script>
 
 <template>
   <div>
-    <base-table
-      v-model:columns="columns"
-      heading="基础表头"
-      :data-source="dataSource"
-    >
-      <template #header-extra>
-        <a-button type="primary">添加</a-button>
-      </template>
-    </base-table>
+    <a-button @click="test">test</a-button>
+    <schema-form :schema="schema" :model="form" />
   </div>
 </template>
 

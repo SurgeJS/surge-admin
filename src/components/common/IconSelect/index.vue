@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import { InputGroup } from 'ant-design-vue'
-import { IconSelectProps } from '@/components/common/iconSelect/type'
+import { IconSelectProps } from '@/components/common/IconSelect/type'
 import { UseElementVisibility } from '@vueuse/components'
 import { useDebounceFn } from '@vueuse/core'
 
