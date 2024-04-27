@@ -14,4 +14,16 @@ declare global {
   type Recordable<T = any> = Record<string,T>
   type MaybeArray<T> = T | Array<T>
   type MaybeRefs<T extends Recordable> = { [key in keyof T]: MaybeRef<T[key]> }
+
+  // 日期时间格式化
+  type DateFormat = 'YYYY'
+    | 'YYYY-MM'
+    | 'YYYY-MM-DD'
+    | 'YYYY-MM-DD HH'
+    | 'YYYY-MM-DD HH:mm'
+    | 'YYYY-MM-DD HH:mm:ss'
+    | 'HH'
+    | 'HH:mm'
+    | 'HH:mm:ss'
+    | string
 }

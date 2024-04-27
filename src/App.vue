@@ -7,7 +7,6 @@ import zhCN from 'ant-design-vue/es/locale/zh_CN'
 const appStore = useAppStore()
 // 全局初始化
 useGlobalInitialize()
-
 // 全局订阅
 useGlobalSubscribe()
 </script>

@@ -1,9 +1,123 @@
-import { SchemaComponentsName,SchemaRenderComponent } from '@/components/common/SchemaForm/type/component'
+import { ComponentsName } from '@/components/common/SchemaForm/type/component'
+import { RulePresets } from '@/components/common/SchemaForm/type/props'
+import { Rule } from 'ant-design-vue/es/form'
+import RegularUtils from '@/utils/regular'
 
-// 渲染
-export const schemaRenderComponent =
-  <K extends SchemaComponentsName>
-  (componentName: K,props?: SchemaRenderComponent<K>['props']): SchemaRenderComponent<K> => ({
-    name: componentName,
-    props: props
-  })
+
+// 是否映射options
+export const isMapOptions = (component: ComponentsName) => [
+  'Select',
+  'AutoComplete',
+  'Cascader',
+  'CheckboxGroup',
+  'Mentions',
+  'RadioGroup',
+  'TreeSelect'
+].includes(component)
+
+// 是否映射placeholder
+export const isMapPlaceholder = (component: ComponentsName) => [
+  'Input',
+  'Select',
+  'AutoComplete',
+  'Cascader',
+  'DatePicker',
+  'DateRangePicker',
+  'InputNumber',
+  'Mentions',
+  'TimePicker',
+  'TimeRangePicker',
+  'TreeSelect'
+].includes(component)
+
+// 是否Check类型的组件
+export const isCheckComponent = (component: ComponentsName) => [ 'Switch','Checkbox','Radio' ].includes(component)
+
+// 是否日期类型组件
+export const isDateComponent = (component: ComponentsName) => [
+  'DatePicker',
+  'DateRangePicker'
+].includes(component)
+
+// 是否时间类型组件
+export const isTimeComponent = (component: ComponentsName) => [
+  'TimePicker',
+  'TimeRangePicker'
+].includes(component)
+
+// 是否输入类型的组件
+export const isInputComponent = (component: ComponentsName) => [
+  'Input',
+  'AutoComplete',
+  'InputNumber',
+  'Mentions'
+].includes(component)
+
+// 是否选择类型的组件
+export const isPickComponent = (component: ComponentsName) => [
+  'Select',
+  'Cascader',
+  'DatePicker',
+  'TimePicker',
+  'TreeSelect'
+].includes(component)
+
+// 生成placeholder
+export const generatePlaceholder = (label: string | undefined,component: ComponentsName) => {
+  if ([ 'DateRangePicker' ].includes(component)) return [ '开始日期','结束日期' ]
+  if ([ 'TimeRangePicker' ].includes(component)) return [ '开始时间','结束时间' ]
+  if (isInputComponent(component)) return `请输入${ label }`
+  if (isPickComponent(component)) return `请选择${ label }`
+}
+
+// 处理规则预设
+export const handleRulePresets = (rule: RulePresets) => {
+  const rulePresets: Record<RulePresets,{ requiredMessage: string,incorrectMessage: string }> = {
+    mail: {
+      requiredMessage: '请输入邮箱',
+      incorrectMessage: '请输入合法邮箱'
+    },
+    phone: {
+      requiredMessage: '请输入手机号',
+      incorrectMessage: '请输入合法手机号'
+    },
+    landline: {
+      requiredMessage: '请输入固定电话',
+      incorrectMessage: '请输入合法固定电话'
+    },
+    idCard: {
+      requiredMessage: '请输入身份证',
+      incorrectMessage: '请输入合法身份证'
+    },
+    url: {
+      requiredMessage: '请输入网址',
+      incorrectMessage: '请输入合法网址'
+    }
+  }
+  return {
+    required: true,
+    validator(_rule: Rule,value: string) {
+      console.log(value)
+      if (!value) return Promise.reject(rulePresets[rule].requiredMessage)
+      switch (rule) {
+        case 'mail':
+          if (!RegularUtils.MATCH_EMAIL.test(value)) return Promise.reject(rulePresets[rule].incorrectMessage)
+          break
+        case 'phone':
+          if (!RegularUtils.MATCH_PHONE.test(value)) return Promise.reject(rulePresets[rule].incorrectMessage)
+          break
+        case 'landline':
+          if (!RegularUtils.MATCH_LANDLINE.test(value)) return Promise.reject(rulePresets[rule].incorrectMessage)
+          break
+        case 'url':
+          if (!RegularUtils.MATCH_URL.test(value)) return Promise.reject(rulePresets[rule].incorrectMessage)
+          break
+        case 'idCard':
+          if (!RegularUtils.MATCH_ID_CARD.test(value)) return Promise.reject(rulePresets[rule].incorrectMessage)
+          break
+      }
+      return Promise.resolve()
+    },
+    trigger: 'blur'
+  }
+}

@@ -24,3 +24,4 @@ types/auto-import.d.ts
 *.njsproj
 *.sln
 *.sw?
+.turbo

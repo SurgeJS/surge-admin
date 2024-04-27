@@ -1,44 +1,42 @@
 <script setup lang="ts">
-import { SchemaFormProps,SchemaPropertiesConfig } from '@/components/common/SchemaForm/type/props'
-import { InputProps,SelectProps } from 'ant-design-vue'
-import { computed } from 'vue'
+import { SchemaFormProps } from '@/components/common/SchemaForm/type/props'
+import useOmitProps from '@/hooks/common/useOmitProps'
+import SchemaFormItem from '@/components/common/SchemaForm/components/SchemaFormItem.vue'
+import { useProvideSchemaForm } from '@/components/common/SchemaForm/utils/context'
 
-const props = defineProps<SchemaFormProps>()
-
-const component = computed(() => (propertiesConfig: SchemaPropertiesConfig) => {
-  return typeof propertiesConfig.renderComponent === 'string' ?
-    {
-      name: propertiesConfig.renderComponent
-    } :
-    {
-      name: propertiesConfig.renderComponent?.name,
-      props: propertiesConfig.renderComponent?.props
-    }
+const props = withDefaults(defineProps<SchemaFormProps>(),{
+  defaultDateFormat: 'YYYY-MM-DD',
+  defaultTimeFormat: 'HH:mm:ss',
+  defaultValueDateFormat: 'YYYY-MM-DD',
+  defaultValueTimeFormat: 'HH:mm:ss'
 })
+
+// 提供 Props
+useProvideSchemaForm(props)
+
+const aFormProps = useOmitProps(props,[
+  'schema',
+  'defaultDateFormat',
+  'defaultTimeFormat',
+  'defaultValueDateFormat',
+  'defaultValueTimeFormat',
+  'required'
+])
 </script>
 
 <template>
-  <a-form>
-    <a-form-item
-      v-for="(propertiesConfig,key) in props.schema"
-      :key="key"
-      :name="key"
-      :label="props.schema[key]?.label"
+  <a-form v-bind="aFormProps">
+    <template
+      v-for="config in props.schema"
+      :key="config.field||config.slot"
     >
-      <!-- 输入框 -->
-      <a-input
-        v-if="component(propertiesConfig).name === 'input'"
-        v-bind="component(propertiesConfig).props as InputProps"
-        v-model:value="model[key]"
+      <schema-form-item
+        v-if="config.component"
+        :model="props.model"
+        :schema-config="config"
       />
-
-      <!-- 选择器 -->
-      <a-select
-        v-if="component(propertiesConfig).name === 'select'"
-        v-bind="component(propertiesConfig).props as SelectProps"
-        v-model:value="model[key]"
-      />
-    </a-form-item>
+      <slot v-if="config.slot" :name="config.slot" />
+    </template>
   </a-form>
 </template>
 

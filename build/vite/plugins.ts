@@ -33,12 +33,10 @@ export const createVitePlugins = (viteEnv: ImportMetaEnv): PluginOption[] => {
     }),
     // 组件自动导入
     Components({
-      // 为全局组件生成 TypeScript 声明
-      // 并指定生成目录
+      // 为全局组件生成 TypeScript 声明,并指定生成目录
       dts: 'types/components.d.ts',
-      extensions: [ 'vue','md' ],
-      // allow auto import and register components used in markdown
-      include: [ /\.vue$/,/\.vue\?vue/,/\.md$/ ],
+      extensions: [ 'vue' ],
+      include: [ /\.vue$/,/\.vue\?vue/ ],
       resolvers: [
         AntDesignVueResolver({ importStyle: false })
       ]
