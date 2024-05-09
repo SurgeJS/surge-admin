@@ -18,7 +18,7 @@
     "@iconify/utils": "^2.1.22",
     "@vueuse/components": "^10.9.0",
     "@vueuse/core": "^10.9.0",
-    "alova": "^2.20.2",
+    "alova": "^2.20.3",
     "ant-design-vue": "^4.2.1",
     "dayjs": "^1.11.10",
     "echarts": "^5.5.0",
@@ -29,7 +29,7 @@
     "print-js": "^1.6.0",
     "qs": "^6.11.2",
     "store2": "^2.14.3",
-    "vue": "^3.4.25",
+    "vue": "^3.4.26",
     "vue-draggable-plus": "^0.4.0",
     "vue-router": "^4.3.2"
   },

@@ -64,7 +64,7 @@ const resetColumns = () => {
             handle=".drag"
           >
             <template v-for="item in tableColumns" :key="item.key">
-              <div v-if="!item.fixed" class="flex-y-center gap-2 ">
+              <div v-if="!item.fixed" class="flex-y-center gap-2 rounded transition-100 hover:bg-fill-secondary ">
                 <i class="drag i-ant-design:holder-outlined cursor-grabbing text-xs " />
                 <a-checkbox
                   :checked="!item.hide"

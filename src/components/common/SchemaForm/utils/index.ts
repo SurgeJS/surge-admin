@@ -1,7 +1,8 @@
 import { ComponentsName } from '@/components/common/SchemaForm/type/component'
-import { RulePresets } from '@/components/common/SchemaForm/type/props'
+import { RulePresets,SchemaConfig } from '@/components/common/SchemaForm/type/props'
 import { Rule } from 'ant-design-vue/es/form'
 import RegularUtils from '@/utils/regular'
+import { RuleObject } from 'ant-design-vue/es/form/interface'
 
 
 // 是否映射options
@@ -63,15 +64,16 @@ export const isPickComponent = (component: ComponentsName) => [
 ].includes(component)
 
 // 生成placeholder
-export const generatePlaceholder = (label: string | undefined,component: ComponentsName) => {
+export const generatePlaceholder = (label: SchemaConfig['label'],component: ComponentsName) => {
   if ([ 'DateRangePicker' ].includes(component)) return [ '开始日期','结束日期' ]
   if ([ 'TimeRangePicker' ].includes(component)) return [ '开始时间','结束时间' ]
-  if (isInputComponent(component)) return `请输入${ label }`
-  if (isPickComponent(component)) return `请选择${ label }`
+  if (isInputComponent(component) && typeof label === 'string') return `请输入${ label }`
+  if (isPickComponent(component) && typeof label === 'string') return `请选择${ label }`
 }
 
+
 // 处理规则预设
-export const handleRulePresets = (rule: RulePresets) => {
+export const handleRulePresets = (rule: RulePresets): RuleObject => {
   const rulePresets: Record<RulePresets,{ requiredMessage: string,incorrectMessage: string }> = {
     mail: {
       requiredMessage: '请输入邮箱',

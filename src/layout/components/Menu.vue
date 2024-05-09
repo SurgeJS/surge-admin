@@ -62,4 +62,8 @@ export default defineComponent({
   display: flex;
   align-items: center;
 }
+
+:global(.ant-menu-dark) {
+  background: theme('backgroundColor.dark');
+}
 </style>

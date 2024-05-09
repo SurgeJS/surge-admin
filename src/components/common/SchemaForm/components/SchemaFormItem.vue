@@ -1,8 +1,8 @@
 <script lang="tsx">
 import { defineComponent,PropType } from 'vue'
-import { MapComponentCommonProps,SchemaConfig } from '@/components/common/SchemaForm/type/props'
+import { CallbackParams,Col,MapComponentCommonProps,SchemaConfig } from '@/components/common/SchemaForm/type/props'
 import { SCHEMA_RENDER_COMPONENTS } from '@/components/common/SchemaForm/utils/components'
-import { isFunction,isObject } from 'lodash-es'
+import { isFunction,isNumber,isObject } from 'lodash-es'
 import {
   generatePlaceholder,
   handleRulePresets,
@@ -29,12 +29,30 @@ export default defineComponent((props) => {
       format,
       valueFormat,
       required,
-      hide
+      hide,
+      helpMessage,
+      helpCustomRender,
+      labelWidth,
+      extra
     } = schemaConfig
     const { schemaFormProps } = useSchemaFormContext()!
-    console.log(props)
-    console.log(hide)
-    const isHide = hide || true
+
+    // labelCol配置
+    const labelCol: Col | undefined = labelWidth ? {
+      style: { width: isNumber(labelWidth) ? `${ labelWidth }px` : labelWidth }
+    } : undefined
+
+    // 回调参数
+    const callbackParams: CallbackParams = {
+      schema: schemaConfig,
+      model: schemaFormProps.model,
+      value: schemaFormProps.model[field!],
+      field: field!
+    }
+
+    // 处理Hide
+    const isHide = isFunction(hide) ? hide(callbackParams) : hide || true
+
     // 获取规则
     const getRules = () => {
       if (!rule) return
@@ -56,9 +74,9 @@ export default defineComponent((props) => {
       // 获取组件属性
       const getComponentAttribute = (): Recordable => {
         // 常用的Props
-        let commonProps: MapComponentCommonProps = {}
+        const commonProps: MapComponentCommonProps = {}
         // 全局默认Props
-        let globalDefaultProps: Recordable = {}
+        const globalDefaultProps: Recordable = {}
 
         // 处理默认日期格式
         if (isDateComponent(component)) {
@@ -99,14 +117,7 @@ export default defineComponent((props) => {
         if (!componentContent) return undefined
         let content = componentContent
 
-        if (isFunction(componentContent)) {
-          content = componentContent({
-            schema: schemaConfig,
-            model: schemaFormProps.model,
-            value: schemaFormProps.model[field],
-            field: field
-          })
-        }
+        if (isFunction(componentContent)) content = componentContent(callbackParams)
 
         return isObject(content) ? content : {
           default: () => content
@@ -131,13 +142,27 @@ export default defineComponent((props) => {
              )
     }
 
+    // formItem slots
+    const formItemSlots = {
+      // 标签
+      label: () => isFunction(schemaConfig.label) ? schemaConfig.label(callbackParams) : schemaConfig.label,
+      // 工具提示
+      tooltip: helpCustomRender ? () => helpCustomRender : undefined,
+      // 额外
+      extra: () => extra
+    }
+
     return () => (
       <a-form-item
         v-show={ isHide }
         rules={ getRules() }
         required={ required || schemaFormProps.required }
         name={ schemaConfig.field }
-        label={ schemaConfig.label }>
+        label-col={ labelCol }
+        colon
+        tooltip={ helpMessage }
+        v-slots={ formItemSlots }
+      >
         { renderComponent() }
       </a-form-item>
     )

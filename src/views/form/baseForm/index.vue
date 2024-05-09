@@ -84,15 +84,28 @@ const schema = ref<SchemaType<typeof form.value>[]>([
     label: '输入框',
     component: 'Input',
     placeholder: 'Input',
+    labelWidth: 150,
     rule: 'mail',
-    hide: isShow
+    hide: ({ model }) => {
+      return model.Checkbox
+    }
   },
   {
     field: 'Select',
     label: '选择器',
     component: 'Select',
     options: status,
-    placeholder: 'sss'
+    placeholder: 'sss',
+    helpMessage: 'sss',
+    helpCustomRender: 'sada',
+    componentContent(callbackParams) {
+      return {
+        dropdownRender(menuNode) {
+          console.log(menuNode)
+          return '21231'
+        }
+      }
+    }
   },
   {
     field: 'AutoComplete',
@@ -114,7 +127,11 @@ const schema = ref<SchemaType<typeof form.value>[]>([
     field: 'Checkbox',
     label: '复选框',
     component: 'Checkbox',
-    componentContent: 'return \'124\''
+    componentContent: {
+      default() {
+        return '12312'
+      }
+    }
   },
   {
     field: 'CheckboxGroup',
@@ -184,11 +201,8 @@ const schema = ref<SchemaType<typeof form.value>[]>([
   }
 ])
 const test = () => {
-  status.value[2].disabled = false
-  schema.value[0].label = 'test'
-  console.log(form.value)
-  console.log(form.value.DatePicker)
-  toggleShow(false)
+  toggleShow()
+  console.log(11)
 }
 </script>
 
@@ -196,6 +210,7 @@ const test = () => {
   <div>
     <a-button @click="test">test</a-button>
     <schema-form
+      required
       auto-placeholder
       :schema="schema"
       :model="form"

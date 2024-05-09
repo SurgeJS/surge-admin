@@ -48,7 +48,7 @@ export default defineConfig({
       // 四级填充色
       'fill-quaternary': 'var(--colorFillQuaternary)',
       // 填充暗黑色
-      'fill-dark': 'rgba(255, 255, 255, .1)'
+      'fill-dark': 'var(--fillDark)'
     },
     textColor: {
       // 一级文本色
@@ -60,7 +60,7 @@ export default defineConfig({
       // 四级文本色
       'quaternary': 'var(--colorTextQuaternary)',
       // 亮色
-      'light': 'rgba(255, 255, 255, 0.85)'
+      'light': 'var(--textLight)'
     },
     backgroundColor: {
       // 组件容器背景色
@@ -74,15 +74,14 @@ export default defineConfig({
       // 浮层的背景蒙层颜色
       'mask': 'var(--colorBgMask)',
       // 背景暗黑色
-      'dark': '#001529'
+      'dark': 'var(--bgDark)'
     },
     borderColor: {
       // 一级边框色
       'main': 'var(--colorBorder)',
       // 二级边框色
       'secondary': 'var(--colorBorderSecondary)',
-      // 边框黑色
-      'dark': '#2b2f34'
+      'dark': 'var(--borderDark)'
     },
     boxShadow: {
       'main': 'var(--boxShadow)',

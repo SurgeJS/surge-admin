@@ -1,14 +1,20 @@
-import { FormProps } from 'ant-design-vue'
+import { ColProps,FormProps } from 'ant-design-vue'
 import { RuleObject } from 'ant-design-vue/es/form/interface'
 import { ComponentsName,ComponentsProps } from '@/components/common/SchemaForm/type/component'
 import { DefaultOptionType } from 'ant-design-vue/es/vc-tree-select/TreeSelect'
 import { MaybeRef,VNode } from 'vue'
 
-export interface CallParams<T extends Recordable = Recordable,C extends ComponentsName = ComponentsName> {
+// 回调参数
+export interface CallbackParams<T extends Recordable = Recordable,C extends ComponentsName = ComponentsName> {
   schema: SchemaConfig<T,C>;
   value: any;
   model: T;
   field: keyof T;
+}
+
+// col
+export interface Col extends ColProps {
+  style?: Partial<CSSStyleDeclaration>
 }
 
 // 日期、时间组件格式
@@ -52,10 +58,10 @@ export interface MapComponentCommonProps {
 // Schema配置
 export interface SchemaConfig<T extends Recordable = Recordable,C extends ComponentsName = ComponentsName> extends MapComponentCommonProps {
   // 字段
-  field?: keyof T | string
+  field?: keyof T
 
   // label 标签的文本
-  label?: string
+  label?: ComponentsSlotsContent | ((params: CallbackParams<T,C>) => ComponentsSlotsContent)
 
   // 绑定到 v-model 的变量名称
   modelField?: string
@@ -69,7 +75,7 @@ export interface SchemaConfig<T extends Recordable = Recordable,C extends Compon
   // 组件内容
   componentContent?: ComponentsSlotsContent
     | ComponentSlots
-    | ((callParams: CallParams) => ComponentsSlotsContent | ComponentSlots)
+    | ((callbackParams: CallbackParams<T,C>) => ComponentsSlotsContent | ComponentSlots)
 
   // 自定义插槽
   slot?: string
@@ -81,21 +87,36 @@ export interface SchemaConfig<T extends Recordable = Recordable,C extends Compon
   required?: boolean
 
   // 该formItem是否隐藏
-  hide?: MaybeRef<boolean>
+  hide?: boolean | ((callbackParams: CallbackParams<T,C>) => boolean)
+
+  // label 宽度
+  labelWidth?: number | string
+
+  // 帮助提示信息
+  helpMessage?: string
+
+  // 帮助提示自定义渲染
+  helpCustomRender?: ComponentsSlotsContent
+
+  // 额外的
+  extra?: ComponentsSlotsContent
 }
 
-export type SchemaType<T extends Recordable = Recordable,C extends ComponentsName = ComponentsName>
-  = C extends any ? SchemaConfig<T,C> : never;
+export type SchemaType<T extends Recordable = any,C extends ComponentsName = ComponentsName>
+  = C extends ComponentsName ? SchemaConfig<T,C> : never;
 
 export interface SchemaFormProps extends FormProps {
   // schema 配置
-  schema: SchemaConfig[]
+  schema: SchemaType[]
 
   // 模型
   model: Recordable
 
   // 所有字段是否都必填
   required?: boolean
+
+  // label 宽度
+  labelWidth?: number | string
 
   // 默认日期组件格式
   defaultDateFormat?: DateComponentFormat
@@ -109,9 +130,9 @@ export interface SchemaFormProps extends FormProps {
   // 默认时间组件值格式
   defaultValueTimeFormat?: DateComponentFormat
 
-  // 自动placeholder
+  // 自动placeholder (item的label为string才会生效)
   autoPlaceholder?: boolean
 
-  // 自动规则
-  autoRule?: boolean
+  // 自动label宽度 (labelWidth 属性会覆盖 autoLabelWidth)
+  autoLabelWidth?: boolean
 }

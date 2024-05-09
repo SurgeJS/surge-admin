@@ -1,0 +1,69 @@
+// antd主题变量
+declare interface AntdTheme {
+  // 主色
+  colorPrimary?: string
+  // 主色浅色背景色
+  colorPrimaryBg?: string
+  // 主色浅色背景悬浮态
+  colorPrimaryBgHover?: string
+  // 主色描边色
+  colorPrimaryBorder?: string
+  // 主色描边色悬浮态
+  colorPrimaryBorderHover?: string
+  // 主色悬浮态
+  colorPrimaryHover?: string
+  // 主色激活态
+  colorPrimaryActive?: string
+  // 主色文本悬浮态
+  colorPrimaryTextHover?: string
+  // 主色文本
+  colorPrimaryText?: string
+  // 主色文本激活态
+  colorPrimaryTextActive?: string
+  // 一级文本色
+  colorText?: string
+  // 二级文本色
+  colorTextSecondary?: string
+  // 三级文本色
+  colorTextTertiary?: string
+  // 四级文本色
+  colorTextQuaternary?: string
+  // 组件容器背景色
+  colorBgContainer?: string
+  // 浮层容器背景色
+  colorBgElevated?: string
+  // 布局背景色
+  colorBgLayout?: string
+  // 引起注意的背景色
+  colorBgSpotlight?: string
+  // 浮层的背景蒙层颜色
+  colorBgMask?: string
+  // 一级边框色
+  colorBorder?: string
+  // 二级边框色
+  colorBorderSecondary?: string
+  // 一级填充色
+  colorFill?: string
+  // 二级填充色
+  colorFillSecondary?: string
+  // 三级填充色
+  colorFillTertiary?: string
+  // 四级填充色
+  colorFillQuaternary?: string
+  // 一级阴影
+  boxShadow?: string
+  // 二级阴影
+  boxShadowSecondary?: string
+}
+
+/* ------自定义主题变量------ */
+declare interface CustomTheme {
+  // 明亮字体
+  textLight?: string
+  // 暗色背景
+  bgDark?: string
+  // 填充暗色
+  fillDark?: string
+  // 边框暗色
+  borderDark?: string
+}
