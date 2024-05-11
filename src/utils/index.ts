@@ -12,7 +12,6 @@ export const runTacticsAction = (tacticsAction: TacticsAction[]) => tacticsActio
 
 // 设置CSS变量
 export const setCSSVariable = (variable: Recordable<string>) => {
-  console.log(variable)
   const htmlElement = document.querySelector('html')
   if (!htmlElement) return
   Object.keys(variable).forEach(key => {

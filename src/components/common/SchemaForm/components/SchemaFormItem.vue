@@ -1,8 +1,14 @@
 <script lang="tsx">
-import { defineComponent,PropType } from 'vue'
-import { CallbackParams,Col,MapComponentCommonProps,SchemaConfig } from '@/components/common/SchemaForm/type/props'
+import { defineComponent,isVNode,PropType } from 'vue'
+import {
+  CallbackParams,
+  CallbackParamsFunction,
+  Col,
+  MapComponentCommonProps,
+  SchemaConfig
+} from '@/components/common/SchemaForm/type/props'
 import { SCHEMA_RENDER_COMPONENTS } from '@/components/common/SchemaForm/utils/components'
-import { isFunction,isNumber,isObject } from 'lodash-es'
+import { isArray,isFunction,isNumber,isString } from 'lodash-es'
 import {
   generatePlaceholder,
   handleRulePresets,
@@ -37,6 +43,7 @@ export default defineComponent((props) => {
     } = schemaConfig
     const { schemaFormProps } = useSchemaFormContext()!
 
+
     // labelCol配置
     const labelCol: Col | undefined = labelWidth ? {
       style: { width: isNumber(labelWidth) ? `${ labelWidth }px` : labelWidth }
@@ -50,8 +57,12 @@ export default defineComponent((props) => {
       field: field!
     }
 
+    // 执行回调函数并返回原值
+    const callbackParamsFunction = <T = never>(value: T | CallbackParamsFunction<any,any,T>) => isFunction(value)
+                                                                                                ? value(callbackParams)
+                                                                                                : value
     // 处理Hide
-    const isHide = isFunction(hide) ? hide(callbackParams) : hide || true
+    const isHide = () => hide ? callbackParamsFunction<boolean>(hide) : true
 
     // 获取规则
     const getRules = () => {
@@ -64,6 +75,9 @@ export default defineComponent((props) => {
     // 渲染组件
     const renderComponent = () => {
       if (!component || !field) return undefined
+
+      // 默认上传组件的插槽
+      const defaultUpload = (<a-button>上传</a-button>)
 
       // 动态组件
       const DynamicComponent = SCHEMA_RENDER_COMPONENTS[component]
@@ -114,14 +128,16 @@ export default defineComponent((props) => {
 
       // 获取组件插槽
       const getComponentSlot = () => {
-        if (!componentContent) return undefined
-        let content = componentContent
+        // 组件默认插槽内容
+        const defaultSlot = (slot: SchemaConfig['componentContent']) => ({ default: () => slot })
 
-        if (isFunction(componentContent)) content = componentContent(callbackParams)
+        if (!componentContent) return component === 'Upload' ? defaultSlot(defaultUpload) : undefined
 
-        return isObject(content) ? content : {
-          default: () => content
-        }
+        const content = callbackParamsFunction(componentContent)
+        
+        if (isArray(content) || isString(content) || isVNode(content)) return defaultSlot(content)
+
+        return content
       }
 
       // 是否是checked类型的组件
@@ -143,25 +159,24 @@ export default defineComponent((props) => {
     }
 
     // formItem slots
-    const formItemSlots = {
-      // 标签
-      label: () => isFunction(schemaConfig.label) ? schemaConfig.label(callbackParams) : schemaConfig.label,
-      // 工具提示
-      tooltip: helpCustomRender ? () => helpCustomRender : undefined,
-      // 额外
-      extra: () => extra
+    const getFormItemSlots = () => {
+      const slots: Recordable = {}
+      if (label) slots.label = () => callbackParamsFunction(label)
+      if (helpCustomRender) slots.tooltip = () => callbackParamsFunction(helpCustomRender)
+      if (extra) slots.extra = () => callbackParamsFunction(extra)
+      return slots
     }
 
     return () => (
       <a-form-item
-        v-show={ isHide }
+        v-show={ isHide() }
         rules={ getRules() }
         required={ required || schemaFormProps.required }
         name={ schemaConfig.field }
         label-col={ labelCol }
         colon
         tooltip={ helpMessage }
-        v-slots={ formItemSlots }
+        v-slots={ getFormItemSlots() }
       >
         { renderComponent() }
       </a-form-item>

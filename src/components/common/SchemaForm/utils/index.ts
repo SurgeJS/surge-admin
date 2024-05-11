@@ -71,7 +71,6 @@ export const generatePlaceholder = (label: SchemaConfig['label'],component: Comp
   if (isPickComponent(component) && typeof label === 'string') return `请选择${ label }`
 }
 
-
 // 处理规则预设
 export const handleRulePresets = (rule: RulePresets): RuleObject => {
   const rulePresets: Record<RulePresets,{ requiredMessage: string,incorrectMessage: string }> = {

@@ -87,6 +87,7 @@ const schema = ref<SchemaType<typeof form.value>[]>([
     labelWidth: 150,
     rule: 'mail',
     hide: ({ model }) => {
+      console.log(model)
       return model.Checkbox
     }
   },
@@ -96,7 +97,7 @@ const schema = ref<SchemaType<typeof form.value>[]>([
     component: 'Select',
     options: status,
     placeholder: 'sss',
-    helpMessage: 'sss',
+    helpMessage: '提示',
     helpCustomRender: 'sada',
     componentContent(callbackParams) {
       return {
@@ -127,9 +128,12 @@ const schema = ref<SchemaType<typeof form.value>[]>([
     field: 'Checkbox',
     label: '复选框',
     component: 'Checkbox',
-    componentContent: {
-      default() {
-        return '12312'
+    componentContent(p) {
+      console.log(p)
+      return {
+        default() {
+          return '1231'
+        }
       }
     }
   },
@@ -202,7 +206,6 @@ const schema = ref<SchemaType<typeof form.value>[]>([
 ])
 const test = () => {
   toggleShow()
-  console.log(11)
 }
 </script>
 
@@ -211,7 +214,7 @@ const test = () => {
     <a-button @click="test">test</a-button>
     <schema-form
       required
-      auto-placeholder
+      :label-width="130"
       :schema="schema"
       :model="form"
     >
