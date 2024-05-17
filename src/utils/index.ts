@@ -11,7 +11,7 @@ export const runTacticsAction = (tacticsAction: TacticsAction[]) => tacticsActio
 })
 
 // 设置CSS变量
-export const setCSSVariable = (variable: Recordable<string>) => {
+export const setCSSVariable = (variable: Recordable) => {
   const htmlElement = document.querySelector('html')
   if (!htmlElement) return
   Object.keys(variable).forEach(key => {
@@ -24,7 +24,6 @@ export const getCSSVariable = (key: string) => {
   return getComputedStyle(document.body).getPropertyValue(`--${ key }`)
 }
 
-
 // 临时清楚过渡效果
 export const temporaryClearTransition = (callback: () => void,time: number = 200) => {
   document.body.classList.add('noTransition')
@@ -34,7 +33,6 @@ export const temporaryClearTransition = (callback: () => void,time: number = 200
   },time)
 }
 
-
 // 异步等待
 export const asyncWait = async (millisecond: number) => {
   return new Promise(resolve => {
@@ -43,6 +41,3 @@ export const asyncWait = async (millisecond: number) => {
     },millisecond)
   })
 }
-
-
-// 将 reactive

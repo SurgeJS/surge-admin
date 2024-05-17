@@ -14,7 +14,7 @@ const test = async () => {
 </script>
 
 <template>
-  <div class="analysis">
+  <div v-focus class="analysis">
     <a-form>
       <a-form-item label="test">
         <icon-select v-model:value="icon" :icons="icons" />

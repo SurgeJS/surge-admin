@@ -1,3 +1,5 @@
+import { GlobalToken } from 'ant-design-vue/es/theme/interface'
+
 export default class AppConfig {
   // 系统主题色
   static THEME_COLOR = [
@@ -5,7 +7,7 @@ export default class AppConfig {
   ]
 
   // Antd主题属性key(用于生成CSS变量，方便于unoCss引用)
-  static ANTD_THEME_KEY: (keyof AntdTheme)[] = [
+  static ANTD_THEME_KEY: (keyof Partial<GlobalToken>)[] = [
     'colorPrimary',
     'colorPrimaryBg',
     'colorPrimaryBgHover',
@@ -43,10 +45,14 @@ export default class AppConfig {
   ]
 
   // Antd明亮主题
-  static ANTD_LIGHT_THEME: AntdTheme = {}
+  static ANTD_LIGHT_THEME: Partial<GlobalToken> = {
+    borderRadius: 4
+  }
 
   // Antd暗黑主题
-  static ANTD_DARK_THEME: AntdTheme = {}
+  static ANTD_DARK_THEME: Partial<GlobalToken> = {
+    borderRadius: 4
+  }
 
   // 自定义主题
   static CUSTOM_THEME: CustomTheme = {

@@ -94,6 +94,9 @@ export interface SchemaConfig<T extends Recordable = Recordable,C extends Compon
   // 自定义插槽
   slot?: string
 
+  // formItem 插槽
+  contentSlot?: string
+
   // 规则
   rule?: RulePresets | RuleObject[] | RuleObject
 
@@ -148,4 +151,9 @@ export type SchemaFormProps = FormProps & {
 
   // 自动placeholder (item的label为string才会生效)
   autoPlaceholder?: boolean
+}
+
+
+export interface SchemaFormEmits {
+  (e: 'register'): void
 }

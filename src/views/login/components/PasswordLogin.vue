@@ -1,12 +1,13 @@
-<script lang="ts" setup>
-import { useLoginContext } from '@/views/login/utils/useLoginContext'
+<script lang="tsx" setup>
+import { useLoginContext } from '@/views/login/utils/context'
 import { reactive,ref } from 'vue'
 import useAuthStore from '@/store/modules/auth'
 import { useToggle } from '@vueuse/core'
-import type { FormInstance,Rule } from 'ant-design-vue/es/form'
-import { LoginAction } from '@/views/login/utils/type'
+import type { FormInstance } from 'ant-design-vue/es/form'
+import { SchemaType } from '@/components/common/SchemaForm/type/props'
+import { LoginAction } from '@/views/login/type/enum'
 
-const loginContext = useLoginContext()
+const { setLoginAction } = useLoginContext()!
 const authStore = useAuthStore()
 const [ loading,toggleLoading ] = useToggle()
 
@@ -16,20 +17,45 @@ const form: UserModel.PasswordLoginParams = reactive({
   username: 'admin',
   password: '123456'
 })
-const rules: Recordable<Rule[]> = {
-  username: [
-    {
+
+const schema = ref<SchemaType<UserModel.PasswordLoginParams>[]>([
+  {
+    field: 'username',
+    component: 'Input',
+    placeholder: '请输入用户名',
+    componentProps: {
+      size: 'large'
+    },
+    componentContent: {
+      prefix: () => (<i class="i-ant-design:user-outlined"></i>)
+    },
+    rule: {
       message: '请输入账号',
       required: true
     }
-  ],
-  password: [
-    {
+  },
+  {
+    field: 'password',
+    component: 'Input',
+    placeholder: '请输入密码',
+    componentProps: {
+      size: 'large'
+    },
+    componentContent: {
+      prefix: () => (<i class="i-ant-design:lock-outlined"></i>)
+    },
+    rule: {
       message: '请输入密码',
       required: true
     }
-  ]
-}
+  },
+  {
+    slot: 'action'
+  },
+  {
+    slot: 'submit'
+  }
+])
 
 const handleLogin = async () => {
   await formRef.value?.validate()
@@ -41,32 +67,22 @@ const handleLogin = async () => {
 <template>
   <a-flex gap="middle" vertical>
     <h1>登录</h1>
-    <a-form
-      ref="formRef"
+    <schema-form
       :model="form"
-      :rules="rules"
+      :schema="schema"
     >
-      <a-form-item name="username">
-        <a-input
-          v-model:value="form.username"
-          placeholder="请输入账号"
-          size="large"
-        />
-      </a-form-item>
-      <a-form-item name="password">
-        <a-input-password
-          v-model:value="form.password"
-          placeholder="请输入密码"
-          size="large"
-        />
-      </a-form-item>
-      <a-form-item>
-        <a-flex gap="middle" justify="space-between">
+      <template #action>
+        <a-flex
+          class="mb-4"
+          gap="middle"
+          align="center"
+          justify="space-between"
+        >
           <a-checkbox>记住密码</a-checkbox>
           <a-button type="link">忘记密码？</a-button>
         </a-flex>
-      </a-form-item>
-      <a-form-item>
+      </template>
+      <template #submit>
         <a-button
           :loading="loading"
           block
@@ -76,12 +92,12 @@ const handleLogin = async () => {
         >
           登录
         </a-button>
-      </a-form-item>
-    </a-form>
+      </template>
+    </schema-form>
     <a-flex gap="middle" justify="space-between">
-      <a-button block @click="loginContext.setAction(LoginAction.PhoneLogin)">手机号登录</a-button>
-      <a-button block @click="loginContext.setAction(LoginAction.QrCodeLogin)">二维码登录</a-button>
-      <a-button block @click="loginContext.setAction(LoginAction.Register)">注册</a-button>
+      <a-button block @click="setLoginAction(LoginAction.PhoneLogin)">手机号登录</a-button>
+      <a-button block @click="setLoginAction(LoginAction.QrCodeLogin)">二维码登录</a-button>
+      <a-button block @click="setLoginAction(LoginAction.Register)">注册</a-button>
     </a-flex>
   </a-flex>
 </template>

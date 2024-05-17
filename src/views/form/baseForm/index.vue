@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import { CascaderProps } from 'ant-design-vue'
 import { SchemaType } from '@/components/common/SchemaForm/type/props'
 import { useToggle } from '@vueuse/core'
+import useSchemaForm from '@/components/common/SchemaForm/hooks/useSchemaForm'
 
 const [ isShow,toggleShow ] = useToggle(true)
 
@@ -202,6 +203,11 @@ const schema = ref<SchemaType<typeof form.value>[]>([
   },
   {
     slot: 'action'
+  }
+])
+const { register } = useSchemaForm<typeof form.value>([
+  {
+    field: 'Input'
   }
 ])
 const test = () => {

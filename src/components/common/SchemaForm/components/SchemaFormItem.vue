@@ -20,7 +20,14 @@ import {
 } from '@/components/common/SchemaForm/utils'
 import { useSchemaFormContext } from '@/components/common/SchemaForm/utils/context'
 
-export default defineComponent((props) => {
+export default defineComponent({
+  props: {
+    schemaConfig: {
+      type: Object as PropType<SchemaConfig>,
+      required: true
+    }
+  },
+  setup(props,{ slots }) {
     const { schemaConfig } = props
     const {
       label,
@@ -29,6 +36,7 @@ export default defineComponent((props) => {
       modelField,
       componentContent,
       componentProps,
+      contentSlot,
       options,
       rule,
       placeholder,
@@ -42,7 +50,6 @@ export default defineComponent((props) => {
       extra
     } = schemaConfig
     const { schemaFormProps } = useSchemaFormContext()!
-
 
     // labelCol配置
     const labelCol: Col | undefined = labelWidth ? {
@@ -134,7 +141,7 @@ export default defineComponent((props) => {
         if (!componentContent) return component === 'Upload' ? defaultSlot(defaultUpload) : undefined
 
         const content = callbackParamsFunction(componentContent)
-        
+
         if (isArray(content) || isString(content) || isVNode(content)) return defaultSlot(content)
 
         return content
@@ -160,13 +167,12 @@ export default defineComponent((props) => {
 
     // formItem slots
     const getFormItemSlots = () => {
-      const slots: Recordable = {}
-      if (label) slots.label = () => callbackParamsFunction(label)
-      if (helpCustomRender) slots.tooltip = () => callbackParamsFunction(helpCustomRender)
-      if (extra) slots.extra = () => callbackParamsFunction(extra)
-      return slots
+      const formItemSlots: Recordable = {}
+      if (label) formItemSlots.label = () => callbackParamsFunction(label)
+      if (helpCustomRender) formItemSlots.tooltip = () => callbackParamsFunction(helpCustomRender)
+      if (extra) formItemSlots.extra = () => callbackParamsFunction(extra)
+      return formItemSlots
     }
-
     return () => (
       <a-form-item
         v-show={ isHide() }
@@ -178,17 +184,10 @@ export default defineComponent((props) => {
         tooltip={ helpMessage }
         v-slots={ getFormItemSlots() }
       >
-        { renderComponent() }
+        { contentSlot ? slots.default?.() : renderComponent() }
       </a-form-item>
     )
-  },
-  {
-    props: {
-      schemaConfig: {
-        type: Object as PropType<SchemaConfig>,
-        required: true
-      }
-    }
-  })
+  }
+})
 </script>
 
