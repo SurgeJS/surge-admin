@@ -1,5 +1,5 @@
 <script lang="tsx">
-import { defineComponent,isVNode,PropType } from 'vue'
+import {defineComponent, isVNode, PropType} from 'vue'
 import {
   CallbackParams,
   CallbackParamsFunction,
@@ -7,8 +7,8 @@ import {
   MapComponentCommonProps,
   SchemaConfig
 } from '@/components/common/SchemaForm/type/props'
-import { SCHEMA_RENDER_COMPONENTS } from '@/components/common/SchemaForm/utils/components'
-import { isArray,isFunction,isNumber,isString } from 'lodash-es'
+import {SCHEMA_RENDER_COMPONENTS} from '@/components/common/SchemaForm/utils/components'
+import {isArray, isFunction, isNumber, isString} from 'lodash-es'
 import {
   generatePlaceholder,
   handleRulePresets,
@@ -18,7 +18,7 @@ import {
   isMapPlaceholder,
   isTimeComponent
 } from '@/components/common/SchemaForm/utils'
-import { useSchemaFormContext } from '@/components/common/SchemaForm/utils/context'
+import {useSchemaFormContext} from '@/components/common/SchemaForm/utils/context'
 
 export default defineComponent({
   props: {
@@ -27,8 +27,8 @@ export default defineComponent({
       required: true
     }
   },
-  setup(props,{ slots }) {
-    const { schemaConfig } = props
+  setup(props, {slots}) {
+    const {schemaConfig} = props
     const {
       label,
       component,
@@ -37,6 +37,7 @@ export default defineComponent({
       componentContent,
       componentProps,
       contentSlot,
+      slot,
       options,
       rule,
       placeholder,
@@ -47,13 +48,14 @@ export default defineComponent({
       helpMessage,
       helpCustomRender,
       labelWidth,
-      extra
+      extra,
+      colProps
     } = schemaConfig
-    const { schemaFormProps } = useSchemaFormContext()!
+    const {schemaFormProps} = useSchemaFormContext()!
 
     // labelCol配置
     const labelCol: Col | undefined = labelWidth ? {
-      style: { width: isNumber(labelWidth) ? `${ labelWidth }px` : labelWidth }
+      style: {width: isNumber(labelWidth) ? `${labelWidth}px` : labelWidth}
     } : undefined
 
     // 回调参数
@@ -65,9 +67,9 @@ export default defineComponent({
     }
 
     // 执行回调函数并返回原值
-    const callbackParamsFunction = <T = never>(value: T | CallbackParamsFunction<any,any,T>) => isFunction(value)
-                                                                                                ? value(callbackParams)
-                                                                                                : value
+    const callbackParamsFunction = <T = never>(value: T | CallbackParamsFunction<any, any, T>) => isFunction(value)
+        ? value(callbackParams)
+        : value
     // 处理Hide
     const isHide = () => hide ? callbackParamsFunction<boolean>(hide) : true
 
@@ -112,7 +114,7 @@ export default defineComponent({
         }
 
         // 处理自动生成Placeholder
-        if (schemaFormProps.autoPlaceholder) commonProps.placeholder = generatePlaceholder(label,component)
+        if (schemaFormProps.autoPlaceholder) commonProps.placeholder = generatePlaceholder(label, component)
 
         // 映射选项列表
         if (options && isMapOptions(component)) commonProps.options = options
@@ -136,7 +138,7 @@ export default defineComponent({
       // 获取组件插槽
       const getComponentSlot = () => {
         // 组件默认插槽内容
-        const defaultSlot = (slot: SchemaConfig['componentContent']) => ({ default: () => slot })
+        const defaultSlot = (slot: SchemaConfig['componentContent']) => ({default: () => slot})
 
         if (!componentContent) return component === 'Upload' ? defaultSlot(defaultUpload) : undefined
 
@@ -149,20 +151,20 @@ export default defineComponent({
 
       // 是否是checked类型的组件
       return isCheckComponent(component) ?
-             (
-               <DynamicComponent
-                 v-model:checked={ schemaFormProps.model[bindValue] }
-                 v-slots={ getComponentSlot() }
-                 { ...getComponentAttribute() }>
-               </DynamicComponent>
-             ) :
-             (
-               <DynamicComponent
-                 v-model:value={ schemaFormProps.model[bindValue] }
-                 v-slots={ getComponentSlot() }
-                 { ...getComponentAttribute() }>
-               </DynamicComponent>
-             )
+          (
+              <DynamicComponent
+                  v-model:checked={schemaFormProps.model[bindValue]}
+                  v-slots={getComponentSlot()}
+                  {...getComponentAttribute()}>
+              </DynamicComponent>
+          ) :
+          (
+              <DynamicComponent
+                  v-model:value={schemaFormProps.model[bindValue]}
+                  v-slots={getComponentSlot()}
+                  {...getComponentAttribute()}>
+              </DynamicComponent>
+          )
     }
 
     // formItem slots
@@ -173,19 +175,24 @@ export default defineComponent({
       if (extra) formItemSlots.extra = () => callbackParamsFunction(extra)
       return formItemSlots
     }
+    console.log(slot)
+
     return () => (
-      <a-form-item
-        v-show={ isHide() }
-        rules={ getRules() }
-        required={ required || schemaFormProps.required }
-        name={ schemaConfig.field }
-        label-col={ labelCol }
-        colon
-        tooltip={ helpMessage }
-        v-slots={ getFormItemSlots() }
-      >
-        { contentSlot ? slots.default?.() : renderComponent() }
-      </a-form-item>
+        <a-col v-show={isHide()} {...{...schemaFormProps.colProps, ...colProps}}>
+          <a-form-item
+              v-show={!slot}
+              rules={getRules()}
+              required={required || schemaFormProps.required}
+              name={schemaConfig.field}
+              label-col={labelCol}
+              colon
+              tooltip={helpMessage}
+              v-slots={getFormItemSlots()}
+          >
+            {contentSlot ? slots.default?.() : renderComponent()}
+          </a-form-item>
+          {slot && slots[slot]?.()}
+        </a-col>
     )
   }
 })

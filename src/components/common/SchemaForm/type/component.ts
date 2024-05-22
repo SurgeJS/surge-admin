@@ -1,84 +1,88 @@
 // 自定义选择器Props
-import type {
-  AutoCompleteProps,
-  CascaderProps,
-  CheckboxGroupProps,
-  CheckboxProps,
-  DatePickerProps,
-  InputNumberProps,
-  InputProps,
-  MentionsProps,
-  RadioGroupProps,
-  RadioProps,
-  RateProps,
-  SelectProps,
-  SliderProps,
-  SwitchProps,
-  TimePickerProps,
-  TimeRangePickerProps,
-  TreeSelectProps,
-  UploadProps
+import {
+    AutoCompleteProps,
+    CascaderProps,
+    CheckboxGroupProps,
+    CheckboxProps,
+    DatePickerProps,
+    InputNumberProps,
+    InputPassword,
+    InputProps,
+    MentionsProps,
+    RadioGroupProps,
+    RadioProps,
+    RateProps,
+    SelectProps,
+    SliderProps,
+    SwitchProps,
+    TimePickerProps,
+    TimeRangePickerProps,
+    TreeSelectProps,
+    UploadProps
 } from 'ant-design-vue'
 
 
 // SchemaForm 可渲染的组件
 export interface ComponentsProps {
-  // 输入框
-  Input: MaybeRefs<InputProps>
+    // 输入框
+    Input: MaybeRefs<InputProps>
 
-  // 选择器
-  Select: MaybeRefs<SelectProps>
+    // 密码输入框
+    InputPassword: MaybeRefs<InstanceType<typeof InputPassword>['$props']>
 
-  // 自动完成
-  AutoComplete: MaybeRefs<AutoCompleteProps>
+    // 选择器
+    Select: MaybeRefs<SelectProps>
 
-  // 级联选择
-  Cascader: MaybeRefs<CascaderProps>
+    // 自动完成
+    AutoComplete: MaybeRefs<AutoCompleteProps>
 
-  // 复选框
-  Checkbox: MaybeRefs<CheckboxProps>
+    // 级联选择
+    Cascader: MaybeRefs<CascaderProps>
 
-  // 复选框组
-  CheckboxGroup: MaybeRefs<CheckboxGroupProps>
+    // 复选框
+    Checkbox: MaybeRefs<CheckboxProps>
 
-  // 日期选择器
-  DatePicker: MaybeRefs<DatePickerProps>
+    // 复选框组
+    CheckboxGroup: MaybeRefs<CheckboxGroupProps>
 
-  // 日期范围选择器
-  DateRangePicker: MaybeRefs<DatePickerProps>
+    // 日期选择器
+    DatePicker: MaybeRefs<DatePickerProps>
 
-  // 数字输入框
-  InputNumber: MaybeRefs<InputNumberProps>
+    // 日期范围选择器
+    DateRangePicker: MaybeRefs<DatePickerProps>
 
-  // 提及
-  Mentions: MaybeRefs<MentionsProps>
+    // 数字输入框
+    InputNumber: MaybeRefs<InputNumberProps>
 
-  // 单选框
-  Radio: MaybeRefs<RadioProps>
+    // 提及
+    Mentions: MaybeRefs<MentionsProps>
 
-  // 单选框组
-  RadioGroup: MaybeRefs<RadioGroupProps>
+    // 单选框
+    Radio: MaybeRefs<RadioProps>
 
-  // 评分
-  Rate: MaybeRefs<RateProps>
+    // 单选框组
+    RadioGroup: MaybeRefs<RadioGroupProps>
 
-  // 滑动输入条
-  Slider: MaybeRefs<SliderProps>
+    // 评分
+    Rate: MaybeRefs<RateProps>
 
-  // 开关
-  Switch: MaybeRefs<SwitchProps>
+    // 滑动输入条
+    Slider: MaybeRefs<SliderProps>
 
-  // 时间选择框
-  TimePicker: MaybeRefs<TimePickerProps>
+    // 开关
+    Switch: MaybeRefs<SwitchProps>
 
-  // 时间范围选择框
-  TimeRangePicker: MaybeRefs<TimeRangePickerProps>
+    // 时间选择框
+    TimePicker: MaybeRefs<TimePickerProps>
 
-  // 树选择器
-  TreeSelect: MaybeRefs<TreeSelectProps>
+    // 时间范围选择框
+    TimeRangePicker: MaybeRefs<TimeRangePickerProps>
 
-  // 上传
-  Upload: MaybeRefs<UploadProps>
+    // 树选择器
+    TreeSelect: MaybeRefs<TreeSelectProps>
+
+    // 上传
+    Upload: MaybeRefs<UploadProps>
 }
 
 // 组件名称

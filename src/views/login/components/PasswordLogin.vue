@@ -1,15 +1,15 @@
 <script lang="tsx" setup>
-import { useLoginContext } from '@/views/login/utils/context'
-import { reactive,ref } from 'vue'
+import {useLoginContext} from '@/views/login/utils/context'
+import {reactive, ref} from 'vue'
 import useAuthStore from '@/store/modules/auth'
-import { useToggle } from '@vueuse/core'
-import type { FormInstance } from 'ant-design-vue/es/form'
-import { SchemaType } from '@/components/common/SchemaForm/type/props'
-import { LoginAction } from '@/views/login/type/enum'
+import {useToggle} from '@vueuse/core'
+import type {FormInstance} from 'ant-design-vue/es/form'
+import {SchemaType} from '@/components/common/SchemaForm/type/props'
+import {LoginAction} from '@/views/login/type/enum'
 
-const { setLoginAction } = useLoginContext()!
+const {setAction} = useLoginContext()!
 const authStore = useAuthStore()
-const [ loading,toggleLoading ] = useToggle()
+const [loading, toggleLoading] = useToggle()
 
 const formRef = ref<FormInstance>()
 
@@ -21,8 +21,8 @@ const form: UserModel.PasswordLoginParams = reactive({
 const schema = ref<SchemaType<UserModel.PasswordLoginParams>[]>([
   {
     field: 'username',
-    component: 'Input',
     placeholder: '请输入用户名',
+    component: 'Input',
     componentProps: {
       size: 'large'
     },
@@ -36,7 +36,7 @@ const schema = ref<SchemaType<UserModel.PasswordLoginParams>[]>([
   },
   {
     field: 'password',
-    component: 'Input',
+    component: 'InputPassword',
     placeholder: '请输入密码',
     componentProps: {
       size: 'large'
@@ -95,9 +95,9 @@ const handleLogin = async () => {
       </template>
     </schema-form>
     <a-flex gap="middle" justify="space-between">
-      <a-button block @click="setLoginAction(LoginAction.PhoneLogin)">手机号登录</a-button>
-      <a-button block @click="setLoginAction(LoginAction.QrCodeLogin)">二维码登录</a-button>
-      <a-button block @click="setLoginAction(LoginAction.Register)">注册</a-button>
+      <a-button block @click="setAction(LoginAction.PhoneLogin)">手机号登录</a-button>
+      <a-button block @click="setAction(LoginAction.QrCodeLogin)">二维码登录</a-button>
+      <a-button block @click="setAction(LoginAction.Register)">注册</a-button>
     </a-flex>
   </a-flex>
 </template>

@@ -1,11 +1,11 @@
 <script lang="tsx" setup>
-import { ref } from 'vue'
-import { CascaderProps } from 'ant-design-vue'
-import { SchemaType } from '@/components/common/SchemaForm/type/props'
-import { useToggle } from '@vueuse/core'
+import {onMounted, ref} from 'vue'
+import {CascaderProps} from 'ant-design-vue'
+import {SchemaType} from '@/components/common/SchemaForm/type/props'
+import {useToggle} from '@vueuse/core'
 import useSchemaForm from '@/components/common/SchemaForm/hooks/useSchemaForm'
 
-const [ isShow,toggleShow ] = useToggle(true)
+const [isShow, toggleShow] = useToggle(true)
 
 const status = ref([
   {
@@ -87,7 +87,7 @@ const schema = ref<SchemaType<typeof form.value>[]>([
     placeholder: 'Input',
     labelWidth: 150,
     rule: 'mail',
-    hide: ({ model }) => {
+    hide: ({model}) => {
       console.log(model)
       return model.Checkbox
     }
@@ -100,6 +100,9 @@ const schema = ref<SchemaType<typeof form.value>[]>([
     placeholder: 'sss',
     helpMessage: '提示',
     helpCustomRender: 'sada',
+    colProps: {
+      span: 24,
+    },
     componentContent(callbackParams) {
       return {
         dropdownRender(menuNode) {
@@ -205,7 +208,7 @@ const schema = ref<SchemaType<typeof form.value>[]>([
     slot: 'action'
   }
 ])
-const { register } = useSchemaForm<typeof form.value>([
+const {register} = useSchemaForm<typeof form.value>([
   {
     field: 'Input'
   }
@@ -213,12 +216,19 @@ const { register } = useSchemaForm<typeof form.value>([
 const test = () => {
   toggleShow()
 }
+
+const test2 = ref()
+
+onMounted(() => {
+  console.log(test2.value.$slots)
+});
 </script>
 
 <template>
   <div>
     <a-button @click="test">test</a-button>
     <schema-form
+      ref="test2"
       required
       :label-width="130"
       :schema="schema"

@@ -4,7 +4,7 @@ export default defineFakeRoute([
   {
     url: '/mock/passwordLogin',
     method: 'post',
-    timeout: 3000,
+    timeout: 1000,
     response: () => {
       return {
         code: 200,

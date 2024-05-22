@@ -1,17 +1,18 @@
-import { createInjectionState } from '@vueuse/core'
-import { ref } from 'vue'
-import { LoginAction } from '@/views/login/type/enum'
+import {createInjectionState} from '@vueuse/core'
+import {ref} from 'vue'
+import {LoginAction} from '@/views/login/type/enum'
 
 
-const [ useProvideLoginContext,useLoginContext ] = createInjectionState(() => {
-  const currentLoginAction = ref<LoginAction>(LoginAction.PasswordLogin)
+const [useProvideLoginContext, useLoginContext] = createInjectionState(() => {
+    // 当前行为
+    const currentAction = ref<LoginAction>(LoginAction.PasswordLogin)
 
-  // 设置登录行为
-  const setLoginAction = (action: LoginAction) => {
-    currentLoginAction.value = action
-  }
+    // 设置行为
+    const setAction = (action: LoginAction) => {
+        currentAction.value = action
+    }
 
-  return { currentLoginAction,setLoginAction }
+    return {currentAction, setAction}
 })
 
-export { useProvideLoginContext,useLoginContext }
+export {useProvideLoginContext, useLoginContext}

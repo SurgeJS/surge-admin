@@ -3,10 +3,10 @@
     <div v-if="!appStore.base.isMobile" class="w-[50%] h-full bg-primary flex-center">
       <div v-motion-slide-left class="i-local:login full-[80%]" />
     </div>
-    <div class="relative flex-1 flex-center">
+    <div v-motion-slide-right class="relative flex-1 flex-center">
       <theme-switch class="full-[24px] absolute right-[15px] top-[15px]" />
       <div class="relative w-[95%] max-w-[400px]">
-        <component :is="LOGIN_ACTION[currentLoginAction]" v-motion-slide-right />
+        <component :is="LOGIN_ACTION[currentAction]" v-motion-fade />
       </div>
     </div>
   </div>
@@ -19,14 +19,14 @@ import PhoneLogin from '@/views/login/components/PhoneLogin.vue'
 import QrCodeLogin from '@/views/login/components/QrCodeLogin.vue'
 import Register from '@/views/login/components/Register.vue'
 import ThemeSwitch from '@/views/login/components/ThemeSwitch.vue'
-import { useProvideLoginContext } from '@/views/login/utils/context'
+import {useProvideLoginContext} from '@/views/login/utils/context'
 
-defineOptions({ name: 'Login' })
+defineOptions({name: 'Login'})
 // 登录行为
-const LOGIN_ACTION = { PasswordLogin,PhoneLogin,QrCodeLogin,Register }
+const LOGIN_ACTION = {PasswordLogin, PhoneLogin, QrCodeLogin, Register}
 
 const appStore = useAppStore()
-const { currentLoginAction } = useProvideLoginContext()
+const {currentAction} = useProvideLoginContext()
 
 </script>
 

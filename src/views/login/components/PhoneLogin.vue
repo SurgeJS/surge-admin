@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import { useLoginContext } from '@/views/login/utils/context'
-import { LoginAction } from '@/views/login/type/enum'
+import {useLoginContext} from '@/views/login/utils/context'
+import {LoginAction} from '@/views/login/type/enum'
 
-const { setLoginAction } = useLoginContext()!
+const {setAction} = useLoginContext()!
 const form = {}
 </script>
 
@@ -32,7 +32,7 @@ const form = {}
         <a-button
           block
           size="large"
-          @click="setLoginAction(LoginAction.PasswordLogin)"
+          @click="setAction(LoginAction.PasswordLogin)"
         >
           返回
         </a-button>
