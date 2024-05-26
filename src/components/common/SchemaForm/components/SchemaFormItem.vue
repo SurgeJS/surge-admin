@@ -51,7 +51,7 @@ export default defineComponent({
       extra,
       colProps
     } = schemaConfig
-    const {schemaFormProps} = useSchemaFormContext()!
+    const {schemaFormProps, globalColProps} = useSchemaFormContext()!
 
     // labelCol配置
     const labelCol: Col | undefined = labelWidth ? {
@@ -175,10 +175,9 @@ export default defineComponent({
       if (extra) formItemSlots.extra = () => callbackParamsFunction(extra)
       return formItemSlots
     }
-    console.log(slot)
-
+    
     return () => (
-        <a-col v-show={isHide()} {...{...schemaFormProps.colProps, ...colProps}}>
+        <a-col v-show={isHide()} {...{...globalColProps.value, ...colProps}}>
           <a-form-item
               v-show={!slot}
               rules={getRules()}

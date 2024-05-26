@@ -98,7 +98,6 @@ export const handleRulePresets = (rule: RulePresets): RuleObject => {
   return {
     required: true,
     validator(_rule: Rule,value: string) {
-      console.log(value)
       if (!value) return Promise.reject(rulePresets[rule].requiredMessage)
       switch (rule) {
         case 'mail':
