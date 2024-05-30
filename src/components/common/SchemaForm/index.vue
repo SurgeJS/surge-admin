@@ -2,6 +2,7 @@
 import {
   GroupSchemaType,
   SchemaFormEmits,
+  SchemaFormExpose,
   SchemaFormProps,
   SchemaFormSlots,
   SchemaLayout,
@@ -18,6 +19,8 @@ const props = withDefaults(defineProps<SchemaFormProps>(),{
   required: false,
   autoPlaceholder: true,
   hideActionButton: false,
+  maskClosable: false,
+  container: 'card',
   defaultDateFormat: 'YYYY-MM-DD',
   defaultTimeFormat: 'HH:mm:ss',
   defaultValueDateFormat: 'YYYY-MM-DD',
@@ -28,7 +31,6 @@ const props = withDefaults(defineProps<SchemaFormProps>(),{
 
 const emits = defineEmits<SchemaFormEmits>()
 
-const model = defineModel<Recordable>('model',{ required: true })
 // 当前步骤条激活项
 const currentStep = defineModel<number>('currentStep',{ default: 0 })
 const visible = defineModel<boolean>('visible',{ default: false })
@@ -59,28 +61,22 @@ const formLayout = computed<FormLayout | undefined>(() => {
 // 步骤条选项
 const stepsItems = computed(() => props.stepSchema?.map(item => omit(item,[ 'form' ])))
 
-// 重置表单
-const onReset = () => {
-  formRef.value!.resetFields()
-  emits('afterReset')
-}
-
 // 查询事件
 const onSearch = () => {
-  emits('search',formRef.value!.validate,model)
+  emits('search',formRef.value!.validate,props.model)
 }
 
 // 提交事件
 const onSubmit = () => {
-  formRef.value!.validate()
-      .then(() => emits('submitSuccess',model))
+  formExpose.validate()
+      .then(() => emits('submitSuccess',props.model))
       .catch((err) => emits('submitError',err))
 }
 
 const handleGroupHide = (config: GroupSchemaType) => {
   let isHide = true
   if (isBoolean(config.hide)) isHide = !config.hide
-  if (isFunction(config.hide)) isHide = !config.hide({ group: config,model: model.value })
+  if (isFunction(config.hide)) isHide = !config.hide({ group: config,model: props.model })
   return isHide
 }
 
@@ -91,7 +87,7 @@ const getCurrentStepModel = () => {
   return props.stepSchema[currentStep.value]?.form.reduce<Recordable>((currentModel,item) => {
     if (!item.field) return currentModel
     const field = item.field as string
-    currentModel[field] = model.value[field]
+    currentModel[field] = props.model[field]
     return currentModel
   },{})
 }
@@ -105,14 +101,25 @@ const onPre = () => {
 // 下一步
 const onNext = () => {
   const currentModel = getCurrentStepModel()
-  formRef.value!.validate()
+  formExpose.validate()
       .then(() => {
-        emits('nextSuccess',currentModel,model.value)
+        emits('nextSuccess',currentModel,props.model)
         currentStep.value += 1
       })
       .catch((err) => emits('nextError',err))
 }
-defineExpose({ reset: onReset })
+
+const formExpose: SchemaFormExpose = {
+  validate(nameList) {
+    return formRef.value!.validate(nameList)
+  },
+  reset() {
+    formRef.value!.resetFields()
+    emits('afterReset')
+  }
+}
+
+defineExpose<SchemaFormExpose>(formExpose)
 </script>
 
 <template>
@@ -123,15 +130,6 @@ defineExpose({ reset: onReset })
           v-for="config in schema "
           :key="config.field||config.slot"
       >
-        <!--                <schema-form-item
-                            v-if="config.component||config.contentSlot||config.slot"
-                            :schema="config"
-                        >
-                          <slot v-if="config.contentSlot" :name="config.contentSlot" />
-                          <template v-if="config.slot" #[config.slot]>
-                            <slot :name="config.slot" />
-                          </template>
-                        </schema-form-item>-->
         <schema-form-item v-if="config.component||config.contentSlot||config.slot" :schema="config as any">
           <slot v-if="config.contentSlot" :name="config.contentSlot" />
           <template v-if="config.slot" v-slot:[config.slot]>
@@ -208,7 +206,7 @@ defineExpose({ reset: onReset })
       <slot name="beforeButton" />
       <slot name="customActionButton">
         <template v-if="props.schemaLayout==='search'">
-          <a-button @click="onReset">重置</a-button>
+          <a-button @click="formExpose.reset">重置</a-button>
           <a-button
               type="primary"
               :loading="props.submitLoading"
@@ -218,7 +216,7 @@ defineExpose({ reset: onReset })
           </a-button>
         </template>
         <template v-if="props.schemaLayout==='group' || !props.schemaLayout">
-          <a-button @click="onReset">重置</a-button>
+          <a-button @click="formExpose.reset">重置</a-button>
           <a-button type="primary" @click="onSubmit">提交</a-button>
         </template>
         <template v-if="props.schemaLayout==='step'">
@@ -242,7 +240,7 @@ defineExpose({ reset: onReset })
       v-bind="props.drawerProps"
       v-model:open="visible"
       :title="props.containerTitle"
-      :mask-closable="false"
+      :mask-closable="props.maskClosable"
   >
     <schema-form />
     <template #footer>
@@ -256,7 +254,7 @@ defineExpose({ reset: onReset })
       v-bind="props.modalProps"
       v-model:open="visible"
       :title="props.containerTitle"
-      :mask-closable="false"
+      :mask-closable="props.maskClosable"
   >
     <schema-form />
     <template #footer>
@@ -267,7 +265,7 @@ defineExpose({ reset: onReset })
   <!-- 卡片 -->
   <a-card
       v-else-if="props.container==='card'"
-      v-bind="props.modalProps"
+      v-bind="props.cardProps"
       :title="props.containerTitle"
   >
     <schema-form />

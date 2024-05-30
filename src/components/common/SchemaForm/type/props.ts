@@ -1,5 +1,5 @@
 import { CardProps,ColProps,DrawerProps,FormProps,ModalProps,RowProps,StepProps,StepsProps } from 'ant-design-vue'
-import { RuleObject } from 'ant-design-vue/es/form/interface'
+import { NamePath,RuleObject } from 'ant-design-vue/es/form/interface'
 import { ComponentsName,ComponentsProps } from '@/components/common/SchemaForm/type/component'
 import { DefaultOptionType } from 'ant-design-vue/es/vc-tree-select/TreeSelect'
 import { MaybeRef,VNode } from 'vue'
@@ -78,7 +78,7 @@ export type SchemaLayout = 'search' | 'group' | 'step'
  * @description modal 模态框
  * @description card 卡片
  */
-export type SchemaLayoutContainer = 'drawer' | 'modal' | 'card'
+export type SchemaLayoutContainer = 'drawer' | 'modal' | 'card' | false
 
 // 组件部分通用Props,这里的属性会映射到组件Props中
 export interface MapComponentCommonProps<T extends Recordable = Recordable,C extends ComponentsName = ComponentsName> {
@@ -107,7 +107,7 @@ export interface SchemaConfig<T extends Recordable = Recordable,C extends Compon
   label?: MaybeRef<SlotsContent | CallbackParamsFunction<T,C,SlotsContent>>
 
   // 组件
-  component?: MaybeRef<C>
+  component?: C
 
   // 组件属性
   componentProps?: ComponentsProps[C]
@@ -257,13 +257,13 @@ export type SchemaFormProps = FormProps & {
 
   // 卡片属性
   cardProps?: CardProps
+
+  // 点击遮罩层是否关闭模态框和抽屉
+  maskClosable?: boolean
 }
 
 // JSON 格式配置表单事件
 export interface SchemaFormEmits {
-  // 注册(用于useScheamForm)
-  (e: 'register'): void
-
   // 搜索事件
   (e: 'search',validate: FormExpose['validate'],model: Recordable): void
 
@@ -297,6 +297,43 @@ export interface SchemaFormSlots {
   // 自定义按钮后面
   afterButton(): any
 
-  // 自定义group标题(使用了groupTitle后helpMessage会失效)
+  /**
+   * 自定义group标题(使用了groupTitle后helpMessage会失效)
+   * @param {{groupSchema: GroupSchemaType}} props
+   * @returns {any}
+   */
   groupTitle(props: { groupSchema: GroupSchemaType }): any
+}
+
+
+// JSON 格式配置表单暴露的内容
+export interface SchemaFormExpose {
+  // 重置表单
+  reset(): any
+
+  // 验证表单
+  validate(nameList?: NamePath[]): Promise<any>
+
+  // /**
+  //  * 添加schema
+  //  * @param {SchemaType} schema 配置
+  //  * @param {number} index 添加到的位置，默认添加到最后
+  //  * @returns {any}
+  //  */
+  // addByField(schema: SchemaType,index: number): any
+  //
+  // /**
+  //  * 根据字段更新schema
+  //  * @param {string} field 字段
+  //  * @param {SchemaType | ((oldSchema: SchemaType) => SchemaType)} newSchema 新的配置
+  //  * @returns {any}
+  //  */
+  // updateByField(field: string,newSchema: SchemaType | ((oldSchema: SchemaType) => SchemaType)): any
+  //
+  // /**
+  //  * 根据字段删除schema
+  //  * @param {string} field
+  //  * @returns {any}
+  //  */
+  // removeByField(field: string): any
 }

@@ -68,16 +68,17 @@ const handleLogin = async () => {
   <a-flex gap="middle" vertical>
     <h1>登录</h1>
     <schema-form
-      :model="form"
-      hide-action-button
-      :schema="schema"
+        :container="false"
+        :model="form"
+        hide-action-button
+        :schema="schema"
     >
       <template #action>
         <a-flex
-          class="mb-4"
-          gap="middle"
-          align="center"
-          justify="space-between"
+            class="mb-4"
+            gap="middle"
+            align="center"
+            justify="space-between"
         >
           <a-checkbox>记住密码</a-checkbox>
           <a-button type="link">忘记密码？</a-button>
@@ -85,11 +86,11 @@ const handleLogin = async () => {
       </template>
       <template #submit>
         <a-button
-          :loading="loading"
-          block
-          size="large"
-          type="primary"
-          @click="handleLogin"
+            :loading="loading"
+            block
+            size="large"
+            type="primary"
+            @click="handleLogin"
         >
           登录
         </a-button>

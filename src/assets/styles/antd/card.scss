@@ -1,9 +1,10 @@
 .ant-card {
   display: flex;
   flex-direction: column;
+
   &-body {
     flex: 1;
     overflow: auto;
-    padding: 12px !important;
+    padding: 18px !important;
   }
 }

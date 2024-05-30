@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import { CascaderProps } from 'ant-design-vue'
 import { useToggle } from '@vueuse/core'
 import { SchemaType } from '@/components/common/SchemaForm/type/props'
+import SchemForm from '@/components/common/SchemaForm/index.vue'
 
 const [ isShow,toggleShow ] = useToggle(false)
 
@@ -78,11 +79,15 @@ const form = ref({
   Upload: undefined
 })
 
+const formRef = ref<InstanceType<typeof SchemForm>>()
 const schema: SchemaType<typeof form.value>[] = [
   {
     field: 'Input',
     label: '输入框',
     component: 'Input',
+    componentProps: {
+      prefix() {}
+    },
     placeholder: 'Input',
     labelWidth: 150,
     rule: 'mail',
@@ -204,6 +209,7 @@ const test = () => {
   <div>
     <a-button @click="test">test</a-button>
     <schema-form
+        ref="formRef"
         v-model:model="form"
         :col-props="{span:12}"
         :label-width="100"
