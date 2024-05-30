@@ -2,6 +2,7 @@ import { createInjectionState } from '@vueuse/core'
 import { SchemaFormProps } from '@/components/common/SchemaForm/type/props'
 import { computed } from 'vue'
 import { ColProps } from 'ant-design-vue'
+import useOmitProps from '@/hooks/common/useOmitProps'
 
 // 默认表单栅格
 const DEFAULT_FORM_COL = {
@@ -19,6 +20,37 @@ const SEARCH_FORM_COL: ColProps = {
 }
 
 const [ useProvideSchemaFormContext,useSchemaFormContext ] = createInjectionState((schemaFormProps: SchemaFormProps) => {
+  const aFormProps = useOmitProps(schemaFormProps,[
+    'formClass',
+    'formStyle',
+    'schema',
+    'groupSchema',
+    'stepSchema',
+    'model',
+    'container',
+    'containerTitle',
+    'visible',
+    'required',
+    'labelCol',
+    'labelWidth',
+    'colProps',
+    'rowProps',
+    'schemaLayout',
+    'layout',
+    'submitLoading',
+    'hideActionButton',
+    'defaultDateFormat',
+    'defaultTimeFormat',
+    'defaultValueDateFormat',
+    'defaultValueTimeFormat',
+    'autoPlaceholder',
+    'currentStep',
+    'stepsProps',
+    'drawerProps',
+    'modalProps',
+    'cardProps'
+  ])
+
   // 全局Col属性
   const globalColProps = computed<ColProps>(() => {
     if (schemaFormProps.colProps) return schemaFormProps.colProps
@@ -28,7 +60,7 @@ const [ useProvideSchemaFormContext,useSchemaFormContext ] = createInjectionStat
     return DEFAULT_FORM_COL
   })
 
-  return { schemaFormProps,globalColProps }
+  return { schemaFormProps,globalColProps,aFormProps }
 })
 
 export { useProvideSchemaFormContext,useSchemaFormContext }

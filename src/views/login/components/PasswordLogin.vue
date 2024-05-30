@@ -1,15 +1,15 @@
 <script lang="tsx" setup>
-import {useLoginContext} from '@/views/login/utils/context'
-import {reactive, ref} from 'vue'
+import { useLoginContext } from '@/views/login/utils/context'
+import { reactive,ref } from 'vue'
 import useAuthStore from '@/store/modules/auth'
-import {useToggle} from '@vueuse/core'
-import type {FormInstance} from 'ant-design-vue/es/form'
-import {SchemaType} from '@/components/common/SchemaForm/type/props'
-import {LoginAction} from '@/views/login/type/enum'
+import { useToggle } from '@vueuse/core'
+import type { FormInstance } from 'ant-design-vue/es/form'
+import { SchemaType } from '@/components/common/SchemaForm/type/props'
+import { LoginAction } from '@/views/login/type/enum'
 
-const {setAction} = useLoginContext()!
+const { setAction } = useLoginContext()!
 const authStore = useAuthStore()
-const [loading, toggleLoading] = useToggle()
+const [ loading,toggleLoading ] = useToggle()
 
 const formRef = ref<FormInstance>()
 
@@ -69,6 +69,7 @@ const handleLogin = async () => {
     <h1>登录</h1>
     <schema-form
       :model="form"
+      hide-action-button
       :schema="schema"
     >
       <template #action>

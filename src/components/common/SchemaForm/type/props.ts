@@ -1,4 +1,4 @@
-import { ColProps,FormProps,RowProps,StepProps,StepsProps } from 'ant-design-vue'
+import { CardProps,ColProps,DrawerProps,FormProps,ModalProps,RowProps,StepProps,StepsProps } from 'ant-design-vue'
 import { RuleObject } from 'ant-design-vue/es/form/interface'
 import { ComponentsName,ComponentsProps } from '@/components/common/SchemaForm/type/component'
 import { DefaultOptionType } from 'ant-design-vue/es/vc-tree-select/TreeSelect'
@@ -8,7 +8,7 @@ import { FormExpose,FormLayout } from 'ant-design-vue/es/form/Form'
 
 // 回调参数
 export interface CallbackParams<T extends Recordable = Recordable,C extends ComponentsName = ComponentsName> {
-  schema: SchemaConfig<T,C>;
+  schema: SchemaType<T,C>;
   value: any;
   model: T;
   field: keyof T;
@@ -81,33 +81,33 @@ export type SchemaLayout = 'search' | 'group' | 'step'
 export type SchemaLayoutContainer = 'drawer' | 'modal' | 'card'
 
 // 组件部分通用Props,这里的属性会映射到组件Props中
-export interface MapComponentCommonProps {
+export interface MapComponentCommonProps<T extends Recordable = Recordable,C extends ComponentsName = ComponentsName> {
+  // 禁用状态
+  disabled?: MaybeRef<boolean | CallbackParamsFunction<T,C,boolean>>
+
   // 占位符(对 Input | Select | AutoComplete | Cascader | DatePicker | DateRangePicker | InputNumber | Mentions | TimePicker | TimeRangePicker | TreeSelect起作用)
-  placeholder?: string | string[]
+  placeholder?: MaybeRef<string | string[]>
 
   // 选项(对 Select | AutoComplete | Cascader | CheckboxGroup | Mentions | RadioGroup | TreeSelect起作用)
   options?: MaybeRef<DefaultOptionType[]>
 
   // 日期与时间格式
-  format?: DateComponentFormat
+  format?: MaybeRef<DateComponentFormat>
 
   // 绑定值格式
-  valueFormat?: DateComponentFormat
+  valueFormat?: MaybeRef<DateComponentFormat>
 }
 
 // Schema配置
-export interface SchemaConfig<T extends Recordable = Recordable,C extends ComponentsName = ComponentsName> extends MapComponentCommonProps {
+export interface SchemaConfig<T extends Recordable = Recordable,C extends ComponentsName = ComponentsName> extends MapComponentCommonProps<T,C> {
   // 字段
-  field?: keyof T
+  field?: MaybeRef<keyof T | string>
 
   // label 标签的文本
-  label?: SlotsContent | CallbackParamsFunction<T,C,SlotsContent>
-
-  // 绑定到 v-model 的变量名称
-  modelField?: string
+  label?: MaybeRef<SlotsContent | CallbackParamsFunction<T,C,SlotsContent>>
 
   // 组件
-  component?: C
+  component?: MaybeRef<C>
 
   // 组件属性
   componentProps?: ComponentsProps[C]
@@ -127,26 +127,27 @@ export interface SchemaConfig<T extends Recordable = Recordable,C extends Compon
   colProps?: ColProps
 
   // 规则
-  rule?: RulePresets | RuleObject[] | RuleObject
+  rule?: MaybeRef<RulePresets | RuleObject[] | RuleObject>
 
   // 必填
-  required?: boolean
+  required?: MaybeRef<C>
 
   // 该formItem是否隐藏
-  hide?: boolean | CallbackParamsFunction<T,C,boolean>
+  hide?: MaybeRef<boolean | CallbackParamsFunction<T,C,boolean>>
 
   // label 宽度
-  labelWidth?: number | string
+  labelWidth?: MaybeRef<number | string>
 
   // 帮助提示信息
-  helpMessage?: string
+  tooltip?: MaybeRef<string>
 
   // 帮助提示自定义渲染
-  helpCustomRender?: SlotsContent | CallbackParamsFunction<T,C,SlotsContent>
+  tooltipCustomRender?: SlotsContent | CallbackParamsFunction<T,C,SlotsContent>
 
   // 额外的
   extra?: SlotsContent | CallbackParamsFunction<T,C,SlotsContent>
 }
+
 
 // JSON 格式配置
 export type SchemaType<T extends Recordable = any,C extends ComponentsName = ComponentsName>
@@ -196,6 +197,9 @@ export type SchemaFormProps = FormProps & {
   // 容器
   container?: SchemaLayoutContainer
 
+  // 容器标题
+  containerTitle?: string
+
   // 模态框或者抽屉是否可见（传入 container 有效）
   visible?: boolean
 
@@ -221,6 +225,9 @@ export type SchemaFormProps = FormProps & {
   // 提交loading
   submitLoading?: boolean
 
+  // 是否隐藏操作按钮
+  hideActionButton?: boolean
+
   // 默认日期组件格式
   defaultDateFormat?: DateComponentFormat
 
@@ -241,6 +248,15 @@ export type SchemaFormProps = FormProps & {
 
   // 步骤条属性
   stepsProps?: StepsProps
+
+  // 抽屉属性
+  drawerProps?: DrawerProps
+
+  // 模态框属性
+  modalProps?: ModalProps
+
+  // 卡片属性
+  cardProps?: CardProps
 }
 
 // JSON 格式配置表单事件
@@ -283,10 +299,4 @@ export interface SchemaFormSlots {
 
   // 自定义group标题(使用了groupTitle后helpMessage会失效)
   groupTitle(props: { groupSchema: GroupSchemaType }): any
-}
-
-// JSON 格式配置表单插槽
-export interface SchemaFormExpose {
-  // 重置
-  reset(): any
 }

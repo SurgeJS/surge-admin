@@ -1,9 +1,8 @@
 <script lang="tsx" setup>
 import { ref } from 'vue'
 import { CascaderProps } from 'ant-design-vue'
-import { GroupSchemaType,SchemaType,StepSchemaType } from '@/components/common/SchemaForm/type/props'
 import { useToggle } from '@vueuse/core'
-import useSchemaForm from '@/components/common/SchemaForm/hooks/useSchemaForm'
+import { SchemaType } from '@/components/common/SchemaForm/type/props'
 
 const [ isShow,toggleShow ] = useToggle(false)
 
@@ -59,7 +58,7 @@ const options: CascaderProps['options'] = [
 ]
 
 const form = ref({
-  Input: '',
+  Input: undefined,
   Select: undefined,
   AutoComplete: undefined,
   Cascader: [],
@@ -79,7 +78,7 @@ const form = ref({
   Upload: undefined
 })
 
-const schema = ref<SchemaType<typeof form.value>[]>([
+const schema: SchemaType<typeof form.value>[] = [
   {
     field: 'Input',
     label: '输入框',
@@ -87,9 +86,7 @@ const schema = ref<SchemaType<typeof form.value>[]>([
     placeholder: 'Input',
     labelWidth: 150,
     rule: 'mail',
-    hide: ({ model }) => {
-      return model.Checkbox
-    }
+    hide: isShow
   },
   {
     field: 'Select',
@@ -97,18 +94,9 @@ const schema = ref<SchemaType<typeof form.value>[]>([
     component: 'Select',
     options: status,
     placeholder: 'sss',
-    helpMessage: '提示',
-    helpCustomRender: 'sada',
-    colProps: {
-      span: 24
-    },
-    componentContent(callbackParams) {
-      return {
-        dropdownRender(menuNode) {
-          return '21231'
-        }
-      }
-    }
+    disabled: isShow,
+    tooltip: '提示',
+    tooltipCustomRender: 'sada'
   },
   {
     field: 'AutoComplete',
@@ -204,318 +192,27 @@ const schema = ref<SchemaType<typeof form.value>[]>([
   {
     slot: 'action'
   }
-])
-
-const schema2 = ref<SchemaType<typeof form.value>[]>([
-  {
-    field: 'Input',
-    label: '输入框',
-    component: 'Input',
-    rule: 'mail'
-  },
-  {
-    field: 'Select',
-    label: '选择器',
-    component: 'Select',
-    options: status,
-    placeholder: 'sss',
-    helpMessage: '提示'
-  },
-  {
-    field: 'AutoComplete',
-    label: '自动完成',
-    component: 'AutoComplete',
-    componentProps: {
-      options: status
-    }
-  },
-  {
-    field: 'Cascader',
-    label: '级联选择',
-    component: 'Cascader',
-    componentProps: {
-      options: status
-    }
-  },
-  {
-    field: 'Checkbox',
-    label: '复选框',
-    component: 'Checkbox',
-    componentContent(p) {
-      return {
-        default() {
-          return '1231'
-        }
-      }
-    }
-  }
-])
-const { register } = useSchemaForm<typeof form.value>([
-  {
-    field: 'Input'
-  }
-])
-
-const groupSchema = ref<GroupSchemaType<typeof form.value>[]>([
-  {
-    title: '组1',
-    helpMessage: 'test',
-    hide: (params) => {
-      return Boolean(params.model.Select)
-    },
-    form: [
-      {
-        field: 'Input',
-        label: '输入框',
-        component: 'Input',
-        rule: 'mail'
-      },
-      {
-        field: 'Select',
-        label: '选择器',
-        component: 'Select',
-        options: status,
-        placeholder: 'sss',
-        helpMessage: '提示'
-      },
-      {
-        field: 'AutoComplete',
-        label: '自动完成',
-        component: 'AutoComplete',
-        componentProps: {
-          options: status
-        }
-      },
-      {
-        field: 'Cascader',
-        label: '级联选择',
-        component: 'Cascader',
-        componentProps: {
-          options: status
-        }
-      },
-      {
-        field: 'Checkbox',
-        label: '复选框',
-        component: 'Checkbox',
-        componentContent(p) {
-          return {
-            default() {
-              return '1231'
-            }
-          }
-        }
-      }
-    ]
-  },
-  {
-    title: 'test1',
-    form: [
-      {
-        field: 'Select',
-        label: '选择器',
-        component: 'Select',
-        options: status,
-        placeholder: 'sss',
-        helpMessage: '提示'
-      },
-      {
-        field: 'AutoComplete',
-        label: '自动完成',
-        component: 'AutoComplete',
-        componentProps: {
-          options: status
-        }
-      },
-      {
-        field: 'Cascader',
-        label: '级联选择',
-        component: 'Cascader',
-        componentProps: {
-          options: status
-        }
-      },
-      {
-        field: 'Checkbox',
-        label: '复选框',
-        component: 'Checkbox',
-        componentContent(p) {
-          return {
-            default() {
-              return '1231'
-            }
-          }
-        }
-      }
-    ]
-  }
-])
-const stepSchema = ref<StepSchemaType<typeof form.value>[]>([
-  {
-    title: '步骤一',
-    description: 'This is a description.',
-    form: [
-      {
-        field: 'Input',
-        label: '输入框',
-        component: 'Input',
-        rule: 'mail'
-      },
-      {
-        field: 'Select',
-        label: '选择器',
-        component: 'Select',
-        options: status,
-        placeholder: 'sss',
-        helpMessage: '提示'
-      },
-      {
-        field: 'AutoComplete',
-        label: '自动完成',
-        component: 'AutoComplete',
-        componentProps: {
-          options: status
-        }
-      },
-      {
-        field: 'Cascader',
-        label: '级联选择',
-        component: 'Cascader',
-        componentProps: {
-          options: status
-        }
-      },
-      {
-        field: 'Checkbox',
-        label: '复选框',
-        component: 'Checkbox',
-        componentContent(p) {
-          return {
-            default() {
-              return '1231'
-            }
-          }
-        }
-      }
-    ]
-  },
-  {
-    title: '步骤二',
-    description: 'This is a description.',
-    form: [
-      {
-        field: 'AutoComplete',
-        label: '自动完成',
-        component: 'AutoComplete',
-        componentProps: {
-          options: status
-        }
-      },
-      {
-        field: 'Cascader',
-        label: '级联选择',
-        component: 'Cascader',
-        componentProps: {
-          options: status
-        }
-      },
-      {
-        field: 'Checkbox',
-        label: '复选框',
-        component: 'Checkbox',
-        componentContent(p) {
-          return {
-            default() {
-              return '1231'
-            }
-          }
-        }
-      }
-    ]
-  },
-  {
-    title: '步骤三',
-    description: 'This is a description.',
-    form: [
-
-
-      {
-        field: 'Checkbox',
-        label: '复选框',
-        component: 'Checkbox',
-        componentContent(p) {
-          return {
-            default() {
-              return '1231'
-            }
-          }
-        }
-      }
-    ]
-  }
-])
+]
 
 const test = () => {
   toggleShow()
 }
 
-const onSearch = () => {
-  toggleShow()
-  setTimeout(() => {
-    toggleShow()
-  },1000)
-}
-
-const onNext = () => {
-
-}
 </script>
 
 <template>
   <div>
     <a-button @click="test">test</a-button>
     <schema-form
-      v-model:model="form"
-      :col-props="{span:12}"
-      :label-width="130"
-      :schema="schema"
+        v-model:model="form"
+        :col-props="{span:12}"
+        :label-width="100"
+        :schema="schema"
     >
       <template #action>
         <a-button type="primary">确定</a-button>
       </template>
     </schema-form>
-    <div>search</div>
-    <a-card>
-      <schema-form
-        :submit-loading="isShow"
-        schema-layout="search"
-        :label-width="90"
-        :schema="schema2"
-        :model="form"
-        @search="onSearch"
-      />
-    </a-card>
-    <div>group</div>
-    <a-card>
-      <schema-form
-        :group-schema="groupSchema"
-        :submit-loading="isShow"
-        :label-width="90"
-        schema-layout="group"
-        :model="form"
-      />
-    </a-card>
-    <a-card>
-      <schema-form
-        :step-schema="stepSchema"
-        :submit-loading="isShow"
-        form-class="w-[80%] m-auto pt-10"
-        :label-width="90"
-        schema-layout="step"
-        :model="form"
-        @next="onNext"
-      />
-    </a-card>
   </div>
 </template>
 

@@ -1,16 +1,13 @@
-<script lang="ts" setup>
+<script lang="tsx" setup>
 import AntDesignIconJson from '@iconify/json/json/ant-design.json'
-import {ref} from 'vue'
-import {TestApi} from '@/services/api/test'
+import { ref } from 'vue'
 
-defineOptions({name: 'DashboardAnalysis'})
+defineOptions({ name: 'DashboardAnalysis' })
 const icons = [
-  ...Object.keys(AntDesignIconJson.icons).map(key => `${AntDesignIconJson.prefix}:${key}`)
+  ...Object.keys(AntDesignIconJson.icons).map(key => `${ AntDesignIconJson.prefix }:${ key }`)
 ]
+const str = ref('')
 const icon = ref()
-const test = async () => {
-  const data = await TestApi.getATodoList({pageNo: 1, pageSize: 10})
-}
 </script>
 
 <template>
@@ -20,7 +17,6 @@ const test = async () => {
         <icon-select v-model:value="icon" :icons="icons" />
       </a-form-item>
     </a-form>
-    <a-button @click="test">test</a-button>
   </div>
 </template>
 

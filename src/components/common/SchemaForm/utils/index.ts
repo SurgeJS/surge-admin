@@ -4,7 +4,6 @@ import { Rule } from 'ant-design-vue/es/form'
 import RegularUtils from '@/utils/regular'
 import { RuleObject } from 'ant-design-vue/es/form/interface'
 
-
 // 是否映射options
 export const isMapOptions = (component: ComponentsName) => [
   'Select',
