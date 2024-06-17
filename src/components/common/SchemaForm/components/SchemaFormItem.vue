@@ -19,12 +19,14 @@ import {
   isMapPlaceholder,
   isTimeComponent
 } from '@/components/common/SchemaForm/utils'
-import { get,isArray,isFunction,isNumber,isString,set } from 'lodash-es'
+import { get,isArray,isFunction,isNumber,isString } from 'lodash-es'
+import { objectPathToArray } from '@/utils'
 
 const { schema } = defineProps<{ schema: Required<SchemaConfig> }>()
 
 const {
   field,
+  rangeField,
   component,
   label,
   options,
@@ -48,23 +50,28 @@ const {
 
 const slots = useSlots()
 
-const { schemaFormProps,globalColProps } = useSchemaFormContext()!
+const { schemaFormProps,globalColProps,model,getModelValue,setModelValue } = useSchemaFormContext()!
 
-// 双向绑定
+// const bindValue = ref(
+//     isDateTimeRangeComponent(component) && isArray(unref(rangeField)) ?
+//         [ get(model.value,unref(rangeField[0])),get(model.value,unref(rangeField[1])) ] :
+//     get(model.value,unref(field))
+// )
+
 const bindValue = computed({
   get() {
-    return get(schemaFormProps.model,unref(field))
+    return getModelValue(unref(field))
   },
-  set(newValue) {
-    set(schemaFormProps.model,unref(field),newValue)
+  set(value) {
+    setModelValue(unref(field),value)
   }
 })
 
 // 回调参数
 const callbackParams = computed<CallbackParams>(() => ({
   schema: schema as SchemaType,
-  model: schemaFormProps.model,
-  value: schemaFormProps.model[unref(field)],
+  model: model.value,
+  value: model.value[get(model.value,unref(field))],
   field: unref(field)
 }))
 
@@ -103,28 +110,28 @@ const dynamicComponentAttribute = computed<any>(() => {
   const globalDefaultProps: Recordable = {}
 
   // 处理默认日期格式
-  if (isDateComponent(unref(component))) {
+  if (isDateComponent(component)) {
     globalDefaultProps.format = schemaFormProps.defaultDateFormat
     globalDefaultProps.valueFormat = schemaFormProps.defaultValueDateFormat
   }
 
   // 处理默认日期格式
-  if (isTimeComponent(unref(component))) {
+  if (isTimeComponent(component)) {
     globalDefaultProps.format = schemaFormProps.defaultTimeFormat
     globalDefaultProps.valueFormat = schemaFormProps.defaultValueTimeFormat
   }
 
   // 处理自动生成Placeholder
-  if (schemaFormProps.autoPlaceholder) commonProps.placeholder = generatePlaceholder(unref(label),unref(component))
+  if (schemaFormProps.autoPlaceholder) commonProps.placeholder = generatePlaceholder(unref(label),component)
 
   // 映射选项列表
-  if (unref(options) && isMapOptions(unref(component))) commonProps.options = unref(options)
+  if (unref(options) && isMapOptions(component)) commonProps.options = unref(options)
 
   // 映射占位符
-  if (unref(placeholder) && isMapPlaceholder(unref(component))) commonProps.placeholder = unref(placeholder)
+  if (unref(placeholder) && isMapPlaceholder(component)) commonProps.placeholder = unref(placeholder)
 
   // 映射日期、日期格式
-  if ((unref(format) || unref(valueFormat)) && (isDateComponent(unref(component)) || isTimeComponent(unref(component)))) {
+  if ((unref(format) || unref(valueFormat)) && (isDateComponent(component) || isTimeComponent(component))) {
     if (unref(format)) commonProps.format = unref(format)
     if (unref(valueFormat)) commonProps.valueFormat = unref(valueFormat)
   }
@@ -144,7 +151,7 @@ const dynamicComponentAttribute = computed<any>(() => {
 const dynamicComponentSlots = computed(() => {
   // 组件默认插槽内容
   const defaultSlot = (slot: SchemaConfig['componentContent']) => ({ default: () => slot })
-
+  // TODO:默认上传暂时没思路
   // if (!componentContent) return component === 'Upload' ? defaultSlot(defaultUpload) : undefined
   if (!componentContent) return undefined
 
@@ -160,8 +167,22 @@ const callbackParamsFunction = <T = never>(value: T | CallbackParamsFunction<any
                                                                                             ? value(callbackParams.value)
                                                                                             : value
 
+// watch(bindValue,() => {
+//   const rField = unref(rangeField)
+//   if (isDateTimeRangeComponent(component) && isArray(rField)) {
+//     set(model.value,unref(rField[0]),bindValue.value[0])
+//     set(model.value,unref(rField[1]),bindValue.value[1])
+//   } else {
+//     set(model.value,unref(field),bindValue.value)
+//   }
+// })
+
+// watch(() => getModelValue(unref(field)),(newModel) => {
+//   console.log(newModel)
+// })
+
 const FormItem = () => {
-  const DynamicComponent = SCHEMA_RENDER_COMPONENTS[unref(component)]
+  const DynamicComponent = SCHEMA_RENDER_COMPONENTS[component]
 
   const renderComponent = () => {
     return isCheckComponent(unref(component)) ?
@@ -180,12 +201,14 @@ const FormItem = () => {
                </DynamicComponent>
            )
   }
-
+  // form item 组件的name属性不能接受 a.b.c 格式，只能将复杂的对象嵌套转成数组
+  const arrayName = objectPathToArray(unref(field))
+  const name = arrayName.length ? arrayName : undefined
   return (
       <a-form-item
           colon
           rules={ formItemRules.value }
-          name={ unref(field) }
+          name={ name }
           label-col={ labelCol.value }
           tooltip={ unref(tooltip) }
           required={ isRequired.value }
@@ -202,34 +225,15 @@ const FormItem = () => {
   <a-col v-if="isHide" v-bind="{...{...globalColProps, ...unref(colProps)}}">
     <form-item v-if="!slot"></form-item>
     <slot v-else :name="slot"></slot>
-    <!--    <form-item>
-          <RenderDynamicComponent></RenderDynamicComponent>
-          &lt;!&ndash;      <dynamic-component&ndash;&gt;
-          &lt;!&ndash;          v-if="isCheckComponent(component)"&ndash;&gt;
-          &lt;!&ndash;          v-bind="dynamicComponentAttribute"&ndash;&gt;
-          &lt;!&ndash;          v-model:checked="bindValue"&ndash;&gt;
-          &lt;!&ndash;      >&ndash;&gt;
-          &lt;!&ndash;        <template&ndash;&gt;
-          &lt;!&ndash;            v-for="(item,key) in dynamicComponentSlots"&ndash;&gt;
-          &lt;!&ndash;            :key="key"&ndash;&gt;
-          &lt;!&ndash;            #[key]="params"&ndash;&gt;
-          &lt;!&ndash;        >&ndash;&gt;
-          &lt;!&ndash;          <component :is="item(params)" />&ndash;&gt;
-          &lt;!&ndash;        </template>&ndash;&gt;
-          &lt;!&ndash;      </dynamic-component>&ndash;&gt;
-          &lt;!&ndash;      <dynamic-component&ndash;&gt;
-          &lt;!&ndash;          v-else&ndash;&gt;
-          &lt;!&ndash;          v-model:value="bindValue"&ndash;&gt;
-          &lt;!&ndash;          v-bind="dynamicComponentAttribute"&ndash;&gt;
-          &lt;!&ndash;      >&ndash;&gt;
-          &lt;!&ndash;        <template v-for="(item,key) in dynamicComponentSlots" #[key]="params">&ndash;&gt;
-          &lt;!&ndash;          <component :is="item(params)" />&ndash;&gt;
-          &lt;!&ndash;        </template>&ndash;&gt;
-          &lt;!&ndash;      </dynamic-component>&ndash;&gt;
-        </form-item>-->
   </a-col>
 </template>
 
 <style scoped lang="scss">
+:deep(.ant-input-number) {
+  width: 100%;
+}
 
+:deep(.ant-picker) {
+  width: 100%;
+}
 </style>

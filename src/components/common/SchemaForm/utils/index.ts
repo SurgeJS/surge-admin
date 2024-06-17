@@ -18,7 +18,9 @@ export const isMapOptions = (component: ComponentsName) => [
 // 是否映射placeholder
 export const isMapPlaceholder = (component: ComponentsName) => [
   'Input',
+  'InputPassword',
   'Select',
+  'Textarea',
   'AutoComplete',
   'Cascader',
   'DatePicker',
@@ -45,9 +47,17 @@ export const isTimeComponent = (component: ComponentsName) => [
   'TimeRangePicker'
 ].includes(component)
 
+// 是否日期时间范围类型组件
+export const isDateTimeRangeComponent = (component: ComponentsName) => [
+  'DateRangePicker',
+  'TimeRangePicker'
+].includes(component)
+
 // 是否输入类型的组件
 export const isInputComponent = (component: ComponentsName) => [
   'Input',
+  'InputPassword',
+  'Textarea',
   'AutoComplete',
   'InputNumber',
   'Mentions'

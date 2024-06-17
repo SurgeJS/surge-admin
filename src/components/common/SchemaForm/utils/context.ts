@@ -1,8 +1,9 @@
 import { createInjectionState } from '@vueuse/core'
 import { SchemaFormProps } from '@/components/common/SchemaForm/type/props'
-import { computed } from 'vue'
+import { computed,ModelRef } from 'vue'
 import { ColProps } from 'ant-design-vue'
 import useOmitProps from '@/hooks/common/useOmitProps'
+import { get,set } from 'lodash-es'
 
 // 默认表单栅格
 const DEFAULT_FORM_COL = {
@@ -19,7 +20,7 @@ const SEARCH_FORM_COL: ColProps = {
   xxl: 6
 }
 
-const [ useProvideSchemaFormContext,useSchemaFormContext ] = createInjectionState((schemaFormProps: SchemaFormProps) => {
+const [ useProvideSchemaFormContext,useSchemaFormContext ] = createInjectionState((schemaFormProps: SchemaFormProps,model: ModelRef<Recordable>) => {
   const aFormProps = useOmitProps(schemaFormProps,[
     'formClass',
     'formStyle',
@@ -48,7 +49,12 @@ const [ useProvideSchemaFormContext,useSchemaFormContext ] = createInjectionStat
     'stepsProps',
     'drawerProps',
     'modalProps',
-    'cardProps'
+    'cardProps',
+    'maskClosable',
+    'closeResetModel',
+    'closeConfirm',
+    'confirmTitle',
+    'confirmContent'
   ])
 
   // 全局Col属性
@@ -60,7 +66,15 @@ const [ useProvideSchemaFormContext,useSchemaFormContext ] = createInjectionStat
     return DEFAULT_FORM_COL
   })
 
-  return { schemaFormProps,globalColProps,aFormProps }
+  // 获取model值
+  const getModelValue = (field: string) => get(model.value,field)
+
+
+  // 设置model值
+  const setModelValue = (field: string,value: any) => set(model.value,field,value)
+
+
+  return { schemaFormProps,globalColProps,aFormProps,model,getModelValue,setModelValue }
 })
 
 export { useProvideSchemaFormContext,useSchemaFormContext }

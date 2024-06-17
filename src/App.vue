@@ -3,6 +3,7 @@ import { useGlobalInitialize } from '@/hooks/effect/useGlobalInitialize'
 import { useGlobalSubscribe } from '@/hooks/effect/useGlobalSubscribe'
 import useAppStore from '@/store/modules/app'
 import zhCN from 'ant-design-vue/es/locale/zh_CN'
+import { HelloWorld } from 'tudo-components'
 
 const appStore = useAppStore()
 // 全局初始化
@@ -12,11 +13,12 @@ useGlobalSubscribe()
 </script>
 
 <template>
+  <HelloWorld></HelloWorld>
   <a-config-provider
-    :locale="zhCN"
-    :auto-insert-space-in-button="appStore.antdConfig.autoInsertSpaceInButton"
-    :component-size="appStore.antdConfig.size"
-    :theme="appStore.themeConfig"
+      :locale="zhCN"
+      :auto-insert-space-in-button="appStore.antdConfig.autoInsertSpaceInButton"
+      :component-size="appStore.antdConfig.size"
+      :theme="appStore.themeConfig"
   >
     <a-app>
       <router-view />

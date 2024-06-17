@@ -21,37 +21,40 @@ export default defineComponent({
       return menus.map(item => {
         if (item.meta?.hideMenu) return
         const icon = () => item.meta?.icon ?
-                           (<svg-icon icon={ item.meta?.icon }></svg-icon>) :
+                           (<svg-icon size="18" icon={ item.meta?.icon }></svg-icon>) :
                            undefined
         if (item.component === 'submenu' || item.component === 'menu') {
           return (
-            <a-menu-item disabled={ item.meta?.disabledMenu } onClick={ () => router.push(item.path) }
-                         key={ item.path }
-                         v-slots={ { icon } }>
-              { item.meta?.title }
-            </a-menu-item>
+              <a-menu-item disabled={ item.meta?.disabledMenu } onClick={ () => router.push(item.path) }
+                           key={ item.path }
+                           v-slots={ { icon } }
+              >
+                { item.meta?.title }
+              </a-menu-item>
           )
         }
 
         if (item.component === 'basic' || item.component === 'directory') {
           return (
-            <a-sub-menu v-slots={ { icon,title: () => item.meta?.title } }
-                        key={ item.path }>
-              { item.children?.length && renderSubMenu(item.children) }
-            </a-sub-menu>
+              <a-sub-menu v-slots={ { icon,title: () => item.meta?.title } }
+                          key={ item.path }
+              >
+                { item.children?.length && renderSubMenu(item.children) }
+              </a-sub-menu>
           )
         }
       }).filter(item => item)
     }
 
     return () => (
-      <a-menu theme={ props.dark ? 'dark' : 'light' }
-              selected-keys={ [ route.path ] }
-              inline-collapsed={ props.collapsed }
-              accordion={ sidebar.isMenuAccordion }
-              mode={ props.horizontal ? 'horizontal' : 'inline' }>
-        { renderSubMenu(props.menus) }
-      </a-menu>
+        <a-menu theme={ props.dark ? 'dark' : 'light' }
+                selected-keys={ [ route.path ] }
+                inline-collapsed={ props.collapsed }
+                accordion={ sidebar.isMenuAccordion }
+                mode={ props.horizontal ? 'horizontal' : 'inline' }
+        >
+          { renderSubMenu(props.menus) }
+        </a-menu>
     )
   }
 })

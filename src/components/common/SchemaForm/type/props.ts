@@ -130,7 +130,7 @@ export interface SchemaConfig<T extends Recordable = Recordable,C extends Compon
   rule?: MaybeRef<RulePresets | RuleObject[] | RuleObject>
 
   // 必填
-  required?: MaybeRef<C>
+  required?: MaybeRef<boolean>
 
   // 该formItem是否隐藏
   hide?: MaybeRef<boolean | CallbackParamsFunction<T,C,boolean>>
@@ -260,6 +260,18 @@ export type SchemaFormProps = FormProps & {
 
   // 点击遮罩层是否关闭模态框和抽屉
   maskClosable?: boolean
+
+  // 关闭模态框和抽屉的时候重置表单
+  closeResetModel?: boolean
+
+  // 关闭模态框和抽屉的时候弹框确定是否关闭
+  closeConfirm?: boolean
+
+  // 确认弹框标题
+  confirmTitle?: string
+
+  // 确认弹框标题内容
+  confirmContent?: string
 }
 
 // JSON 格式配置表单事件
@@ -308,8 +320,8 @@ export interface SchemaFormSlots {
 
 // JSON 格式配置表单暴露的内容
 export interface SchemaFormExpose {
-  // 重置表单
-  reset(): any
+  // 重置表单字段
+  resetFields(): any
 
   // 验证表单
   validate(nameList?: NamePath[]): Promise<any>

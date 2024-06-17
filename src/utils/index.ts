@@ -41,3 +41,10 @@ export const asyncWait = async (millisecond: number) => {
     },millisecond)
   })
 }
+
+// 对象路径转为数组路径
+export const objectPathToArray = (path?: string): string[] => {
+  const regex = /[^.[\]]+/g
+  const result = path?.match(regex)
+  return result || []
+}

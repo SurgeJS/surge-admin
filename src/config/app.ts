@@ -45,14 +45,10 @@ export default class AppConfig {
   ]
 
   // Antd明亮主题
-  static ANTD_LIGHT_THEME: Partial<GlobalToken> = {
-    borderRadius: 4
-  }
+  static ANTD_LIGHT_THEME: Partial<GlobalToken> = {}
 
   // Antd暗黑主题
-  static ANTD_DARK_THEME: Partial<GlobalToken> = {
-    borderRadius: 4
-  }
+  static ANTD_DARK_THEME: Partial<GlobalToken> = {}
 
   // 自定义主题
   static CUSTOM_THEME: CustomTheme = {

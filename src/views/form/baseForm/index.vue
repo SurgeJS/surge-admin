@@ -26,15 +26,15 @@ const status = ref([
 const options: CascaderProps['options'] = [
   {
     value: 'zhejiang',
-    label: 'Zhejiang',
+    label: '浙江',
     children: [
       {
         value: 'hangzhou',
-        label: 'Hangzhou',
+        label: '杭州',
         children: [
           {
             value: 'xihu',
-            label: 'West Lake'
+            label: '西湖'
           }
         ]
       }
@@ -42,15 +42,15 @@ const options: CascaderProps['options'] = [
   },
   {
     value: 'jiangsu',
-    label: 'Jiangsu',
+    label: '江苏',
     children: [
       {
         value: 'nanjing',
-        label: 'Nanjing',
+        label: '南京',
         children: [
           {
             value: 'zhonghuamen',
-            label: 'Zhong Hua Men'
+            label: '中华门'
           }
         ]
       }
@@ -76,7 +76,9 @@ const form = ref({
   TimePicker: undefined,
   TimeRangePicker: undefined,
   TreeSelect: undefined,
-  Upload: undefined
+  Upload: undefined,
+  start: undefined,
+  end: undefined
 })
 
 const formRef = ref<InstanceType<typeof SchemForm>>()
@@ -85,13 +87,9 @@ const schema: SchemaType<typeof form.value>[] = [
     field: 'Input',
     label: '输入框',
     component: 'Input',
-    componentProps: {
-      prefix() {}
-    },
     placeholder: 'Input',
     labelWidth: 150,
-    rule: 'mail',
-    hide: isShow
+    rule: 'mail'
   },
   {
     field: 'Select',
@@ -149,7 +147,7 @@ const schema: SchemaType<typeof form.value>[] = [
     // valueFormat: 'YYYY-MM-DD'
   },
   {
-    field: 'DateRangePicker',
+    rangeField: [ 'start','end' ],
     label: '日期范围选择器',
     component: 'DateRangePicker'
   },

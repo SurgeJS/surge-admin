@@ -1,0 +1,165 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+import { SchemaType } from '@/components/common/SchemaForm/type/props'
+import { DefaultOptionType } from 'ant-design-vue/es/vc-tree-select/TreeSelect'
+import { message } from 'ant-design-vue'
+import { useToggle } from '@vueuse/core'
+import { asyncWait } from '@/utils'
+
+const [ isShow,toggleShow ] = useToggle()
+
+const form = ref({
+  name: {
+    test: undefined
+  },
+  email: undefined,
+  age: undefined,
+  password: undefined,
+  status: 0,
+  skill: undefined,
+  date: [],
+  startTime: undefined,
+  endTime: undefined,
+  area: undefined,
+  organization: undefined,
+  score: 3,
+  show: true,
+  description: undefined
+})
+
+const status = ref([
+  {
+    value: 0,
+    label: '未解决'
+  },
+  {
+    value: 1,
+    label: '已解决'
+  },
+  {
+    value: 2,
+    label: '解决中',
+    disabled: true
+  },
+  {
+    value: 3,
+    label: '失败'
+  }
+])
+
+const area: DefaultOptionType[] = [
+  {
+    value: 'zhejiang',
+    label: '浙江',
+    children: [
+      {
+        value: 'hangzhou',
+        label: '杭州',
+        children: [
+          {
+            value: 'xihu',
+            label: '西湖'
+          }
+        ]
+      }
+    ]
+  },
+  {
+    value: 'jiangsu',
+    label: '江苏',
+    children: [
+      {
+        value: 'nanjing',
+        label: '南京',
+        children: [
+          {
+            value: 'zhonghuamen',
+            label: '中华门'
+          }
+        ]
+      }
+    ]
+  }
+]
+
+const schema1: SchemaType<typeof form.value>[] = [
+  {
+    field: 'name.test',
+    label: '名称',
+    component: 'Input'
+  },
+  {
+    field: 'email',
+    label: '邮箱',
+    component: 'Input'
+  },
+  {
+    field: 'status',
+    label: '状态',
+    component: 'Select',
+    options: status
+  },
+  {
+    field: 'startTime',
+    label: '开始时间',
+    component: 'TimePicker'
+  },
+  {
+    field: 'endTime',
+    label: '结束时间',
+    component: 'TimePicker'
+  },
+  {
+    field: 'date',
+    label: '开始结束日期',
+    component: 'DateRangePicker'
+  },
+  {
+    field: 'area',
+    label: '地区',
+    component: 'Cascader',
+    options: area
+  },
+  {
+    field: 'organization',
+    label: '组织机构',
+    component: 'TreeSelect',
+    options: area
+  }
+]
+
+const onSearch = async () => {
+  toggleShow()
+  await asyncWait(2000)
+  toggleShow()
+  message.success('搜索成功')
+}
+</script>
+
+<template>
+  <div>
+    <a-alert
+        message="Schema Form（JSON 格式配置表单）"
+        type="info"
+        show-icon
+    >
+      <template #description>
+        <p>自动化生成表单：通过定义JSON Schema，可以自动生成对应的表单界面，减少了手工编写表单的工作量。</p>
+        <p>一致性和标准化：使用统一的JSON Schema描述数据结构，确保表单的一致性和标准化，便于维护和扩展。</p>
+        <p>动态性强：表单可以根据Schema动态变化，适应不同的数据结构需求，增强了表单的灵活性。</p>
+        <p>可扩展性好：支持自定义组件，便于开发者根据需要扩展表单功能，满足特定业务需求。</p>
+      </template>
+    </a-alert>
+    <schema-form
+        @search="onSearch"
+        schema-layout="search"
+        :submit-loading="isShow"
+        label-width="100"
+        v-model:model="form"
+        :schema="schema1"
+    ></schema-form>
+  </div>
+</template>
+
+<style scoped lang="scss">
+</style>
