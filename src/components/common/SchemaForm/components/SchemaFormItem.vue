@@ -26,7 +26,6 @@ const { schema } = defineProps<{ schema: Required<SchemaConfig> }>()
 
 const {
   field,
-  rangeField,
   component,
   label,
   options,
@@ -52,11 +51,6 @@ const slots = useSlots()
 
 const { schemaFormProps,globalColProps,model,getModelValue,setModelValue } = useSchemaFormContext()!
 
-// const bindValue = ref(
-//     isDateTimeRangeComponent(component) && isArray(unref(rangeField)) ?
-//         [ get(model.value,unref(rangeField[0])),get(model.value,unref(rangeField[1])) ] :
-//     get(model.value,unref(field))
-// )
 
 const bindValue = computed({
   get() {
@@ -167,19 +161,6 @@ const callbackParamsFunction = <T = never>(value: T | CallbackParamsFunction<any
                                                                                             ? value(callbackParams.value)
                                                                                             : value
 
-// watch(bindValue,() => {
-//   const rField = unref(rangeField)
-//   if (isDateTimeRangeComponent(component) && isArray(rField)) {
-//     set(model.value,unref(rField[0]),bindValue.value[0])
-//     set(model.value,unref(rField[1]),bindValue.value[1])
-//   } else {
-//     set(model.value,unref(field),bindValue.value)
-//   }
-// })
-
-// watch(() => getModelValue(unref(field)),(newModel) => {
-//   console.log(newModel)
-// })
 
 const FormItem = () => {
   const DynamicComponent = SCHEMA_RENDER_COMPONENTS[component]

@@ -9,8 +9,8 @@ export default {
   },
   children: [
     {
-      path: '/system/userManagement',
-      name: 'system/userManagement',
+      path: '/system/userManage',
+      name: 'system/userManage',
       meta: {
         title: '用户管理'
       },

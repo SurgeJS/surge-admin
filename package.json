@@ -19,7 +19,6 @@
     "@vueuse/components": "^10.10.0",
     "@vueuse/core": "^10.10.0",
     "@vueuse/motion": "^2.1.0",
-    "tudo-components": "^0.0.2",
     "alova": "^2.20.5",
     "ant-design-vue": "^4.2.1",
     "dayjs": "^1.11.11",
