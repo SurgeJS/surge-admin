@@ -48,6 +48,7 @@ for (let i = 1; i <= 500; i++) {
     <base-table
       v-model:columns="columns"
       heading="基础表头"
+      bordered
       :data-source="dataSource"
     >
       <template #header-extra>

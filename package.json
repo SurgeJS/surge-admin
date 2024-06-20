@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@alova/scene-vue": "^1.6.1",
+    "@ant-design/icons-vue": "^7.0.1",
     "@iconify/utils": "^2.1.23",
     "@vueuse/components": "^10.10.0",
     "@vueuse/core": "^10.10.0",
@@ -28,7 +29,6 @@
     "nprogress": "^0.2.0",
     "pinia": "^2.1.7",
     "print-js": "^1.6.0",
-    "qs": "^6.12.1",
     "store2": "^2.14.3",
     "vue": "^3.4.27",
     "vue-draggable-plus": "^0.4.1",

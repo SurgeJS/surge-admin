@@ -11,6 +11,9 @@ importers:
       '@alova/scene-vue':
         specifier: ^1.6.1
         version: 1.6.1
+      '@ant-design/icons-vue':
+        specifier: ^7.0.1
+        version: 7.0.1(vue@3.4.27(typescript@5.4.5))
       '@iconify/utils':
         specifier: ^2.1.23
         version: 2.1.23
@@ -50,9 +53,6 @@ importers:
       print-js:
         specifier: ^1.6.0
         version: 1.6.0
-      qs:
-        specifier: ^6.12.1
-        version: 6.12.1
       store2:
         specifier: ^2.14.3
         version: 2.14.3
@@ -3093,10 +3093,6 @@ packages:
   punycode@2.3.1:
     resolution: {integrity: sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==}
     engines: {node: '>=6'}
-
-  qs@6.12.1:
-    resolution: {integrity: sha512-zWmv4RSuB9r2mYQw3zxQuHWeU+42aKi1wWig/j4ele4ygELZ7PEO6MM7rim9oAQH2A5MWfsAVf/jPvTPgCbvUQ==}
-    engines: {node: '>=0.6'}
 
   queue-microtask@1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
@@ -7170,10 +7166,6 @@ snapshots:
   print-js@1.6.0: {}
 
   punycode@2.3.1: {}
-
-  qs@6.12.1:
-    dependencies:
-      side-channel: 1.0.6
 
   queue-microtask@1.2.3: {}
 
