@@ -1,5 +1,5 @@
-import { ComponentsName } from '@/components/common/SchemaForm/type/component'
-import { RulePresets,SchemaConfig } from '@/components/common/SchemaForm/type/props'
+import { ComponentsName } from '@/components/common/SchemaForm/types/component'
+import { RulePresets,SchemaConfig } from '@/components/common/SchemaForm/types/type'
 import { Rule } from 'ant-design-vue/es/form'
 import RegularUtils from '@/utils/regular'
 import { RuleObject } from 'ant-design-vue/es/form/interface'

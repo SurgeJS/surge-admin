@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import Tree from '@/views/system/userManage/components/Tree.vue'
-import { SchemaType } from '@/components/common/SchemaForm/type/props'
+import { SchemaType } from '@/components/common/SchemaForm/types/type'
 import { asyncWait } from '@/utils'
 import { message } from 'ant-design-vue'
 import { useToggle } from '@vueuse/core'

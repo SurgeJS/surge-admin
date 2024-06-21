@@ -4,7 +4,7 @@ import { reactive,ref } from 'vue'
 import useAuthStore from '@/store/modules/auth'
 import { useToggle } from '@vueuse/core'
 import type { FormInstance } from 'ant-design-vue/es/form'
-import { SchemaType } from '@/components/common/SchemaForm/type/props'
+import { SchemaType } from '@/components/common/SchemaForm/types/type'
 import { LoginAction } from '@/views/login/type/enum'
 
 const { setAction } = useLoginContext()!

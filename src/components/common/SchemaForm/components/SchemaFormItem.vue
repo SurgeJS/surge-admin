@@ -6,7 +6,7 @@ import {
   MapComponentCommonProps,
   SchemaConfig,
   SchemaType
-} from '@/components/common/SchemaForm/type/props'
+} from '@/components/common/SchemaForm/types/type'
 import { useSchemaFormContext } from '@/components/common/SchemaForm/utils/context'
 import { computed,isVNode,ref,unref,useSlots } from 'vue'
 import { SCHEMA_RENDER_COMPONENTS } from '@/components/common/SchemaForm/utils/components'

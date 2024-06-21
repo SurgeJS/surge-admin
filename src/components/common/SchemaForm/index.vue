@@ -7,12 +7,11 @@ import {
   SchemaFormSlots,
   SchemaLayout,
   SchemaType
-} from '@/components/common/SchemaForm/type/props'
+} from '@/components/common/SchemaForm/types/type'
 import {useProvideSchemaFormContext} from '@/components/common/SchemaForm/utils/context'
 import {computed, ref} from 'vue'
 import {createReusableTemplate} from '@vueuse/core'
 import {FormInstance} from 'ant-design-vue/es/form'
-import {FormLayout} from 'ant-design-vue/es/form/Form'
 import {isBoolean, isFunction, omit, set} from 'lodash-es'
 import SchemaFormItem from '@/components/common/SchemaForm/components/SchemaFormItem.vue'
 import {Modal} from 'ant-design-vue'
@@ -45,14 +44,23 @@ const model = defineModel<Recordable>('model', {required: true})
 const slots = defineSlots<SchemaFormSlots>()
 
 const [DefineFormContent, FormContent] = createReusableTemplate<{ schema?: SchemaType[] }>()
-const [DefineScheamForm, SchemaForm] = createReusableTemplate()
+const [DefineSchemaForm, SchemaForm] = createReusableTemplate()
 const [DefineButtonAction, ButtonAction] = createReusableTemplate<{ schemaLayout?: SchemaLayout }>()
 
 // 提供Schema上下文
-const {aFormProps, getModelValue, setModelValue} = useProvideSchemaFormContext(props, model)
+const {aFormProps, getModelValue} = useProvideSchemaFormContext(props, model)
 
 // 表单实例
 const formRef = ref<FormInstance>()
+
+const currentVisibleSchemas = computed({
+  get() {
+    return props.schema
+  },
+  set() {
+
+  },
+})
 
 const formClassObj = computed(() => {
   return {
@@ -179,7 +187,7 @@ defineExpose<SchemaFormExpose>(formExpose)
   </define-form-content>
 
   <!--  定义Form  -->
-  <define-scheam-form>
+  <define-schema-form>
     <a-steps
         v-if="props.schemaLayout==='step'"
         v-bind="props.stepsProps"
@@ -225,7 +233,7 @@ defineExpose<SchemaFormExpose>(formExpose)
         <button-action v-if="props.container=='card'&&props.schemaLayout!=='search'"/>
       </template>
     </a-form>
-  </define-scheam-form>
+  </define-schema-form>
 
   <!--  定义操作按钮  -->
   <define-button-action>
@@ -272,12 +280,20 @@ defineExpose<SchemaFormExpose>(formExpose)
       @close="onCancel"
       v-bind="props.drawerProps"
       :open="visible"
-      :title="props.containerTitle"
       :mask-closable="props.maskClosable"
   >
+    <template #title>
+      <slot name="containerTitle">
+        {{ props.containerTitle }}
+      </slot>
+    </template>
+    <slot name="containerFormContentBefore"/>
     <schema-form/>
+    <slot name="containerFormContentAfter"/>
     <template #footer>
-      <button-action/>
+      <slot name="containerFooter">
+        <button-action/>
+      </slot>
     </template>
   </a-drawer>
 
@@ -287,12 +303,20 @@ defineExpose<SchemaFormExpose>(formExpose)
       @cancel="onCancel"
       v-bind="props.modalProps"
       :open="visible"
-      :title="props.containerTitle"
       :mask-closable="props.maskClosable"
   >
+    <template #title>
+      <slot name="containerTitle">
+        {{ props.containerTitle }}
+      </slot>
+    </template>
+    <slot name="containerFormContentBefore"/>
     <schema-form/>
+    <slot name="containerFormContentAfter"/>
     <template #footer>
-      <button-action/>
+      <slot name="containerFooter">
+        <button-action/>
+      </slot>
     </template>
   </a-modal>
 
@@ -300,9 +324,15 @@ defineExpose<SchemaFormExpose>(formExpose)
   <a-card
       v-else-if="props.container==='card'"
       v-bind="props.cardProps"
-      :title="props.containerTitle"
   >
+    <template #title>
+      <slot name="containerTitle">
+        {{ props.containerTitle }}
+      </slot>
+    </template>
+    <slot name="containerFormContentBefore"/>
     <schema-form/>
+    <slot name="containerFormContentAfter"/>
   </a-card>
   <schema-form v-else/>
 </template>
