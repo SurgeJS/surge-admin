@@ -8,16 +8,16 @@ import {
   SchemaLayout,
   SchemaType
 } from '@/components/common/SchemaForm/type/props'
-import { useProvideSchemaFormContext } from '@/components/common/SchemaForm/utils/context'
-import { computed,ref } from 'vue'
-import { createReusableTemplate } from '@vueuse/core'
-import { FormInstance } from 'ant-design-vue/es/form'
-import { FormLayout } from 'ant-design-vue/es/form/Form'
-import { isBoolean,isFunction,omit,set } from 'lodash-es'
+import {useProvideSchemaFormContext} from '@/components/common/SchemaForm/utils/context'
+import {computed, ref} from 'vue'
+import {createReusableTemplate} from '@vueuse/core'
+import {FormInstance} from 'ant-design-vue/es/form'
+import {FormLayout} from 'ant-design-vue/es/form/Form'
+import {isBoolean, isFunction, omit, set} from 'lodash-es'
 import SchemaFormItem from '@/components/common/SchemaForm/components/SchemaFormItem.vue'
-import { Modal } from 'ant-design-vue'
+import {Modal} from 'ant-design-vue'
 
-const props = withDefaults(defineProps<SchemaFormProps>(),{
+const props = withDefaults(defineProps<SchemaFormProps>(), {
   required: false,
   autoPlaceholder: true,
   hideActionButton: false,
@@ -31,59 +31,60 @@ const props = withDefaults(defineProps<SchemaFormProps>(),{
   defaultValueTimeFormat: 'HH:mm:ss',
   confirmTitle: '关闭提示',
   confirmContent: '您确定要关闭它吗？',
-  drawerProps: () => ({ width: 500 }),
-  modalProps: () => ({ width: 800 })
+  drawerProps: () => ({width: 500}),
+  modalProps: () => ({width: 800})
 })
 
 const emits = defineEmits<SchemaFormEmits>()
 
 // 当前步骤条激活项
-const currentStep = defineModel<number>('currentStep',{ default: 0 })
-const visible = defineModel<boolean>('visible',{ default: false })
-const model = defineModel<Recordable>('model',{ required: true })
+const currentStep = defineModel<number>('currentStep', {default: 0})
+const visible = defineModel<boolean>('visible', {default: false})
+const model = defineModel<Recordable>('model', {required: true})
 
 const slots = defineSlots<SchemaFormSlots>()
 
-const [ DefineFormContent,FormContent ] = createReusableTemplate<{ schema?: SchemaType[] }>()
-const [ DefineScheamForm,SchemaForm ] = createReusableTemplate()
-const [ DefineButtonAction,ButtonAction ] = createReusableTemplate<{ schemaLayout?: SchemaLayout }>()
+const [DefineFormContent, FormContent] = createReusableTemplate<{ schema?: SchemaType[] }>()
+const [DefineScheamForm, SchemaForm] = createReusableTemplate()
+const [DefineButtonAction, ButtonAction] = createReusableTemplate<{ schemaLayout?: SchemaLayout }>()
 
 // 提供Schema上下文
-const { aFormProps,getModelValue,setModelValue } = useProvideSchemaFormContext(props,model)
+const {aFormProps, getModelValue, setModelValue} = useProvideSchemaFormContext(props, model)
 
 // 表单实例
 const formRef = ref<FormInstance>()
 
+const formClassObj = computed(() => {
+  return {
+    form: true,
+    search: props.schemaLayout === 'search',
+  }
+});
+
 // labelCol配置
 const labelCol = computed(() => {
-  return props.labelWidth ? { style: { width: `${ props.labelWidth }px` },...props.labelCol } : props.labelCol
-})
-
-const formLayout = computed<FormLayout | undefined>(() => {
-  if (props.layout) return props.layout
-  if (props.schemaLayout === 'search') return 'inline'
-  return props.layout
+  return props.labelWidth ? {style: {width: `${props.labelWidth}px`}, ...props.labelCol} : props.labelCol
 })
 
 // 步骤条选项
-const stepsItems = computed(() => props.stepSchema?.map(item => omit(item,[ 'form' ])))
+const stepsItems = computed(() => props.stepSchema?.map(item => omit(item, ['form'])))
 
 // 查询事件
 const onSearch = () => {
-  emits('search',formRef.value!.validate,model.value)
+  emits('search', formRef.value!.validate, model.value)
 }
 
 // 提交事件
 const onSubmit = () => {
   formExpose.validate()
-      .then(() => emits('submitSuccess',model.value))
-      .catch((err) => emits('submitError',err))
+      .then(() => emits('submitSuccess', model.value))
+      .catch((err) => emits('submitError', err))
 }
 
 const handleGroupHide = (config: GroupSchemaType) => {
   let isHide = true
   if (isBoolean(config.hide)) isHide = !config.hide
-  if (isFunction(config.hide)) isHide = !config.hide({ group: config,model: model.value })
+  if (isFunction(config.hide)) isHide = !config.hide({group: config, model: model.value})
   return isHide
 }
 
@@ -91,12 +92,12 @@ const handleGroupHide = (config: GroupSchemaType) => {
 const getCurrentStepModel = () => {
   if (!props.stepSchema) return {}
 
-  return props.stepSchema[currentStep.value]?.form.reduce<Recordable>((currentModel,item) => {
+  return props.stepSchema[currentStep.value]?.form.reduce<Recordable>((currentModel, item) => {
     if (!item.field) return currentModel
     const field = item.field as string
-    set(currentModel,field,getModelValue(field))
+    set(currentModel, field, getModelValue(field))
     return currentModel
-  },{})
+  }, {})
 }
 
 // 上一步
@@ -110,10 +111,10 @@ const onNext = () => {
   const currentModel = getCurrentStepModel()
   formExpose.validate()
       .then(() => {
-        emits('nextSuccess',currentModel,props.model)
+        emits('nextSuccess', currentModel, props.model)
         currentStep.value += 1
       })
-      .catch((err) => emits('nextError',err))
+      .catch((err) => emits('nextError', err))
 }
 
 const formExpose: SchemaFormExpose = {
@@ -156,7 +157,7 @@ defineExpose<SchemaFormExpose>(formExpose)
 <template>
   <!--  定义FormContent组件 -->
   <define-form-content v-slot="{schema}">
-    <a-row class="w-full" :gutter="schemaLayout==='search'?[10,10]:undefined">
+    <a-row class="w-full" :gutter="schemaLayout==='search'?[12,12]:undefined">
       <template
           v-for="config in schema "
           :key="config.field||config.slot"
@@ -165,13 +166,15 @@ defineExpose<SchemaFormExpose>(formExpose)
                           v-if="config.component||config.contentSlot||config.slot"
                           :schema="config as any"
         >
-          <slot v-if="config.contentSlot" :name="config.contentSlot" />
+          <slot v-if="config.contentSlot" :name="config.contentSlot"/>
           <template v-if="config.slot" v-slot:[config.slot]>
-            <slot :name="config.slot" />
+            <slot :name="config.slot"/>
           </template>
         </schema-form-item>
       </template>
-      <button-action v-if="props.schemaLayout==='search'" />
+      <a-col class="flex-auto">
+        <button-action v-if="props.schemaLayout==='search'"/>
+      </a-col>
     </a-row>
   </define-form-content>
 
@@ -185,11 +188,9 @@ defineExpose<SchemaFormExpose>(formExpose)
     />
     <a-form
         ref="formRef"
-        :class="props.formClass"
+        :class="formClassObj"
         :style="props.formStyle"
-        class="form"
         v-bind="aFormProps"
-        :layout="formLayout"
         :model="model"
         :label-col="labelCol"
     >
@@ -199,29 +200,29 @@ defineExpose<SchemaFormExpose>(formExpose)
           <template v-if="handleGroupHide(config)">
             <slot name="groupTitle" :group-schema="config">
               <div class="flex tracking-wider h-[34px] items-center gap-1 mb-2 ">
-                <span class="inline-block w-[5px] h-[60%] bg-primary rounded flex-x-center" />
+                <span class="inline-block w-[5px] h-[60%] bg-primary rounded flex-x-center"/>
                 <span class="font-bold">{{ config.title }}</span>
                 <a-tooltip v-if="config.helpMessage">
                   <template #title>{{ config.helpMessage }}}</template>
-                  <i class="i-ant-design:question-circle-outlined text-tertiary full-[14px]" />
+                  <i class="i-ant-design:question-circle-outlined text-tertiary full-[14px]"/>
                 </a-tooltip>
               </div>
             </slot>
-            <form-content :schema="config.form" />
+            <form-content :schema="config.form"/>
           </template>
         </template>
-        <button-action v-if="props.container!=='modal'&&props.container!=='drawer'" />
+        <button-action v-if="props.container=='card'"/>
       </template>
       <!-- 步骤 -->
       <template v-else-if="props.schemaLayout==='step'">
         <template v-for="(config,i) in props.stepSchema" :key="i">
-          <form-content v-show="i === currentStep" :schema="config.form" />
+          <form-content v-show="i === currentStep" :schema="config.form"/>
         </template>
-        <button-action v-if="props.container!=='modal'&&props.container!=='drawer'" />
+        <button-action v-if="props.container=='card'"/>
       </template>
       <template v-else>
-        <form-content :schema="props.schema" />
-        <button-action v-if="props.container!=='modal'&&props.container!=='drawer'&&props.schemaLayout!=='search'" />
+        <form-content :schema="props.schema"/>
+        <button-action v-if="props.container=='card'&&props.schemaLayout!=='search'"/>
       </template>
     </a-form>
   </define-scheam-form>
@@ -230,14 +231,11 @@ defineExpose<SchemaFormExpose>(formExpose)
   <define-button-action>
     <a-flex
         v-if="!props.hideActionButton"
-        :class="{
-        'flex-auto':props.schemaLayout==='search'
-      }"
         gap="10"
         justify="flex-end"
         align="center"
     >
-      <slot name="beforeButton" />
+      <slot name="beforeButton"/>
       <slot name="customActionButton">
         <template v-if="props.schemaLayout==='search'">
           <a-button @click="formExpose.resetFields">重置</a-button>
@@ -264,7 +262,7 @@ defineExpose<SchemaFormExpose>(formExpose)
           </a-button>
         </template>
       </slot>
-      <slot name="afterButton" />
+      <slot name="afterButton"/>
     </a-flex>
   </define-button-action>
 
@@ -277,9 +275,9 @@ defineExpose<SchemaFormExpose>(formExpose)
       :title="props.containerTitle"
       :mask-closable="props.maskClosable"
   >
-    <schema-form />
+    <schema-form/>
     <template #footer>
-      <button-action />
+      <button-action/>
     </template>
   </a-drawer>
 
@@ -292,9 +290,9 @@ defineExpose<SchemaFormExpose>(formExpose)
       :title="props.containerTitle"
       :mask-closable="props.maskClosable"
   >
-    <schema-form />
+    <schema-form/>
     <template #footer>
-      <button-action />
+      <button-action/>
     </template>
   </a-modal>
 
@@ -304,13 +302,15 @@ defineExpose<SchemaFormExpose>(formExpose)
       v-bind="props.cardProps"
       :title="props.containerTitle"
   >
-    <schema-form />
+    <schema-form/>
   </a-card>
-  <schema-form v-else />
+  <schema-form v-else/>
 </template>
 
-<style scoped>
-.form :global(.ant-form-inline .ant-form-item) {
-  margin-inline-end: 0 !important;
+<style lang="scss" scoped>
+.search {
+  :deep(.ant-form-item) {
+    margin-bottom: 0;
+  }
 }
 </style>

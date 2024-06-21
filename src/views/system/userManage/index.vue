@@ -86,7 +86,7 @@ const area: DefaultOptionType[] = [
 const schema1: SchemaType<typeof form.value>[] = [
   {
     field: 'name.test',
-    label: '名称名称名称名称名称名称名称名称名称',
+    label: '名称',
     component: 'Input'
   },
   {
@@ -145,7 +145,7 @@ const onSearch = async () => {
           @search="onSearch"
           schema-layout="search"
           :submit-loading="isShow"
-          label-width="110"
+          label-width="100"
           v-model:model="form"
           :schema="schema1"
       ></schema-form>
