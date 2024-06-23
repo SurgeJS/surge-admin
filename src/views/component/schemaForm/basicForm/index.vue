@@ -342,6 +342,7 @@ const submitError = () => {
         @submit-error="submitError"
         @submit-success="submitSuccess"
         label-width="110"
+        layout="vertical"
         container-title="默认布局"
         v-model:model="form"
         :schema="schema1"
@@ -385,10 +386,11 @@ const submitError = () => {
         container="drawer"
         @submit-error="submitError"
         @submit-success="submitSuccess"
-        label-width="110"
         container-title="抽屉表单"
+        layout="vertical"
         v-model:model="form"
         v-model:visible="drawerVisible"
+        :close-confirm="false"
         :schema="schema1"
     ></schema-form>
   </div>

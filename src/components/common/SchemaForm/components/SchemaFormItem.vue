@@ -8,7 +8,7 @@ import {
   SchemaType
 } from '@/components/common/SchemaForm/types/type'
 import { useSchemaFormContext } from '@/components/common/SchemaForm/utils/context'
-import { computed,isVNode,ref,unref,useSlots } from 'vue'
+import { ComponentPublicInstance,computed,isVNode,nextTick,onUpdated,ref,unref,useSlots } from 'vue'
 import { SCHEMA_RENDER_COMPONENTS } from '@/components/common/SchemaForm/utils/components'
 import {
   generatePlaceholder,
@@ -23,6 +23,7 @@ import { get,isArray,isFunction,isNumber,isString } from 'lodash-es'
 import { objectPathToArray } from '@/utils'
 
 const { schema } = defineProps<{ schema: Required<SchemaConfig> }>()
+
 
 const {
   field,
@@ -49,8 +50,10 @@ const {
 
 const slots = useSlots()
 
-const { schemaFormProps,globalColProps,model,getModelValue,setModelValue } = useSchemaFormContext()!
+const { schemaFormProps,globalColProps,model,getModelValue,setModelValue,maxLabelWidth } = useSchemaFormContext()!
 
+
+const formItemRef = ref<ComponentPublicInstance>()
 
 const bindValue = computed({
   get() {
@@ -161,6 +164,18 @@ const callbackParamsFunction = <T = never>(value: T | CallbackParamsFunction<any
                                                                                             ? value(callbackParams.value)
                                                                                             : value
 
+const getLabelWidth = () => {
+  nextTick(() => {
+    const clientWidth = formItemRef.value?.$el.querySelector('.ant-form-item-label')?.clientWidth
+    if (clientWidth && clientWidth > maxLabelWidth.value) {
+      maxLabelWidth.value = clientWidth
+    }
+  })
+}
+
+onUpdated(() => {
+  schemaFormProps.autoLabelWidth && getLabelWidth()
+})
 
 const FormItem = () => {
   const DynamicComponent = SCHEMA_RENDER_COMPONENTS[component]
@@ -187,6 +202,7 @@ const FormItem = () => {
   const name = arrayName.length ? arrayName : undefined
   return (
       <a-form-item
+          ref={ formItemRef }
           colon
           rules={ formItemRules.value }
           name={ name }

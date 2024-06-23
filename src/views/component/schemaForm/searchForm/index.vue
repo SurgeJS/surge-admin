@@ -154,7 +154,6 @@ const onSearch = async () => {
         @search="onSearch"
         schema-layout="search"
         :submit-loading="isShow"
-        label-width="100"
         v-model:model="form"
         :schema="schema1"
     ></schema-form>
