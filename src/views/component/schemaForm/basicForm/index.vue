@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { SchemaType } from '@/components/common/SchemaForm/types/type'
-import { DefaultOptionType } from 'ant-design-vue/es/vc-tree-select/TreeSelect'
-import { message } from 'ant-design-vue'
-import { useToggle } from '@vueuse/core'
+import {ref} from 'vue'
+import {SchemaType} from '@/components/common/SchemaForm/types/type'
+import {DefaultOptionType} from 'ant-design-vue/es/vc-tree-select/TreeSelect'
+import {message} from 'ant-design-vue'
+import {useToggle} from '@vueuse/core'
 
 const [ modalVisible,toggleModal ] = useToggle()
 const [ drawerVisible,toggleDrawer ] = useToggle()
@@ -390,7 +390,6 @@ const submitError = () => {
         layout="vertical"
         v-model:model="form"
         v-model:visible="drawerVisible"
-        :close-confirm="false"
         :schema="schema1"
     ></schema-form>
   </div>

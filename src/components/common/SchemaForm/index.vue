@@ -8,20 +8,20 @@ import {
   SchemaLayout,
   SchemaType
 } from '@/components/common/SchemaForm/types/type'
-import { useProvideSchemaFormContext } from '@/components/common/SchemaForm/utils/context'
-import { computed,ref } from 'vue'
-import { createReusableTemplate } from '@vueuse/core'
-import { FormInstance } from 'ant-design-vue/es/form'
-import { isBoolean,isFunction,omit,set } from 'lodash-es'
+import {useProvideSchemaFormContext} from '@/components/common/SchemaForm/utils/context'
+import {computed, ref} from 'vue'
+import {createReusableTemplate} from '@vueuse/core'
+import {FormInstance} from 'ant-design-vue/es/form'
+import {isBoolean, isFunction, omit, set} from 'lodash-es'
 import SchemaFormItem from '@/components/common/SchemaForm/components/SchemaFormItem.vue'
-import { Modal } from 'ant-design-vue'
+import {Modal} from 'ant-design-vue'
 
 const props = withDefaults(defineProps<SchemaFormProps>(),{
   required: false,
   autoPlaceholder: true,
   autoLabelWidth: true,
   hideActionButton: false,
-  maskClosable: true,
+  maskClosable: false,
   closeResetModel: true,
   closeConfirm: true,
   container: 'card',
@@ -151,25 +151,29 @@ const closeAndReset = () => {
   visible.value = false
 }
 
+const showConfirmModal = () => {
+  Modal.confirm({
+    title: props.confirmTitle,
+    content: props.confirmContent,
+    centered: true,
+    onOk() {
+      closeAndReset()
+    },
+    onCancel() {
+      visible.value = true
+    }
+  });
+};
+
 const onCancel = (e) => {
-  console.log(e)
-  if (props.closeConfirm) {
-    Modal.confirm({
-      title: props.confirmTitle,
-      content: props.confirmContent,
-      centered: true,
-      onOk() {
-        closeAndReset()
-      },
-      onCancel() {
-        visible.value = true
-      }
-    })
-  } else if (props.maskClosable) {
-    closeAndReset()
+  if (props.closeConfirm) return  showConfirmModal()
+  // 点击的遮罩层
+  if (e.target.tagName === 'DIV') {
+    props.maskClosable && closeAndReset();
+  } else {
+    closeAndReset();
   }
 }
-console.log(aFormProps.value)
 defineExpose<SchemaFormExpose>(formExpose)
 </script>
 
