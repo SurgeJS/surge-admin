@@ -8,10 +8,10 @@ import {
   SchemaType
 } from '@/components/common/SchemaForm/types/type'
 import {useProvideSchemaFormContext} from '@/components/common/SchemaForm/utils/context'
-import {computed, ref} from 'vue'
-import {createReusableTemplate} from '@vueuse/core'
+import {computed, ref, watch} from 'vue'
+import {createReusableTemplate, useToggle} from '@vueuse/core'
 import {FormInstance} from 'ant-design-vue/es/form'
-import {isBoolean, isFunction, omit, set} from 'lodash-es'
+import {isBoolean, isFunction, omit, set, take} from 'lodash-es'
 import SchemaFormItem from '@/components/common/SchemaForm/components/SchemaFormItem.vue'
 import {Modal} from 'ant-design-vue'
 
@@ -36,29 +36,29 @@ const props = withDefaults(defineProps<SchemaFormProps>(), {
 
 const emits = defineEmits<SchemaFormEmits>()
 
-const [DefineFormContent, FormContent] = createReusableTemplate<{ schema?: SchemaType[] }>()
-const [DefineSchemaForm, SchemaForm] = createReusableTemplate()
-const [DefineButtonAction, ButtonAction] = createReusableTemplate<{ schemaLayout?: SchemaLayout }>()
-
 // 当前步骤条激活项
 const activeStep = defineModel<number>('activeStep', {default: 1})
 const visible = defineModel<boolean>('visible', {default: false})
 const model = defineModel<Recordable>('model', {required: true})
 
+const [DefineFormContent, FormContent] = createReusableTemplate<{ schema?: SchemaType[] }>()
+const [DefineSchemaForm, SchemaForm] = createReusableTemplate()
+const [DefineButtonAction, ButtonAction] = createReusableTemplate<{ schemaLayout?: SchemaLayout }>()
+
 // 提供Schema上下文
 const {aFormProps, getModelValue, maxLabelWidth} = useProvideSchemaFormContext(props, model)
+
+// 是否展开
+const [isExpand, setExpand] = useToggle();
 
 // 表单实例
 const formRef = ref<FormInstance>()
 
-const currentVisibleSchemas = computed({
-  get() {
-    return props.schema
-  },
-  set() {
-
-  }
-})
+const visibleSearchSchemas = computed(() => {
+  if (!props.searchShowNumber ) return props.schema
+  if (isExpand.value) return props.schema
+  return take(props.schema, props.searchShowNumber)
+});
 
 const formClassObj = computed(() => {
   const cls = {
@@ -69,10 +69,10 @@ const formClassObj = computed(() => {
 
   return cls
 })
-
+// TODO:待优化
 const labelWidth = computed(() => {
   if (props.labelWidth) return props.labelWidth
-  if (props.autoLabelWidth) return maxLabelWidth.value
+  // if (props.autoLabelWidth) return maxLabelWidth.value
   return null
 })
 
@@ -83,6 +83,11 @@ const labelCol = computed(() => {
 
 // 步骤条选项
 const stepsItems = computed(() => props.stepSchema?.map(item => omit(item, ['form'])))
+
+const expandCollapse = computed(() => ({
+  text: isExpand.value ? '收起' : '展开',
+  icon: isExpand.value ? 'i-ic:outline-keyboard-arrow-up' : 'i-ic:outline-keyboard-arrow-down',
+}))
 
 // 查询事件
 const onSearch = () => {
@@ -169,7 +174,16 @@ const onCancel = (e) => {
     closeAndReset();
   }
 }
+
+const handleExpandCollapse = () => {
+  setExpand()
+}
+
 defineExpose<SchemaFormExpose>(formExpose)
+
+watch(() => props.schema, () => {
+
+});
 </script>
 
 <template>
@@ -238,6 +252,10 @@ defineExpose<SchemaFormExpose>(formExpose)
         </template>
         <button-action v-if="props.container=='card'"/>
       </template>
+      <!-- 搜索 -->
+      <template v-else-if="props.schemaLayout==='search'">
+        <form-content :schema="visibleSearchSchemas"/>
+      </template>
       <template v-else>
         <form-content :schema="props.schema"/>
         <button-action v-if="props.container=='card'&&props.schemaLayout!=='search'"/>
@@ -263,6 +281,10 @@ defineExpose<SchemaFormExpose>(formExpose)
               @click="onSearch"
           >
             搜索
+          </a-button>
+          <a-button type="link" @click="handleExpandCollapse">
+            {{ expandCollapse.text }}
+            <i :class="expandCollapse.icon"></i>
           </a-button>
         </template>
         <template v-if="props.schemaLayout==='group' || !props.schemaLayout">

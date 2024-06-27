@@ -1,10 +1,10 @@
-<script setup lang="ts">
-import { ref } from 'vue'
-import { SchemaType } from '@/components/common/SchemaForm/types/type'
-import { DefaultOptionType } from 'ant-design-vue/es/vc-tree-select/TreeSelect'
-import { message } from 'ant-design-vue'
-import { useToggle } from '@vueuse/core'
-import { asyncWait } from '@/utils'
+<script setup lang="tsx">
+import {ref} from 'vue'
+import {SchemaType} from '@/components/common/SchemaForm/types/type'
+import {DefaultOptionType} from 'ant-design-vue/es/vc-tree-select/TreeSelect'
+import {message} from 'ant-design-vue'
+import {useToggle} from '@vueuse/core'
+import {asyncWait} from '@/utils'
 
 const [ isShow,toggleShow ] = useToggle()
 
@@ -85,7 +85,7 @@ const area: DefaultOptionType[] = [
 const schema1: SchemaType<typeof form.value>[] = [
   {
     field: 'name.test',
-    label: '名称',
+    label: '名称aaa',
     component: 'Input'
   },
   {
@@ -101,31 +101,31 @@ const schema1: SchemaType<typeof form.value>[] = [
   },
   {
     field: 'startTime',
-    label: '开始时间',
+    label: '开始时间开始时间开始时间',
     component: 'TimePicker'
   },
-  {
-    field: 'endTime',
-    label: '结束时间',
-    component: 'TimePicker'
-  },
-  {
-    field: 'date',
-    label: '开始结束日期',
-    component: 'DateRangePicker'
-  },
-  {
-    field: 'area',
-    label: '地区',
-    component: 'Cascader',
-    options: area
-  },
-  {
-    field: 'organization',
-    label: '组织机构',
-    component: 'TreeSelect',
-    options: area
-  }
+  // {
+  //   field: 'endTime',
+  //   label: '结束时间',
+  //   component: 'TimePicker'
+  // },
+  // {
+  //   field: 'date',
+  //   label: '开始结束日期',
+  //   component: 'DateRangePicker'
+  // },
+  // {
+  //   field: 'area',
+  //   label: '地区',
+  //   component: 'Cascader',
+  //   options: area
+  // },
+  // {
+  //   field: 'organization',
+  //   label: '组织机构',
+  //   component: 'TreeSelect',
+  //   options: area
+  // }
 ]
 
 const onSearch = async () => {
@@ -151,7 +151,9 @@ const onSearch = async () => {
       </template>
     </a-alert>
     <schema-form
+        :search-show-number="2"
         @search="onSearch"
+        label-width="200px"
         schema-layout="search"
         :submit-loading="isShow"
         v-model:model="form"
