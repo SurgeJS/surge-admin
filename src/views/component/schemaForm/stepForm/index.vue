@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { StepSchemaType } from '@/components/common/SchemaForm/types/type'
-import { DefaultOptionType } from 'ant-design-vue/es/vc-tree-select/TreeSelect'
-import { message } from 'ant-design-vue'
-import { useToggle } from '@vueuse/core'
+import {ref} from 'vue'
+import {StepSchemaType} from '@/components/common/SchemaForm/types/type'
+import {DefaultOptionType} from 'ant-design-vue/es/vc-tree-select/TreeSelect'
+import {message} from 'ant-design-vue'
+import {useToggle} from '@vueuse/core'
 
 
 const [ isShow,toggleShow ] = useToggle()
@@ -27,8 +27,12 @@ const form = ref({
   description: undefined,
   companyName: undefined,
   companyType: undefined,
-  companyDescription: undefined
+  companyDescription: undefined,
+  remark:undefined,
+  phoneNumber:undefined
 })
+
+const activeStep = ref<number>(1)
 
 const status = ref([
   {
@@ -228,27 +232,21 @@ const schema1: StepSchemaType<typeof form.value>[] = [
     title: '步骤三',
     form: [
       {
-        field: 'companyName',
+        field: 'remark',
         component: 'Input',
-        label: '企业名称'
+        label: '备注'
       },
       {
-        field: 'companyType',
-        component: 'Select',
-        label: '企业类型',
-        options: status
+        field: 'phoneNumber',
+        component: 'Input',
+        label: '手机号',
       },
-      {
-        field: 'companyDescription',
-        component: 'Textarea',
-        label: '企业描述',
-        colProps: { span: 24 }
-      }
     ]
   }
 ]
 
-const submitSuccess = (model) => {
+const submitSuccess = (nextActive:number,model) => {
+  activeStep.value = nextActive
   console.log(model)
   message.success('提交成功')
 }
@@ -275,10 +273,11 @@ const submitError = () => {
     <br>
     <schema-form
         form-class="p-50px"
-        @submit-error="submitError"
-        @submit-success="submitSuccess"
-        label-width="110"
+        @next-error="submitError"
+        @next-success="submitSuccess"
+        @pre="preActive => activeStep=preActive"
         :col-props="{span:12}"
+        v-model:active-step="activeStep"
         v-model:model="form"
         schema-layout="step"
         :step-schema="schema1"

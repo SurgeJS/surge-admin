@@ -1,17 +1,17 @@
-import type { Router } from 'vue-router'
-import { useTitle } from '@vueuse/core'
+import type {Router} from 'vue-router'
+import {useTitle} from '@vueuse/core'
 import NProgress from 'nprogress'
 import useAuthStore from '@/store/modules/auth'
 import useTabBarStore from '@/store/modules/tabBar'
 import RouterConfig from '@/config/router'
-import { RouterTool } from '@/router/uitls/tool'
-import { runTacticsAction,TacticsAction } from '@/utils'
-import { message } from 'ant-design-vue'
-import { tokenCache } from '@/store/caches'
+import {RouterTool} from '@/router/uitls/tool'
+import {runTacticsAction, TacticsAction} from '@/utils'
+import {message} from 'ant-design-vue'
+import {tokenCache} from '@/store/caches'
 
 export const createGuard = (router: Router) => {
     // 跳转之前
-    router.beforeEach((to,from,next) => {
+    router.beforeEach((to, from, next) => {
         NProgress.start()
         const {
             isLogin,
@@ -25,8 +25,7 @@ export const createGuard = (router: Router) => {
             $state
         } = useAuthStore()
 
-        const { initializeTabBar } = useTabBarStore()
-
+        const {initializeTabBar} = useTabBarStore()
         // 处理路由鉴权模式
         const handleRouteAuthMode = async () => {
             switch (routeAuthMode) {
@@ -81,7 +80,7 @@ export const createGuard = (router: Router) => {
                         return Promise.reject()
                     })
                     await handleRouteAuthMode()
-                    next({ path: to.path,query: to.query })
+                    next({path: to.path, query: to.query})
                 }
             ],
             // 没有生成路由
@@ -90,7 +89,7 @@ export const createGuard = (router: Router) => {
                 async () => {
                     console.info('---没有生成路由---')
                     await handleRouteAuthMode()
-                    next({ path: to.path,query: to.query })
+                    next({path: to.path, query: to.query})
                 }
             ],
             // 登录情况下不能到登录页面
