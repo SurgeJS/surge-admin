@@ -241,7 +241,7 @@ export type SchemaFormProps = FormProps & {
     // 自动placeholder (item的label为string才会生效)
     autoPlaceholder?: boolean
 
-    // 自动label宽度
+    // 自动label宽度(优先级比  SchemaForm组件的labelWidth、labelCol高)
     autoLabelWidth?: boolean
 
     // 步骤条激活项

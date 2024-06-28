@@ -24,7 +24,6 @@ import {objectPathToArray} from '@/utils'
 
 const {schema} = defineProps<{ schema: Required<SchemaConfig> }>()
 
-
 const {
   field,
   component,
@@ -51,7 +50,6 @@ const {
 const slots = useSlots()
 
 const {schemaFormProps, globalColProps, model, getModelValue, setModelValue, maxLabelWidth} = useSchemaFormContext()!
-
 
 const formItemRef = ref<ComponentPublicInstance>()
 
@@ -80,16 +78,10 @@ const isRequired = computed(() => unref(required) || schemaFormProps.required)
 const labelCol = computed<Col | undefined>(() => {
   if (labelWidth) return {style: {width: isNumber(labelWidth) ? `${unref(labelWidth)}px` : unref(labelWidth)}}
   if (schemaFormProps.autoLabelWidth) {
-    return maxLabelWidth.value ? {style: {width: `${maxLabelWidth.value}px`}} : undefined
+    return maxLabelWidth.value ? {style: {width: `${maxLabelWidth.value + 7}px`}} : undefined
   }
   return undefined
 })
-
-watch(formItemRef, async () => {
-  await nextTick();
-  const scrollWidth = formItemRef.value?.$el.querySelector('.ant-form-item-label')?.scrollWidth
-  if (scrollWidth > maxLabelWidth.value) maxLabelWidth.value = scrollWidth
-});
 
 const formItemRules = computed(() => {
   const ruleValue = unref(rule)
@@ -172,6 +164,13 @@ const dynamicComponentSlots = computed(() => {
 const callbackParamsFunction = <T = never>(value: T | CallbackParamsFunction<any, any, T>) => isFunction(value)
     ? value(callbackParams.value)
     : value
+
+// 获取最大Label宽度
+watch(formItemRef, async () => {
+  await nextTick();
+  const scrollWidth = formItemRef.value?.$el.querySelector('.ant-form-item-label')?.scrollWidth
+  if (scrollWidth > maxLabelWidth.value) maxLabelWidth.value = scrollWidth
+});
 
 const FormItem = () => {
   const DynamicComponent = SCHEMA_RENDER_COMPONENTS[component]

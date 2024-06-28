@@ -8,10 +8,10 @@ import {
   SchemaType
 } from '@/components/common/SchemaForm/types/type'
 import {useProvideSchemaFormContext} from '@/components/common/SchemaForm/utils/context'
-import {computed, ref, watch} from 'vue'
+import {computed, ref} from 'vue'
 import {createReusableTemplate, useToggle} from '@vueuse/core'
 import {FormInstance} from 'ant-design-vue/es/form'
-import {isBoolean, isFunction, omit, set, take} from 'lodash-es'
+import {isBoolean, isFunction, isNumber, omit, set, take} from 'lodash-es'
 import SchemaFormItem from '@/components/common/SchemaForm/components/SchemaFormItem.vue'
 import {Modal} from 'ant-design-vue'
 
@@ -54,8 +54,12 @@ const [isExpand, setExpand] = useToggle();
 // 表单实例
 const formRef = ref<FormInstance>()
 
-const visibleSearchSchemas = computed(() => {
-  if (!props.searchShowNumber ) return props.schema
+// 间距
+const rowGutter = computed(() => props.schemaLayout === 'search' ? [12, 12] : 12)
+
+// 搜索Schema
+const searchSchemas = computed(() => {
+  if (!props.searchShowNumber) return props.schema
   if (isExpand.value) return props.schema
   return take(props.schema, props.searchShowNumber)
 });
@@ -69,16 +73,11 @@ const formClassObj = computed(() => {
 
   return cls
 })
-// TODO:待优化
-const labelWidth = computed(() => {
-  if (props.labelWidth) return props.labelWidth
-  // if (props.autoLabelWidth) return maxLabelWidth.value
-  return null
-})
 
 // labelCol配置
 const labelCol = computed(() => {
-  return labelWidth.value ? {style: {width: `${labelWidth.value}px`}, ...props.labelCol} : props.labelCol
+  if (!props.labelWidth) return props.labelCol
+  return {style: {width: isNumber(props.labelWidth) ? `${props.labelWidth}px` : props.labelWidth}, ...props.labelCol}
 })
 
 // 步骤条选项
@@ -175,21 +174,13 @@ const onCancel = (e) => {
   }
 }
 
-const handleExpandCollapse = () => {
-  setExpand()
-}
-
 defineExpose<SchemaFormExpose>(formExpose)
-
-watch(() => props.schema, () => {
-
-});
 </script>
 
 <template>
   <!--  定义FormContent组件 -->
   <define-form-content v-slot="{schema}">
-    <a-row class="w-full" :gutter="schemaLayout==='search'?[12,12]:undefined">
+    <a-row class="w-full" :gutter="rowGutter">
       <template
           v-for="config in schema "
           :key="config.field||config.slot"
@@ -254,7 +245,7 @@ watch(() => props.schema, () => {
       </template>
       <!-- 搜索 -->
       <template v-else-if="props.schemaLayout==='search'">
-        <form-content :schema="visibleSearchSchemas"/>
+        <form-content :schema="searchSchemas"/>
       </template>
       <template v-else>
         <form-content :schema="props.schema"/>
@@ -269,6 +260,7 @@ watch(() => props.schema, () => {
         v-if="!props.hideActionButton"
         gap="10"
         justify="flex-end"
+        :class="{'px-[6px]':schemaLayout!=='search'}"
         align="center"
     >
       <slot name="beforeButton"/>
@@ -282,7 +274,9 @@ watch(() => props.schema, () => {
           >
             搜索
           </a-button>
-          <a-button type="link" @click="handleExpandCollapse">
+          <a-button v-if="props.searchShowNumber"
+                    type="link"
+                    @click="setExpand()">
             {{ expandCollapse.text }}
             <i :class="expandCollapse.icon"></i>
           </a-button>
@@ -374,5 +368,8 @@ watch(() => props.schema, () => {
   :deep(.ant-form-item) {
     margin-bottom: 0;
   }
+}
+:deep(.ant-row) {
+  margin: 0!important;
 }
 </style>

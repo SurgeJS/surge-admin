@@ -18,7 +18,7 @@ useGlobalSubscribe()
       :component-size="appStore.antdConfig.size"
       :theme="appStore.themeConfig"
   >
-    <a-app v-focus>
+    <a-app>
       <router-view />
     </a-app>
   </a-config-provider>

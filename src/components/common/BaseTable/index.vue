@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import { BaseTableProps } from '@/components/common/BaseTable/utils/type'
+import {BaseTableProps} from '@/components/common/BaseTable/utils/type'
 import useOmitProps from '@/hooks/common/useOmitProps'
-import { computed } from 'vue'
-import { SuperTableColumn } from '@/components/antd/SuperTable/type/props'
-import { useProvideBaseTableStore } from '@/components/common/BaseTable/utils/context'
-import { SizeType } from 'ant-design-vue/es/config-provider'
+import {computed} from 'vue'
+import {SuperTableColumn} from '@/components/antd/SuperTable/type/props'
+import {useProvideBaseTableStore} from '@/components/common/BaseTable/utils/context'
+import {SizeType} from 'ant-design-vue/es/config-provider'
 
 const props = withDefaults(defineProps<BaseTableProps>(),{
   showHeader: true,
@@ -23,6 +23,7 @@ const superTableProps = useOmitProps(props,[ 'heading','hideHeader','hideToolBar
 
 const size = computed(() => props.size || currentDensity.value[0] as SizeType)
 </script>
+
 
 <template>
   <a-card>
