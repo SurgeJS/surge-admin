@@ -1,12 +1,12 @@
 <script lang="ts" setup>
 import {BaseTableProps} from '@/components/common/BaseTable/utils/type'
 import useOmitProps from '@/hooks/common/useOmitProps'
-import {computed} from 'vue'
+import {computed, ref} from 'vue'
 import {SuperTableColumn} from '@/components/antd/SuperTable/type/props'
 import {useProvideBaseTableStore} from '@/components/common/BaseTable/utils/context'
 import {SizeType} from 'ant-design-vue/es/config-provider'
 
-const props = withDefaults(defineProps<BaseTableProps>(),{
+const props = withDefaults(defineProps<BaseTableProps>(), {
   showHeader: true,
   pagination: undefined,
   showExpandColumn: true,
@@ -14,14 +14,16 @@ const props = withDefaults(defineProps<BaseTableProps>(),{
   indentSize: 15
 })
 
-const tableColumns = defineModel<SuperTableColumn[]>('columns',{ required: true })
+const tableColumns = defineModel<SuperTableColumn[]>('columns', {required: true})
 
-const { currentDensity } = useProvideBaseTableStore(props,tableColumns)
+const {currentDensity} = useProvideBaseTableStore(props, tableColumns)
 
 // 超级表格Props
-const superTableProps = useOmitProps(props,[ 'heading','hideHeader','hideToolBar' ])
+const superTableProps = useOmitProps(props, ['heading', 'hideHeader', 'hideToolBar'])
 
 const size = computed(() => props.size || currentDensity.value[0] as SizeType)
+
+const columns = ref<SuperTableColumn[]>([])
 </script>
 
 
@@ -29,16 +31,16 @@ const size = computed(() => props.size || currentDensity.value[0] as SizeType)
   <a-card>
     <base-table-tool-bar>
       <template #header-extra>
-        <slot name="header-extra" />
+        <slot name="header-extra"/>
       </template>
       <template #heading>
         <slot name="heading">{{ props.heading }}</slot>
       </template>
     </base-table-tool-bar>
     <super-table
-      v-bind="superTableProps"
-      :columns="tableColumns"
-      :size="size"
+        v-bind="superTableProps"
+        :columns="tableColumns"
+        :size="size"
     />
   </a-card>
 </template>

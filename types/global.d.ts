@@ -13,6 +13,7 @@ declare global {
   type Nullable<T> = T | null
   type Recordable<T = any> = Record<string,T>
   type MaybeArray<T> = T | Array<T>
+  type MaybeUndefined<T> = T | undefined
   type MaybeRefs<T extends Recordable> = { [key in keyof T]: MaybeRef<T[key]> }
 
   // 日期时间格式化

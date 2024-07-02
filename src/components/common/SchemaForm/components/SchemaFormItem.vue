@@ -7,9 +7,9 @@ import {
   SchemaConfig,
   SchemaType
 } from '@/components/common/SchemaForm/types/type'
-import {useSchemaFormContext} from '@/components/common/SchemaForm/utils/context'
-import {ComponentPublicInstance, computed, isVNode, nextTick, ref, unref, useSlots, watch} from 'vue'
-import {SCHEMA_RENDER_COMPONENTS} from '@/components/common/SchemaForm/utils/components'
+import { useSchemaFormContext } from '@/components/common/SchemaForm/utils/context'
+import { ComponentPublicInstance, computed, isVNode, nextTick, ref, unref, useSlots, watch } from 'vue'
+import { SCHEMA_RENDER_COMPONENTS } from '@/components/common/SchemaForm/utils/components'
 import {
   generatePlaceholder,
   handleRulePresets,
@@ -19,10 +19,10 @@ import {
   isMapPlaceholder,
   isTimeComponent
 } from '@/components/common/SchemaForm/utils'
-import {get, isArray, isFunction, isNumber, isString} from 'lodash-es'
-import {objectPathToArray} from '@/utils'
+import { get, isArray, isFunction, isNumber, isString } from 'lodash-es'
+import { objectPathToArray } from '@/utils'
 
-const {schema} = defineProps<{ schema: Required<SchemaConfig> }>()
+const { schema } = defineProps<{ schema: Required<SchemaConfig> }>()
 
 const {
   field,
@@ -49,7 +49,7 @@ const {
 
 const slots = useSlots()
 
-const {schemaFormProps, globalColProps, model, getModelValue, setModelValue, maxLabelWidth} = useSchemaFormContext()!
+const { schemaFormProps, globalColProps, model, getModelValue, setModelValue, maxLabelWidth } = useSchemaFormContext()!
 
 const formItemRef = ref<ComponentPublicInstance>()
 
@@ -75,10 +75,12 @@ const isHide = computed(() => callbackParamsFunction<boolean>(unref(hide)) ?? tr
 const isRequired = computed(() => unref(required) || schemaFormProps.required)
 
 // labelCol配置
-const labelCol = computed<Col | undefined>(() => {
-  if (labelWidth) return {style: {width: isNumber(labelWidth) ? `${unref(labelWidth)}px` : unref(labelWidth)}}
+const labelCol = computed<MaybeUndefined<Col>>(() => {
+  if (labelWidth) {
+    return { style: { width: isNumber(unref(labelWidth)) ? `${ unref(labelWidth) }px` : unref(labelWidth) } } as Col
+  }
   if (schemaFormProps.autoLabelWidth) {
-    return maxLabelWidth.value ? {style: {width: `${maxLabelWidth.value + 7}px`}} : undefined
+    return maxLabelWidth.value ? { style: { width: `${ maxLabelWidth.value + 7 }px` } } as Col : undefined
   }
   return undefined
 })
@@ -148,7 +150,7 @@ const dynamicComponentAttribute = computed<any>(() => {
 // 动态组件插槽
 const dynamicComponentSlots = computed(() => {
   // 组件默认插槽内容
-  const defaultSlot = (slot: SchemaConfig['componentContent']) => ({default: () => slot})
+  const defaultSlot = (slot: SchemaConfig['componentContent']) => ({ default: () => slot })
   // TODO:默认上传暂时没思路
   // if (!componentContent) return component === 'Upload' ? defaultSlot(defaultUpload) : undefined
   if (!componentContent) return undefined
@@ -179,16 +181,16 @@ const FormItem = () => {
     return isCheckComponent(unref(component)) ?
         (
             <DynamicComponent
-                v-model:checked={bindValue.value}
-                v-slots={dynamicComponentSlots.value}
-                {...dynamicComponentAttribute.value}>
+                v-model:checked={ bindValue.value }
+                v-slots={ dynamicComponentSlots.value }
+                { ...dynamicComponentAttribute.value }>
             </DynamicComponent>
         ) :
         (
             <DynamicComponent
-                v-model:value={bindValue.value}
-                v-slots={dynamicComponentSlots.value}
-                {...dynamicComponentAttribute.value}>
+                v-model:value={ bindValue.value }
+                v-slots={ dynamicComponentSlots.value }
+                { ...dynamicComponentAttribute.value }>
             </DynamicComponent>
         )
   }
@@ -197,16 +199,16 @@ const FormItem = () => {
   const name = arrayName.length ? arrayName : undefined
   return (
       <a-form-item
-          ref={formItemRef}
+          ref={ formItemRef }
           colon
-          rules={formItemRules.value}
-          name={name}
-          label-col={labelCol.value}
-          tooltip={unref(tooltip)}
-          required={isRequired.value}
-          v-slots={formItemSlots.value}
+          rules={ formItemRules.value }
+          name={ name }
+          label-col={ labelCol.value }
+          tooltip={ unref(tooltip) }
+          required={ isRequired.value }
+          v-slots={ formItemSlots.value }
       >
-        {contentSlot ? slots.default?.() : renderComponent()}
+        { contentSlot ? slots.default?.() : renderComponent() }
       </a-form-item>
   )
 

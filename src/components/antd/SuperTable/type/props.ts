@@ -1,9 +1,9 @@
-import type { ColumnType,FilterDropdownProps } from 'ant-design-vue/es/table/interface'
-import { ExpandedRowRender,RenderExpandIcon } from 'ant-design-vue/es/vc-table/interface'
-import { TableProps } from 'ant-design-vue'
+import type {ColumnType, FilterDropdownProps} from 'ant-design-vue/es/table/interface'
+import {ExpandedRowRender, RenderExpandIcon} from 'ant-design-vue/es/vc-table/interface'
+import {TableProps} from 'ant-design-vue'
 
 // 自定义列配置
-export interface SuperTableColumn extends ColumnType<Recordable> {
+export interface SuperTableColumn<T extends Recordable = Recordable> extends ColumnType<T> {
     // rowDrag?: boolean
     // 隐藏列
     hide?: boolean

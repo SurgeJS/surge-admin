@@ -7,13 +7,14 @@ import {
   SchemaLayout,
   SchemaType
 } from '@/components/common/SchemaForm/types/type'
-import {useProvideSchemaFormContext} from '@/components/common/SchemaForm/utils/context'
-import {computed, ref} from 'vue'
-import {createReusableTemplate, useToggle} from '@vueuse/core'
-import {FormInstance} from 'ant-design-vue/es/form'
-import {isBoolean, isFunction, isNumber, omit, set, take} from 'lodash-es'
+import { useProvideSchemaFormContext } from '@/components/common/SchemaForm/utils/context'
+import { computed, ref } from 'vue'
+import { createReusableTemplate, useToggle } from '@vueuse/core'
+import { FormInstance } from 'ant-design-vue/es/form'
+import { isBoolean, isFunction, isNumber, omit, set, take } from 'lodash-es'
 import SchemaFormItem from '@/components/common/SchemaForm/components/SchemaFormItem.vue'
-import {Modal} from 'ant-design-vue'
+import { Modal } from 'ant-design-vue'
+import { Gutter } from "ant-design-vue/es/grid/Row";
 
 const props = withDefaults(defineProps<SchemaFormProps>(), {
   required: false,
@@ -46,7 +47,7 @@ const [DefineSchemaForm, SchemaForm] = createReusableTemplate()
 const [DefineButtonAction, ButtonAction] = createReusableTemplate<{ schemaLayout?: SchemaLayout }>()
 
 // 提供Schema上下文
-const {aFormProps, getModelValue, maxLabelWidth} = useProvideSchemaFormContext(props, model)
+const {aFormProps, getModelValue} = useProvideSchemaFormContext(props, model)
 
 // 是否展开
 const [isExpand, setExpand] = useToggle();
@@ -55,7 +56,7 @@ const [isExpand, setExpand] = useToggle();
 const formRef = ref<FormInstance>()
 
 // 间距
-const rowGutter = computed(() => props.schemaLayout === 'search' ? [12, 12] : 12)
+const rowGutter = computed<Gutter>(() => (props.schemaLayout === 'search' ? [12, 12] : 12) as Gutter)
 
 // 搜索Schema
 const searchSchemas = computed(() => {
