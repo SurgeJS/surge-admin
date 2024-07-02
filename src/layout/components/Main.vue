@@ -1,23 +1,33 @@
 <script lang="ts" setup>
 import useTabBarStore from '@/store/modules/tabBar'
 import useAppStore from '@/store/modules/app'
-import {startCase} from 'lodash-es'
-import {computed} from 'vue'
+import { startCase } from 'lodash-es'
+import { computed, ref } from 'vue'
 import FullScreenLoading from '@/layout/components/FullScreenLoading.vue'
 
 const tabBarStore = useTabBarStore()
 const appStore = useAppStore()
-const {base} = appStore
+const { base } = appStore
+
+const scrollContainer = ref<HTMLDivElement>()
 
 // 缓存菜单，转成大驼峰
 const cacheMenus = computed(() => tabBarStore.cacheMenus.map((name) => startCase(name).replace('/', '')))
 const transitionName = computed(() => base.isPageStartAnimation ? base.pageAnimationMode : undefined)
+
+const returnScrollContainer = () => {
+  return scrollContainer.value as HTMLDivElement
+}
 </script>
 
 <template>
   <div class="layout-main">
     <full-screen-loading v-show="base.fullScreenLoading"></full-screen-loading>
-    <div v-show="!base.fullScreenLoading" class="layout-main-container">
+    <div ref="scrollContainer"
+         v-show="!base.fullScreenLoading"
+         class="layout-main-container">
+      <!-- 返回顶部 -->
+      <a-back-top :target="returnScrollContainer"/>
       <router-view
           v-if="tabBarStore.mainVisible"
           v-slot="{ Component, route }"

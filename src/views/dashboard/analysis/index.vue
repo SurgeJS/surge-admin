@@ -17,13 +17,14 @@ const icon = ref()
         <icon-select v-model:value="icon" :icons="icons" />
       </a-form-item>
     </a-form>
+    <p v-for="item in 100">1 </p>
   </div>
 </template>
 
 <style lang="scss" scoped>
-.analysis {
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-}
+//.analysis {
+//  width: 100%;
+//  height: 100%;
+//  overflow: auto;
+//}
 </style>

@@ -3,7 +3,7 @@ import LayoutHeader from '@/layout/components/Header/index.vue'
 import LayoutSidebar from '@/layout/components/Sidebar/index.vue'
 import LayoutMain from '@/layout/components/Main.vue'
 import LayoutFooter from '@/layout/components/Footer.vue'
-import TabBar from '@/layout/components/TabBar.vue'
+import TabBar from '@/layout/components/TabBar/index.vue'
 
 defineOptions({ name: 'Layout' })
 </script>
