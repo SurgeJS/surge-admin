@@ -1,7 +1,8 @@
 <script lang="ts" setup>
-import Menu from '@/layout/components/Menu.vue'
+import Menu from '@/layout/components/Menu/index.vue'
+
 import useAppStore from '@/store/modules/app'
-import { computed,nextTick } from 'vue'
+import { computed, nextTick } from 'vue'
 
 interface Props {
   menus: AppRouteRecordRaw[]
@@ -10,11 +11,11 @@ interface Props {
 defineProps<Props>()
 
 const appStore = useAppStore()
-const { sidebar,header } = appStore
+const { sidebar, header } = appStore
 
 const thumbtackIcon = computed(() => sidebar.isFixedMixSidebarDrawer
-                                     ? 'i-ant-design:pushpin-filled'
-                                     : 'i-ant-design:pushpin-twotone')
+    ? 'i-ant-design:pushpin-filled'
+    : 'i-ant-design:pushpin-twotone')
 
 const onBeforeEnter = async (el: HTMLElement) => {
   await nextTick()
@@ -32,26 +33,25 @@ const onAfterLeave = async (el: HTMLElement) => {
 
 <template>
   <transition
-    name="fold"
-    @after-leave="onAfterLeave"
-    @before-enter="onBeforeEnter"
+      name="fold"
+      @after-leave="onAfterLeave"
+      @before-enter="onBeforeEnter"
   >
     <div
-      v-show="sidebar.mixSidebarDrawerVisible"
-      :class="appStore.dynamicSidebarDark.className"
-      :style="{width:`${sidebar.sidebarWidth}px`}"
-      class="mixMenuDrawers"
+        v-show="sidebar.mixSidebarDrawerVisible"
+        :class="appStore.dynamicSidebarDark.className"
+        :style="{width:`${sidebar.sidebarWidth}px`}"
+        class="mixMenuDrawers"
     >
       <div :style="{height:`${header.headerHeight}px`}" class="mixMenuDrawers-header">
         Simple Admin
-        <i
-          :class="thumbtackIcon"
-          class="mixMenuDrawers-header-fixed text-base"
-          @click="appStore.toggleFixedMixSidebarDrawer()"
-        />
+        <icon @click="appStore.toggleFixedMixSidebarDrawer()"
+              :icon="thumbtackIcon"
+              class="mixMenuDrawers-header-fixed text-base"/>
+
       </div>
       <div :style="{width:`${sidebar.sidebarWidth}px`}" class="mixMenuDrawers-container">
-        <Menu :dark="appStore.dynamicSidebarDark.isDark" :menus="menus" />
+        <Menu :dark="appStore.dynamicSidebarDark.isDark" :routes="menus"/>
       </div>
     </div>
   </transition>

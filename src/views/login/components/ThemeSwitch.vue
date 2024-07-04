@@ -5,17 +5,21 @@ const settingStore = useAppStore()
 </script>
 
 <template>
-  <i
-    v-if="settingStore.base.themeMode==='dark'"
-    v-motion-fade
-    class="i-ant-design:moon-filled text-[#4f60fc]  cursor-pointer"
-    @click="settingStore.setThemeMode('light')"
+  <icon
+      v-if="settingStore.base.themeMode==='dark'"
+      v-motion-fade
+      icon="i-ant-design:moon-filled"
+      color="#4f60fc"
+      pointer
+      @click="settingStore.setThemeMode('light')"
   />
-  <i
-    v-else
-    v-motion-fade
-    class="i-ant-design:sun-filled text-[#ffb948]  cursor-pointer"
-    @click="settingStore.setThemeMode('dark')"
+  <icon
+      v-else
+      v-motion-fade
+      icon="i-ant-design:sun-filled"
+      color="#ffb948"
+      pointer
+      @click="settingStore.setThemeMode('dark')"
   />
 </template>
 

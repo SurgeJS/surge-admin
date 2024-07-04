@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { useEventListener,useVModel } from '@vueuse/core'
-import { onMounted,ref,watch } from 'vue'
+import { useEventListener, useVModel } from '@vueuse/core'
+import { onMounted, ref, watch } from 'vue'
 import useAuthStore from '@/store/modules/auth'
 import { useRouter } from 'vue-router'
 
@@ -18,13 +18,13 @@ interface MenuSearchOption {
 }
 
 interface Emits {
-  (e: 'update:visible',isShow: boolean): void
+  (e: 'update:visible', isShow: boolean): void
 }
 
 const props = defineProps<Props>()
 const emits = defineEmits<Emits>()
 
-const visible = useVModel(props,'visible',emits)
+const visible = useVModel(props, 'visible', emits)
 const authStore = useAuthStore()
 const router = useRouter()
 
@@ -36,19 +36,19 @@ const active = ref(0)
 // 扁平化菜单
 const flattenMenu = (menus: AppRouteRecordRaw[]): MenuSearchOption[] => {
   const menuList: MenuSearchOption[] = []
-  const handle = (menus: AppRouteRecordRaw[],iconName?: string | undefined,menuNameList?: string[]) => {
+  const handle = (menus: AppRouteRecordRaw[], iconName?: string | undefined, menuNameList?: string[]) => {
     menus.forEach(menu => {
       const icon = iconName || menu.meta?.icon
       const menuNames = menuNameList || []
       if (!menu.children?.length) {
         menuList.push({
           icon: icon as string,
-          labels: [ ...menuNames,menu.meta?.title as string ],
+          labels: [ ...menuNames, menu.meta?.title as string ],
           path: menu.path as string
         })
       } else {
         menuNames.push(menu.meta?.title as string)
-        handle(menu.children,icon,menuNames)
+        handle(menu.children, icon, menuNames)
       }
     })
   }
@@ -78,7 +78,7 @@ const handleKeyboardEvents = (event: KeyboardEvent) => {
   }
 }
 
-const handleMenuClick = (path: string,i: number) => {
+const handleMenuClick = (path: string, i: number) => {
   router.push(path)
   visible.value = false
   active.value = i
@@ -86,49 +86,51 @@ const handleMenuClick = (path: string,i: number) => {
 
 onMounted(() => {
   menus.value = flattenMenu(authStore.routes as AppRouteRecordRaw[])
-  useEventListener(window,'keyup',handleKeyboardEvents)
+  useEventListener(window, 'keyup', handleKeyboardEvents)
 })
 
-watch(searchText,(value) => {
+watch(searchText, (value) => {
   searchResult.value = menus.value.filter(item => item.labels.some(name => value && name.includes(value)))
 })
 </script>
 
 <template>
   <a-modal
-    v-model:open="visible"
-    :align-center="false"
-    :closable="false"
-    title-align="start"
-    width="630px"
+      v-model:open="visible"
+      :align-center="false"
+      :closable="false"
+      title-align="start"
+      width="630px"
   >
     <a-flex gap="middle" vertical>
       <a-input
-        v-model:value="searchText"
-        autofocus
-        placeholder="请输入你想搜索的菜单"
-        size="large"
+          v-model:value="searchText"
+          autofocus
+          placeholder="请输入你想搜索的菜单"
+          size="large"
       >
         <template #suffix>
-          <i class="i-ant-design:search-outlined" />
+          <icon icon="i-ant-design:search-outlined"/>
         </template>
       </a-input>
       <div class="menuSearchModal">
         <div
-          v-for="(item,i) in searchResult"
-          :key="item.path"
-          :class="{active:active===i}"
-          class="menuSearchModal-card"
-          size="small"
-          @click="handleMenuClick(item.path,i)"
+            v-for="(item,i) in searchResult"
+            :key="item.path"
+            :class="{active:active===i}"
+            class="menuSearchModal-card"
+            size="small"
+            @click="handleMenuClick(item.path,i)"
         >
           <div class="menuSearchModal-card-name">
-            <svg-icon :icon="item.icon" />
+            <iconify-icon :icon="item.icon"/>
             <span v-for="(label,index) in item.labels" :key="label">{{ label }}
-              <i v-if="index!==item.labels.length-1" class="i-tabler:arrow-narrow-right text-xs" />
+              <icon v-if="index!==item.labels.length-1"
+                    icon="i-tabler:arrow-narrow-right"
+                    class="text-xs"></icon>
             </span>
           </div>
-          <i class="i-tabler:arrow-back" />
+          <icon icon="i-tabler:arrow-back"></icon>
         </div>
       </div>
     </a-flex>
@@ -136,14 +138,14 @@ watch(searchText,(value) => {
       <div class="menuSearchModal-footer">
         <div class="menuSearchModal-footer-keys">
           <div>
-            <i class="i-tabler:arrow-back" />
+            <icon icon="i-tabler:arrow-back"/>
           </div>
           <span>选择</span>
         </div>
         <div class="menuSearchModal-footer-keys">
           <div>
-            <i class="i-tabler:arrow-narrow-up" />
-            <i class="i-tabler:arrow-narrow-down" />
+            <icon icon="i-tabler:arrow-narrow-up"/>
+            <icon icon="i-tabler:arrow-narrow-down"/>
           </div>
           <span>切换</span>
         </div>

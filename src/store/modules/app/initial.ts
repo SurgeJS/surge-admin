@@ -1,5 +1,5 @@
-import {cloneDeep} from 'lodash-es'
-import {appCache} from '@/store/caches'
+import { cloneDeep } from 'lodash-es'
+import { appCache } from '@/store/caches'
 
 // 移动端处罚宽度
 const mobileTriggerWidth = 800
@@ -29,7 +29,7 @@ export const initialAppStore: AppStore = {
         layoutStyle: 'side-dark',
 
         // 移动端触发宽度
-        mobileTriggerWidth: 800,
+        mobileTriggerWidth: 100,
 
         // 是否移动端
         isMobile: document.body.offsetWidth <= mobileTriggerWidth,

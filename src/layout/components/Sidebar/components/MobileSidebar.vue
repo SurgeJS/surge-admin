@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import useAppStore from '@/store/modules/app'
 import Logo from '@/layout/components/Logo.vue'
-import Menu from '@/layout/components/Menu.vue'
+import Menu from '@/layout/components/Menu/index.vue'
 import useAuthStore from '@/store/modules/auth'
 
 const appStore = useAppStore()
@@ -19,7 +19,7 @@ const authStore = useAuthStore()
     <div :class="appStore.dynamicSidebarDark.className" class="mobileSidebar ">
       <logo />
       <div class="mobileSidebar-container">
-        <Menu :dark="appStore.dynamicSidebarDark.isDark" :menus="authStore.routes" />
+        <Menu :dark="appStore.dynamicSidebarDark.isDark" :routes="authStore.routes" />
       </div>
     </div>
   </a-drawer>

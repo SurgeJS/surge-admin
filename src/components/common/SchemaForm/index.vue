@@ -31,32 +31,32 @@ const props = withDefaults(defineProps<SchemaFormProps>(), {
   defaultValueTimeFormat: 'HH:mm:ss',
   confirmTitle: '关闭提示',
   confirmContent: '您确定要关闭它吗？',
-  drawerProps: () => ({width: 500}),
-  modalProps: () => ({width: 800})
+  drawerProps: () => ({ width: 500 }),
+  modalProps: () => ({ width: 800 })
 })
 
 const emits = defineEmits<SchemaFormEmits>()
 
 // 当前步骤条激活项
-const activeStep = defineModel<number>('activeStep', {default: 1})
-const visible = defineModel<boolean>('visible', {default: false})
-const model = defineModel<Recordable>('model', {required: true})
+const activeStep = defineModel<number>('activeStep', { default: 1 })
+const visible = defineModel<boolean>('visible', { default: false })
+const model = defineModel<Recordable>('model', { required: true })
 
-const [DefineFormContent, FormContent] = createReusableTemplate<{ schema?: SchemaType[] }>()
-const [DefineSchemaForm, SchemaForm] = createReusableTemplate()
-const [DefineButtonAction, ButtonAction] = createReusableTemplate<{ schemaLayout?: SchemaLayout }>()
+const [ DefineFormContent, FormContent ] = createReusableTemplate<{ schema?: SchemaType[] }>()
+const [ DefineSchemaForm, SchemaForm ] = createReusableTemplate()
+const [ DefineButtonAction, ButtonAction ] = createReusableTemplate<{ schemaLayout?: SchemaLayout }>()
 
 // 提供Schema上下文
-const {aFormProps, getModelValue} = useProvideSchemaFormContext(props, model)
+const { aFormProps, getModelValue } = useProvideSchemaFormContext(props, model)
 
 // 是否展开
-const [isExpand, setExpand] = useToggle();
+const [ isExpand, setExpand ] = useToggle();
 
 // 表单实例
 const formRef = ref<FormInstance>()
 
 // 间距
-const rowGutter = computed<Gutter>(() => (props.schemaLayout === 'search' ? [12, 12] : 12) as Gutter)
+const rowGutter = computed<Gutter>(() => (props.schemaLayout === 'search' ? [ 12, 12 ] : 12) as Gutter)
 
 // 搜索Schema
 const searchSchemas = computed(() => {
@@ -78,11 +78,11 @@ const formClassObj = computed(() => {
 // labelCol配置
 const labelCol = computed(() => {
   if (!props.labelWidth) return props.labelCol
-  return {style: {width: isNumber(props.labelWidth) ? `${props.labelWidth}px` : props.labelWidth}, ...props.labelCol}
+  return { style: { width: isNumber(props.labelWidth) ? `${ props.labelWidth }px` : props.labelWidth }, ...props.labelCol }
 })
 
 // 步骤条选项
-const stepsItems = computed(() => props.stepSchema?.map(item => omit(item, ['form'])))
+const stepsItems = computed(() => props.stepSchema?.map(item => omit(item, [ 'form' ])))
 
 const expandCollapse = computed(() => ({
   text: isExpand.value ? '收起' : '展开',
@@ -104,7 +104,7 @@ const onSubmit = () => {
 const handleGroupHide = (config: GroupSchemaType) => {
   let isHide = true
   if (isBoolean(config.hide)) isHide = !config.hide
-  if (isFunction(config.hide)) isHide = !config.hide({group: config, model: model.value})
+  if (isFunction(config.hide)) isHide = !config.hide({ group: config, model: model.value })
   return isHide
 }
 
@@ -228,7 +228,9 @@ defineExpose<SchemaFormExpose>(formExpose)
                 <span class="font-bold">{{ config.title }}</span>
                 <a-tooltip v-if="config.helpMessage">
                   <template #title>{{ config.helpMessage }}}</template>
-                  <i class="i-ant-design:question-circle-outlined text-tertiary full-[14px]"/>
+                  <icon icon="i-ant-design:question-circle-outlined"
+                        class="text-tertiary"
+                        size="14ox"/>
                 </a-tooltip>
               </div>
             </slot>
@@ -279,7 +281,7 @@ defineExpose<SchemaFormExpose>(formExpose)
                     type="link"
                     @click="setExpand()">
             {{ expandCollapse.text }}
-            <i :class="expandCollapse.icon"></i>
+            <icon :icon="expandCollapse.icon"/>
           </a-button>
         </template>
         <template v-if="props.schemaLayout==='group' || !props.schemaLayout">
@@ -370,7 +372,8 @@ defineExpose<SchemaFormExpose>(formExpose)
     margin-bottom: 0;
   }
 }
+
 :deep(.ant-row) {
-  margin: 0!important;
+  margin: 0 !important;
 }
 </style>

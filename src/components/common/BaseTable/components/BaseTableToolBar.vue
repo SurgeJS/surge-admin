@@ -1,17 +1,11 @@
 <script setup lang="ts">
-import {densityList} from '@/components/common/BaseTable/utils/data'
-import {useBaseTableStore} from '@/components/common/BaseTable/utils/context'
-import {cloneDeep} from 'lodash-es'
-import {unref} from 'vue'
-import {VueDraggable} from 'vue-draggable-plus'
-import {
-  HomeOutlined,
-  SettingFilled,
-  SmileOutlined,
-  SyncOutlined,
-  LoadingOutlined,
-} from '@ant-design/icons-vue';
-const {props, currentDensity, tableColumns} = useBaseTableStore()!
+import { densityList } from '@/components/common/BaseTable/utils/data'
+import { useBaseTableStore } from '@/components/common/BaseTable/utils/context'
+import { cloneDeep } from 'lodash-es'
+import { unref } from 'vue'
+import { VueDraggable } from 'vue-draggable-plus'
+
+const { props, currentDensity, tableColumns } = useBaseTableStore()!
 
 const initialTableColumns = cloneDeep(unref(tableColumns.value))
 
@@ -36,7 +30,9 @@ const resetColumns = () => {
       <a-dropdown trigger="click">
         <a-tooltip :mouse-enter-delay=".5">
           <template #title>密度</template>
-          <i class="i-ant-design:column-height-outlined cursor-pointer text-base"/>
+          <icon icon="i-ant-design:column-height-outlined"
+                pointer
+                class="text-base"/>
         </a-tooltip>
         <template #overlay>
           <a-menu
@@ -74,7 +70,7 @@ const resetColumns = () => {
                   v-if="!item.fixed"
                   class="flex-y-center gap-2 rounded hover:bg-fill-secondary "
               >
-                <i class="drag i-ant-design:holder-outlined cursor-grabbing text-xs "/>
+                <icon icon="i-ant-design:holder-outlined" class="cursor-grabbing text-xs"/>
                 <a-checkbox
                     :checked="!item.hide"
                     @change="()=>item.hide=!item.hide"
@@ -91,12 +87,14 @@ const resetColumns = () => {
         </template>
         <a-tooltip :mouse-enter-delay=".5">
           <template #title>列设置</template>
-          <i class="i-ant-design:setting-outlined cursor-pointer text-base"/>
+          <icon icon="i-ant-design:setting-outlined"
+                pointer
+                class="text-base"/>
         </a-tooltip>
       </a-popover>
       <a-button>
         <template #icon>
-          <i class="i-ant-design:setting-outlined cursor-pointer full-[14px] "/>
+          <icon icon="i-ant-design:setting-outlined"/>
         </template>
         测试
       </a-button>

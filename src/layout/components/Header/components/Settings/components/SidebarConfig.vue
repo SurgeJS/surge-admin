@@ -40,7 +40,7 @@ const { sidebar } = appStore
         mode="button"
       />
     </context-menu>
-    <context-menu label="菜单开启琴模式">
+    <context-menu label="菜单开启手风琴模式">
       <a-switch v-model:checked="sidebar.isMenuAccordion" />
     </context-menu>
   </a-flex>

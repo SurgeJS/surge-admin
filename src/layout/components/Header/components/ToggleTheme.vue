@@ -11,7 +11,7 @@ const iconName = computed(() => appStore.base.themeMode === 'dark'
 
 <template>
   <icon-hover-container @click="appStore.setThemeMode(appStore.base.themeMode === 'dark'?'light': 'dark')">
-    <i :class="iconName" />
+    <icon :icon="iconName"/>
   </icon-hover-container>
 </template>
 

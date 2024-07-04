@@ -1,0 +1,15 @@
+import { h } from "vue";
+import Icon, { IconProps } from "@/components/common/Icon/index.vue";
+import { Icon as DynamicIcon, IconProps as DynamicIconProps } from '@iconify/vue'
+
+const useRenderIcon = () => {
+    // 渲染 uno 图标（可以离线使用，无法动态使用）
+    const RenderUnoIcon = (icon: IconProps['icon'], props?: IconProps) =>  h(Icon, { icon, ...props })
+
+    // 动态图标（图标集范围在 src/assets/iconify/index.ts 中查看，可以离线使用，可以动态使用）
+    const RenderDynamicIcon = (icon:string,props?: DynamicIconProps) =>  h(DynamicIcon, { icon, ...props })
+
+    return { RenderUnoIcon,RenderDynamicIcon }
+}
+
+export default useRenderIcon

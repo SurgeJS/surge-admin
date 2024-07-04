@@ -78,7 +78,7 @@ watch(tabBarStore.tabs, () => {
         class="tabBar-item action"
         @click="toScroll('left')"
     >
-      <i class="i-ic:baseline-chevron-left"/>
+      <icon icon="i-ic:baseline-chevron-left"/>
     </div>
     <div ref="tabBarContainer" class="tabBar-container">
       <dropdown-context
@@ -92,11 +92,10 @@ watch(tabBarStore.tabs, () => {
             @click="router.push(item.fullPath)"
         >
           {{ item.meta?.title }}
-          <i
-              v-if="!item.meta?.affix"
-              class="i-ic:round-close tabBar-item-clear text-xs"
-              @click.stop="tabBarStore.closeTab(item)"
-          />
+          <icon v-if="!item.meta?.affix"
+                @click.stop="tabBarStore.closeTab(item)"
+                icon="i-ic:round-close"
+                class="tabBar-item-clear text-xs"/>
         </div>
       </dropdown-context>
     </div>
@@ -105,11 +104,11 @@ watch(tabBarStore.tabs, () => {
         class="tabBar-item action"
         @click="toScroll('right')"
     >
-      <i class="i-ic:baseline-chevron-right"/>
+      <icon icon="i-ic:baseline-chevron-right"/>
     </div>
     <dropdown-context :trigger="['click','contextmenu']">
       <div class="tabBar-item action">
-        <i class="i-ic:baseline-keyboard-arrow-down"/>
+        <icon icon="i-ic:baseline-keyboard-arrow-down"/>
       </div>
     </dropdown-context>
   </div>

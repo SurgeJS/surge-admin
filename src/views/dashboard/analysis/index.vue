@@ -1,23 +1,22 @@
-<script lang="tsx" setup>
-import AntDesignIconJson from '@iconify/json/json/ant-design.json'
+<script lang="ts" setup>
 import { ref } from 'vue'
+import useAuthStore from "@/store/modules/auth";
+import { listIcons } from "@iconify/vue";
 
 defineOptions({ name: 'DashboardAnalysis' })
-const icons = [
-  ...Object.keys(AntDesignIconJson.icons).map(key => `${ AntDesignIconJson.prefix }:${ key }`)
-]
-const str = ref('')
-const icon = ref()
+const icons = Array.from(new Set(listIcons()))
+const iconV = ref()
+const authStore = useAuthStore()
+
 </script>
 
 <template>
   <div class="analysis">
     <a-form>
       <a-form-item label="test">
-        <icon-select v-model:value="icon" :icons="icons" />
+        <icon-selector v-model:value="iconV" />
       </a-form-item>
     </a-form>
-    <p v-for="item in 100">1 </p>
   </div>
 </template>
 

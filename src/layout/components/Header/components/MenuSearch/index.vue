@@ -10,7 +10,7 @@ const visible = ref(false)
 
 <template>
   <icon-hover-container @click="visible= true">
-    <i class="i-ant-design:search-outlined" />
+    <icon icon="i-ant-design:search-outlined"></icon>
   </icon-hover-container>
   <menu-search-modal v-model:visible="visible" />
 </template>

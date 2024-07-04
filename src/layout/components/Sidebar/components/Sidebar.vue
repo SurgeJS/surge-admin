@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import Logo from '@/layout/components/Logo.vue'
-import Menu from '@/layout/components/Menu.vue'
+import Menu from '@/layout/components/Menu/index.vue'
 
 import useAppStore from '@/store/modules/app'
 import useAuthStore from '@/store/modules/auth'
@@ -20,9 +20,9 @@ const authStore = useAuthStore()
     <logo />
     <div class="sidebar-container">
       <Menu
-        :collapsed="sidebar.isCollapsed"
+        :inline-collapsed="sidebar.isCollapsed"
         :dark="appStore.dynamicSidebarDark.isDark"
-        :menus="authStore.routes"
+        :routes="authStore.routes"
       />
     </div>
   </div>

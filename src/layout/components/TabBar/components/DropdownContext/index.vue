@@ -88,7 +88,7 @@ const dropdownList = computed(() => {
             @click="item.handle"
         >
           <template #icon>
-            <i :class="item.icon"/>
+            <icon :icon="item.icon"/>
           </template>
           {{ item.title }}
         </a-menu-item>
