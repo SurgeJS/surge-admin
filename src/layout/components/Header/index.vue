@@ -10,39 +10,40 @@ import Settings from '@/layout/components/Header/components/Settings/index.vue'
 import useAppStore from '@/store/modules/app'
 import Menu from '@/layout/components/Menu/index.vue'
 import useAuthStore from '@/store/modules/auth'
-import Logo from '@/layout/components/Logo.vue'
+import Logo from "@/layout/components/Logo.vue";
 
 defineOptions({ name: 'HeaderContent' })
 const appStore = useAppStore()
-const { base,header } = appStore
+const { base, header } = appStore
 const authStore = useAuthStore()
 </script>
 
 <template>
   <div
-    :class="appStore.dynamicTopDark.className"
-    :style="{height:`${header.headerHeight}px`}"
-    class="layout-header"
+      :class="appStore.dynamicTopDark.className"
+      :style="{height:`${header.headerHeight}px`}"
+      class="layout-header"
   >
-    <a-flex class="flex-1" gap="small">
-      <menu-collapsed v-if="base.isMobile||base.layoutMode==='side'" />
-      <breadcrumb v-if="base.layoutMode!=='top'&&header.breadcrumbVisible&&!base.isMobile" />
-      <template v-if="base.layoutMode==='top'&&!base.isMobile">
-        <Logo />
-         <Menu
-             :dark="appStore.dynamicTopDark.isDark"
-             :routes="authStore.routes"
-             mode="horizontal"
-         />
-      </template>
+    <a-flex gap="small">
+      <menu-collapsed v-if="base.isMobile||base.layoutMode==='side'"/>
+      <breadcrumb v-if="base.layoutMode!=='top'&&header.breadcrumbVisible&&!base.isMobile"/>
+      <Logo v-if="base.layoutMode==='top'&&!base.isMobile"/>
     </a-flex>
+    <div class="layout-header-menu" v-if="base.layoutMode==='top'&&!base.isMobile">
+      <Menu
+          :style="{lineHeight:`${header.headerHeight}px`}"
+          :dark="appStore.dynamicTopDark.isDark"
+          :routes="authStore.routes"
+          mode="horizontal"
+      />
+    </div>
     <a-flex gap="small" justify="flex-end">
-      <menu-search />
-      <toggle-theme />
-      <full-screen />
-      <github />
-      <avatar />
-      <settings />
+      <menu-search/>
+      <toggle-theme/>
+      <full-screen/>
+      <github/>
+      <avatar/>
+      <settings/>
     </a-flex>
   </div>
 </template>
@@ -55,11 +56,10 @@ const authStore = useAuthStore()
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px;
   font-size: 18px;
-  overflow: hidden;
+  padding: 0 5px;
+  gap: 10px;
   border-bottom: 1px solid theme('borderColor.secondary');
-  flex-shrink: 0;
   transition: height .2s ease-in-out;
 
   &.dark {
@@ -69,7 +69,10 @@ const authStore = useAuthStore()
   }
 
   &-menu {
+    min-width: 0;
     flex: 1;
+    height: 100%;
+    overflow: hidden;
   }
 }
 </style>

@@ -124,7 +124,7 @@ watch(() => route.path, () => {
 
 <style scoped lang="scss">
 :global(.ant-menu-horizontal >.ant-menu-submenu), :global(.ant-menu-horizontal >.ant-menu-item) {
-  display: flex;
+  display: inline-flex;
   align-items: center;
 }
 
