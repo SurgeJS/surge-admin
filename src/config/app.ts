@@ -53,7 +53,7 @@ export default class AppConfig {
   // 自定义主题
   static CUSTOM_THEME: CustomTheme = {
     textLight: 'rgba(255, 255, 255, 0.85)',
-    bgDark: '#001529',
+    bgDark: '#4e4e4e',
     fillDark: 'rgba(255, 255, 255, .1)',
     borderDark: '#2b2f34'
   }
