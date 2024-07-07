@@ -20,6 +20,8 @@
     "@vueuse/components": "^10.11.0",
     "@vueuse/core": "^10.11.0",
     "@vueuse/motion": "^2.1.0",
+    "ag-grid-community": "^32.0.0",
+    "ag-grid-vue3": "^32.0.0",
     "alova": "^2.21.3",
     "ant-design-vue": "^4.2.3",
     "dayjs": "^1.11.11",

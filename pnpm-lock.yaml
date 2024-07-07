@@ -26,6 +26,12 @@ importers:
       '@vueuse/motion':
         specifier: ^2.1.0
         version: 2.1.0(rollup@2.79.1)(vue@3.4.31(typescript@5.4.5))
+      ag-grid-community:
+        specifier: ^32.0.0
+        version: 32.0.0
+      ag-grid-vue3:
+        specifier: ^32.0.0
+        version: 32.0.0(typescript@5.4.5)
       alova:
         specifier: ^2.21.3
         version: 2.21.3
@@ -1695,6 +1701,15 @@ packages:
     resolution: {integrity: sha512-Y9rRfJG5jcKOE0CLisYbojUjIrIEE7AGMzA/Sm4BslANhbS+cDMpgBdcPT91oJ7OuJ9hYJBx59RjbhxVnrF8Xg==}
     engines: {node: '>=0.4.0'}
     hasBin: true
+
+  ag-charts-types@10.0.0:
+    resolution: {integrity: sha512-jjiwrzydERou4yp9WHiJeVK237B7BUP3/4j6tdycyHag266YVWa/BMNtTOThWJKGku+m+TC2qfaujLYixgcbrQ==}
+
+  ag-grid-community@32.0.0:
+    resolution: {integrity: sha512-H0I19/+SXTP/uMeG58nlm/Fj1rMKlX6mnbMW+MrfJ+e0/aguOtrOG+UGOn8f3CTmSwjOIQquCmu3gK8hBMqgtQ==}
+
+  ag-grid-vue3@32.0.0:
+    resolution: {integrity: sha512-OqojxaabpTdBLEkCAhWnnQAx3gIZMJEruLAeTIenuYbQWDc+tDxch+YvoLJMZ0DOcxlaXrAP0AkSDm+2RdDIZg==}
 
   ajv@6.12.6:
     resolution: {integrity: sha512-j3fVLgvTo527anyYyJOGTYJbG+vnnQYvE0m5mmkc1TK+nxAppkCLMIL0aZ4dblVCNoGShhm+kzE4ZUykBoMg4g==}
@@ -5549,6 +5564,19 @@ snapshots:
       acorn: 8.11.3
 
   acorn@8.11.3: {}
+
+  ag-charts-types@10.0.0: {}
+
+  ag-grid-community@32.0.0:
+    dependencies:
+      ag-charts-types: 10.0.0
+
+  ag-grid-vue3@32.0.0(typescript@5.4.5):
+    dependencies:
+      ag-grid-community: 32.0.0
+      vue: 3.4.31(typescript@5.4.5)
+    transitivePeerDependencies:
+      - typescript
 
   ajv@6.12.6:
     dependencies:

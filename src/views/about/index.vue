@@ -1,36 +1,32 @@
 <script lang="ts" setup>
 
-// const icon = ref('i-carbon:3d-mpr-toggle')
-// const test = (s) => {
-//   icon.value = s
-// }
-//
-// const icon2 = ref('i-humbleicons:adjustments')
-// const test2 = (s) => {
-//   icon2.value = s
-// }
-// const iconList = [ 'i-carbon:3d-cursor','i-carbon:3d-cursor-alt','i-carbon:3d-curve-auto-colon' ]
+import { ref } from 'vue'
+import { AgGridVue } from 'ag-grid-vue3'
+import type { ColDef } from 'ag-grid-community/dist/types/core/entities/colDef'
+
+const rowData = ref([
+  { make: 'Tesla',model: 'Model Y',price: 64950,electric: true },
+  { make: 'Ford',model: 'F-Series',price: 33850,electric: false },
+  { make: 'Toyota',model: 'Corolla',price: 29600,electric: false }
+])
+
+// Column Definitions: Defines the columns to be displayed.
+const colDefs = ref<ColDef[]>([
+  { field: 'make',cellRenderer: 's' },
+  { field: 'model' },
+  { field: 'price' },
+  { field: 'electric' }
+])
 </script>
 
 <template>
-  <div>
-    11
-    <!--    <a-button @click="test('i-carbon:3d-cursor')">i-carbon:3d-cursor</a-button>-->
-    <!--    <a-button @click="test('i-carbon:3d-cursor-alt')">i-carbon:3d-cursor-alt</a-button>-->
-    <!--    <a-button @click="test('i-carbon:3d-curve-auto-colon')">i-carbon:3d-curve-auto-colon</a-button>-->
-    <!--    <div :class="icon" />-->
-    <!--    <br>-->
-    <!--    <a-button @click="test2('i-humbleicons:activity')">i-humbleicons:activity</a-button>-->
-    <!--    <a-button @click="test2('i-humbleicons:adjustments')">i-humbleicons:adjustments</a-button>-->
-    <!--    <a-button @click="test2('i-humbleicons:aid')">i-humbleicons:aid</a-button>-->
-    <!--    <div :class="icon2" />-->
-    <!--    <br>-->
-    <!--    <div-->
-    <!--      v-for="item in iconList"-->
-    <!--      :key="item"-->
-    <!--      :class="item"-->
-    <!--      class="w-[30px] h-[30px]"-->
-    <!--    />-->
+  <div class="w-h-full">
+    <ag-grid-vue
+        :rowData="rowData"
+        :columnDefs="colDefs"
+        class="ag-theme-quartz h-auto"
+    >
+    </ag-grid-vue>
   </div>
 </template>
 
