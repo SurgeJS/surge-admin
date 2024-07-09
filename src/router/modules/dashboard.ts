@@ -20,20 +20,7 @@ export default {
         keepAlive: true,
         affix: true
       },
-      component: 'submenu',
-      children:[
-        {
-          path: '/dashboard/analysis/details',
-          name: 'dashboard/analysis/details',
-          meta: {
-            title: '详情',
-            roles: [ RoleEnum.SUPER ],
-            keepAlive: true,
-            affix: true
-          },
-          component: 'menu',
-        }
-      ]
+      component: 'submenu'
     }
   ]
 } as AppRouteRecordRaw

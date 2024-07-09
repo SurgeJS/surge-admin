@@ -25,7 +25,7 @@ export interface IconifyIconProps {
   pointer?: boolean
 }
 
-const props = defineProps<IconProps>()
+const props = defineProps<IconifyIconProps>()
 
 const style = computed(() => ({
   cursor: props.pointer ? 'pointer' : undefined,
