@@ -11,8 +11,7 @@ import { Icon } from '@iconify/vue'
 import { computed } from 'vue'
 import { isNumber } from 'lodash-es'
 
-export interface IconProps {
-  // 图标地址：https://icones.js.org/collection/all
+export interface IconifyIconProps {
   // 图标名称 例如：mdi:account | mdi-account
   icon?: string
 

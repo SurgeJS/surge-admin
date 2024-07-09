@@ -19,6 +19,7 @@ declare global {
 
     children?: AppRouteRecordRaw[]
 
+    // 用于 组件路径/路由缓存
     name?: string
   }
 }

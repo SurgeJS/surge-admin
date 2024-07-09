@@ -10,6 +10,7 @@ export default defineConfig({
         [
             presetUno(),
             presetIcons({
+                prefix: 'i-',
                 scale: 1.2,
                 // 额外的CSS属性配置
                 extraProperties: {
@@ -35,8 +36,7 @@ export default defineConfig({
             'flex-center': 'flex justify-center items-center',
             'flex-x-center': 'flex justify-center',
             'flex-y-center': 'flex items-center'
-        }
-    ,
+        },
     theme: {
         colors: {
             // 主色

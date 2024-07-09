@@ -1,10 +1,19 @@
-import {CardProps, ColProps, DrawerProps, FormProps, ModalProps, RowProps, StepProps, StepsProps} from 'ant-design-vue'
-import {NamePath, RuleObject} from 'ant-design-vue/es/form/interface'
-import {ComponentsName, ComponentsProps} from '@/components/common/SchemaForm/types/component'
-import {DefaultOptionType} from 'ant-design-vue/es/vc-tree-select/TreeSelect'
-import {MaybeRef, VNode} from 'vue'
-import {ColSize} from 'ant-design-vue/es/grid/Col'
-import {FormExpose} from 'ant-design-vue/es/form/Form'
+import {
+    CardProps,
+    ColProps,
+    DrawerProps,
+    FormProps,
+    ModalProps,
+    RowProps,
+    StepProps,
+    StepsProps
+} from 'ant-design-vue'
+import { NamePath, RuleObject } from 'ant-design-vue/es/form/interface'
+import { ComponentsName, ComponentsProps } from '@/components/common/SchemaForm/types/component'
+import { DefaultOptionType } from 'ant-design-vue/es/vc-tree-select/TreeSelect'
+import { MaybeRef, VNode } from 'vue'
+import { ColSize } from 'ant-design-vue/es/grid/Col'
+import { FormExpose } from 'ant-design-vue/es/form/Form'
 
 // 回调参数
 export interface CallbackParams<T extends Recordable = Recordable, C extends ComponentsName = ComponentsName> {
@@ -80,6 +89,13 @@ export type SchemaLayout = 'search' | 'group' | 'step'
  */
 export type SchemaLayoutContainer = 'drawer' | 'modal' | 'card' | false
 
+// 选项属性
+export interface OptionsProps {
+    value: string
+    label: string
+    children: string
+}
+
 // 组件部分通用Props,这里的属性会映射到组件Props中
 export interface MapComponentCommonProps<T extends Recordable = Recordable, C extends ComponentsName = ComponentsName> {
     // 禁用状态
@@ -146,6 +162,9 @@ export interface SchemaConfig<T extends Recordable = Recordable, C extends Compo
 
     // 额外的
     extra?: SlotsContent | CallbackParamsFunction<T, C, SlotsContent>
+
+    // 选项属性（自定义value、label、children）
+    optionsProps:OptionsProps
 }
 
 
@@ -276,6 +295,9 @@ export type SchemaFormProps = FormProps & {
 
     // 查询表单默认展示个数
     searchShowNumber?: number
+
+    // 选项属性（自定义value、label、children）
+    optionsProps:OptionsProps
 }
 
 // JSON 格式配置表单事件
