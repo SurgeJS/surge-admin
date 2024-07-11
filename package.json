@@ -11,7 +11,8 @@
     "preview": "vite preview --open --port 9999",
     "type-check": "vue-tsc --noEmit --skipLibCheck",
     "lint": "eslint src --fix ",
-    "lint-staged": "lint-staged --no-stash"
+    "lint-staged": "lint-staged --no-stash",
+    "commit": "git add . && git cz"
   },
   "dependencies": {
     "@alova/scene-vue": "^1.6.1",

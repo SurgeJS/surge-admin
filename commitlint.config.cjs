@@ -6,6 +6,7 @@ module.exports = {
             type: '选择你要提交的类型 :',
             subject: '填写简短精炼的变更描述 :\n',
             body: '填写更加详细的变更描述（可选）。使用 "|" 换行 :\n',
+            confirmCommit: '是否提交或修改commit ?'
         },
         types: [
             { value: '特性', name: 'feat:         新增功能' },
