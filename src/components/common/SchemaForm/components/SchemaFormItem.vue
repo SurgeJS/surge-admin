@@ -217,8 +217,8 @@ const FormItem = () => {
 
 <template>
   <a-col v-if="isHide" v-bind="{...{...globalColProps, ...unref(colProps)}}">
-    <form-item v-if="!slot"></form-item>
-    <slot v-else :name="slot"></slot>
+    <form-item v-if="!slot" />
+    <slot v-else :name="slot" />
   </a-col>
 </template>
 

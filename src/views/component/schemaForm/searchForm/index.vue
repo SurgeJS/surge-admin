@@ -139,9 +139,9 @@ const onSearch = async () => {
 <template>
   <div>
     <a-alert
-        message="Schema Form（JSON 格式配置表单）"
-        type="info"
-        show-icon
+      message="Schema Form（JSON 格式配置表单）"
+      type="info"
+      show-icon
     >
       <template #description>
         <p>自动化生成表单：通过定义JSON Schema，可以自动生成对应的表单界面，减少了手工编写表单的工作量。</p>
@@ -151,12 +151,12 @@ const onSearch = async () => {
       </template>
     </a-alert>
     <schema-form
-        @search="onSearch"
-        schema-layout="search"
-        :submit-loading="isShow"
-        v-model:model="form"
-        :schema="schema1"
-    ></schema-form>
+      v-model:model="form"
+      schema-layout="search"
+      :submit-loading="isShow"
+      :schema="schema1"
+      @search="onSearch"
+    />
   </div>
 </template>
 

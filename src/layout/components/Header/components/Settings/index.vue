@@ -38,7 +38,7 @@ const open = ref(false)
     </template>
   </a-drawer>
   <icon-hover-container @click="open=!open">
-    <icon icon="i-ic:baseline-settings"/>
+    <icon icon="i-ic:baseline-settings" />
   </icon-hover-container>
 </template>
 

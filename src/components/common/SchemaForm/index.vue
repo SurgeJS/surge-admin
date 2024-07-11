@@ -183,21 +183,22 @@ defineExpose<SchemaFormExpose>(formExpose)
   <define-form-content v-slot="{schema}">
     <a-row class="w-full" :gutter="rowGutter">
       <template
-          v-for="config in schema "
-          :key="config.field||config.slot"
+        v-for="config in schema "
+        :key="config.field||config.slot"
       >
-        <schema-form-item ref="formItemsRef"
-                          v-if="config.component||config.contentSlot||config.slot"
-                          :schema="config as any"
+        <schema-form-item
+          v-if="config.component||config.contentSlot||config.slot"
+          ref="formItemsRef"
+          :schema="config as any"
         >
-          <slot v-if="config.contentSlot" :name="config.contentSlot"/>
-          <template v-if="config.slot" v-slot:[config.slot]>
-            <slot :name="config.slot"/>
+          <slot v-if="config.contentSlot" :name="config.contentSlot" />
+          <template v-if="config.slot" #[config.slot]>
+            <slot :name="config.slot" />
           </template>
         </schema-form-item>
       </template>
       <a-col class="flex-auto">
-        <button-action v-if="props.schemaLayout==='search'"/>
+        <button-action v-if="props.schemaLayout==='search'" />
       </a-col>
     </a-row>
   </define-form-content>
@@ -205,18 +206,18 @@ defineExpose<SchemaFormExpose>(formExpose)
   <!--  定义Form  -->
   <define-schema-form>
     <a-steps
-        v-if="props.schemaLayout==='step'"
-        v-bind="props.stepsProps"
-        :current="activeStep-1"
-        :items="stepsItems"
+      v-if="props.schemaLayout==='step'"
+      v-bind="props.stepsProps"
+      :current="activeStep-1"
+      :items="stepsItems"
     />
     <a-form
-        ref="formRef"
-        :class="formClassObj"
-        :style="props.formStyle"
-        v-bind="aFormProps"
-        :model="model"
-        :label-col="labelCol"
+      ref="formRef"
+      :class="formClassObj"
+      :style="props.formStyle"
+      v-bind="aFormProps"
+      :model="model"
+      :label-col="labelCol"
     >
       <!-- 组 -->
       <template v-if="props.schemaLayout==='group'">
@@ -224,35 +225,37 @@ defineExpose<SchemaFormExpose>(formExpose)
           <template v-if="handleGroupHide(config)">
             <slot name="groupTitle" :group-schema="config">
               <div class="flex tracking-wider h-[34px] items-center gap-1 mb-2 ">
-                <span class="inline-block w-[5px] h-[60%] bg-primary rounded flex-x-center"/>
+                <span class="inline-block w-[5px] h-[60%] bg-primary rounded flex-x-center" />
                 <span class="font-bold">{{ config.title }}</span>
                 <a-tooltip v-if="config.helpMessage">
                   <template #title>{{ config.helpMessage }}}</template>
-                  <icon icon="i-ant-design:question-circle-outlined"
-                        class="text-tertiary"
-                        size="14ox"/>
+                  <icon
+                    icon="i-ant-design:question-circle-outlined"
+                    class="text-tertiary"
+                    size="14ox"
+                  />
                 </a-tooltip>
               </div>
             </slot>
-            <form-content :schema="config.form"/>
+            <form-content :schema="config.form" />
           </template>
         </template>
-        <button-action v-if="props.container=='card'"/>
+        <button-action v-if="props.container=='card'" />
       </template>
       <!-- 步骤 -->
       <template v-else-if="props.schemaLayout==='step'">
         <template v-for="(config,i) in props.stepSchema" :key="i">
-          <form-content v-show="i+1 === activeStep" :schema="config.form"/>
+          <form-content v-show="i+1 === activeStep" :schema="config.form" />
         </template>
-        <button-action v-if="props.container=='card'"/>
+        <button-action v-if="props.container=='card'" />
       </template>
       <!-- 搜索 -->
       <template v-else-if="props.schemaLayout==='search'">
-        <form-content :schema="searchSchemas"/>
+        <form-content :schema="searchSchemas" />
       </template>
       <template v-else>
-        <form-content :schema="props.schema"/>
-        <button-action v-if="props.container=='card'&&props.schemaLayout!=='search'"/>
+        <form-content :schema="props.schema" />
+        <button-action v-if="props.container=='card'&&props.schemaLayout!=='search'" />
       </template>
     </a-form>
   </define-schema-form>
@@ -260,28 +263,30 @@ defineExpose<SchemaFormExpose>(formExpose)
   <!--  定义操作按钮  -->
   <define-button-action>
     <a-flex
-        v-if="!props.hideActionButton"
-        gap="10"
-        justify="flex-end"
-        :class="{'px-[6px]':schemaLayout!=='search'}"
-        align="center"
+      v-if="!props.hideActionButton"
+      gap="10"
+      justify="flex-end"
+      :class="{'px-[6px]':schemaLayout!=='search'}"
+      align="center"
     >
-      <slot name="beforeButton"/>
+      <slot name="beforeButton" />
       <slot name="customActionButton">
         <template v-if="props.schemaLayout==='search'">
           <a-button @click="formExpose.resetFields">重置</a-button>
           <a-button
-              type="primary"
-              :loading="props.submitLoading"
-              @click="onSearch"
+            type="primary"
+            :loading="props.submitLoading"
+            @click="onSearch"
           >
             搜索
           </a-button>
-          <a-button v-if="props.searchShowNumber"
-                    type="link"
-                    @click="setExpand()">
+          <a-button
+            v-if="props.searchShowNumber"
+            type="link"
+            @click="setExpand()"
+          >
             {{ expandCollapse.text }}
-            <icon :icon="expandCollapse.icon"/>
+            <icon :icon="expandCollapse.icon" />
           </a-button>
         </template>
         <template v-if="props.schemaLayout==='group' || !props.schemaLayout">
@@ -291,79 +296,79 @@ defineExpose<SchemaFormExpose>(formExpose)
         <template v-if="props.schemaLayout==='step'">
           <a-button v-if="activeStep!==1" @click="onPre">上一步</a-button>
           <a-button
-              v-if="activeStep!==stepsItems?.length"
-              type="primary"
-              @click="onNext"
+            v-if="activeStep!==stepsItems?.length"
+            type="primary"
+            @click="onNext"
           >
             下一步
           </a-button>
         </template>
       </slot>
-      <slot name="afterButton"/>
+      <slot name="afterButton" />
     </a-flex>
   </define-button-action>
 
   <!-- 抽屉 -->
   <a-drawer
-      v-if="props.container==='drawer'"
-      @close="onCancel"
-      v-bind="props.drawerProps"
-      :open="visible"
-      :mask-closable="props.maskClosable"
+    v-if="props.container==='drawer'"
+    v-bind="props.drawerProps"
+    :open="visible"
+    :mask-closable="props.maskClosable"
+    @close="onCancel"
   >
     <template #title>
       <slot name="containerTitle">
         {{ props.containerTitle }}
       </slot>
     </template>
-    <slot name="containerFormContentBefore"/>
-    <schema-form/>
-    <slot name="containerFormContentAfter"/>
+    <slot name="containerFormContentBefore" />
+    <schema-form />
+    <slot name="containerFormContentAfter" />
     <template #footer>
       <slot name="containerFooter">
-        <button-action/>
+        <button-action />
       </slot>
     </template>
   </a-drawer>
 
   <!-- 模态框 -->
   <a-modal
-      v-else-if="props.container==='modal'"
-      @cancel="onCancel"
-      v-bind="props.modalProps"
-      :open="visible"
-      :mask-closable="props.maskClosable"
+    v-else-if="props.container==='modal'"
+    v-bind="props.modalProps"
+    :open="visible"
+    :mask-closable="props.maskClosable"
+    @cancel="onCancel"
   >
     <template #title>
       <slot name="containerTitle">
         {{ props.containerTitle }}
       </slot>
     </template>
-    <slot name="containerFormContentBefore"/>
-    <schema-form/>
-    <slot name="containerFormContentAfter"/>
+    <slot name="containerFormContentBefore" />
+    <schema-form />
+    <slot name="containerFormContentAfter" />
     <template #footer>
       <slot name="containerFooter">
-        <button-action/>
+        <button-action />
       </slot>
     </template>
   </a-modal>
 
   <!-- 卡片 -->
   <a-card
-      v-else-if="props.container==='card'"
-      v-bind="props.cardProps"
+    v-else-if="props.container==='card'"
+    v-bind="props.cardProps"
   >
     <template #title>
       <slot name="containerTitle">
         {{ props.containerTitle }}
       </slot>
     </template>
-    <slot name="containerFormContentBefore"/>
-    <schema-form/>
-    <slot name="containerFormContentAfter"/>
+    <slot name="containerFormContentBefore" />
+    <schema-form />
+    <slot name="containerFormContentAfter" />
   </a-card>
-  <schema-form v-else/>
+  <schema-form v-else />
 </template>
 
 <style lang="scss" scoped>

@@ -322,9 +322,9 @@ const submitError = () => {
 <template>
   <div>
     <a-alert
-        message="Schema Form（JSON 格式配置表单）"
-        type="info"
-        show-icon
+      message="Schema Form（JSON 格式配置表单）"
+      type="info"
+      show-icon
     >
       <template #description>
         <p>自动化生成表单：通过定义JSON Schema，可以自动生成对应的表单界面，减少了手工编写表单的工作量。</p>
@@ -338,58 +338,58 @@ const submitError = () => {
       <a-button @click="toggleDrawer()">打开抽屉表单</a-button>
     </a-flex>
     <schema-form
-        name="modal"
-        @submit-error="submitError"
-        @submit-success="submitSuccess"
-        layout="vertical"
-        container-title="默认布局"
-        v-model:model="form"
-        :schema="schema1"
-    ></schema-form>
+      v-model:model="form"
+      name="modal"
+      layout="vertical"
+      container-title="默认布局"
+      :schema="schema1"
+      @submit-error="submitError"
+      @submit-success="submitSuccess"
+    />
     <br>
     <schema-form
-        name="drawer"
-        :col-props="{ span: 12 }"
-        @submit-error="submitError"
-        @submit-success="submitSuccess"
-        layout="vertical"
-        container-title="两列布局"
-        v-model:model="form"
-        :schema="schema1"
-    ></schema-form>
+      v-model:model="form"
+      name="drawer"
+      :col-props="{ span: 12 }"
+      layout="vertical"
+      container-title="两列布局"
+      :schema="schema1"
+      @submit-error="submitError"
+      @submit-success="submitSuccess"
+    />
     <br>
     <schema-form
-        name="test1"
-        @submit-error="submitError"
-        @submit-success="submitSuccess"
-        container-title="混合布局"
-        v-model:model="form"
-        :schema="schema2"
-    ></schema-form>
+      v-model:model="form"
+      name="test1"
+      container-title="混合布局"
+      :schema="schema2"
+      @submit-error="submitError"
+      @submit-success="submitSuccess"
+    />
 
     <schema-form
-        name="test2"
-        container="modal"
-        @submit-error="submitError"
-        @submit-success="submitSuccess"
-        container-title="模态框表单"
-        layout="vertical"
-        v-model:model="form"
-        v-model:visible="modalVisible"
-        :schema="schema2"
-    ></schema-form>
+      v-model:model="form"
+      v-model:visible="modalVisible"
+      name="test2"
+      container="modal"
+      container-title="模态框表单"
+      layout="vertical"
+      :schema="schema2"
+      @submit-error="submitError"
+      @submit-success="submitSuccess"
+    />
 
     <schema-form
-        name="test3"
-        container="drawer"
-        @submit-error="submitError"
-        @submit-success="submitSuccess"
-        container-title="抽屉表单"
-        layout="vertical"
-        v-model:model="form"
-        v-model:visible="drawerVisible"
-        :schema="schema1"
-    ></schema-form>
+      v-model:model="form"
+      v-model:visible="drawerVisible"
+      name="test3"
+      container="drawer"
+      container-title="抽屉表单"
+      layout="vertical"
+      :schema="schema1"
+      @submit-error="submitError"
+      @submit-success="submitSuccess"
+    />
   </div>
 </template>
 

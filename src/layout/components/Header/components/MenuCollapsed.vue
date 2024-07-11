@@ -17,7 +17,7 @@ const handle = () => {
 
 <template>
   <icon-hover-container @click="handle">
-    <icon :icon="iconName"/>
+    <icon :icon="iconName" />
   </icon-hover-container>
 </template>
 

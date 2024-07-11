@@ -259,9 +259,9 @@ const submitError = () => {
 <template>
   <div>
     <a-alert
-        message="Schema Form（JSON 格式配置表单）"
-        type="info"
-        show-icon
+      message="Schema Form（JSON 格式配置表单）"
+      type="info"
+      show-icon
     >
       <template #description>
         <p>自动化生成表单：通过定义JSON Schema，可以自动生成对应的表单界面，减少了手工编写表单的工作量。</p>
@@ -272,16 +272,16 @@ const submitError = () => {
     </a-alert>
     <br>
     <schema-form
-        form-class="p-50px"
-        @next-error="submitError"
-        @next-success="submitSuccess"
-        @pre="preActive => activeStep=preActive"
-        :col-props="{span:12}"
-        v-model:active-step="activeStep"
-        v-model:model="form"
-        schema-layout="step"
-        :step-schema="schema1"
-    ></schema-form>
+      v-model:active-step="activeStep"
+      v-model:model="form"
+      form-class="p-50px"
+      :col-props="{span:12}"
+      schema-layout="step"
+      :step-schema="schema1"
+      @next-error="submitError"
+      @next-success="submitSuccess"
+      @pre="preActive => activeStep=preActive"
+    />
   </div>
 </template>
 

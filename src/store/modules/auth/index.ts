@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { UserApi } from '@/services/api/user'
-import { message,notification } from 'ant-design-vue'
+import { message, notification } from 'ant-design-vue'
 import router from '@/router'
 import { RouterTool } from '@/router/uitls/tool'
 import RouterConfig from '@/config/router'
@@ -122,7 +122,6 @@ const useAuthStore = defineStore('Auth',{
       this.routes = RouterTool.getUserRouteList(this.roles)
       // 自定义路由转Vue路由
       const vueRoutes = RouterTool.transformCustomRoutesToVueRoutes(this.routes)
-      console.log(vueRoutes)
       // 添加路由
       vueRoutes.forEach(route => router.addRoute(route))
       this.isGeneratedRoutes = true

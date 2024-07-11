@@ -138,17 +138,17 @@ const onSearch = async () => {
 <template>
   <div class="h-full flex gap-col-4">
     <a-card class="w-[250px]">
-      <tree></tree>
+      <tree />
     </a-card>
     <div class="flex-1">
       <schema-form
-          @search="onSearch"
-          schema-layout="search"
-          :submit-loading="isShow"
-          label-width="100"
-          v-model:model="form"
-          :schema="schema1"
-      ></schema-form>
+        v-model:model="form"
+        schema-layout="search"
+        :submit-loading="isShow"
+        label-width="100"
+        :schema="schema1"
+        @search="onSearch"
+      />
     </div>
   </div>
 </template>

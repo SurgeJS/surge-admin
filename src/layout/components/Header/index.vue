@@ -20,30 +20,30 @@ const authStore = useAuthStore()
 
 <template>
   <div
-      :class="appStore.dynamicTopDark.className"
-      :style="{height:`${header.headerHeight}px`}"
-      class="layout-header"
+    :class="appStore.dynamicTopDark.className"
+    :style="{height:`${header.headerHeight}px`}"
+    class="layout-header"
   >
     <a-flex gap="small">
-      <menu-collapsed v-if="base.isMobile||base.layoutMode==='side'"/>
-      <breadcrumb v-if="base.layoutMode!=='top'&&header.breadcrumbVisible&&!base.isMobile"/>
-      <Logo v-if="base.layoutMode==='top'&&!base.isMobile"/>
+      <menu-collapsed v-if="base.isMobile||base.layoutMode==='side'" />
+      <breadcrumb v-if="base.layoutMode!=='top'&&header.breadcrumbVisible&&!base.isMobile" />
+      <Logo v-if="base.layoutMode==='top'&&!base.isMobile" />
     </a-flex>
-    <div class="layout-header-menu" v-if="base.layoutMode==='top'&&!base.isMobile">
+    <div v-if="base.layoutMode==='top'&&!base.isMobile" class="layout-header-menu">
       <Menu
-          :style="{lineHeight:`${header.headerHeight}px`}"
-          :dark="appStore.dynamicTopDark.isDark"
-          :routes="authStore.routes"
-          mode="horizontal"
+        :style="{lineHeight:`${header.headerHeight}px`}"
+        :dark="appStore.dynamicTopDark.isDark"
+        :routes="authStore.routes"
+        mode="horizontal"
       />
     </div>
     <a-flex gap="small" justify="flex-end">
-      <menu-search/>
-      <toggle-theme/>
-      <full-screen/>
-      <github/>
-      <avatar/>
-      <settings/>
+      <menu-search />
+      <toggle-theme />
+      <full-screen />
+      <github />
+      <avatar />
+      <settings />
     </a-flex>
   </div>
 </template>

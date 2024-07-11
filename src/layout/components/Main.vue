@@ -22,23 +22,25 @@ const returnScrollContainer = () => {
 
 <template>
   <div class="layout-main">
-    <full-screen-loading v-show="base.fullScreenLoading"></full-screen-loading>
-    <div ref="scrollContainer"
-         v-show="!base.fullScreenLoading"
-         class="layout-main-container">
+    <full-screen-loading v-show="base.fullScreenLoading" />
+    <div
+      v-show="!base.fullScreenLoading"
+      ref="scrollContainer"
+      class="layout-main-container"
+    >
       <!-- 返回顶部 -->
-      <a-back-top :target="returnScrollContainer"/>
+      <a-back-top :target="returnScrollContainer" />
       <router-view
-          v-if="tabBarStore.mainVisible"
-          v-slot="{ Component, route }"
+        v-if="tabBarStore.mainVisible"
+        v-slot="{ Component, route }"
       >
         <transition
-            :name="transitionName"
-            appear
-            mode="out-in"
+          :name="transitionName"
+          appear
+          mode="out-in"
         >
           <keep-alive :include="cacheMenus">
-            <component :is="Component" :key="route.fullPath"/>
+            <component :is="Component" :key="route.fullPath" />
           </keep-alive>
         </transition>
       </router-view>

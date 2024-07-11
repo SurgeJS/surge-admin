@@ -31,16 +31,16 @@ const columns = ref<SuperTableColumn[]>([])
   <a-card>
     <base-table-tool-bar>
       <template #header-extra>
-        <slot name="header-extra"/>
+        <slot name="header-extra" />
       </template>
       <template #heading>
         <slot name="heading">{{ props.heading }}</slot>
       </template>
     </base-table-tool-bar>
     <super-table
-        v-bind="superTableProps"
-        :columns="tableColumns"
-        :size="size"
+      v-bind="superTableProps"
+      :columns="tableColumns"
+      :size="size"
     />
   </a-card>
 </template>

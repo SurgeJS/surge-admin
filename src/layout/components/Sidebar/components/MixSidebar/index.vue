@@ -62,24 +62,24 @@ watch(() => route.path, () => {
 
 <template>
   <div
-      :class="appStore.dynamicSidebarDark.className"
-      :style="{width:`${appStore.dynamicMixSidebarWidth}px`}"
-      class="mixSidebar"
-      @mouseleave="onMouseLeave"
+    :class="appStore.dynamicSidebarDark.className"
+    :style="{width:`${appStore.dynamicMixSidebarWidth}px`}"
+    class="mixSidebar"
+    @mouseleave="onMouseLeave"
   >
-    <logo/>
+    <logo />
     <div class="mixSidebar-container">
       <div
-          v-for="(item) in authStore.routes"
-          :key="item.path"
-          :class="isActive(item.path)"
-          class="mixSidebar-container-menu"
-          @click="handleMixMenuItem(item)"
+        v-for="(item) in authStore.routes"
+        :key="item.path"
+        :class="isActive(item.path)"
+        class="mixSidebar-container-menu"
+        @click="handleMixMenuItem(item)"
       >
         <iconify-icon
-            :icon="item?.meta?.icon"
-            :size="sidebar.isCollapsedMix ? 20: 24"
-            pointer
+          :icon="item?.meta?.icon"
+          :size="sidebar.isCollapsedMix ? 20: 24"
+          pointer
         />
         <p v-if="!sidebar.isCollapsedMix" class="mixSidebar-container-menu-text">
           {{ item?.meta?.title }}
@@ -87,13 +87,13 @@ watch(() => route.path, () => {
       </div>
     </div>
     <div
-        :style="{height:`${footer.height}px`}"
-        class="mixSidebar-footer"
-        @click="()=>appStore.toggleMixSidebarCollapsed()"
+      :style="{height:`${footer.height}px`}"
+      class="mixSidebar-footer"
+      @click="()=>appStore.toggleMixSidebarCollapsed()"
     >
-      <icon :icon="collapsedIcon"/>
+      <icon :icon="collapsedIcon" />
     </div>
-    <mix-sidebar-drawers :menus="menus"/>
+    <mix-sidebar-drawers :menus="menus" />
   </div>
 </template>
 

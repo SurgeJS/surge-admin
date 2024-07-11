@@ -109,17 +109,16 @@ watch(() => route.path, () => {
 
 <template>
   <a-menu
-      class="menu"
-      :items="menus"
-      :theme="theme"
-      :mode="mode"
-      :inline-collapsed="inlineCollapsed"
-      :selected-keys="selectedKeys"
-      :open-keys="openKeys"
-      @openChange="onOpenChange"
-      @click="onClick"
-  >
-  </a-menu>
+    class="menu"
+    :items="menus"
+    :theme="theme"
+    :mode="mode"
+    :inline-collapsed="inlineCollapsed"
+    :selected-keys="selectedKeys"
+    :open-keys="openKeys"
+    @open-change="onOpenChange"
+    @click="onClick"
+  />
 </template>
 
 <style scoped lang="scss">

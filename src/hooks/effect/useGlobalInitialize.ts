@@ -5,8 +5,6 @@ import day from '@/utils/day'
 export const useGlobalInitialize = () => {
   const appStore = useAppStore()
   const { base } = appStore
-  console.log(base)
-  console.log(appStore);
   // 使用本地化语言
   day.locale('zh-cn')
   // 判断是否移动端

@@ -40,10 +40,10 @@ watch(checkedKeys,() => {
 </script>
 
 <template>
-  <a-input class="mb-1" placeholder="请输入关键字"></a-input>
+  <a-input class="mb-1" placeholder="请输入关键字" />
   <a-tree
-      v-model:expandedKeys="expandedKeys"
-      :tree-data="treeData"
+    v-model:expandedKeys="expandedKeys"
+    :tree-data="treeData"
   >
     <template #title="{ title, key }">
       <span v-if="key === '0-0-1-0'" style="color: #1890ff">{{ title }}</span>

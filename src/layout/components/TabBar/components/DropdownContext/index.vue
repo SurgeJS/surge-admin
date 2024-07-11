@@ -78,17 +78,17 @@ const dropdownList = computed(() => {
 
 <template>
   <a-dropdown :trigger="trigger">
-    <slot></slot>
+    <slot />
     <template #overlay>
       <a-menu>
         <a-menu-item
-            v-for="item in dropdownList"
-            :key="item.title"
-            :disabled="item.disabled()"
-            @click="item.handle"
+          v-for="item in dropdownList"
+          :key="item.title"
+          :disabled="item.disabled()"
+          @click="item.handle"
         >
           <template #icon>
-            <icon :icon="item.icon"/>
+            <icon :icon="item.icon" />
           </template>
           {{ item.title }}
         </a-menu-item>

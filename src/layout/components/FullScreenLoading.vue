@@ -4,13 +4,13 @@
 
 <template>
   <div class="w-h-full flex-1 pos-absolute left-0 top-0  z-1 bg-layout flex-center overflow-hidden">
-    <div  class="loading-container">
+    <div class="loading-container">
       <div class="loading">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
+        <div />
+        <div />
+        <div />
+        <div />
+        <div />
       </div>
       <h3>加载中...</h3>
     </div>

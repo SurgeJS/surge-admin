@@ -22,11 +22,10 @@ const colDefs = ref<ColDef[]>([
 <template>
   <div class="w-h-full">
     <ag-grid-vue
-        :rowData="rowData"
-        :columnDefs="colDefs"
-        class="ag-theme-quartz h-auto"
-    >
-    </ag-grid-vue>
+      :row-data="rowData"
+      :column-defs="colDefs"
+      class="ag-theme-quartz h-auto"
+    />
   </div>
 </template>
 

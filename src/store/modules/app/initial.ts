@@ -89,6 +89,6 @@ export const initialAppStore: AppStore = {
         height: 40
     }
 }
-console.log(appCache.get());
+
 export const appStore = appCache.get() || cloneDeep(initialAppStore)
 

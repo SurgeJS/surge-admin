@@ -9,6 +9,6 @@ const iconName = computed(() => !isFullscreen ? 'i-ant-design:expand-outlined' :
 
 <template>
   <icon-hover-container @click="toggle">
-    <icon :icon="iconName"></icon>
+    <icon :icon="iconName" />
   </icon-hover-container>
 </template>

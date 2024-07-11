@@ -33,25 +33,26 @@ const onAfterLeave = async (el: HTMLElement) => {
 
 <template>
   <transition
-      name="fold"
-      @after-leave="onAfterLeave"
-      @before-enter="onBeforeEnter"
+    name="fold"
+    @after-leave="onAfterLeave"
+    @before-enter="onBeforeEnter"
   >
     <div
-        v-show="sidebar.mixSidebarDrawerVisible"
-        :class="appStore.dynamicSidebarDark.className"
-        :style="{width:`${sidebar.sidebarWidth}px`}"
-        class="mixMenuDrawers"
+      v-show="sidebar.mixSidebarDrawerVisible"
+      :class="appStore.dynamicSidebarDark.className"
+      :style="{width:`${sidebar.sidebarWidth}px`}"
+      class="mixMenuDrawers"
     >
       <div :style="{height:`${header.headerHeight}px`}" class="mixMenuDrawers-header">
         Simple Admin
-        <icon @click="appStore.toggleFixedMixSidebarDrawer()"
-              :icon="thumbtackIcon"
-              class="mixMenuDrawers-header-fixed text-base"/>
-
+        <icon
+          :icon="thumbtackIcon"
+          class="mixMenuDrawers-header-fixed text-base"
+          @click="appStore.toggleFixedMixSidebarDrawer()"
+        />
       </div>
       <div :style="{width:`${sidebar.sidebarWidth}px`}" class="mixMenuDrawers-container">
-        <Menu :dark="appStore.dynamicSidebarDark.isDark" :routes="menus"/>
+        <Menu :dark="appStore.dynamicSidebarDark.isDark" :routes="menus" />
       </div>
     </div>
   </transition>

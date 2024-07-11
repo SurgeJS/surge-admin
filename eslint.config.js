@@ -18,7 +18,7 @@ export default tseslint.config({
   extends: [
     eslint.configs.recommended,
     ...tseslint.configs.recommended,
-    ...pluginVue.configs['flat/essential'] // vue3推荐的eslint配置
+    ...pluginVue.configs['flat/recommended'] // vue3推荐的eslint配置
   ],
   languageOptions: {
     parser: vueParser, // 使用vue解析器，这个可以识别vue文件

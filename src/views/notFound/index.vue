@@ -11,7 +11,7 @@ const goHome = () => {
 
 <template>
   <div class="notFound">
-    <icon icon="i-local-404" size="50%"></icon>
+    <icon icon="i-local-404" size="50%" />
     <a-button
       size="large"
       type="primary"

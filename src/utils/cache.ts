@@ -45,7 +45,7 @@ export interface CacheTemplate<T> {
  * @param key 换成名称
  * @param type 缓存类型,默认是local
  */
-export const createCache = <T>(key: string, type: CacheType = CacheType.Cookie): CacheTemplate<T> => {
+export const createCache = <T>(key: string, type: CacheType = CacheType.LOCAL): CacheTemplate<T> => {
     return {
         key,
         set(value,expires?) {

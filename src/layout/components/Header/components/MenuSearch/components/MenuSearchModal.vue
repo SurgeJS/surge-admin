@@ -96,41 +96,43 @@ watch(searchText, (value) => {
 
 <template>
   <a-modal
-      v-model:open="visible"
-      :align-center="false"
-      :closable="false"
-      title-align="start"
-      width="630px"
+    v-model:open="visible"
+    :align-center="false"
+    :closable="false"
+    title-align="start"
+    width="630px"
   >
     <a-flex gap="middle" vertical>
       <a-input
-          v-model:value="searchText"
-          autofocus
-          placeholder="请输入你想搜索的菜单"
-          size="large"
+        v-model:value="searchText"
+        autofocus
+        placeholder="请输入你想搜索的菜单"
+        size="large"
       >
         <template #suffix>
-          <icon icon="i-ant-design:search-outlined"/>
+          <icon icon="i-ant-design:search-outlined" />
         </template>
       </a-input>
       <div class="menuSearchModal">
         <div
-            v-for="(item,i) in searchResult"
-            :key="item.path"
-            :class="{active:active===i}"
-            class="menuSearchModal-card"
-            size="small"
-            @click="handleMenuClick(item.path,i)"
+          v-for="(item,i) in searchResult"
+          :key="item.path"
+          :class="{active:active===i}"
+          class="menuSearchModal-card"
+          size="small"
+          @click="handleMenuClick(item.path,i)"
         >
           <div class="menuSearchModal-card-name">
-            <iconify-icon :icon="item.icon"/>
+            <iconify-icon :icon="item.icon" />
             <span v-for="(label,index) in item.labels" :key="label">{{ label }}
-              <icon v-if="index!==item.labels.length-1"
-                    icon="i-tabler:arrow-narrow-right"
-                    class="text-xs"></icon>
+              <icon
+                v-if="index!==item.labels.length-1"
+                icon="i-tabler:arrow-narrow-right"
+                class="text-xs"
+              />
             </span>
           </div>
-          <icon icon="i-tabler:arrow-back"></icon>
+          <icon icon="i-tabler:arrow-back" />
         </div>
       </div>
     </a-flex>
@@ -138,14 +140,14 @@ watch(searchText, (value) => {
       <div class="menuSearchModal-footer">
         <div class="menuSearchModal-footer-keys">
           <div>
-            <icon icon="i-tabler:arrow-back"/>
+            <icon icon="i-tabler:arrow-back" />
           </div>
           <span>选择</span>
         </div>
         <div class="menuSearchModal-footer-keys">
           <div>
-            <icon icon="i-tabler:arrow-narrow-up"/>
-            <icon icon="i-tabler:arrow-narrow-down"/>
+            <icon icon="i-tabler:arrow-narrow-up" />
+            <icon icon="i-tabler:arrow-narrow-down" />
           </div>
           <span>切换</span>
         </div>

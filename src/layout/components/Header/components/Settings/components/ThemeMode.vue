@@ -27,10 +27,10 @@ watch(() => appStore.base.themeMode,() => {
         @change="onUpdate"
       >
         <template #checkedChildren>
-          <icon icon="i-ant-design:moon-filled" color="#4f60fc"></icon>
+          <icon icon="i-ant-design:moon-filled" color="#4f60fc" />
         </template>
         <template #unCheckedChildren>
-          <icon icon="i-ant-design:sun-filled" color="#ffb948"></icon>
+          <icon icon="i-ant-design:sun-filled" color="#ffb948" />
         </template>
       </a-switch>
     </config-menu>
@@ -42,10 +42,10 @@ watch(() => appStore.base.themeMode,() => {
         unchecked-color="#464e62"
       >
         <template #checkedChildren>
-          <icon icon="i-ic:round-hdr-auto"/>
+          <icon icon="i-ic:round-hdr-auto" />
         </template>
         <template #unCheckedChildren>
-          <icon icon="i-ic:baseline-do-disturb-on"/>
+          <icon icon="i-ic:baseline-do-disturb-on" />
         </template>
       </a-switch>
     </config-menu>

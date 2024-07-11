@@ -30,7 +30,7 @@ const style = computed<Partial<StyleValue>>(() => {
 </script>
 
 <template>
-  <i :class="icon" :style="style"/>
+  <i :class="icon" :style="style" />
 </template>
 
 <style scoped lang="scss">

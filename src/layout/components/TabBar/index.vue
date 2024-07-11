@@ -69,46 +69,49 @@ watch(tabBarStore.tabs, () => {
 
 <template>
   <div
-      v-if="header.tabBarVisible"
-      :style="{height:`${header.tabBarHeight}px`}"
-      class="tabBar"
+    v-if="header.tabBarVisible"
+    :style="{height:`${header.tabBarHeight}px`}"
+    class="tabBar"
   >
     <div
-        v-if="scrollBtnVisible"
-        class="tabBar-item action"
-        @click="toScroll('left')"
+      v-if="scrollBtnVisible"
+      class="tabBar-item action"
+      @click="toScroll('left')"
     >
-      <icon icon="i-ic:baseline-chevron-left"/>
+      <icon icon="i-ic:baseline-chevron-left" />
     </div>
     <div ref="tabBarContainer" class="tabBar-container">
       <dropdown-context
-          v-for="item in tabBarStore.tabs"
-          :key="item.path"
-          :tab="item"
-          trigger="contextmenu">
+        v-for="item in tabBarStore.tabs"
+        :key="item.path"
+        :tab="item"
+        trigger="contextmenu"
+      >
         <div
-            :class="route.path === item.path ? 'active' : undefined"
-            class="tabBar-item"
-            @click="router.push(item.fullPath)"
+          :class="route.path === item.path ? 'active' : undefined"
+          class="tabBar-item"
+          @click="router.push(item.fullPath)"
         >
           {{ item.meta?.title }}
-          <icon v-if="!item.meta?.affix"
-                @click.stop="tabBarStore.closeTab(item)"
-                icon="i-ic:round-close"
-                class="tabBar-item-clear text-xs"/>
+          <icon
+            v-if="!item.meta?.affix"
+            icon="i-ic:round-close"
+            class="tabBar-item-clear text-xs"
+            @click.stop="tabBarStore.closeTab(item)"
+          />
         </div>
       </dropdown-context>
     </div>
     <div
-        v-if="scrollBtnVisible"
-        class="tabBar-item action"
-        @click="toScroll('right')"
+      v-if="scrollBtnVisible"
+      class="tabBar-item action"
+      @click="toScroll('right')"
     >
-      <icon icon="i-ic:baseline-chevron-right"/>
+      <icon icon="i-ic:baseline-chevron-right" />
     </div>
     <dropdown-context :trigger="['click','contextmenu']">
       <div class="tabBar-item action">
-        <icon icon="i-ic:baseline-keyboard-arrow-down"/>
+        <icon icon="i-ic:baseline-keyboard-arrow-down" />
       </div>
     </dropdown-context>
   </div>

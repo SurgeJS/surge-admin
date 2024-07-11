@@ -1,11 +1,11 @@
-import {defineStore} from 'pinia'
-import {appStore} from '@/store/modules/app/initial'
-import {ComputedRef, nextTick} from 'vue'
-import {GlobalToken} from 'ant-design-vue/es/theme/interface'
-import {setCSSVariable, temporaryClearTransition} from '@/utils'
+import { defineStore } from 'pinia'
+import { appStore } from '@/store/modules/app/initial'
+import { ComputedRef, nextTick } from 'vue'
+import { GlobalToken } from 'ant-design-vue/es/theme/interface'
+import { setCSSVariable, temporaryClearTransition } from '@/utils'
 import AppConfig from '@/config/app'
-import {theme} from 'ant-design-vue'
-import {ThemeConfig} from 'ant-design-vue/es/config-provider/context'
+import { theme } from 'ant-design-vue'
+import { ThemeConfig } from 'ant-design-vue/es/config-provider/context'
 
 const useAppStore = defineStore('App', {
     state: (): AppStore => appStore,
