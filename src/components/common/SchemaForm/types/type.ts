@@ -164,7 +164,7 @@ export interface SchemaConfig<T extends Recordable = Recordable, C extends Compo
     extra?: SlotsContent | CallbackParamsFunction<T, C, SlotsContent>
 
     // 选项属性（自定义value、label、children）
-    optionsProps:OptionsProps
+    optionsProps?:OptionsProps
 }
 
 
@@ -297,7 +297,7 @@ export type SchemaFormProps = FormProps & {
     searchShowNumber?: number
 
     // 选项属性（自定义value、label、children）
-    optionsProps:OptionsProps
+    optionsProps?:OptionsProps
 }
 
 // JSON 格式配置表单事件
