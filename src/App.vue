@@ -9,6 +9,7 @@ const appStore = useAppStore()
 useGlobalInitialize()
 // 全局订阅
 useGlobalSubscribe()
+const a  = 1
 </script>
 
 <template>

@@ -35,8 +35,6 @@ export default tseslint.config({
     'no-undef': 'off',
 
     /* -----------------------TypeScript------------------------- */
-    // 未使用的变量
-    '@typescript-eslint/no-unused-vars': 'off',
     // 静止使用 any
     '@typescript-eslint/no-explicit-any': 'off',
 
