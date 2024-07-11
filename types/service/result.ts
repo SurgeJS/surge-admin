@@ -1,5 +1,5 @@
 // 后台响应结构
-declare type Result<Data = any,Expand = Recordable> = {
+declare interface Result<Data = any> {
   // 系统状态
   code: number
 
@@ -8,6 +8,5 @@ declare type Result<Data = any,Expand = Recordable> = {
 
   // data
   result?: Data
-
-} & Partial<Expand>
+}
 

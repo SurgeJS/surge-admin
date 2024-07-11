@@ -9,7 +9,9 @@ export default defineFakeRoute([
       return {
         code: 200,
         msg: '登录成功',
-        token: 'by Simple admin'
+        result: {
+          token: '123456'
+        }
       }
     }
   },

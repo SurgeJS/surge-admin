@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { UserApi } from '@/services/api/user'
-import { message, notification } from 'ant-design-vue'
+import { message,notification } from 'ant-design-vue'
 import router from '@/router'
 import { RouterTool } from '@/router/uitls/tool'
 import RouterConfig from '@/config/router'
@@ -52,15 +52,15 @@ const useAuthStore = defineStore('Auth',{
 
     // 密码登录
     async passwordLogin(form: UserModel.PasswordLoginParams) {
-      const { code,token,msg } = await UserApi.passwordLogin(form).catch(() => {
+      const { code,result,msg } = await UserApi.passwordLogin(form).catch(() => {
         this.initAuthStore()
         return Promise.reject()
       })
-      if (code !== 200 || !token) {
+      if (code !== 200 || !result?.token) {
         message.error(msg || Hint.SERVER_ANOMALY)
         return Promise.reject()
       }
-      this.setToken(token)
+      this.setToken(result.token)
       await this.handleLoginAfter()
       return Promise.resolve()
     },

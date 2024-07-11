@@ -48,7 +48,9 @@ export default class AppConfig {
   static ANTD_LIGHT_THEME: Partial<GlobalToken> = {}
 
   // Antd暗黑主题
-  static ANTD_DARK_THEME: Partial<GlobalToken> = {}
+  static ANTD_DARK_THEME: Partial<GlobalToken> = {
+    // colorBgContainer: '#0b0a0a'
+  }
 
   // 自定义主题
   static CUSTOM_THEME: CustomTheme = {

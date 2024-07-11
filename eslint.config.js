@@ -31,13 +31,12 @@ export default tseslint.config({
     }
   },
   rules: {
-    // 无未定义
     'no-undef': 'off',
-
     /* -----------------------TypeScript------------------------- */
     // 静止使用 any
     '@typescript-eslint/no-explicit-any': 'off',
-
+    // 禁用未定义变量
+    '@typescript-eslint/no-unused-vars': 'off',
     /* -----------------------Vue------------------------- */
     // vue 属性换行
     'vue/max-attributes-per-line': [ 'error',{ 'singleline': 2 } ],
@@ -47,7 +46,6 @@ export default tseslint.config({
     'vue/multi-word-component-names': 'off',
     // template 静止空内容
     'vue/valid-template-root': 'off',
-    //
     'vue/no-mutating-props': 'off'
   }
 })

@@ -1,10 +1,10 @@
 <script setup lang="tsx">
-import {ref} from 'vue'
-import {SchemaType} from '@/components/common/SchemaForm/types/type'
-import {DefaultOptionType} from 'ant-design-vue/es/vc-tree-select/TreeSelect'
-import {message} from 'ant-design-vue'
-import {useToggle} from '@vueuse/core'
-import {asyncWait} from '@/utils'
+import { ref } from 'vue'
+import { SchemaType } from '@/components/common/SchemaForm/types/type'
+import { DefaultOptionType } from 'ant-design-vue/es/vc-tree-select/TreeSelect'
+import { message } from 'ant-design-vue'
+import { useToggle } from '@vueuse/core'
+import { asyncWait } from '@/utils'
 
 const [ isShow,toggleShow ] = useToggle()
 
@@ -153,6 +153,7 @@ const onSearch = async () => {
     <schema-form
       v-model:model="form"
       schema-layout="search"
+      :search-show-number="3"
       :submit-loading="isShow"
       :schema="schema1"
       @search="onSearch"

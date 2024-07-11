@@ -9,6 +9,7 @@ import { createHtmlPlugin } from 'vite-plugin-html'
 import compress from 'vite-plugin-compression'
 import UnoCSS from 'unocss/vite'
 import Components from 'unplugin-vue-components/dist/vite'
+import AutoImport from 'unplugin-auto-import/vite'
 import { AntDesignVueResolver } from 'unplugin-vue-components/dist/resolvers'
 
 // Vite 插件配置
@@ -40,6 +41,10 @@ export const createVitePlugins = (viteEnv: ImportMetaEnv): PluginOption[] => {
       resolvers: [
         AntDesignVueResolver({ importStyle: false })
       ]
+    }),
+    AutoImport({
+      imports: [ 'vue','@vueuse/core','vue-router','pinia' ],
+      dts: 'types/auto-imports.d.ts'
     }),
     // 打包压缩
     VITE_BUILD_COMPRESS !== 'none' && compress({
