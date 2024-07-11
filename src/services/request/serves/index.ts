@@ -13,11 +13,11 @@ export const alovaInstance = createAlova({
     statesHook: VueHook,
     timeout: 10000,
     requestAdapter: GlobalFetch(),
-    beforeRequest(method) {
+    beforeRequest() {
         // console.log(method.data)
     },
     responded: {
-        async onSuccess(response,method) {
+        async onSuccess(response) {
             const errorMsg = ServicesConfig.STATUS_ERROR[response.status]
             if (errorMsg) {
                 message.error(errorMsg)
@@ -26,7 +26,7 @@ export const alovaInstance = createAlova({
             const json = await response.json()
             return json
         },
-        onError(err,method) {
+        onError(err) {
             handleRequestError(err)
         }
     }

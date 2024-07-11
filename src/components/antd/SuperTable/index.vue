@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { SuperTableEmits,SuperTableProps,SuperTableSlots } from '@/components/antd/SuperTable/type/props'
+import { SuperTableProps, SuperTableSlots } from '@/components/antd/SuperTable/type/props'
 import { Table } from 'ant-design-vue'
-import { computed,ref } from 'vue'
+import { computed, ref } from 'vue'
 import useOmitProps from '@/hooks/common/useOmitProps'
 
 const slots = defineSlots<SuperTableSlots>()
-const emits = defineEmits<SuperTableEmits>()
+// const emits = defineEmits<SuperTableEmits>()
 
 const props = withDefaults(defineProps<SuperTableProps>(),{
   showHeader: true,

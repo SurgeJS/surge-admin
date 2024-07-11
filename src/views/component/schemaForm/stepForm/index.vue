@@ -1,12 +1,9 @@
 <script setup lang="ts">
-import {ref} from 'vue'
-import {StepSchemaType} from '@/components/common/SchemaForm/types/type'
-import {DefaultOptionType} from 'ant-design-vue/es/vc-tree-select/TreeSelect'
-import {message} from 'ant-design-vue'
-import {useToggle} from '@vueuse/core'
+import { ref } from 'vue'
+import { StepSchemaType } from '@/components/common/SchemaForm/types/type'
+import { DefaultOptionType } from 'ant-design-vue/es/vc-tree-select/TreeSelect'
+import { message } from 'ant-design-vue'
 
-
-const [ isShow,toggleShow ] = useToggle()
 
 const form = ref({
   name: {

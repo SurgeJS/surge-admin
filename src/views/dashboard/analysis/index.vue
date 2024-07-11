@@ -1,12 +1,8 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
-import useAuthStore from "@/store/modules/auth";
-import { listIcons } from "@iconify/vue";
 
 defineOptions({ name: 'DashboardAnalysis' })
-const icons = Array.from(new Set(listIcons()))
 const iconV = ref()
-const authStore = useAuthStore()
 
 </script>
 

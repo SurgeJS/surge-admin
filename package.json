@@ -12,7 +12,8 @@
     "type-check": "vue-tsc --noEmit --skipLibCheck",
     "lint": "eslint src --fix ",
     "lint-staged": "lint-staged --no-stash",
-    "commit": "git add . && git cz"
+    "commit": "git add . && git cz",
+    "prepare": "husky"
   },
   "dependencies": {
     "@alova/scene-vue": "^1.6.1",
@@ -55,7 +56,7 @@
     "eslint": "^9.3.0",
     "eslint-plugin-vue": "^9.26.0",
     "husky": "^9.0.11",
-    "lint-staged": "^15.2.5",
+    "lint-staged": "^15.2.7",
     "sass": "^1.77.2",
     "terser": "^5.31.0",
     "typescript": "^5.4.5",
@@ -75,10 +76,7 @@
     "pnpm": ">=8.1.0"
   },
   "lint-staged": {
-    "*.{vue,js,ts,tsx,jsx}": [
-      "eslint src --fix",
-      "git add"
-    ]
+    "*.{vue,js,ts,tsx,jsx}": "eslint src --fix"
   },
   "config": {
     "commitizen": {
