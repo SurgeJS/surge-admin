@@ -11,15 +11,9 @@ importers:
       '@alova/scene-vue':
         specifier: ^1.6.1
         version: 1.6.1
-      '@ant-design/icons-vue':
-        specifier: ^7.0.1
-        version: 7.0.1(vue@3.4.31(typescript@5.4.5))
       '@iconify/utils':
         specifier: ^2.1.25
         version: 2.1.25
-      '@tanstack/vue-virtual':
-        specifier: ^3.8.3
-        version: 3.8.3(vue@3.4.31(typescript@5.4.5))
       '@vueuse/components':
         specifier: ^10.11.0
         version: 10.11.0(vue@3.4.31(typescript@5.4.5))
@@ -1443,14 +1437,6 @@ packages:
 
   '@surma/rollup-plugin-off-main-thread@2.2.3':
     resolution: {integrity: sha512-lR8q/9W7hZpMWweNiAKU7NQerBnzQQLvi8qnTDU/fxItPhtZVMbPV3lbCwjhIlNBe9Bbr5V+KHshvWmVSG9cxQ==}
-
-  '@tanstack/virtual-core@3.8.3':
-    resolution: {integrity: sha512-vd2A2TnM5lbnWZnHi9B+L2gPtkSeOtJOAw358JqokIH1+v2J7vUAzFVPwB/wrye12RFOurffXu33plm4uQ+JBQ==}
-
-  '@tanstack/vue-virtual@3.8.3':
-    resolution: {integrity: sha512-xrFLkOiqLoGwohgr1+Q880hkNdQWqwi19EXzx38iAjVEm1Db3KIAV0aVP57/dnNXU3NO1Vx8wnIHII5J4n1LyA==}
-    peerDependencies:
-      vue: ^2.7.0 || ^3.0.0
 
   '@types/conventional-commits-parser@5.0.0':
     resolution: {integrity: sha512-loB369iXNmAZglwWATL+WRe+CRMmmBPtpolYzIebFaX4YA3x+BEfLqhUAV9WanycKI3TG1IMr5bMJDajDKLlUQ==}
@@ -5491,13 +5477,6 @@ snapshots:
       json5: 2.2.3
       magic-string: 0.25.9
       string.prototype.matchall: 4.0.11
-
-  '@tanstack/virtual-core@3.8.3': {}
-
-  '@tanstack/vue-virtual@3.8.3(vue@3.4.31(typescript@5.4.5))':
-    dependencies:
-      '@tanstack/virtual-core': 3.8.3
-      vue: 3.4.31(typescript@5.4.5)
 
   '@types/conventional-commits-parser@5.0.0':
     dependencies:
