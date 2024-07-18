@@ -1,9 +1,11 @@
-.ant-btn, .ant-btn-default {
+.ant-btn {
   display: inline-flex;
   justify-content: center;
   align-items: center;
+  vertical-align: middle;
   gap: 5px;
 }
+
 
 .ant-input-group-compact {
   .ant-btn {

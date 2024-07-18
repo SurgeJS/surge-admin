@@ -5,7 +5,7 @@ export default defineFakeRoute([
     {
         url: '/mock/getTodos',
         method: 'post',
-        statusCode:500,
+        timeout:1000,
         response: (processedRequest,req,res) => {
             const { pageSize,pageNo } = processedRequest.body
             const list: Recordable[] = []

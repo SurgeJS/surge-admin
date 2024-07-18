@@ -72,7 +72,6 @@ const onOpenChange = (keys: string[]) => {
     return
   }
   const currentOpenKey = keys.find((key) => !openKeys.value.includes(key))
-  console.log(route.matched)
   if (currentOpenKey !== undefined) {
     // 重复层级Index
     const repeatLevelIndex = keys

@@ -1,18 +1,31 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
+
+import { TestApi } from "@/services/api/test"
 
 defineOptions({ name: 'DashboardAnalysis' })
-const iconV = ref()
+const form = ref({
+  pageNo: 1,
+  pageSize: 10,
+  test: 1
+})
 
+const { error,isRefetching,refetch } = TestApi.useTodoList(form)
+watch(isRefetching, () => {
+  console.log(isRefetching)
+})
 </script>
 
 <template>
   <div class="analysis">
-    <a-form>
-      <a-form-item label="test">
-        <icon-selector v-model:value="iconV" />
-      </a-form-item>
-    </a-form>
+    <a-button @click="form.pageNo+=1">+</a-button>
+    <a-button @click="form.pageNo-=1">-</a-button>
+    <a-button @click="form.test+=1">test</a-button>
+    <a-button :loading="isRefetching" @click="refetch()">
+      <template #icon>
+        <icon icon="i-material-symbols:10k" />
+      </template>
+      test2
+    </a-button>
   </div>
 </template>
 

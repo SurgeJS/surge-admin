@@ -23,8 +23,8 @@
     "@vueuse/components": "^10.11.0",
     "@vueuse/core": "^10.11.0",
     "@vueuse/motion": "^2.1.0",
-    "ag-grid-community": "^32.0.0",
-    "ag-grid-vue3": "^32.0.0",
+    "ag-grid-community": "^32.0.2",
+    "ag-grid-vue3": "^32.0.2",
     "ant-design-vue": "^4.2.3",
     "axios": "^1.7.2",
     "dayjs": "^1.11.11",
@@ -70,7 +70,6 @@
     "vite-plugin-fake-server": "^2.1.1",
     "vite-plugin-html": "^3.2.2",
     "vite-plugin-pwa": "^0.19.8",
-    "vite-plugin-vue-devtools": "^7.3.6",
     "vue-eslint-parser": "^9.4.2",
     "vue-tsc": "^2.0.24"
   },
