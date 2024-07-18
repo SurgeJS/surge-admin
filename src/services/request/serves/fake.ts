@@ -1,16 +1,13 @@
 import ServicesConfig from '@/config/services'
-import { handleAxiosError, handleResponseError } from '@/services/request/utils'
-import { getMetaEnv } from "@/utils/env"
 import CreateAxios from "@/services/request/axios"
+import { handleAxiosError, handleResponseError } from "@/services/request/utils"
 import { ResponseContent } from "@/services/request/axios/types"
 
-const { VITE_PROXY_PATH } = getMetaEnv()
-const axiosInstance = new CreateAxios<Result>({
-    baseURL: VITE_PROXY_PATH,
+const fakeAxiosInstance = new CreateAxios<Result>({
+    baseURL: '/mock',
     timeout: 10000,
     interceptor: {
         onBeforeRequest(config) {
-
         },
         onResponse(response) {
             // 处理响应错误
@@ -26,11 +23,11 @@ const axiosInstance = new CreateAxios<Result>({
 
             return [ response.data.result, undefined, response ]
         },
-        onResponseError(error) {
+        async onResponseError(error) {
+            console.log(error)
             return handleAxiosError(error)
         },
     }
 })
 
-export default axiosInstance
-
+export default fakeAxiosInstance

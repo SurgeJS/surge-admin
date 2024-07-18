@@ -1,9 +1,9 @@
-import { isReactive, reactive, Reactive } from "vue";
-import { cloneDeep } from "lodash-es";
+import { isReactive, reactive, Reactive } from "vue"
+import { cloneDeep } from "lodash-es"
 
 const useStatus = <T extends Recordable = Recordable>(status: Reactive<T> | T) => {
-    const sta = isReactive(status) ? status : reactive(status);
-    const initialStatus = cloneDeep(sta);
+    const sta = isReactive(status) ? status : reactive(status)
+    const initialStatus = cloneDeep(sta)
 
     const setStatus = <K extends keyof T>(key: K, value: T[K]) => {
         sta[key as keyof typeof sta] = value

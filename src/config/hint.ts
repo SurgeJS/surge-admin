@@ -6,5 +6,5 @@ export default class Hint {
     static OPERATE_FAIL = '操作失败！'
 
     // 服务器异常
-    static SERVER_ANOMALY = '服务器异常，请稍后重试...'
+    static SERVER_ERROR = '服务器异常，请稍后重试...'
 }

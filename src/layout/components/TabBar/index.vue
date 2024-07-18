@@ -4,7 +4,7 @@ import { nextTick, ref, watch } from 'vue'
 import useTabBarStore from '@/store/modules/tabBar'
 import { useRoute, useRouter } from 'vue-router'
 import { useDebounceFn, useEventListener, useToggle } from '@vueuse/core'
-import DropdownContext from "@/layout/components/TabBar/components/DropdownContext/index.vue";
+import DropdownContext from "@/layout/components/TabBar/components/DropdownContext/index.vue"
 
 defineOptions({ name: 'TabBar' })
 

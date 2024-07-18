@@ -19,6 +19,8 @@ export default class ServicesConfig {
         504: '504: 网关超时 ~',
         505: '505: http版本不支持该请求 ~'
     }
+    // 成功Code
+    static SUCCESS_CODE = 200
 
     // 需要退出登录的Code
     static SIGN_OUT_CODE = {
@@ -27,9 +29,19 @@ export default class ServicesConfig {
 
     // 请求错误
     static REQUEST_ERROR = {
-        'network timeout': '网络请求超时 ~'
+        ECONNABORTED: '网络请求超时 ~',
+        ETIMEDOUT: '网络请求超时 ~',
+        ERR_INVALID_URL: '错误的请求地址，请检查URL ~',
+        ERR_NOT_SUPPORT: '不支持该操作 ~',
+        ERR_BAD_REQUEST: '请求错误 ~',
+        ERR_BAD_RESPONSE: '响应错误 ~',
+        ERR_DEPRECATED: '已弃用的配置，请检查Axios配置 ~',
+        ERR_NETWORK: '网络错误，请检查网络 ~',
+        ERR_BAD_OPTION: '错误的选项，请检查Axios配置 ~',
+        ERR_BAD_OPTION_VALUE: '错误的选项值，请检查Axios配置 ~',
+        ERR_FR_TOO_MANY_REDIRECTS: '重定向过多 ~',
     }
 
-    // 重复错误提示是否开启
+    // 是否关闭重复的错误消息
     static CLOSE_REPEAT_ERROR_MESSAGE = true
 }

@@ -80,7 +80,7 @@ const useTabBarStore = defineStore('TabBar', {
             const index = this.getIndex(path)
             if (index === 0 || index === -1) return
             index > this.activeIndex && router.push(path)
-            const tabs = this.tabs.slice(index);
+            const tabs = this.tabs.slice(index)
             this.tabs = [ ...this.getCurrentTabsAffixTab(index, 'left'), ...tabs ]
             this.setCacheMenus()
         },

@@ -12,13 +12,8 @@ export type DateType = string | number | day.Dayjs | Date | null | undefined
 
 export class DayJsUtils {
   // 格式化日期
-  static format(date: DateType,dateFormat: DateFormat = 'YYYY-MM-DD') {
+  static format(dateFormat: DateFormat = 'YYYY-MM-DD',date?: DateType) {
     return day(date).format(dateFormat)
-  }
-
-  // 格式化当前系统日期
-  static formatCurrent(dateFormat: DateFormat = 'YYYY-MM-DD') {
-    return day().format(dateFormat)
   }
 
   // 返回现在到当前实例的相对时间

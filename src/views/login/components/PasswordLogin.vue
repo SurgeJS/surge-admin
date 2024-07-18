@@ -1,17 +1,20 @@
-<script lang="tsx" setup>
+<script lang="ts" setup>
 import { useLoginContext } from '@/views/login/utils/context'
-import { reactive,ref } from 'vue'
+import { reactive, ref } from 'vue'
 import useAuthStore from '@/store/modules/auth'
 import { useToggle } from '@vueuse/core'
 import type { FormInstance } from 'ant-design-vue/es/form'
 import { SchemaType } from '@/components/common/SchemaForm/types/type'
 import { LoginAction } from '@/views/login/type/enum'
+import useRenderIcon from "@/hooks/components/useRenderIcon"
 
 const { setAction } = useLoginContext()!
 const authStore = useAuthStore()
-const [ loading,toggleLoading ] = useToggle()
+const [ loading, toggleLoading ] = useToggle()
+const { RenderUnoIcon } = useRenderIcon()
 
 const formRef = ref<FormInstance>()
+
 
 const form: UserModel.PasswordLoginParams = reactive({
   username: 'admin',
@@ -27,7 +30,7 @@ const schema = ref<SchemaType<UserModel.PasswordLoginParams>[]>([
       size: 'large'
     },
     componentContent: {
-      prefix: () => (<i class="i-ant-design:user-outlined"></i>)
+      prefix: () => RenderUnoIcon('i-ant-design:user-outlined')
     },
     rule: {
       message: '请输入账号',
@@ -42,7 +45,7 @@ const schema = ref<SchemaType<UserModel.PasswordLoginParams>[]>([
       size: 'large'
     },
     componentContent: {
-      prefix: () => (<i class="i-ant-design:lock-outlined"></i>)
+      prefix: () => RenderUnoIcon('i-ant-design:lock-outlined') 
     },
     rule: {
       message: '请输入密码',
@@ -60,7 +63,7 @@ const schema = ref<SchemaType<UserModel.PasswordLoginParams>[]>([
 const handleLogin = async () => {
   await formRef.value?.validate()
   toggleLoading(true)
-  await authStore.passwordLogin(form).finally(() => toggleLoading(false)).catch(e => e)
+  await authStore.passwordLogin(form).finally(() => toggleLoading(false)) 
 }
 </script>
 

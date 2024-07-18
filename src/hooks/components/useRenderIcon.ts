@@ -1,5 +1,5 @@
-import { h } from "vue";
-import Icon, { IconProps } from "@/components/common/Icon/index.vue";
+import { h } from "vue"
+import Icon, { IconProps } from "@/components/common/Icon/index.vue"
 import { Icon as DynamicIcon, IconProps as DynamicIconProps } from '@iconify/vue'
 
 const useRenderIcon = () => {

@@ -1,4 +1,5 @@
-const useMetaEnv = (): ImportMetaEnv => {
+// 获取环境变量
+export const getMetaEnv = (): ImportMetaEnv => {
     const metaEnv = import.meta.env
     return Object.keys(metaEnv).reduce((env, envKey) => {
         let envValue = metaEnv[envKey]
@@ -10,4 +11,3 @@ const useMetaEnv = (): ImportMetaEnv => {
         return env
     }, {} as ImportMetaEnv)
 }
-export default useMetaEnv

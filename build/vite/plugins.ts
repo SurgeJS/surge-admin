@@ -11,6 +11,7 @@ import UnoCSS from 'unocss/vite'
 import Components from 'unplugin-vue-components/dist/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import { AntDesignVueResolver } from 'unplugin-vue-components/dist/resolvers'
+import vueDevTools from 'vite-plugin-vue-devtools'
 
 // Vite 插件配置
 export const createVitePlugins = (viteEnv: ImportMetaEnv): PluginOption[] => {
@@ -21,6 +22,7 @@ export const createVitePlugins = (viteEnv: ImportMetaEnv): PluginOption[] => {
     vueJsx(),
     // 原子Css
     UnoCSS(),
+    vueDevTools(),
     // 配置 ejs
     createHtmlPlugin({
       // 生产环境压缩

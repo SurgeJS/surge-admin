@@ -6,6 +6,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite --open",
+    "dev:test": "vite --open --mode test",
+    "dev:prod": "vite --open --mode production",
     "build": "vue-tsc --noEmit --skipLibCheck && vite build  --mode production",
     "build:test": "vue-tsc --noEmit --skipLibCheck && vite build --mode test",
     "preview": "vite preview --open --port 9999",
@@ -16,15 +18,15 @@
     "prepare": "husky"
   },
   "dependencies": {
-    "@alova/scene-vue": "^1.6.1",
     "@iconify/utils": "^2.1.25",
+    "@tanstack/vue-query": "^5.51.1",
     "@vueuse/components": "^10.11.0",
     "@vueuse/core": "^10.11.0",
     "@vueuse/motion": "^2.1.0",
     "ag-grid-community": "^32.0.0",
     "ag-grid-vue3": "^32.0.0",
-    "alova": "^2.21.3",
     "ant-design-vue": "^4.2.3",
+    "axios": "^1.7.2",
     "dayjs": "^1.11.11",
     "echarts": "^5.5.0",
     "js-cookie": "^3.0.5",
@@ -68,6 +70,7 @@
     "vite-plugin-fake-server": "^2.1.1",
     "vite-plugin-html": "^3.2.2",
     "vite-plugin-pwa": "^0.19.8",
+    "vite-plugin-vue-devtools": "^7.3.6",
     "vue-eslint-parser": "^9.4.2",
     "vue-tsc": "^2.0.24"
   },

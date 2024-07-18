@@ -29,7 +29,7 @@ export const initialAppStore: AppStore = {
         layoutStyle: 'side-dark',
 
         // 移动端触发宽度
-        mobileTriggerWidth: 100,
+        mobileTriggerWidth: 800,
 
         // 是否移动端
         isMobile: document.body.offsetWidth <= mobileTriggerWidth,

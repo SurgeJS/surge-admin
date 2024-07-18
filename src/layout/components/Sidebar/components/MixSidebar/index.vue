@@ -26,11 +26,11 @@ const getPathRoot = (path: string) => {
   const handle = (routes: AppRouteRecordRaw[]) => {
     return routes.find(item => {
       if (item.path === path) return true
-      if (item.children?.length) return handle(item.children);
-    });
+      if (item.children?.length) return handle(item.children)
+    })
   }
   return handle(authStore.routes)
-};
+}
 
 const handleMixMenuItem = (submenu: AppRouteRecordRaw) => {
   temporaryActivePath.value = submenu.path
@@ -57,7 +57,7 @@ const onMouseLeave = () => {
 
 watch(() => route.path, () => {
   menus.value = getPathRoot(route.path)?.children || []
-}, { immediate: true });
+}, { immediate: true })
 </script>
 
 <template>

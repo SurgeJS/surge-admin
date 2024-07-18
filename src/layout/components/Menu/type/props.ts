@@ -1,4 +1,4 @@
-import { MenuMode } from "ant-design-vue";
+import { MenuMode } from "ant-design-vue"
 
 export interface MenuProps {
     routes: AppRouteRecordRaw[]

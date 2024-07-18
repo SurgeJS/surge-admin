@@ -169,10 +169,10 @@ const callbackParamsFunction = <T = never>(value: T | CallbackParamsFunction<any
 
 // 获取最大Label宽度
 watch(formItemRef, async () => {
-  await nextTick();
+  await nextTick()
   const scrollWidth = formItemRef.value?.$el.querySelector('.ant-form-item-label')?.scrollWidth
   if (scrollWidth > maxLabelWidth.value) maxLabelWidth.value = scrollWidth
-});
+})
 
 const FormItem = () => {
   const DynamicComponent = SCHEMA_RENDER_COMPONENTS[component]

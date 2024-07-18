@@ -4,11 +4,11 @@ import { message } from 'ant-design-vue'
 
 const authStore = useAuthStore()
 const signOut = async () => {
-  const data = await authStore.signOut()
-  if (data.code === 200) {
-    message.success('已退出登录！')
+  const [result,error] = await authStore.signOut()
+  if (error) {
+    message.warning(error.msg || '接口异常，强制退出登录')
   } else {
-    message.warning(data.msg || '接口异常，强制退出登录')
+    message.success('已退出登录！')
   }
 }
 </script>

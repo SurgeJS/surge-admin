@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { computed } from "vue";
-import useTabBarStore from "@/store/modules/tabBar";
-import { useRoute } from "vue-router";
-import type { DropdownContextProps } from "@/layout/components/TabBar/components/DropdownContext/type";
+import { computed } from "vue"
+import useTabBarStore from "@/store/modules/tabBar"
+import { useRoute } from "vue-router"
+import type { DropdownContextProps } from "@/layout/components/TabBar/components/DropdownContext/type"
 
-const props = defineProps<DropdownContextProps>();
+const props = defineProps<DropdownContextProps>()
 
 const tabBarStore = useTabBarStore()
 const route = useRoute()
@@ -72,7 +72,7 @@ const dropdownList = computed(() => {
       }
     }
   ]
-});
+})
 
 </script>
 

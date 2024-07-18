@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { computed, StyleValue } from "vue";
-import { isNumber } from "lodash-es";
+import { computed, StyleValue } from "vue"
+import { isNumber } from "lodash-es"
 
 export interface IconProps {
   // 图标名称 例如：i-mdi:account | i-local:login
@@ -16,7 +16,7 @@ export interface IconProps {
   pointer?: boolean
 }
 
-const props = defineProps<IconProps>();
+const props = defineProps<IconProps>()
 
 const style = computed<Partial<StyleValue>>(() => {
   return {
@@ -25,7 +25,7 @@ const style = computed<Partial<StyleValue>>(() => {
     color: props.color,
     cursor: props.pointer ? 'pointer' : undefined,
   }
-});
+})
 
 </script>
 
