@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "@iconify/utils": "^2.1.25",
-    "@tanstack/vue-query": "^5.51.1",
+    "@tanstack/vue-query": "^5.51.9",
     "@vueuse/components": "^10.11.0",
     "@vueuse/core": "^10.11.0",
     "@vueuse/motion": "^2.1.0",

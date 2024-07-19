@@ -8,10 +8,10 @@ export interface ResponseError {
 }
 
 // 响应内容
-export type ResponseContent<T = unknown, D = unknown> = [ T, ResponseError | undefined, AxiosResponse<T, D> ]
+export type ResponseContent<T = any, D = any> = [ T, ResponseError | undefined, AxiosResponse<T, D> ]
 
 // axios拦截器
-export interface AxiosInterceptor<T = unknown> {
+export interface AxiosInterceptor<T = any> {
     // 请求之前拦截器
     onBeforeRequest?(config: AxiosRequestConfig): void | Promise<void>
 
@@ -23,7 +23,7 @@ export interface AxiosInterceptor<T = unknown> {
 }
 
 // axios配置
-export interface AxiosConfig<T = unknown> extends CreateAxiosDefaults {
+export interface AxiosConfig<T = any> extends CreateAxiosDefaults {
     // 拦截器
     interceptor?: AxiosInterceptor<T>
 }

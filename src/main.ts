@@ -6,7 +6,6 @@ import { setupStore } from '@/store'
 import setupComponents from '@/components'
 import setupPlugin from '@/utils/plugin'
 
-// TODO: 提交代码的时候校验提交信息
 const bootStart = async () => {
   const app = createApp(App)
 

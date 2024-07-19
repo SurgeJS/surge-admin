@@ -16,11 +16,11 @@ const signOut = async () => {
 <template>
   <a-dropdown>
     <div class="flex-y-center gap-[10px] cursor-pointer">
-      <a-avatar shape="square">
-        <template #icon>
-          <icon icon="i-local:avatar" size="32px" />
-        </template>
-      </a-avatar>
+      <icon
+        icon="i-local:avatar"
+        size="36px"
+        class="rounded-[5px]"
+      />
       <span>admin</span>
     </div>
     <template #overlay>

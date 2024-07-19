@@ -9,9 +9,10 @@ const form = ref({
   test: 1
 })
 
-const { error,isRefetching,refetch } = TestApi.useTodoList(form)
-watch(isRefetching, () => {
-  console.log(isRefetching)
+const {  status,error,isFetching,refetch,data,fetchStatus } = TestApi.useTodoList(form)
+
+watch(data, () => {
+  console.log(data.value)
 })
 </script>
 
@@ -20,12 +21,16 @@ watch(isRefetching, () => {
     <a-button @click="form.pageNo+=1">+</a-button>
     <a-button @click="form.pageNo-=1">-</a-button>
     <a-button @click="form.test+=1">test</a-button>
-    <a-button :loading="isRefetching" @click="refetch()">
+    {{ status }}
+    {{ fetchStatus }}
+    <a-button :loading="isFetching" @click="refetch()">
       <template #icon>
         <icon icon="i-material-symbols:10k" />
       </template>
       test2
     </a-button>
+
+    <p v-for="item in data?.list" :key="item.id">{{ item.name }}</p>
   </div>
 </template>
 

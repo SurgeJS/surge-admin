@@ -6,10 +6,10 @@ import { omit } from "lodash-es"
 /**
  * 统一了请求出口
  */
-export default class CreateAxios<R extends Recordable = Recordable> {
+export default class CreateAxios<RResult extends Recordable = Recordable> {
     public axiosInstance: AxiosInstance
 
-    constructor(config: AxiosConfig<R>) {
+    constructor(config: AxiosConfig<RResult>) {
         this.axiosInstance = axios.create(omit(config, [ 'onBeforeRequest', 'onResponse' ]))
 
         // 请求拦截器
@@ -28,23 +28,23 @@ export default class CreateAxios<R extends Recordable = Recordable> {
         )
     }
 
-    public request<T = unknown, D = unknown>(config: AxiosRequestConfig<D>): Promise<ResponseContent<T, D>> {
-        return this.axiosInstance.request<ResponseContent<T, D>>(config) as unknown as Promise<ResponseContent<T, D>>
+    public request<TResponse = any, DParams = any>(config: AxiosRequestConfig<DParams>): Promise<ResponseContent<TResponse, DParams>> {
+        return this.axiosInstance.request<ResponseContent<TResponse, DParams>>(config) as any as Promise<ResponseContent<TResponse, DParams>>
     }
 
-    public get<T = unknown, D = unknown>(url: string, params?: D, config?: AxiosRequestConfig<D>) {
-        return this.request<T, D>({ method: 'get', url, params, ...config })
+    public get<TResponse = any, DParams = any>(url: string, params?: DParams, config?: AxiosRequestConfig<DParams>) {
+        return this.request<TResponse, DParams>({ method: 'get', url, params, ...config })
     }
 
-    public post<T = unknown, D = unknown>(url: string, data?: D, config?: AxiosRequestConfig<D>) {
-        return this.request<T, D>({ method: 'post', url, data, ...config })
+    public post<TResponse = any, DParams = any>(url: string, data?: DParams, config?: AxiosRequestConfig<DParams>) {
+        return this.request<TResponse, DParams>({ method: 'post', url, data, ...config })
     }
 
-    public put<T = unknown, D = unknown>(url: string, data?: D, config?: AxiosRequestConfig<D>) {
-        return this.request<T, D>({ method: 'put', url, data, ...config })
+    public put<TResponse = any, DParams = any>(url: string, data?: DParams, config?: AxiosRequestConfig<DParams>) {
+        return this.request<TResponse, DParams>({ method: 'put', url, data, ...config })
     }
 
-    public delete<T = unknown, D = unknown>(url: string, data?: D, config?: AxiosRequestConfig<D>) {
-        return this.request<T, D>({ method: 'delete', url, data, ...config })
+    public delete<TResponse = any, DParams = any>(url: string, data?: DParams, config?: AxiosRequestConfig<DParams>) {
+        return this.request<TResponse, DParams>({ method: 'delete', url, data, ...config })
     }
 }
