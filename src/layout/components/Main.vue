@@ -12,7 +12,13 @@ const { base } = appStore
 const scrollContainer = ref<HTMLDivElement>()
 
 // 缓存菜单，转成大驼峰
-const cacheMenus = computed(() => tabBarStore.cacheMenus.map((name) => startCase(name).replace('/', '')))
+const cacheMenus = computed(() => {
+  console.log(tabBarStore.cacheMenus.map((name) => {
+    console.log(startCase(name))
+    return startCase(name).replace('/', '')
+  }))
+  return tabBarStore.cacheMenus.map((name) => startCase(name).replace('/', ''))
+})
 const transitionName = computed(() => base.isPageStartAnimation ? base.pageAnimationMode : undefined)
 
 const returnScrollContainer = () => {

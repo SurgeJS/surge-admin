@@ -21,8 +21,23 @@ class RegularUtils {
   // 匹配座机
   static MATCH_LANDLINE = /^(?:(?:\d{3}-)?\d{8}|^(?:\d{4}-)?\d{7,8})(?:-\d+)?$/
 
+  // 匹配带有Params的路径
+  static MATCH_PARAMS_PATH =  /\/:[^/?]+/g
+
   // 提取数字
   static extractNumbers = (str: string) => Number(str.replace(this.MATCH_GLOBAL_NON_DIGITS,''))
+
+  // 在路径中去除params、query参数
+  static removePathParams = (path: string) => {
+    // 去除路径中的参数
+    const cleanPath = path.replace(this.MATCH_PARAMS_PATH, '')
+
+    // 去除查询参数
+    const basePath = cleanPath.split('?')[0]
+
+    // 去除多余的斜杠
+    return basePath.replace(/\/{2,}/g, '/').replace(/\/$/, '')
+  }
 }
 
 export default RegularUtils

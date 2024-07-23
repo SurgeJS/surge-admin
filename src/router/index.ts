@@ -1,7 +1,7 @@
-import { createRouter,createWebHashHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 import type { App } from 'vue'
-import { createGuard } from '@/router/uitls/guard'
-import { RouterTool } from '@/router/uitls/tool'
+import { createGuard } from '@/router/utils/guard'
+import { RouterTool } from '@/router/utils/tool'
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.VITE_PUBLIC_PATH),

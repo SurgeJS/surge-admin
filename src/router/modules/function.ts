@@ -1,7 +1,6 @@
 export default {
   path: '/function',
   component: 'basic',
-  name: 'function',
   meta: {
     title: '功能',
     icon: 'ant-design:database-outlined',
@@ -10,7 +9,6 @@ export default {
   children: [
     {
       path: '/function/maps',
-      name: 'function/maps',
       meta: {
         title: '地图'
       },
@@ -18,7 +16,6 @@ export default {
       children: [
         {
           path: '/function/maps/twoDimensionalMap',
-          name: 'function/maps/twoDimensionalMap',
           component: 'submenu',
           meta: {
             title: '二维地图'
@@ -28,7 +25,6 @@ export default {
     },
     {
       path: '/function/multilevelMenu',
-      name: 'function/multilevelMenu',
       meta: {
         title: '多级菜单'
       },
@@ -36,7 +32,6 @@ export default {
       children: [
         {
           path: '/function/multilevelMenu/menu-1',
-          name: 'function/multilevelMenu/menu-1',
           component: 'directory',
           meta: {
             title: 'menu-1'
@@ -44,7 +39,6 @@ export default {
           children: [
             {
               path: '/function/multilevelMenu/menu-1/menu-1-1',
-              name: 'function/multilevelMenu/menu-1/menu-1-1',
               component: 'directory',
               meta: {
                 title: 'menu-1-1'
@@ -52,7 +46,6 @@ export default {
               children: [
                 {
                   path: '/function/multilevelMenu/menu-1/menu-1-1/menu-1-1-1',
-                  name: 'function/multilevelMenu/menu-1/menu-1-1/menu-1-1-1',
                   component: 'submenu',
                   meta: {
                     title: 'menu-1-1-1'
@@ -62,7 +55,6 @@ export default {
             },
             {
               path: '/function/multilevelMenu/menu-1/menu-1-2',
-              name: 'function/multilevelMenu/menu-1/menu-1-2',
               component: 'submenu',
               meta: {
                 title: 'menu-1-2'
@@ -74,11 +66,10 @@ export default {
     },
     {
       path: '/function/print',
-      name: 'function/print',
       component: 'submenu',
       meta: {
         title: '打印'
       }
     }
   ]
-} as AppRouteRecordRaw
+} satisfies AppRouteRecordRaw

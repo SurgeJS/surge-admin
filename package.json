@@ -14,8 +14,7 @@
     "type-check": "vue-tsc --noEmit --skipLibCheck",
     "lint": "eslint src --fix ",
     "lint-staged": "lint-staged --no-stash",
-    "commit": "git add . && git cz",
-    "prepare": "husky"
+    "commit": "git add . && git cz"
   },
   "dependencies": {
     "@iconify/utils": "^2.1.25",

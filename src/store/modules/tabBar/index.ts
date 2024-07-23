@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import router from '@/router'
 import { nextTick } from 'vue'
 import RouterConfig from '@/config/router'
+import RegularUtils from "@/utils/regular"
 
 const useTabBarStore = defineStore('TabBar', {
     state: (): TabBarStore => ({
@@ -138,9 +139,10 @@ const useTabBarStore = defineStore('TabBar', {
         // 设置缓存菜单
         setCacheMenus() {
             this.cacheMenus = this.tabs.reduce<string[]>((cacheMenus, item) => {
-                item.meta?.keepAlive && cacheMenus.push(item.name as string)
+                item.meta?.keepAlive && cacheMenus.push(RegularUtils.removePathParams(item.path))
                 return cacheMenus
             }, [])
+            console.log(this.cacheMenus)
         },
 
         // 初始化标签栏

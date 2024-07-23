@@ -19,7 +19,7 @@ export default defineConfig({
                 },
                 collections: {
                     // 加载本地SVG 使用方式: i-local:xxx
-                    'local': FileSystemIconLoader('./src/assets/icons'),
+                    'local': FileSystemIconLoader('./src/assets/svg'),
                 }
             })
         ],

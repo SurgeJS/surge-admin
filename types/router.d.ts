@@ -17,7 +17,7 @@ declare module 'vue-router' {
     // 忽略鉴权，用户可以直接访问
     ignoreAuth?: boolean
 
-    // 是否缓存
+    // 是否缓存 (对iframeSrc无效)
     keepAlive?: boolean
 
     // 是否固定在tab上
@@ -27,7 +27,10 @@ declare module 'vue-router' {
     icon?: string
 
     // 内部嵌套地址
-    frameSrc?: string
+    iframeSrc?: string
+
+    // 是否自定义内嵌组件
+    isCustomizeIframeComponent?: boolean
 
     // 菜单排序
     order?: number

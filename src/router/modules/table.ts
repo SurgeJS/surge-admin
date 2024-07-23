@@ -1,7 +1,6 @@
 export default {
   path: '/table',
   component: 'basic',
-  name: 'table',
   meta: {
     title: '表格',
     icon: 'ant-design:container-outlined',
@@ -10,11 +9,10 @@ export default {
   children: [
     {
       path: '/table/multiFunctionalEnquiryForm',
-      name: 'table/multiFunctionalEnquiryForm',
       meta: {
         title: '多功能查询表格'
       },
       component: 'submenu'
     }
   ]
-} as AppRouteRecordRaw
+} satisfies AppRouteRecordRaw

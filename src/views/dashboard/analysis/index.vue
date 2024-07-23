@@ -23,10 +23,8 @@ watch(data, () => {
     <a-button @click="form.test+=1">test</a-button>
     {{ status }}
     {{ fetchStatus }}
+    <br>
     <a-button :loading="isFetching" @click="refetch()">
-      <template #icon>
-        <icon icon="i-material-symbols:10k" />
-      </template>
       test2
     </a-button>
 

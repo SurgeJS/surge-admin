@@ -1,16 +1,12 @@
-import { RoleEnum } from '@/enums/auth'
-
 export default {
   path: '/about',
-  name: 'about',
   meta: {
     title: '关于',
-    roles: [ RoleEnum.SUPER ],
+    keepAlive:true,
     icon: 'ant-design:like-filled',
-    order: 3,
-    permissions: [ 'test','test1' ],
-    affix: true
+    iframeSrc: 'https://soybeanjs.cn/home',
+    isCustomizeIframeComponent:true
   },
   component: 'menu'
-} as AppRouteRecordRaw
+} satisfies AppRouteRecordRaw
 

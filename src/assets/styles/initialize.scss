@@ -28,6 +28,12 @@ svg {
   outline: none;
 }
 
+iframe {
+  border: none;
+  display: block;
+  vertical-align: middle;
+}
+
 /* 设置滚动条的样式 */
 ::-webkit-scrollbar {
   width: 8px;

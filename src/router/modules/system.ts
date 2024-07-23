@@ -1,7 +1,6 @@
 export default {
   path: '/system',
   component: 'basic',
-  name: 'system',
   meta: {
     title: '系统管理',
     icon: 'ant-design:database-outlined',
@@ -10,11 +9,10 @@ export default {
   children: [
     {
       path: '/system/userManage',
-      name: 'system/userManage',
       meta: {
         title: '用户管理'
       },
       component: 'submenu'
     }
   ]
-} as AppRouteRecordRaw
+} satisfies AppRouteRecordRaw
