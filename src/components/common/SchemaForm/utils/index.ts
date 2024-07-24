@@ -1,7 +1,7 @@
 import { ComponentsName } from '@/components/common/SchemaForm/types/component'
-import { RulePresets,SchemaConfig } from '@/components/common/SchemaForm/types/type'
+import { RulePresets, SchemaConfig } from '@/components/common/SchemaForm/types/type'
 import { Rule } from 'ant-design-vue/es/form'
-import RegularUtils from '@/utils/regular'
+import RegUtils from '@/utils/reg'
 import { RuleObject } from 'ant-design-vue/es/form/interface'
 
 // 是否映射options
@@ -110,19 +110,19 @@ export const handleRulePresets = (rule: RulePresets): RuleObject => {
       if (!value) return Promise.reject(rulePresets[rule].requiredMessage)
       switch (rule) {
         case 'mail':
-          if (!RegularUtils.MATCH_EMAIL.test(value)) return Promise.reject(rulePresets[rule].incorrectMessage)
+          if (!RegUtils.MATCH_EMAIL.test(value)) return Promise.reject(rulePresets[rule].incorrectMessage)
           break
         case 'phone':
-          if (!RegularUtils.MATCH_PHONE.test(value)) return Promise.reject(rulePresets[rule].incorrectMessage)
+          if (!RegUtils.MATCH_PHONE.test(value)) return Promise.reject(rulePresets[rule].incorrectMessage)
           break
         case 'landline':
-          if (!RegularUtils.MATCH_LANDLINE.test(value)) return Promise.reject(rulePresets[rule].incorrectMessage)
+          if (!RegUtils.MATCH_LANDLINE.test(value)) return Promise.reject(rulePresets[rule].incorrectMessage)
           break
         case 'url':
-          if (!RegularUtils.MATCH_URL.test(value)) return Promise.reject(rulePresets[rule].incorrectMessage)
+          if (!RegUtils.MATCH_URL.test(value)) return Promise.reject(rulePresets[rule].incorrectMessage)
           break
         case 'idCard':
-          if (!RegularUtils.MATCH_ID_CARD.test(value)) return Promise.reject(rulePresets[rule].incorrectMessage)
+          if (!RegUtils.MATCH_ID_CARD.test(value)) return Promise.reject(rulePresets[rule].incorrectMessage)
           break
       }
       return Promise.resolve()

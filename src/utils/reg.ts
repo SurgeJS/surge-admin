@@ -1,5 +1,5 @@
 // 正则工具类
-class RegularUtils {
+class RegUtils {
   // 匹配全局数字
   static MATCH_GLOBAL_DIGITS = /^\d+$/g
 
@@ -40,4 +40,4 @@ class RegularUtils {
   }
 }
 
-export default RegularUtils
+export default RegUtils

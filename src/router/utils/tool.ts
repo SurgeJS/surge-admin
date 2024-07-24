@@ -1,7 +1,7 @@
 // 需要权限的路由模块列表
 import { RouteRecordRaw } from 'vue-router'
 import { Sort } from '@/enums/common'
-import RegularUtils from '@/utils/regular'
+import RegUtils from '@/utils/reg'
 import { RoleEnum } from '@/enums/auth'
 
 // 路由工具
@@ -73,7 +73,7 @@ export class RouterTool {
             return () => import('@/layout/components/DefaultFrame.vue')
         }
         // 组件路径
-        const componentPath = `/src/views${ RegularUtils.removePathParams(route.path) }/index.vue`
+        const componentPath = `/src/views${ RegUtils.removePathParams(route.path) }/index.vue`
         const viewComponent = Object.keys(this.VIEW_COMPONENTS).find(path => path === componentPath)
         if (!viewComponent) console.warn('没有找到组件：', componentPath)
         return this.VIEW_COMPONENTS[viewComponent as string]
@@ -85,7 +85,7 @@ export class RouterTool {
         if (this.isExternalLink(route.path)) return undefined
         let vueRoute = { ...route, component: undefined } as RouteRecordRaw
         // 原始路径，不包含路径参数
-        const recordPath = RegularUtils.removePathParams(route.path)
+        const recordPath = RegUtils.removePathParams(route.path)
         vueRoute.name = recordPath
         switch (route.component) {
             // 单页面
@@ -149,7 +149,7 @@ export class RouterTool {
 
     // 是否外链
     static isExternalLink(url) {
-        return RegularUtils.MATCH_URL.test(url)
+        return RegUtils.MATCH_URL.test(url)
     }
 
     // 打开外链
