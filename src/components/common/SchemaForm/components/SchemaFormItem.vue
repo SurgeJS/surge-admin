@@ -12,6 +12,7 @@ import { ComponentPublicInstance, computed, isVNode, nextTick, ref, unref, useSl
 import { SCHEMA_RENDER_COMPONENTS } from '@/components/common/SchemaForm/utils/components'
 import {
   generatePlaceholder,
+  generateRule,
   handleRulePresets,
   isCheckComponent,
   isDateComponent,
@@ -72,7 +73,7 @@ const callbackParams = computed<CallbackParams>(() => ({
 
 const isHide = computed(() => callbackParamsFunction<boolean>(unref(hide)) ?? true)
 
-const isRequired = computed(() => unref(required) || schemaFormProps.required)
+const isRequired = computed(() => Boolean(unref(required) ?? schemaFormProps.required))
 
 // labelCol配置
 const labelCol = computed<MaybeUndefined<Col>>(() => {
@@ -87,7 +88,11 @@ const labelCol = computed<MaybeUndefined<Col>>(() => {
 
 const formItemRules = computed(() => {
   const ruleValue = unref(rule)
-  if (!ruleValue) return
+  if (!ruleValue) {
+    // 自动生成校验
+    if (schemaFormProps.autoRules && isRequired.value) return generateRule(unref(label), component)
+    return
+  }
   // 处理规则预设
   if (typeof ruleValue === 'string') return handleRulePresets(ruleValue)
   return ruleValue

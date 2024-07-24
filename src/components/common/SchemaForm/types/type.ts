@@ -1,8 +1,17 @@
-import { CardProps,ColProps,DrawerProps,FormProps,ModalProps,RowProps,StepProps,StepsProps } from 'ant-design-vue'
-import { NamePath,RuleObject } from 'ant-design-vue/es/form/interface'
-import { ComponentsName,ComponentsProps } from '@/components/common/SchemaForm/types/component'
+import {
+  CardProps,
+  ColProps,
+  DrawerProps,
+  FormProps,
+  ModalProps,
+  RowProps,
+  StepProps,
+  StepsProps
+} from 'ant-design-vue'
+import { NamePath, RuleObject } from 'ant-design-vue/es/form/interface'
+import { ComponentsName, ComponentsProps } from '@/components/common/SchemaForm/types/component'
 import { DefaultOptionType } from 'ant-design-vue/es/vc-tree-select/TreeSelect'
-import { MaybeRef,VNode } from 'vue'
+import { MaybeRef, VNode } from 'vue'
 import { ColSize } from 'ant-design-vue/es/grid/Col'
 import { FormExpose } from 'ant-design-vue/es/form/Form'
 
@@ -245,11 +254,14 @@ export type SchemaFormProps = FormProps & {
   // 默认时间组件值格式
   defaultValueTimeFormat?: DateComponentFormat
 
-  // 自动placeholder (item的label为string才会生效)
+  // 自动placeholder (item的label的类型为string才会生效，优先级最低)
   autoPlaceholder?: boolean
 
-  // 自动label宽度(优先级比  SchemaForm组件的labelWidth、labelCol高)
+  // 自动label宽度 (优先级最低)
   autoLabelWidth?: boolean
+
+  // 自动规则校验 (当required为真的时候，会根据label自动生成校验提示信息,label的类型为string才会生效，优先级最低)
+  autoRules?: boolean
 
   // 步骤条激活项
   activeStep?: number

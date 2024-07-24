@@ -6,6 +6,7 @@ import { setupStore } from '@/store'
 import setupComponents from '@/components'
 import setupPlugin from '@/utils/plugin'
 
+// TODO:动态表单
 const bootStart = async () => {
   const app = createApp(App)
 

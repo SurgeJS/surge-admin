@@ -8,18 +8,19 @@ import {
   SchemaType
 } from '@/components/common/SchemaForm/types/type'
 import { useProvideSchemaFormContext } from '@/components/common/SchemaForm/utils/context'
-import { computed,ref } from 'vue'
-import { createReusableTemplate,useToggle } from '@vueuse/core'
+import { computed, ref } from 'vue'
+import { createReusableTemplate, useToggle } from '@vueuse/core'
 import { FormInstance } from 'ant-design-vue/es/form'
-import { isBoolean,isFunction,isNumber,omit,set,take } from 'lodash-es'
+import { isBoolean, isFunction, isNumber, omit, set, take } from 'lodash-es'
 import SchemaFormItem from '@/components/common/SchemaForm/components/SchemaFormItem.vue'
 import { Modal } from 'ant-design-vue'
 import { Gutter } from 'ant-design-vue/es/grid/Row'
 
-const props = withDefaults(defineProps<SchemaFormProps>(),{
+const props = withDefaults(defineProps<SchemaFormProps>(), {
   required: false,
   autoPlaceholder: true,
   autoLabelWidth: true,
+  autoRules: true,
   hideActionButton: false,
   maskClosable: false,
   closeResetModel: true,
@@ -38,32 +39,32 @@ const props = withDefaults(defineProps<SchemaFormProps>(),{
 const emits = defineEmits<SchemaFormEmits>()
 
 // 当前步骤条激活项
-const activeStep = defineModel<number>('activeStep',{ default: 1 })
+const activeStep = defineModel<number>('activeStep', { default: 1 })
 // 弹框、抽屉可见
-const visible = defineModel<boolean>('visible',{ default: false })
-const model = defineModel<Recordable>('model',{ required: true })
+const visible = defineModel<boolean>('visible', { default: false })
+const model = defineModel<Recordable>('model', { required: true })
 
-const [ DefineFormContent,FormContent ] = createReusableTemplate<{ schema?: SchemaType[] }>()
-const [ DefineSchemaForm,SchemaForm ] = createReusableTemplate()
-const [ DefineButtonAction,ButtonAction ] = createReusableTemplate<{ schemaLayout?: SchemaLayout }>()
+const [ DefineFormContent, FormContent ] = createReusableTemplate<{ schema?: SchemaType[] }>()
+const [ DefineSchemaForm, SchemaForm ] = createReusableTemplate()
+const [ DefineButtonAction, ButtonAction ] = createReusableTemplate<{ schemaLayout?: SchemaLayout }>()
 
 // 提供Schema上下文
-const { aFormProps,getModelValue } = useProvideSchemaFormContext(props,model)
+const { aFormProps, getModelValue } = useProvideSchemaFormContext(props, model)
 
 // 是否展开
-const [ isExpand,setExpand ] = useToggle()
+const [ isExpand, setExpand ] = useToggle()
 
 // 表单实例
 const formRef = ref<FormInstance>()
 
 // 间距
-const rowGutter = computed<Gutter>(() => (props.schemaLayout === 'search' ? [ 12,12 ] : 12) as Gutter)
+const rowGutter = computed<Gutter>(() => (props.schemaLayout === 'search' ? [ 12, 12 ] : 12) as Gutter)
 
 // 搜索Schema
 const searchSchemas = computed(() => {
   if (!props.searchShowNumber) return props.schema
   if (isExpand.value) return props.schema
-  return take(props.schema,props.searchShowNumber)
+  return take(props.schema, props.searchShowNumber)
 })
 
 const formClassObj = computed(() => {
@@ -82,14 +83,14 @@ const labelCol = computed(() => {
   return {
     style: {
       width: isNumber(props.labelWidth)
-             ? `${ props.labelWidth }px`
-             : props.labelWidth
-    },...props.labelCol
+          ? `${ props.labelWidth }px`
+          : props.labelWidth
+    }, ...props.labelCol
   }
 })
 
 // 步骤条选项
-const stepsItems = computed(() => props.stepSchema?.map(item => omit(item,[ 'form' ])))
+const stepsItems = computed(() => props.stepSchema?.map(item => omit(item, [ 'form' ])))
 
 const expandCollapse = computed(() => ({
   text: isExpand.value ? '收起' : '展开',
@@ -98,20 +99,20 @@ const expandCollapse = computed(() => ({
 
 // 查询事件
 const onSearch = () => {
-  emits('search',formRef.value!.validate,model.value)
+  emits('search', formRef.value!.validate, model.value)
 }
 
 // 提交事件
 const onSubmit = () => {
   formExpose.validate()
-      .then(() => emits('submitSuccess',model.value))
-      .catch((err) => emits('submitError',err))
+      .then(() => emits('submitSuccess', model.value))
+      .catch((err) => emits('submitError', err))
 }
 
 const handleGroupHide = (config: GroupSchemaType) => {
   let isHide = true
   if (isBoolean(config.hide)) isHide = !config.hide
-  if (isFunction(config.hide)) isHide = !config.hide({ group: config,model: model.value })
+  if (isFunction(config.hide)) isHide = !config.hide({ group: config, model: model.value })
   return isHide
 }
 
@@ -119,17 +120,17 @@ const handleGroupHide = (config: GroupSchemaType) => {
 const getCurrentStepModel = () => {
   if (!props.stepSchema) return {}
 
-  return props.stepSchema[activeStep.value]?.form.reduce<Recordable>((currentModel,item) => {
+  return props.stepSchema[activeStep.value]?.form.reduce<Recordable>((currentModel, item) => {
     if (!item.field) return currentModel
     const field = item.field as string
-    set(currentModel,field,getModelValue(field))
+    set(currentModel, field, getModelValue(field))
     return currentModel
-  },{})
+  }, {})
 }
 
 // 上一步
 const onPre = () => {
-  emits('pre',activeStep.value - 1)
+  emits('pre', activeStep.value - 1)
 }
 
 // 下一步
@@ -137,9 +138,9 @@ const onNext = () => {
   const currentModel = getCurrentStepModel()
   formExpose.validate()
       .then(() => {
-        emits('nextSuccess',activeStep.value + 1,currentModel,props.model)
+        emits('nextSuccess', activeStep.value + 1, currentModel, props.model)
       })
-      .catch((err) => emits('nextError',err))
+      .catch((err) => emits('nextError', err))
 }
 
 const formExpose: SchemaFormExpose = {
