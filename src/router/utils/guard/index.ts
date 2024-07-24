@@ -3,7 +3,7 @@ import { useTitle } from '@vueuse/core'
 import NProgress from 'nprogress'
 import createAuthGuard from "@/router/utils/guard/auth"
 
-const createGuard = (router: Router) => {
+const createRouterGuard = (router: Router) => {
     // 跳转之前
     router.beforeEach((to, from, next) => {
         NProgress.start()
@@ -17,4 +17,4 @@ const createGuard = (router: Router) => {
         NProgress.done()
     })
 }
-export default createGuard
+export default createRouterGuard
