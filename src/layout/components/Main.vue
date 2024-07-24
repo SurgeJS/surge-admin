@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import useTabBarStore from '@/store/modules/tabBar'
 import useAppStore from '@/store/modules/app'
-import { startCase } from 'lodash-es'
 import { computed, ref } from 'vue'
 import FullScreenLoading from '@/layout/components/FullScreenLoading.vue'
 
@@ -11,14 +10,6 @@ const { base } = appStore
 
 const scrollContainer = ref<HTMLDivElement>()
 
-// 缓存菜单，转成大驼峰
-const cacheMenus = computed(() => {
-  console.log(tabBarStore.cacheMenus.map((name) => {
-    console.log(startCase(name))
-    return startCase(name).replace('/', '')
-  }))
-  return tabBarStore.cacheMenus.map((name) => startCase(name).replace('/', ''))
-})
 const transitionName = computed(() => base.isPageStartAnimation ? base.pageAnimationMode : undefined)
 
 const returnScrollContainer = () => {
@@ -45,9 +36,14 @@ const returnScrollContainer = () => {
           appear
           mode="out-in"
         >
-          <keep-alive :include="cacheMenus">
+          <keep-alive v-if="route.meta.keepAlive">
             <component :is="Component" :key="route.fullPath" />
           </keep-alive>
+          <component
+            :is="Component"
+            v-else
+            :key="route.fullPath"
+          />
         </transition>
       </router-view>
     </div>

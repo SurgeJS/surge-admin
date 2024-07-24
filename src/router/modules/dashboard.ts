@@ -11,7 +11,7 @@ export default {
   },
   children: [
     {
-      path: '/dashboard/analysis/:id',
+      path: '/dashboard/analysis',
       meta: {
         title: '分析页',
         roles: [ RoleEnum.SUPER ],

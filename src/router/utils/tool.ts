@@ -75,12 +75,8 @@ export class RouterTool {
         // 组件路径
         const componentPath = `/src/views${ RegularUtils.removePathParams(route.path) }/index.vue`
         const viewComponent = Object.keys(this.VIEW_COMPONENTS).find(path => path === componentPath)
-        if (!viewComponent) return console.warn('没有找到组件：', componentPath)
-        return this.VIEW_COMPONENTS[viewComponent]().then((component) => {
-            console.log()
-            component.default.name = route.path
-            return component
-        })
+        if (!viewComponent) console.warn('没有找到组件：', componentPath)
+        return this.VIEW_COMPONENTS[viewComponent as string]
     }
 
     // 自定义路由转 vue 路由
@@ -94,11 +90,11 @@ export class RouterTool {
         switch (route.component) {
             // 单页面
             case 'single':
-                vueRoute.component = ()=> this.getViewComponent(route)
+                vueRoute.component = this.getViewComponent(route)
                 break
             // 子菜单
             case 'submenu':
-                vueRoute.component = ()=> this.getViewComponent(route)
+                vueRoute.component = this.getViewComponent(route)
                 break
             // 菜单
             case 'menu':

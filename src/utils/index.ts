@@ -1,11 +1,11 @@
 /**
- * 策略模式
+ * 策略模式 （只要有一个false后面的函数就不执行）
  * [状态, 状态为true时执行的回调函数]
  */
 export type TacticsAction = [ boolean,() => void ]
 
 // 执行策略模式
-export const runTacticsAction = (tacticsAction: TacticsAction[]) => tacticsAction.some(([ flag,action ]) => {
+export const runTacticsAction = (tacticsAction: TacticsAction[]) => tacticsAction.some( ([ flag,action ]) => {
   flag && action()
   return flag
 })

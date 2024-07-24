@@ -15,7 +15,7 @@ declare global {
 
   interface AppRouteRecordRaw extends OmitRouteRecordRaw {
     // 组件类型
-    component: RouteComponentType
+    component?: RouteComponentType
 
     // 用于 组件路径&路由缓存（无需手动引入组件）
     name?: string

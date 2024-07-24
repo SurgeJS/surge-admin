@@ -1,4 +1,4 @@
-import { RouteLocationNormalizedLoaded,RouteMeta } from 'vue-router'
+import { RouteLocationNormalizedLoaded, RouteMeta } from 'vue-router'
 
 
 declare global {
@@ -10,9 +10,6 @@ declare global {
   interface TabBarStore {
     // 标签栏
     tabs: Tab[]
-
-    // 缓存菜单
-    cacheMenus: string[]
 
     // 刷新
     mainVisible: boolean
