@@ -1,9 +1,9 @@
-import {createInjectionState} from '@vueuse/core'
-import {SchemaFormProps} from '@/components/common/SchemaForm/types/type'
-import {computed, ModelRef, ref} from 'vue'
-import {ColProps} from 'ant-design-vue'
+import { createInjectionState } from '@vueuse/core'
+import { SchemaFormProps } from '@/components/common/SchemaForm/types/type'
+import { computed, ModelRef, ref } from 'vue'
+import { ColProps } from 'ant-design-vue'
 import useOmitProps from '@/hooks/common/useOmitProps'
-import {get, set} from 'lodash-es'
+import { get, set } from 'lodash-es'
 
 // 默认表单栅格
 const DEFAULT_FORM_COL = {
@@ -57,6 +57,7 @@ const [ useProvideSchemaFormContext,useSchemaFormContext ] = createInjectionStat
     'searchShowNumber'
   ])
 
+  // 最大label宽度
   const maxLabelWidth = ref(0)
 
   // 全局Col属性

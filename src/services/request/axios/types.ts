@@ -1,4 +1,4 @@
-import { AxiosError, AxiosRequestConfig, AxiosResponse, CreateAxiosDefaults } from "axios"
+import { AxiosError, AxiosRequestConfig, AxiosResponse, CreateAxiosDefaults } from 'axios'
 
 // 响应错误
 export interface ResponseError {

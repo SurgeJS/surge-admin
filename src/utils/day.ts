@@ -1,4 +1,4 @@
-import day from 'dayjs'
+import day, { ConfigType } from 'dayjs'
 import isLeapYear from 'dayjs/plugin/isLeapYear'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import 'dayjs/locale/zh-cn'
@@ -7,37 +7,34 @@ const dayJsPlugin = [ isLeapYear,relativeTime ]
 
 dayJsPlugin.forEach(plugin => day.extend(plugin))
 
-// 日期类型
-export type DateType = string | number | day.Dayjs | Date | null | undefined
-
 export class DayJsUtils {
   // 格式化日期
-  static format(dateFormat: DateFormat = 'YYYY-MM-DD',date?: DateType) {
+  static format(dateFormat: DateFormat = 'YYYY-MM-DD',date?: ConfigType) {
     return day(date).format(dateFormat)
   }
 
   // 返回现在到当前实例的相对时间
-  static fromNow(date?: DateType,noSuffix?: boolean) {
+  static fromNow(date?: ConfigType,noSuffix?: boolean) {
     return day(date).fromNow(noSuffix)
   }
 
   // 返回 X 到当前实例的相对时间
-  static from(fromDate: DateType,date: DateType,noSuffix?: boolean) {
+  static from(fromDate: ConfigType,date: ConfigType,noSuffix?: boolean) {
     return day(date).from(fromDate,noSuffix)
   }
 
   // 返回当前实例到现在的相对时间
-  static toNow(date?: DateType,noSuffix?: boolean) {
+  static toNow(date?: ConfigType,noSuffix?: boolean) {
     return day(date).toNow(noSuffix)
   }
 
   // 返回当前实例到 X 的相对时间
-  static to(toDate: DateType,date: DateType,noSuffix?: boolean) {
+  static to(toDate: ConfigType,date: ConfigType,noSuffix?: boolean) {
     return day(date).to(toDate,noSuffix)
   }
 
   // 返回指定单位下两个日期时间之间的差异
-  static diff(date1: DateType,date2: DateType,unit?: day.QUnitType,float?: boolean) {
+  static diff(date1: ConfigType,date2: ConfigType,unit?: day.QUnitType,float?: boolean) {
     return day(date1).diff(date2,unit,float)
   }
 }

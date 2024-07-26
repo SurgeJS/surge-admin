@@ -1,13 +1,13 @@
 import ServicesConfig from '@/config/services'
-import CreateAxios from "@/services/request/axios"
-import { handleAxiosError, handleResponseError } from "@/services/request/utils"
-import { ResponseContent } from "@/services/request/axios/types"
+import CreateAxios from '@/services/request/axios'
+import { handleAxiosError, handleResponseError } from '@/services/request/utils'
+import { ResponseContent } from '@/services/request/axios/types'
 
 const fakeAxiosInstance = new CreateAxios<Result>({
     baseURL: '/mock',
     timeout: 10000,
     interceptor: {
-        onBeforeRequest(config) {
+        onBeforeRequest() {
         },
         onResponse(response) {
             // 处理响应错误

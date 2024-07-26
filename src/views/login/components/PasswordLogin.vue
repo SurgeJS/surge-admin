@@ -6,7 +6,7 @@ import { useToggle } from '@vueuse/core'
 import type { FormInstance } from 'ant-design-vue/es/form'
 import { SchemaType } from '@/components/common/SchemaForm/types/type'
 import { LoginAction } from '@/views/login/type/enum'
-import useRenderIcon from "@/hooks/components/useRenderIcon"
+import useRenderIcon from '@/hooks/components/useRenderIcon'
 
 const { setAction } = useLoginContext()!
 const authStore = useAuthStore()

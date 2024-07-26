@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import {ref} from 'vue'
-import {SchemaType} from '@/components/common/SchemaForm/types/type'
-import {DefaultOptionType} from 'ant-design-vue/es/vc-tree-select/TreeSelect'
-import {message} from 'ant-design-vue'
-import {useToggle} from '@vueuse/core'
+import { ref } from 'vue'
+import { SchemaType } from '@/components/common/SchemaForm/types/type'
+import { DefaultOptionType } from 'ant-design-vue/es/vc-tree-select/TreeSelect'
+import { message } from 'ant-design-vue'
+import { useToggle } from '@vueuse/core'
 
-const [ modalVisible,toggleModal ] = useToggle()
-const [ drawerVisible,toggleDrawer ] = useToggle()
+const [ modalVisible, toggleModal ] = useToggle()
+const [ drawerVisible, toggleDrawer ] = useToggle()
 
 const form = ref({
   name: {
@@ -87,7 +87,7 @@ const schema1: SchemaType<typeof form.value>[] = [
     field: 'name.test',
     label: '名称',
     component: 'Input',
-    rule: { message: '请输入名称',max: 10,min: 3,type: 'string',trigger: 'blur',required: true }
+    rule: { message: '请输入名称', max: 10, min: 3, type: 'string', trigger: 'blur', required: true }
   },
   {
     field: 'email',
@@ -160,7 +160,7 @@ const schema1: SchemaType<typeof form.value>[] = [
     field: 'date',
     label: '开始结束日期',
     component: 'DateRangePicker',
-    rule: { message: '请选择开始结束日期',trigger: 'change',required: true }
+    rule: { message: '请选择开始结束日期', trigger: 'change', required: true }
   },
   {
     field: 'area',
@@ -196,7 +196,7 @@ const schema2: SchemaType<typeof form.value>[] = [
     field: 'name.test',
     label: '名称',
     component: 'Input',
-    rule: { message: '请输入名称',max: 10,min: 3,type: 'string',trigger: 'blur',required: true },
+    rule: { message: '请输入名称', max: 10, min: 3, type: 'string', trigger: 'blur', required: true },
     colProps: { span: 8 }
   },
   {
@@ -289,7 +289,7 @@ const schema2: SchemaType<typeof form.value>[] = [
     field: 'date',
     label: '开始结束日期',
     component: 'DateRangePicker',
-    rule: { message: '请选择开始结束日期',trigger: 'change',required: true },
+    rule: { message: '请选择开始结束日期', trigger: 'change', required: true },
     colProps: { span: 12 }
   },
   {

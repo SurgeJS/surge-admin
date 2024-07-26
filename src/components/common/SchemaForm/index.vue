@@ -4,11 +4,12 @@ import {
   SchemaFormEmits,
   SchemaFormExpose,
   SchemaFormProps,
+  SchemaFormSlots,
   SchemaLayout,
   SchemaType
 } from '@/components/common/SchemaForm/types/type'
 import { useProvideSchemaFormContext } from '@/components/common/SchemaForm/utils/context'
-import { computed, ref } from 'vue'
+import { computed, ref, unref } from 'vue'
 import { createReusableTemplate, useToggle } from '@vueuse/core'
 import { FormInstance } from 'ant-design-vue/es/form'
 import { isBoolean, isFunction, isNumber, omit, set, take } from 'lodash-es'
@@ -36,23 +37,28 @@ const props = withDefaults(defineProps<SchemaFormProps>(), {
   modalProps: () => ({ width: 800 })
 })
 
-const emits = defineEmits<SchemaFormEmits>()
+defineSlots<SchemaFormSlots>()
 
+const emits = defineEmits<SchemaFormEmits>()
 // 当前步骤条激活项
 const activeStep = defineModel<number>('activeStep', { default: 1 })
 // 弹框、抽屉可见
 const visible = defineModel<boolean>('visible', { default: false })
+// 表单模型
 const model = defineModel<Recordable>('model', { required: true })
 
-const [ DefineFormContent, FormContent ] = createReusableTemplate<{ schema?: SchemaType[] }>()
+// 创建表单可复用模板
 const [ DefineSchemaForm, SchemaForm ] = createReusableTemplate()
+// 创建表单内容可复用模板
+const [ DefineFormContent, FormContent ] = createReusableTemplate<{ schema?: SchemaType[] }>()
+// 创建按钮操作可复用模板
 const [ DefineButtonAction, ButtonAction ] = createReusableTemplate<{ schemaLayout?: SchemaLayout }>()
 
 // 提供Schema上下文
 const { aFormProps, getModelValue } = useProvideSchemaFormContext(props, model)
 
-// 是否展开
-const [ isExpand, setExpand ] = useToggle()
+// 是否展开搜索表单
+const [ isExpandSearchForm, setExpandSearchForm ] = useToggle()
 
 // 表单实例
 const formRef = ref<FormInstance>()
@@ -63,7 +69,7 @@ const rowGutter = computed<Gutter>(() => (props.schemaLayout === 'search' ? [ 12
 // 搜索Schema
 const searchSchemas = computed(() => {
   if (!props.searchShowNumber) return props.schema
-  if (isExpand.value) return props.schema
+  if (isExpandSearchForm.value) return props.schema
   return take(props.schema, props.searchShowNumber)
 })
 
@@ -93,8 +99,8 @@ const labelCol = computed(() => {
 const stepsItems = computed(() => props.stepSchema?.map(item => omit(item, [ 'form' ])))
 
 const expandCollapse = computed(() => ({
-  text: isExpand.value ? '收起' : '展开',
-  icon: isExpand.value ? 'i-ic:outline-keyboard-arrow-up' : 'i-ic:outline-keyboard-arrow-down'
+  text: isExpandSearchForm.value ? '收起' : '展开',
+  icon: isExpandSearchForm.value ? 'i-ic:outline-keyboard-arrow-up' : 'i-ic:outline-keyboard-arrow-down'
 }))
 
 // 查询事件
@@ -111,8 +117,9 @@ const onSubmit = () => {
 
 const handleGroupHide = (config: GroupSchemaType) => {
   let isHide = true
-  if (isBoolean(config.hide)) isHide = !config.hide
-  if (isFunction(config.hide)) isHide = !config.hide({ group: config, model: model.value })
+  const hide = unref(config.hide)
+  if (isBoolean(hide)) isHide = !hide
+  if (isFunction(hide)) isHide = !hide({ group: config, model: model.value })
   return isHide
 }
 
@@ -233,9 +240,9 @@ defineExpose<SchemaFormExpose>(formExpose)
             <slot name="groupTitle" :group-schema="config">
               <div class="flex tracking-wider h-[34px] items-center gap-1 mb-2 ">
                 <span class="inline-block w-[5px] h-[60%] bg-primary rounded flex-x-center" />
-                <span class="font-bold">{{ config.title }}</span>
-                <a-tooltip v-if="config.helpMessage">
-                  <template #title>{{ config.helpMessage }}}</template>
+                <span class="font-bold">{{ unref(config.title) }}</span>
+                <a-tooltip v-if="unref(config.helpMessage)">
+                  <template #title>{{ unref(config.helpMessage) }}}</template>
                   <icon
                     icon="i-ant-design:question-circle-outlined"
                     class="text-tertiary"
@@ -290,7 +297,7 @@ defineExpose<SchemaFormExpose>(formExpose)
           <a-button
             v-if="props.searchShowNumber"
             type="link"
-            @click="setExpand()"
+            @click="setExpandSearchForm()"
           >
             {{ expandCollapse.text }}
             <icon :icon="expandCollapse.icon" />

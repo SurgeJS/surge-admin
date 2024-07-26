@@ -10,7 +10,7 @@ import Settings from '@/layout/components/Header/components/Settings/index.vue'
 import useAppStore from '@/store/modules/app'
 import Menu from '@/layout/components/Menu/index.vue'
 import useAuthStore from '@/store/modules/auth'
-import Logo from "@/layout/components/Logo.vue"
+import Logo from '@/layout/components/Logo.vue'
 
 defineOptions({ name: 'HeaderContent' })
 const appStore = useAppStore()

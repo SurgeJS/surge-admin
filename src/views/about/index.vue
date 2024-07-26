@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 defineOptions({
-  name: "About",
+  name: 'About',
 })
 const count = ref(0)
 const route = useRoute()

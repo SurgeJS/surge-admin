@@ -1,4 +1,3 @@
-// 自定义选择器Props
 import {
     AutoCompleteProps,
     CascaderProps,

@@ -1,6 +1,6 @@
 import fakeAxiosInstance from '@/services/request/serves/fake'
-import { Ref } from "vue"
-import usePaginationQuery from "@/hooks/service/usePaginationQuery"
+import { Ref } from 'vue'
+import usePaginationQuery from '@/hooks/service/usePaginationQuery'
 
 interface test {
     list: any[],

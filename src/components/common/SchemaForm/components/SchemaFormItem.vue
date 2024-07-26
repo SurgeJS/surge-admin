@@ -22,8 +22,9 @@ import {
 } from '@/components/common/SchemaForm/utils'
 import { get, isArray, isFunction, isNumber, isString } from 'lodash-es'
 import { objectPathToArray } from '@/utils'
+import { SchemaFormItemProps } from '@/components/common/SchemaForm/components/types/type'
 
-const { schema } = defineProps<{ schema: Required<SchemaConfig> }>()
+const props = defineProps<SchemaFormItemProps>()
 
 const {
   field,
@@ -46,7 +47,7 @@ const {
   contentSlot,
   slot,
   disabled
-} = schema
+} = props.schema
 
 const slots = useSlots()
 
@@ -65,7 +66,7 @@ const bindValue = computed({
 
 // 回调参数
 const callbackParams = computed<CallbackParams>(() => ({
-  schema: schema as SchemaType,
+  schema: props.schema as SchemaType,
   model: model.value,
   value: model.value[get(model.value, unref(field))],
   field: unref(field)
@@ -142,7 +143,11 @@ const dynamicComponentAttribute = computed<any>(() => {
   }
 
   // 禁用
-  if (disabled !== undefined) commonProps.disabled = callbackParamsFunction(unref(disabled))
+  if (disabled !== undefined) {
+    commonProps.disabled = callbackParamsFunction(unref(disabled))
+  } else if (props.disable !== undefined) {
+    commonProps.disabled = props.disable
+  }
 
   return {
     ...globalDefaultProps,

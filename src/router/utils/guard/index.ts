@@ -1,7 +1,7 @@
 import type { Router } from 'vue-router'
 import { useTitle } from '@vueuse/core'
 import NProgress from 'nprogress'
-import createAuthGuard from "@/router/utils/guard/auth"
+import createAuthGuard from '@/router/utils/guard/auth'
 
 const createRouterGuard = (router: Router) => {
     // 跳转之前

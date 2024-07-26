@@ -34,7 +34,7 @@
     "pinia": "^2.1.7",
     "print-js": "^1.6.0",
     "store2": "^2.14.3",
-    "vue": "^3.4.31",
+    "vue": "^3.4.34",
     "vue-draggable-plus": "^0.4.1",
     "vue-router": "^4.3.3"
   },
@@ -64,7 +64,7 @@
     "unocss": "^0.61.5",
     "unplugin-auto-import": "^0.18.1",
     "unplugin-vue-components": "^0.27.3",
-    "vite": "^5.3.4",
+    "vite": "^5.3.5",
     "vite-plugin-compression": "^0.5.1",
     "vite-plugin-fake-server": "^2.1.1",
     "vite-plugin-html": "^3.2.2",

@@ -1,9 +1,9 @@
 import ServicesConfig from '@/config/services'
 import { message } from 'ant-design-vue'
-import { AxiosError } from "axios"
-import Hint from "@/config/hint"
-import { ResponseContent, ResponseError } from "@/services/request/axios/types"
-import useAuthStore from "@/store/modules/auth"
+import { AxiosError } from 'axios'
+import Hint from '@/config/hint'
+import { ResponseContent, ResponseError } from '@/services/request/axios/types'
+import useAuthStore from '@/store/modules/auth'
 
 // 用来解决重复错误提示
 let lastMessage: string | undefined = undefined

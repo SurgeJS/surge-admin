@@ -1,6 +1,6 @@
-import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from "axios"
-import { AxiosConfig, ResponseContent } from "@/services/request/axios/types"
-import { omit } from "lodash-es"
+import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from 'axios'
+import { AxiosConfig, ResponseContent } from '@/services/request/axios/types'
+import { omit } from 'lodash-es'
 
 
 /**

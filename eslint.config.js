@@ -31,13 +31,20 @@ export default tseslint.config({
         }
     },
     rules: {
-        'semi': [ "error", "never" ],
+        'semi': [ 'error', 'never' ],
         'no-undef': 'off',
+        'quotes': [ 'error', 'single', { 'avoidEscape': true } ],
         /* -----------------------TypeScript------------------------- */
         // 静止使用 any
         '@typescript-eslint/no-explicit-any': 'off',
         // 禁用未定义变量
-        '@typescript-eslint/no-unused-vars': 'off',
+        '@typescript-eslint/no-unused-vars': [
+            'error',
+            {
+                'args': 'after-used',
+                'caughtErrors': 'none',
+            }
+        ],
         /* -----------------------Vue------------------------- */
         // vue 属性换行
         'vue/max-attributes-per-line': [ 'error', { 'singleline': 2 } ],

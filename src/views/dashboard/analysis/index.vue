@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 
-import { TestApi } from "@/services/api/test"
+import { TestApi } from '@/services/api/test'
 
 defineOptions({ name: 'DashboardAnalysis' })
 const form = ref({
@@ -9,7 +9,7 @@ const form = ref({
   test: 1
 })
 
-const {  status,error,isFetching,refetch,data,fetchStatus } = TestApi.useTodoList(form)
+const {  status,isFetching,refetch,data,fetchStatus } = TestApi.useTodoList(form)
 
 watch(data, () => {
   console.log(data.value)
