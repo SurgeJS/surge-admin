@@ -25,9 +25,11 @@ watch(data, () => {
     {{ fetchStatus }}
     <br>
     <a-button :loading="isFetching" @click="refetch()">
-      test2
+      <template #icon>
+        <icon icon="i-ant-design:like-filled" />
+      </template>
+      <span>2</span>
     </a-button>
-
     <p v-for="item in data?.list" :key="item.id">{{ item.name }}</p>
   </div>
 </template>
