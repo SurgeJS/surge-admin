@@ -3,6 +3,7 @@ import useTabBarStore from '@/store/modules/tabBar'
 import useAppStore from '@/store/modules/app'
 import { computed, ref } from 'vue'
 import FullScreenLoading from '@/layout/components/FullScreenLoading.vue'
+import PageTransition from '@/layout/components/PageTransition.vue'
 
 const tabBarStore = useTabBarStore()
 const appStore = useAppStore()
@@ -31,11 +32,7 @@ const returnScrollContainer = () => {
         v-if="tabBarStore.mainVisible"
         v-slot="{ Component, route }"
       >
-        <transition
-          :name="transitionName"
-          appear
-          mode="out-in"
-        >
+        <page-transition :name="transitionName">
           <keep-alive v-if="route.meta.keepAlive">
             <component :is="Component" :key="route.fullPath" />
           </keep-alive>
@@ -44,7 +41,7 @@ const returnScrollContainer = () => {
             v-else
             :key="route.fullPath"
           />
-        </transition>
+        </page-transition>
       </router-view>
     </div>
   </div>
