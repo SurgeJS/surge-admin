@@ -43,6 +43,13 @@ export default {
           }
         }
       ]
+    },
+    {
+      path:'/component/animation',
+      component: 'submenu',
+      meta: {
+        title: '动画'
+      },
     }
   ]
 } satisfies AppRouteRecordRaw

@@ -2,6 +2,8 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  scrollbar-width: thin;
+  scrollbar-color: theme('colors.fill') transparent;
 }
 
 html, body, #app {
@@ -11,7 +13,7 @@ html, body, #app {
 }
 
 body {
-  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
+  font-family: "Microsoft YaHei UI", serif;
   background: theme('backgroundColor.layout');
   color: theme('textColor.main');
 }
@@ -33,29 +35,6 @@ iframe {
   display: block;
   vertical-align: middle;
 }
-
-/* 设置滚动条的样式 */
-::-webkit-scrollbar {
-  width: 7px;
-  height: 7px;
-}
-
-/* 滚动槽 */
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-/* 滚动条滑块 */
-::-webkit-scrollbar-thumb {
-  border-radius: 2px;
-  background: theme('colors.fill');
-  line-height: inherit;
-}
-
-::-webkit-scrollbar-thumb:window-inactive {
-  background: theme('colors.fill');
-}
-
 
 // 清除过度效果(不包括 ant switch 组件)
 .noTransition *:not(.ant-switch *) {

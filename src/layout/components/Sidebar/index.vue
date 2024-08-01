@@ -11,16 +11,16 @@ const appStore = useAppStore()
 const { sidebar, base } = appStore
 
 const sidebarWidth = computed(() => {
-    switch (base.layoutMode) {
-        case 'side':
-            return appStore.dynamicSidebarWidth
-        case 'mix-side':
-            return sidebar.isFixedMixSidebarDrawer ?
-                appStore.dynamicMixSidebarWidth + sidebar.sidebarWidth :
-                appStore.dynamicMixSidebarWidth
-        default:
-            return sidebar.sidebarWidth
-    }
+  switch (base.layoutMode) {
+    case 'side':
+      return appStore.dynamicSidebarWidth
+    case 'mix-side':
+      return sidebar.isFixedMixSidebarDrawer ?
+          appStore.dynamicMixSidebarWidth + sidebar.sidebarWidth :
+          appStore.dynamicMixSidebarWidth
+    default:
+      return sidebar.sidebarWidth
+  }
 })
 </script>
 

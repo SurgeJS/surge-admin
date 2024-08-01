@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const props = defineProps<{ name?: PageAnimationMode }>()
+const transitioning = defineModel<boolean>('transitioning', { default: false })
 </script>
 
 <template>
@@ -7,6 +8,10 @@ const props = defineProps<{ name?: PageAnimationMode }>()
     :name="props.name"
     appear
     mode="out-in"
+    @before-enter="transitioning = false"
+    @after-enter="transitioning = false"
+    @before-leave="transitioning = true"
+    @after-leave="transitioning = true"
   >
     <slot />
   </transition>
@@ -14,12 +19,9 @@ const props = defineProps<{ name?: PageAnimationMode }>()
 
 <style scoped lang="scss">
 // 左滑动淡入淡出
-.left-slide-fade-enter-active {
-  transition: 0.3s ease-in-out;
-}
-
+.left-slide-fade-enter-active,
 .left-slide-fade-leave-active {
-  transition: 0.2s cubic-bezier(1, 0.5, 0.8, 1);
+  transition: 0.2s cubic-bezier(.4,0,.2,1);
 }
 
 .left-slide-fade-enter-from,
@@ -29,12 +31,9 @@ const props = defineProps<{ name?: PageAnimationMode }>()
 }
 
 // 右滑动淡入淡出
+.right-slide-fade-leave-active,
 .right-slide-fade-enter-active {
-  transition: 0.3s ease-in-out;
-}
-
-.right-slide-fade-leave-active {
-  transition: 0.2s cubic-bezier(1, 0.5, 0.8, 1);
+  transition: .3s cubic-bezier(.4,0,.2,1);
 }
 
 .right-slide-fade-enter-from,
@@ -43,19 +42,15 @@ const props = defineProps<{ name?: PageAnimationMode }>()
   opacity: 0;
 }
 
-/* 缩放淡入淡出 */
+// 缩放淡入淡出
 .zoom-fade-enter-active,
 .zoom-fade-leave-active {
-  transition: .3s ease;
+  transition: .2s cubic-bezier(.4,0,.2,1);
 }
 
+.zoom-fade-leave-to,
 .zoom-fade-enter-from {
   opacity: 0;
-  transform: scale(1.1) ;
-}
-
-.zoom-fade-leave-to {
-  opacity: 0;
-  transform: scale(0.8);
+  transform: scale(0.99);
 }
 </style>

@@ -6,23 +6,22 @@ import { setupStore } from '@/store'
 import setupComponents from '@/components'
 import setupPlugin from '@/utils/plugin'
 
-// TODO:动态表单
 const bootStart = async () => {
-  const app = createApp(App)
+    const app = createApp(App)
 
-  // 安装插件
-  setupPlugin(app)
+    // 安装插件
+    setupPlugin(app)
 
-  // 安装全局组件
-  setupComponents(app)
+    // 安装全局组件
+    setupComponents(app)
 
-  // 挂载状态管理
-  setupStore(app)
+    // 挂载状态管理
+    setupStore(app)
 
-  // 挂载路由
-  await setupRouter(app)
+    // 挂载路由
+    await setupRouter(app)
 
-  app.mount('#app')
+    app.mount('#app')
 }
 
 void bootStart()
