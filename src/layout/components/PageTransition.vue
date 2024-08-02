@@ -1,6 +1,5 @@
 <script setup lang="ts">
 const props = defineProps<{ name?: PageAnimationMode }>()
-const transitioning = defineModel<boolean>('transitioning', { default: false })
 </script>
 
 <template>
@@ -8,10 +7,6 @@ const transitioning = defineModel<boolean>('transitioning', { default: false })
     :name="props.name"
     appear
     mode="out-in"
-    @before-enter="transitioning = false"
-    @after-enter="transitioning = false"
-    @before-leave="transitioning = true"
-    @after-leave="transitioning = true"
   >
     <slot />
   </transition>
@@ -21,7 +16,7 @@ const transitioning = defineModel<boolean>('transitioning', { default: false })
 // 左滑动淡入淡出
 .left-slide-fade-enter-active,
 .left-slide-fade-leave-active {
-  transition: 0.2s cubic-bezier(.4,0,.2,1);
+  transition: .4s cubic-bezier(.4,0,.2,1);
 }
 
 .left-slide-fade-enter-from,
@@ -33,7 +28,7 @@ const transitioning = defineModel<boolean>('transitioning', { default: false })
 // 右滑动淡入淡出
 .right-slide-fade-leave-active,
 .right-slide-fade-enter-active {
-  transition: .3s cubic-bezier(.4,0,.2,1);
+  transition: .4s cubic-bezier(.4,0,.2,1);
 }
 
 .right-slide-fade-enter-from,
@@ -45,12 +40,12 @@ const transitioning = defineModel<boolean>('transitioning', { default: false })
 // 缩放淡入淡出
 .zoom-fade-enter-active,
 .zoom-fade-leave-active {
-  transition: .2s cubic-bezier(.4,0,.2,1);
+  transition: .4s cubic-bezier(.4,0,.2,1);
 }
 
 .zoom-fade-leave-to,
 .zoom-fade-enter-from {
   opacity: 0;
-  transform: scale(0.99);
+  transform: scale(0.90) ;
 }
 </style>

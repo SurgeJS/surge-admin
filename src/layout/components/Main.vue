@@ -10,13 +10,9 @@ const appStore = useAppStore()
 const { base } = appStore
 
 const scrollContainer = ref<HTMLDivElement>()
-const transitioning = ref(false)
 
 const transitionName = computed(() => base.isPageStartAnimation ? base.pageAnimationMode : undefined)
 
-const returnScrollContainer = () => {
-  return scrollContainer.value as HTMLDivElement
-}
 </script>
 
 <template>
@@ -26,15 +22,14 @@ const returnScrollContainer = () => {
       v-show="!base.fullScreenLoading"
       ref="scrollContainer"
       class="layout-main-container"
-      :style="{overflow: transitioning ? 'hidden' : 'auto'}"
     >
       <!-- 返回顶部 -->
-      <a-back-top :target="returnScrollContainer" />
+      <a-back-top :target="()=>scrollContainer as HTMLDivElement" />
       <router-view
         v-if="tabBarStore.mainVisible"
         v-slot="{ Component, route }"
       >
-        <page-transition v-model:transitioning="transitioning" :name="transitionName">
+        <page-transition :name="transitionName">
           <keep-alive v-if="route.meta.keepAlive">
             <component :is="Component" :key="route.fullPath" />
           </keep-alive>
@@ -62,6 +57,8 @@ const returnScrollContainer = () => {
     height: 100%;
     padding: 0 10px 5px 10px;
     position: relative;
+    overflow-y: auto;
+    overflow-x: hidden;
   }
 }
 

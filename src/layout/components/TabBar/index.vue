@@ -18,7 +18,6 @@ const router = useRouter()
 const [ scrollBtnVisible, toggleScrollBtnVisible ] = useToggle()
 
 const tabBarContainer = ref<HTMLElement>()
-
 // 处理滚动按钮是否显示
 const handleScrollBtnVisible = async () => {
   await nextTick()
@@ -109,6 +108,9 @@ watch(tabBarStore.tabs, () => {
     >
       <icon icon="i-ic:baseline-chevron-right" />
     </div>
+    <div class="tabBar-item action" @click="tabBarStore.refreshCurrent()">
+      <icon :class="{ 'animate-spin animate-duration-750': !tabBarStore.mainVisible }" icon="i-ic:baseline-refresh" />
+    </div>
     <dropdown-context :trigger="['click','contextmenu']">
       <div class="tabBar-item action">
         <icon icon="i-ic:baseline-keyboard-arrow-down" />
@@ -125,7 +127,7 @@ watch(tabBarStore.tabs, () => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 10px;
+  gap: 6px;
   flex-shrink: 0;
   transition: height .2s ease-in-out;
 
@@ -175,10 +177,14 @@ watch(tabBarStore.tabs, () => {
     }
   }
 
+  & .loading {
+    animation: loading 1s ease;
+  }
+
   &-container {
     flex: 1;
     display: flex;
-    gap: 10px;
+    gap: 6px;
     overflow: hidden;
     height: 100%;
     align-items: center;
