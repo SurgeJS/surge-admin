@@ -11,7 +11,7 @@
         >
           <a-flex gap="10">
             <fold-animation fixed-length appear>
-              <div v-if="isReload" class="demo overflow-auto">
+              <div class="demo overflow-auto">
                 <p
                   v-for="item in 15"
                   :key="item"
