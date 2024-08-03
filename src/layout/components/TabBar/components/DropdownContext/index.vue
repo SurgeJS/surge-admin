@@ -18,7 +18,7 @@ const dropdownList = computed(() => {
       title: '刷新',
       disabled: () => route.path !== tab.value.path,
       handle() {
-        tabBarStore.refreshCurrent()
+        tabBarStore.refresh()
       }
     },
     {

@@ -85,6 +85,7 @@ const area: DefaultOptionType[] = [
 const schema1: GroupSchemaType<typeof form.value>[] = [
   {
     title: '基础信息',
+    helpMessage: 'test',
     form: [
       {
         field: 'name.test',

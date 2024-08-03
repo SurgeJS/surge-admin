@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .collapsible {
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 1s ease-out;
+        }
+
+        .collapsible.open {
+            max-height: 500px; /* 根据内容高度调整 */
+        }
+
+        .content {
+            padding: 20px; /* 固定的 padding */
+            background-color: lightblue;
+        }
+    </style>
+</head>
+<body>
+
+<button onclick="toggle()">Toggle</button>
+<div class="collapsible open" id="collapsible">
+    <div class="content">
+        <p>这里是一些内容...</p>
+    </div>
+</div>
+
+<script>
+    function toggle() {
+        const collapsible = document.getElementById('collapsible');
+        collapsible.classList.toggle('open');
+    }
+</script>
+
+</body>
+</html>

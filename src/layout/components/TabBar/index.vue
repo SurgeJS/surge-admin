@@ -1,21 +1,21 @@
 <script lang="ts" setup>
 import useAppStore from '@/store/modules/app'
-import { nextTick, ref, watch } from 'vue'
+import {nextTick, ref, watch} from 'vue'
 import useTabBarStore from '@/store/modules/tabBar'
-import { useRoute, useRouter } from 'vue-router'
-import { useDebounceFn, useEventListener, useToggle } from '@vueuse/core'
+import {useRoute, useRouter} from 'vue-router'
+import {useDebounceFn, useEventListener, useToggle} from '@vueuse/core'
 import DropdownContext from '@/layout/components/TabBar/components/DropdownContext/index.vue'
 
-defineOptions({ name: 'TabBar' })
+defineOptions({name: 'TabBar'})
 
 const appStore = useAppStore()
-const { header } = appStore
+const {header} = appStore
 const tabBarStore = useTabBarStore()
 const route = useRoute()
 const router = useRouter()
 
 // 滚动按钮是否可见
-const [ scrollBtnVisible, toggleScrollBtnVisible ] = useToggle()
+const [scrollBtnVisible, toggleScrollBtnVisible] = useToggle()
 
 const tabBarContainer = ref<HTMLElement>()
 // 处理滚动按钮是否显示
@@ -49,20 +49,21 @@ const scrollToActive = useDebounceFn(async () => {
   })
 }, 300)
 
+
 useEventListener('resize', () => {
   handleScrollBtnVisible()
 })
 
 // 监听路由变化
 watch(() => route.path, () => {
-  const { meta, name, path, fullPath } = route
-  tabBarStore.addTab({ meta, name: name as string, path, fullPath })
+  const {meta, name, path, fullPath} = route
+  tabBarStore.addTab({meta, name: name as string, path, fullPath})
   scrollToActive()
-}, { immediate: true })
+}, {immediate: true})
 
 watch(tabBarStore.tabs, () => {
   handleScrollBtnVisible()
-}, { immediate: true })
+}, {immediate: true})
 
 </script>
 
@@ -108,8 +109,12 @@ watch(tabBarStore.tabs, () => {
     >
       <icon icon="i-ic:baseline-chevron-right" />
     </div>
-    <div class="tabBar-item action" @click="tabBarStore.refreshCurrent()">
-      <icon :class="{ 'animate-spin animate-duration-750': !tabBarStore.mainVisible }" icon="i-ic:baseline-refresh" />
+    <div class="tabBar-item action" @click="tabBarStore.refresh()">
+      <icon
+        :style="{ animationDuration: `${tabBarStore.refreshWaitDuration}ms` }"
+        :class="{ 'animate-spin': !tabBarStore.refreshFlag }"
+        icon="i-ic:baseline-refresh"
+      />
     </div>
     <dropdown-context :trigger="['click','contextmenu']">
       <div class="tabBar-item action">

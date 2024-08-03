@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import useTabBarStore from '@/store/modules/tabBar'
 import useAppStore from '@/store/modules/app'
-import { computed, ref } from 'vue'
+import {computed, ref} from 'vue'
 import FullScreenLoading from '@/layout/components/FullScreenLoading.vue'
 import PageTransition from '@/layout/components/PageTransition.vue'
 
@@ -12,7 +12,6 @@ const { base } = appStore
 const scrollContainer = ref<HTMLDivElement>()
 
 const transitionName = computed(() => base.isPageStartAnimation ? base.pageAnimationMode : undefined)
-
 </script>
 
 <template>
@@ -25,17 +24,17 @@ const transitionName = computed(() => base.isPageStartAnimation ? base.pageAnima
     >
       <!-- 返回顶部 -->
       <a-back-top :target="()=>scrollContainer as HTMLDivElement" />
-      <router-view
-        v-if="tabBarStore.mainVisible"
-        v-slot="{ Component, route }"
-      >
+      <router-view v-slot="{ Component, route }">
         <page-transition :name="transitionName">
-          <keep-alive v-if="route.meta.keepAlive">
-            <component :is="Component" :key="route.fullPath" />
+          <keep-alive v-if="route.meta.keepAlive && tabBarStore.refreshFlag">
+            <component
+              :is="Component"
+              :key="route.fullPath"
+            />
           </keep-alive>
           <component
             :is="Component"
-            v-else
+            v-else-if="tabBarStore.refreshFlag && !route.meta.keepAlive"
             :key="route.fullPath"
           />
         </page-transition>
@@ -61,5 +60,4 @@ const transitionName = computed(() => base.isPageStartAnimation ? base.pageAnima
     overflow-x: hidden;
   }
 }
-
 </style>

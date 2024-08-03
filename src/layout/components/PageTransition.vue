@@ -5,7 +5,6 @@ const props = defineProps<{ name?: PageAnimationMode }>()
 <template>
   <transition
     :name="props.name"
-    appear
     mode="out-in"
   >
     <slot />

@@ -1,14 +1,16 @@
-import { defineStore } from 'pinia'
+import {defineStore} from 'pinia'
 import router from '@/router'
-import { nextTick } from 'vue'
 import RouterConfig from '@/config/router'
+import {asyncWait} from '@/utils'
 
 const useTabBarStore = defineStore('TabBar', {
     state: (): TabBarStore => ({
         // 标签栏
         tabs: [],
-        // 刷新
-        mainVisible: true
+        // 刷新标志
+        refreshFlag: true,
+        // 刷新等待时间
+        refreshWaitDuration: 400
     }),
     getters: {
         // 当前激活的tab
@@ -63,11 +65,10 @@ const useTabBarStore = defineStore('TabBar', {
         },
 
         // 刷新当前激活的路由
-        refreshCurrent() {
-            this.mainVisible = false
-            void nextTick(() => {
-                this.mainVisible = true
-            })
+        async refresh() {
+            this.refreshFlag = false
+            await asyncWait(this.refreshWaitDuration)
+            this.refreshFlag = true
         },
 
         // 关闭左侧

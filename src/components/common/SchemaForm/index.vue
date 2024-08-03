@@ -8,14 +8,14 @@ import {
   SchemaLayout,
   SchemaType
 } from '@/components/common/SchemaForm/types/type'
-import { useProvideSchemaFormContext } from '@/components/common/SchemaForm/utils/context'
-import { computed, ref, unref } from 'vue'
-import { createReusableTemplate, useToggle } from '@vueuse/core'
-import { FormInstance } from 'ant-design-vue/es/form'
-import { isBoolean, isFunction, isNumber, omit, set, take } from 'lodash-es'
+import {useProvideSchemaFormContext} from '@/components/common/SchemaForm/utils/context'
+import {computed, ref, unref} from 'vue'
+import {createReusableTemplate, useToggle} from '@vueuse/core'
+import {FormInstance} from 'ant-design-vue/es/form'
+import {isBoolean, isFunction, isNumber, omit, set, take} from 'lodash-es'
 import SchemaFormItem from '@/components/common/SchemaForm/components/SchemaFormItem.vue'
-import { Modal } from 'ant-design-vue'
-import { Gutter } from 'ant-design-vue/es/grid/Row'
+import {Modal} from 'ant-design-vue'
+import {Gutter} from 'ant-design-vue/es/grid/Row'
 
 const props = withDefaults(defineProps<SchemaFormProps>(), {
   required: false,
@@ -33,38 +33,38 @@ const props = withDefaults(defineProps<SchemaFormProps>(), {
   defaultValueTimeFormat: 'HH:mm:ss',
   confirmTitle: '关闭提示',
   confirmContent: '您确定要关闭它吗？',
-  drawerProps: () => ({ width: 500 }),
-  modalProps: () => ({ width: 800 })
+  drawerProps: () => ({width: 500}),
+  modalProps: () => ({width: 800})
 })
 
 defineSlots<SchemaFormSlots>()
 
 const emits = defineEmits<SchemaFormEmits>()
 // 当前步骤条激活项
-const activeStep = defineModel<number>('activeStep', { default: 1 })
+const activeStep = defineModel<number>('activeStep', {default: 1})
 // 弹框、抽屉可见
-const visible = defineModel<boolean>('visible', { default: false })
+const visible = defineModel<boolean>('visible', {default: false})
 // 表单模型
-const model = defineModel<Recordable>('model', { required: true })
+const model = defineModel<Recordable>('model', {required: true})
 
 // 创建表单可复用模板
-const [ DefineSchemaForm, SchemaForm ] = createReusableTemplate()
+const [DefineSchemaForm, SchemaForm] = createReusableTemplate()
 // 创建表单内容可复用模板
-const [ DefineFormContent, FormContent ] = createReusableTemplate<{ schema?: SchemaType[] }>()
+const [DefineFormContent, FormContent] = createReusableTemplate<{ schema?: SchemaType[] }>()
 // 创建按钮操作可复用模板
-const [ DefineButtonAction, ButtonAction ] = createReusableTemplate<{ schemaLayout?: SchemaLayout }>()
+const [DefineButtonAction, ButtonAction] = createReusableTemplate<{ schemaLayout?: SchemaLayout }>()
 
 // 提供Schema上下文
-const { aFormProps, getModelValue } = useProvideSchemaFormContext(props, model)
+const {aFormProps, getModelValue} = useProvideSchemaFormContext(props, model)
 
 // 是否展开搜索表单
-const [ isExpandSearchForm, setExpandSearchForm ] = useToggle()
+const [isExpandSearchForm, setExpandSearchForm] = useToggle()
 
 // 表单实例
 const formRef = ref<FormInstance>()
 
 // 间距
-const rowGutter = computed<Gutter>(() => (props.schemaLayout === 'search' ? [ 12, 12 ] : 12) as Gutter)
+const rowGutter = computed<Gutter>(() => (props.schemaLayout === 'search' ? [12, 12] : 12) as Gutter)
 
 // 搜索Schema
 const searchSchemas = computed(() => {
@@ -89,14 +89,14 @@ const labelCol = computed(() => {
   return {
     style: {
       width: isNumber(props.labelWidth)
-          ? `${ props.labelWidth }px`
+          ? `${props.labelWidth}px`
           : props.labelWidth
     }, ...props.labelCol
   }
 })
 
 // 步骤条选项
-const stepsItems = computed(() => props.stepSchema?.map(item => omit(item, [ 'form' ])))
+const stepsItems = computed(() => props.stepSchema?.map(item => omit(item, ['form'])))
 
 const expandCollapse = computed(() => ({
   text: isExpandSearchForm.value ? '收起' : '展开',
@@ -119,7 +119,7 @@ const handleGroupHide = (config: GroupSchemaType) => {
   let isHide = true
   const hide = unref(config.hide)
   if (isBoolean(hide)) isHide = !hide
-  if (isFunction(hide)) isHide = !hide({ group: config, model: model.value })
+  if (isFunction(hide)) isHide = !hide({group: config, model: model.value})
   return isHide
 }
 
@@ -237,12 +237,14 @@ defineExpose<SchemaFormExpose>(formExpose)
       <template v-if="props.schemaLayout==='group'">
         <template v-for="(config,i) in props.groupSchema" :key="i">
           <template v-if="handleGroupHide(config)">
-            <slot name="groupTitle" :group-schema="config">
-              <div class="flex tracking-wider h-[34px] items-center gap-1 mb-2 ">
-                <span class="inline-block w-[5px] h-[60%] bg-primary rounded flex-x-center" />
-                <span class="font-bold">{{ unref(config.title) }}</span>
+            <div class="flex justify-between items-center gap-1 mb-2 ">
+              <div class="flex items-center tracking-wider gap-1 h-[34px]">
+                <slot name="groupTitle" :group-schema="config">
+                  <span class="inline-block w-[6px] h-[60%] bg-primary rounded-[2px] flex-x-center" />
+                  <span class="font-bold">{{ unref(config.title) }}</span>
+                </slot>
                 <a-tooltip v-if="unref(config.helpMessage)">
-                  <template #title>{{ unref(config.helpMessage) }}}</template>
+                  <template #title>{{ unref(config.helpMessage) }}</template>
                   <icon
                     icon="i-ant-design:question-circle-outlined"
                     class="text-tertiary"
@@ -250,7 +252,11 @@ defineExpose<SchemaFormExpose>(formExpose)
                   />
                 </a-tooltip>
               </div>
-            </slot>
+              <a-button type="link">
+                <icon pointer icon="i-ant-design:caret-down-outlined" />
+                展开
+              </a-button>
+            </div>
             <form-content :schema="config.form" />
           </template>
         </template>

@@ -112,7 +112,7 @@ export interface MapComponentCommonProps<TForm extends Recordable = Recordable, 
 export interface SchemaConfig<
     TForm extends Recordable = Recordable,
     DComponentsName extends ComponentsName = ComponentsName> extends MapComponentCommonProps<TForm, DComponentsName> {
-    // 字段 TODO: field[] 目前还没用想到好的解决办法，多个field表单验证会有问题
+    // 字段
     field?: MaybeRef<keyof TForm | string>
 
     // label 标签的文本
@@ -165,7 +165,7 @@ export interface SchemaConfig<
 export type SchemaType<TForm extends Recordable = any, DComponentsName extends ComponentsName = ComponentsName>
     = DComponentsName extends ComponentsName ? SchemaConfig<TForm, DComponentsName> : never;
 
-// 模块表单结构 TODO:展开收起、模块禁用、MaybeRef 未完成
+// 模块表单结构
 export interface GroupSchemaType<TForm extends Recordable = any, DComponentsName extends ComponentsName = ComponentsName> {
     // 模块标题
     title: MaybeRef<string>
@@ -179,10 +179,16 @@ export interface GroupSchemaType<TForm extends Recordable = any, DComponentsName
     // 表单
     form: SchemaType<TForm, DComponentsName>[]
 
-    // 是否显示展开收起按钮
+    // 是否显示展开收起按钮 TODO:未完成
     isShowExpandCollapseButton?: MaybeRef<boolean>
 
-    // 禁用表单
+    // 是否展开 TODO:未完成
+    isExpanded?: MaybeRef<boolean>
+
+    // 不收起的field TODO:未完成
+    permanentField?: MaybeRef<keyof TForm[]>
+
+    // 禁用表单 TODO:未完成
     disabled?: MaybeRef<boolean>
 }
 

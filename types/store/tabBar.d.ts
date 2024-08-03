@@ -1,17 +1,20 @@
-import { RouteLocationNormalizedLoaded, RouteMeta } from 'vue-router'
+import {RouteLocationNormalizedLoaded, RouteMeta} from 'vue-router'
 
 
 declare global {
-  interface Tab extends Pick<RouteLocationNormalizedLoaded,'fullPath' | 'path'> {
-    name?: string
-    meta: RouteMeta
-  }
+    interface Tab extends Pick<RouteLocationNormalizedLoaded, 'fullPath' | 'path'> {
+        name?: string
+        meta: RouteMeta
+    }
 
-  interface TabBarStore {
-    // 标签栏
-    tabs: Tab[]
+    interface TabBarStore {
+        // 标签栏
+        tabs: Tab[]
 
-    // 刷新
-    mainVisible: boolean
-  }
+        // 刷新标志
+        refreshFlag: boolean
+
+        // 刷新等待时间
+        refreshWaitDuration: number
+    }
 }
