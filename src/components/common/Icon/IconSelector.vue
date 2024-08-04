@@ -6,7 +6,7 @@ import { useToggle } from '@vueuse/core'
 
 const iconValue = defineModel<string>('value')
 
-const [ visible,setVisible ] = useToggle()
+const [visible,setVisible] = useToggle()
 
 // 弹出窗口宽度
 const icons = ref<string[]>(listIcons('',iconSetPrefix[0]))

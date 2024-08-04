@@ -1,6 +1,6 @@
-import {createInjectionState} from '@vueuse/core'
-import {ref} from 'vue'
-import {LoginAction} from '@/views/login/type/enum'
+import { createInjectionState } from '@vueuse/core'
+import { ref } from 'vue'
+import { LoginAction } from '@/views/login/type/enum'
 
 
 const [useProvideLoginContext, useLoginContext] = createInjectionState(() => {
@@ -12,7 +12,7 @@ const [useProvideLoginContext, useLoginContext] = createInjectionState(() => {
         currentAction.value = action
     }
 
-    return {currentAction, setAction}
+    return { currentAction, setAction }
 })
 
-export {useProvideLoginContext, useLoginContext}
+export { useProvideLoginContext, useLoginContext }

@@ -14,9 +14,9 @@ const props = withDefaults(defineProps<BaseTableProps>(), {
   indentSize: 15
 })
 
-const tableColumns = defineModel<SuperTableColumn[]>('columns', {required: true})
+const tableColumns = defineModel<SuperTableColumn[]>('columns', { required: true })
 
-const {currentDensity} = useProvideBaseTableStore(props, tableColumns)
+const { currentDensity } = useProvideBaseTableStore(props, tableColumns)
 
 // 超级表格Props
 const superTableProps = useOmitProps(props, ['heading', 'hideHeader', 'hideToolBar'])

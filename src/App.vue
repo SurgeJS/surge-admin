@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import {useGlobalInitialize} from '@/hooks/effect/useGlobalInitialize'
-import {useGlobalSubscribe} from '@/hooks/effect/useGlobalSubscribe'
+import { useGlobalInitialize } from '@/hooks/effect/useGlobalInitialize'
+import { useGlobalSubscribe } from '@/hooks/effect/useGlobalSubscribe'
 import useAppStore from '@/store/modules/app'
 import zhCN from 'ant-design-vue/es/locale/zh_CN'
 

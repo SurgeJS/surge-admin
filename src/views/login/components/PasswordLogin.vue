@@ -10,7 +10,7 @@ import useRenderIcon from '@/hooks/components/useRenderIcon'
 
 const { setAction } = useLoginContext()!
 const authStore = useAuthStore()
-const [ loading, toggleLoading ] = useToggle()
+const [loading, toggleLoading] = useToggle()
 const { RenderUnoIcon } = useRenderIcon()
 
 const formRef = ref<FormInstance>()

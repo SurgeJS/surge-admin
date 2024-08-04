@@ -20,7 +20,7 @@ const SEARCH_FORM_COL: ColProps = {
   xxl: 6
 }
 
-const [ useProvideSchemaFormContext,useSchemaFormContext ] = createInjectionState((schemaFormProps: SchemaFormProps,model: ModelRef<Recordable>) => {
+const [useProvideSchemaFormContext,useSchemaFormContext] = createInjectionState((schemaFormProps: SchemaFormProps,model: ModelRef<Recordable>) => {
   const aFormProps = useOmitProps(schemaFormProps,[
     'formClass',
     'formStyle',

@@ -3,7 +3,7 @@ import isLeapYear from 'dayjs/plugin/isLeapYear'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import 'dayjs/locale/zh-cn'
 
-const dayJsPlugin = [ isLeapYear,relativeTime ]
+const dayJsPlugin = [isLeapYear,relativeTime]
 
 dayJsPlugin.forEach(plugin => day.extend(plugin))
 

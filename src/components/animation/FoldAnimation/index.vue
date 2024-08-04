@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import gsap from 'gsap'
-import {FoldAnimationProps} from '@/components/animation/FoldAnimation/types/type'
+import { FoldAnimationProps } from '@/components/animation/FoldAnimation/types/type'
 
 const props = withDefaults(defineProps<FoldAnimationProps>(), {
   duration: .5,

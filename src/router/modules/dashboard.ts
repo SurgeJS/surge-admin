@@ -14,7 +14,7 @@ export default {
       path: '/dashboard/analysis',
       meta: {
         title: '分析页',
-        roles: [ RoleEnum.SUPER ],
+        roles: [RoleEnum.SUPER],
         keepAlive: true,
         affix: true
       },

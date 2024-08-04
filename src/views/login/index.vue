@@ -19,14 +19,14 @@ import PhoneLogin from '@/views/login/components/PhoneLogin.vue'
 import QrCodeLogin from '@/views/login/components/QrCodeLogin.vue'
 import Register from '@/views/login/components/Register.vue'
 import ThemeSwitch from '@/views/login/components/ThemeSwitch.vue'
-import {useProvideLoginContext} from '@/views/login/utils/context'
+import { useProvideLoginContext } from '@/views/login/utils/context'
 
-defineOptions({name: 'Login'})
+defineOptions({ name: 'Login' })
 // 登录行为
-const LOGIN_ACTION = {PasswordLogin, PhoneLogin, QrCodeLogin, Register}
+const LOGIN_ACTION = { PasswordLogin, PhoneLogin, QrCodeLogin, Register }
 
 const appStore = useAppStore()
-const {currentAction} = useProvideLoginContext()
+const { currentAction } = useProvideLoginContext()
 
 </script>
 

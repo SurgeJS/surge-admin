@@ -19,15 +19,15 @@ const treeData: TreeProps['treeData'] = [
       {
         title: 'parent 1-1',
         key: '0-0-1',
-        children: [ { key: '0-0-1-0',title: 'sss' } ]
+        children: [{ key: '0-0-1-0',title: 'sss' }]
       }
     ]
   }
 ]
 
-const expandedKeys = ref<string[]>([ '0-0-0','0-0-1' ])
-const selectedKeys = ref<string[]>([ '0-0-0','0-0-1' ])
-const checkedKeys = ref<string[]>([ '0-0-0','0-0-1' ])
+const expandedKeys = ref<string[]>(['0-0-0','0-0-1'])
+const selectedKeys = ref<string[]>(['0-0-0','0-0-1'])
+const checkedKeys = ref<string[]>(['0-0-0','0-0-1'])
 watch(expandedKeys,() => {
   console.log('expandedKeys',expandedKeys)
 })

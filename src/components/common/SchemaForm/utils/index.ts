@@ -33,7 +33,7 @@ export const isMapPlaceholder = (component: ComponentsName) => [
 ].includes(component)
 
 // 是否Check类型的组件
-export const isCheckComponent = (component: ComponentsName) => [ 'Switch', 'Checkbox', 'Radio' ].includes(component)
+export const isCheckComponent = (component: ComponentsName) => ['Switch', 'Checkbox', 'Radio'].includes(component)
 
 // 是否日期类型组件
 export const isDateComponent = (component: ComponentsName) => [
@@ -76,8 +76,8 @@ export const isPickComponent = (component: ComponentsName) => [
 
 // 生成placeholder
 export const generatePlaceholder = (label: SchemaConfig['label'], component: ComponentsName) => {
-    if ([ 'DateRangePicker' ].includes(component)) return [ '开始日期', '结束日期' ]
-    if ([ 'TimeRangePicker' ].includes(component)) return [ '开始时间', '结束时间' ]
+    if (['DateRangePicker'].includes(component)) return ['开始日期', '结束日期']
+    if (['TimeRangePicker'].includes(component)) return ['开始时间', '结束时间']
     if (isInputComponent(component) && typeof label === 'string') return `请输入${ label }`
     if (isPickComponent(component) && typeof label === 'string') return `请选择${ label }`
 }

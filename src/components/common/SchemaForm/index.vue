@@ -8,14 +8,14 @@ import {
   SchemaLayout,
   SchemaType
 } from '@/components/common/SchemaForm/types/type'
-import {useProvideSchemaFormContext} from '@/components/common/SchemaForm/utils/context'
-import {computed, ref, unref} from 'vue'
-import {createReusableTemplate, useToggle} from '@vueuse/core'
-import {FormInstance} from 'ant-design-vue/es/form'
-import {isBoolean, isFunction, isNumber, omit, set, take} from 'lodash-es'
+import { useProvideSchemaFormContext } from '@/components/common/SchemaForm/utils/context'
+import { computed, ref, unref } from 'vue'
+import { createReusableTemplate, useToggle } from '@vueuse/core'
+import { FormInstance } from 'ant-design-vue/es/form'
+import { isBoolean, isFunction, isNumber, omit, set, take } from 'lodash-es'
 import SchemaFormItem from '@/components/common/SchemaForm/components/SchemaFormItem.vue'
-import {Modal} from 'ant-design-vue'
-import {Gutter} from 'ant-design-vue/es/grid/Row'
+import { Modal } from 'ant-design-vue'
+import { Gutter } from 'ant-design-vue/es/grid/Row'
 
 const props = withDefaults(defineProps<SchemaFormProps>(), {
   required: false,
@@ -33,19 +33,19 @@ const props = withDefaults(defineProps<SchemaFormProps>(), {
   defaultValueTimeFormat: 'HH:mm:ss',
   confirmTitle: '关闭提示',
   confirmContent: '您确定要关闭它吗？',
-  drawerProps: () => ({width: 500}),
-  modalProps: () => ({width: 800})
+  drawerProps: () => ({ width: 500 }),
+  modalProps: () => ({ width: 800 })
 })
 
 defineSlots<SchemaFormSlots>()
 
 const emits = defineEmits<SchemaFormEmits>()
 // 当前步骤条激活项
-const activeStep = defineModel<number>('activeStep', {default: 1})
+const activeStep = defineModel<number>('activeStep', { default: 1 })
 // 弹框、抽屉可见
-const visible = defineModel<boolean>('visible', {default: false})
+const visible = defineModel<boolean>('visible', { default: false })
 // 表单模型
-const model = defineModel<Recordable>('model', {required: true})
+const model = defineModel<Recordable>('model', { required: true })
 
 // 创建表单可复用模板
 const [DefineSchemaForm, SchemaForm] = createReusableTemplate()
@@ -55,7 +55,7 @@ const [DefineFormContent, FormContent] = createReusableTemplate<{ schema?: Schem
 const [DefineButtonAction, ButtonAction] = createReusableTemplate<{ schemaLayout?: SchemaLayout }>()
 
 // 提供Schema上下文
-const {aFormProps, getModelValue} = useProvideSchemaFormContext(props, model)
+const { aFormProps, getModelValue } = useProvideSchemaFormContext(props, model)
 
 // 是否展开搜索表单
 const [isExpandSearchForm, setExpandSearchForm] = useToggle()
@@ -119,7 +119,7 @@ const handleGroupHide = (config: GroupSchemaType) => {
   let isHide = true
   const hide = unref(config.hide)
   if (isBoolean(hide)) isHide = !hide
-  if (isFunction(hide)) isHide = !hide({group: config, model: model.value})
+  if (isFunction(hide)) isHide = !hide({ group: config, model: model.value })
   return isHide
 }
 

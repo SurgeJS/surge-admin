@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import {useLoginContext} from '@/views/login/utils/context'
-import {LoginAction} from '@/views/login/type/enum'
+import { useLoginContext } from '@/views/login/utils/context'
+import { LoginAction } from '@/views/login/type/enum'
 
-const {setAction} = useLoginContext()!
+const { setAction } = useLoginContext()!
 const form = {}
 </script>
 

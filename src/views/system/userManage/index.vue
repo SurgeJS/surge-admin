@@ -7,7 +7,7 @@ import { useToggle } from '@vueuse/core'
 import { ref } from 'vue'
 import { DefaultOptionType } from 'ant-design-vue/es/vc-tree-select/TreeSelect'
 
-const [ isShow,toggleShow ] = useToggle()
+const [isShow,toggleShow] = useToggle()
 
 const form = ref({
   name: {

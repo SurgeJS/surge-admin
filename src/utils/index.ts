@@ -5,7 +5,7 @@
 export type TacticsAction = [ boolean,() => void ]
 
 // 执行策略模式
-export const runTacticsAction = (tacticsAction: TacticsAction[]) => tacticsAction.some( ([ flag,action ]) => {
+export const runTacticsAction = (tacticsAction: TacticsAction[]) => tacticsAction.some( ([flag,action]) => {
   flag && action()
   return flag
 })

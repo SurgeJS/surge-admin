@@ -20,7 +20,7 @@ const printTable = () => {
       { name: 'll',email: '123@gmail.com',phone: '123' },
       { name: 'qq',email: '456@gmail.com',phone: '456' }
     ],
-    properties: [ 'name','email','phone' ],
+    properties: ['name','email','phone'],
     type: 'json'
   })
 }

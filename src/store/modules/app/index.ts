@@ -11,15 +11,15 @@ const useAppStore = defineStore('App', {
     state: (): AppStore => appStore,
     getters: {
         // 动态侧边栏宽度
-        dynamicSidebarWidth: ({sidebar}) => sidebar.isCollapsed ?
+        dynamicSidebarWidth: ({ sidebar }) => sidebar.isCollapsed ?
             sidebar.collapsedSidebarWidth :
             sidebar.sidebarWidth,
         // 动态混合侧边栏宽度
-        dynamicMixSidebarWidth: ({sidebar}) => sidebar.isCollapsedMix ?
+        dynamicMixSidebarWidth: ({ sidebar }) => sidebar.isCollapsedMix ?
             sidebar.collapsedSidebarWidth :
             sidebar.mixSidebarWidth,
         // 动态侧边栏暗黑模式
-        dynamicSidebarDark: ({base}) => (base.layoutStyle === 'side-dark' || base.layoutStyle === 'side-top-dark') && base.themeMode !== 'dark'
+        dynamicSidebarDark: ({ base }) => (base.layoutStyle === 'side-dark' || base.layoutStyle === 'side-top-dark') && base.themeMode !== 'dark'
             ?
             {
                 isDark: true,
@@ -31,7 +31,7 @@ const useAppStore = defineStore('App', {
                 className: undefined
             },
         // 动态顶部暗黑模式
-        dynamicTopDark: ({base}) => base.layoutStyle === 'side-top-dark' && base.themeMode !== 'dark' ?
+        dynamicTopDark: ({ base }) => base.layoutStyle === 'side-top-dark' && base.themeMode !== 'dark' ?
             {
                 isDark: true,
                 className: 'dark'
@@ -41,10 +41,10 @@ const useAppStore = defineStore('App', {
                 className: undefined
             },
         // antd 组件库主题配置
-        themeConfig: ({base}): ThemeConfig => {
+        themeConfig: ({ base }): ThemeConfig => {
             const antdTheme = base.themeMode === 'dark' ? AppConfig.ANTD_DARK_THEME : AppConfig.ANTD_LIGHT_THEME
             return {
-                token: {colorPrimary: base.themeColor, ...antdTheme},
+                token: { colorPrimary: base.themeColor, ...antdTheme },
                 algorithm: base.themeMode === 'dark' ? theme.darkAlgorithm : theme.defaultAlgorithm
             }
         }
@@ -77,7 +77,7 @@ const useAppStore = defineStore('App', {
                     return initialThemeVariable
                 }, {})
                 const antdTheme = this.base.themeMode === 'dark' ? AppConfig.ANTD_DARK_THEME : AppConfig.ANTD_LIGHT_THEME
-                setCSSVariable({...themeVariable, ...antdTheme, ...AppConfig.CUSTOM_THEME})
+                setCSSVariable({ ...themeVariable, ...antdTheme, ...AppConfig.CUSTOM_THEME })
             })
         },
 

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import useTabBarStore from '@/store/modules/tabBar'
 import useAppStore from '@/store/modules/app'
-import {computed, ref} from 'vue'
+import { computed, ref } from 'vue'
 import FullScreenLoading from '@/layout/components/FullScreenLoading.vue'
 import PageTransition from '@/layout/components/PageTransition.vue'
 

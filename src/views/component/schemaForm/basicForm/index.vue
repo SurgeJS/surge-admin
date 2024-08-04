@@ -5,8 +5,8 @@ import { DefaultOptionType } from 'ant-design-vue/es/vc-tree-select/TreeSelect'
 import { message } from 'ant-design-vue'
 import { useToggle } from '@vueuse/core'
 
-const [ modalVisible, toggleModal ] = useToggle()
-const [ drawerVisible, toggleDrawer ] = useToggle()
+const [modalVisible, toggleModal] = useToggle()
+const [drawerVisible, toggleDrawer] = useToggle()
 
 const form = ref({
   name: {

@@ -11,7 +11,7 @@ export const useGlobalSubscribe = () => {
     const { token } = theme.useToken()
 
     // 监听主题模式变化
-    watch([ () => base.themeMode,() => base.themeColor ],() => {
+    watch([() => base.themeMode,() => base.themeColor],() => {
         // 获取最新的 Antd Token 映射到 CSS 变量
         appStore.mapAntdThemeToCSSVariable(token)
     },{ immediate: true })

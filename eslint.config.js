@@ -31,9 +31,14 @@ export default tseslint.config({
         }
     },
     rules: {
-        'semi': [ 'error', 'never' ],
+        'object-curly-spacing': ['error', 'always'],
+        'array-bracket-spacing': ['error', 'never'],
+        'space-infix-ops': ['error'],
+        'block-spacing': ['error', 'always'],
+        'brace-style': ['error', '1tbs', { 'allowSingleLine': true }],
+        'semi': ['error', 'never'],
         'no-undef': 'off',
-        'quotes': [ 'error', 'single', { 'avoidEscape': true } ],
+        'quotes': ['error', 'single', { 'avoidEscape': true }],
         /* -----------------------TypeScript------------------------- */
         // 静止使用 any
         '@typescript-eslint/no-explicit-any': 'off',
@@ -47,7 +52,7 @@ export default tseslint.config({
         ],
         /* -----------------------Vue------------------------- */
         // vue 属性换行
-        'vue/max-attributes-per-line': [ 'error', { 'singleline': 2 } ],
+        'vue/max-attributes-per-line': ['error', { 'singleline': 2 }],
         // html元素内容换行
         'vue/singleline-html-element-content-newline': 'off',
         // 多字组件名称

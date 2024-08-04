@@ -24,7 +24,7 @@ const axiosInstance = new CreateAxios<Result>({
                 return handleResponseError(response.data.code, errorResponseContent)
             }
 
-            return [ response.data.result, undefined, response ]
+            return [response.data.result, undefined, response]
         },
         onResponseError(error) {
             return handleAxiosError(error)

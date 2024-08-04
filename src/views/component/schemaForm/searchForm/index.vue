@@ -6,7 +6,7 @@ import { message } from 'ant-design-vue'
 import { useToggle } from '@vueuse/core'
 import { asyncWait } from '@/utils'
 
-const [ isShow,toggleShow ] = useToggle()
+const [isShow,toggleShow] = useToggle()
 
 const form = ref({
   name: {

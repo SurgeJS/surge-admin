@@ -1,11 +1,11 @@
-import {NavigationGuardNext, RouteLocationNormalized} from 'vue-router'
+import { NavigationGuardNext, RouteLocationNormalized } from 'vue-router'
 import useAuthStore from '@/store/modules/auth'
 import useTabBarStore from '@/store/modules/tabBar'
-import {runTacticsAction, TacticsAction} from '@/utils'
+import { runTacticsAction, TacticsAction } from '@/utils'
 import RouterConfig from '@/config/router'
-import {tokenCache} from '@/store/caches'
-import {message} from 'ant-design-vue'
-import {RouterTool} from '@/router/utils/tool'
+import { tokenCache } from '@/store/caches'
+import { message } from 'ant-design-vue'
+import { RouterTool } from '@/router/utils/tool'
 
 const createAuthGuard = (to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext) => {
     const {

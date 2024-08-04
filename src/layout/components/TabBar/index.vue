@@ -1,15 +1,15 @@
 <script lang="ts" setup>
 import useAppStore from '@/store/modules/app'
-import {nextTick, ref, watch} from 'vue'
+import { nextTick, ref, watch } from 'vue'
 import useTabBarStore from '@/store/modules/tabBar'
-import {useRoute, useRouter} from 'vue-router'
-import {useDebounceFn, useEventListener, useToggle} from '@vueuse/core'
+import { useRoute, useRouter } from 'vue-router'
+import { useDebounceFn, useEventListener, useToggle } from '@vueuse/core'
 import DropdownContext from '@/layout/components/TabBar/components/DropdownContext/index.vue'
 
-defineOptions({name: 'TabBar'})
+defineOptions({ name: 'TabBar' })
 
 const appStore = useAppStore()
-const {header} = appStore
+const { header } = appStore
 const tabBarStore = useTabBarStore()
 const route = useRoute()
 const router = useRouter()
@@ -56,14 +56,14 @@ useEventListener('resize', () => {
 
 // 监听路由变化
 watch(() => route.path, () => {
-  const {meta, name, path, fullPath} = route
-  tabBarStore.addTab({meta, name: name as string, path, fullPath})
+  const { meta, name, path, fullPath } = route
+  tabBarStore.addTab({ meta, name: name as string, path, fullPath })
   scrollToActive()
-}, {immediate: true})
+}, { immediate: true })
 
 watch(tabBarStore.tabs, () => {
   handleScrollBtnVisible()
-}, {immediate: true})
+}, { immediate: true })
 
 </script>
 

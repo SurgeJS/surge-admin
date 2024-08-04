@@ -30,4 +30,4 @@ export const ROUTE_NOT_FOUND: AppRouteRecordRaw = {
     redirect: '/404',
 }
 
-export default [ ROUTE_ROOT, ROUTE_LOGIN, ROUTE_404, ROUTE_NOT_FOUND ]
+export default [ROUTE_ROOT, ROUTE_LOGIN, ROUTE_404, ROUTE_NOT_FOUND]

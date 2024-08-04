@@ -52,7 +52,7 @@ const useAuthStore = defineStore('Auth', {
 
         // 密码登录
         async passwordLogin(form: UserModel.PasswordLoginParams) {
-            const [ result, error ] = await UserApi.passwordLogin(form).catch((err) => {
+            const [result, error] = await UserApi.passwordLogin(form).catch((err) => {
                 this.initAuthStore()
                 return Promise.reject(err)
             })
@@ -65,7 +65,7 @@ const useAuthStore = defineStore('Auth', {
 
         // 获取用户信息
         async getUserinfo() {
-            const [ result, error ] = await UserApi.getUserinfo().catch(() => {
+            const [result, error] = await UserApi.getUserinfo().catch(() => {
                 this.initAuthStore()
                 return Promise.reject()
             })

@@ -12,7 +12,7 @@ const echartsInstanceSet = new Set<EchartsInstance>()
 // 用于监听 dom 大小变化
 const resizeObserver = new ResizeObserver((entries) => {
     entries.forEach(item => {
-        const echartsInstance = [ ...echartsInstanceSet ].find(echartsInstance => echartsInstance.getDom() === item.target)
+        const echartsInstance = [...echartsInstanceSet].find(echartsInstance => echartsInstance.getDom() === item.target)
         if (echartsInstance) {
             echartsInstance.resize({
                 width: 'auto',
@@ -23,7 +23,7 @@ const resizeObserver = new ResizeObserver((entries) => {
 })
 
 // 调色板
-const palette = [ `rgb(${ getCSSVariable('primary-6') })` ]
+const palette = [`rgb(${ getCSSVariable('primary-6') })`]
 
 const useEcharts = (renderMode: RendererType = 'canvas') => {
     let echartsInstance: EchartsInstance | undefined
