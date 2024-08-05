@@ -8,12 +8,13 @@ import {
     StepProps,
     StepsProps
 } from 'ant-design-vue'
-import { NamePath, RuleObject } from 'ant-design-vue/es/form/interface'
+import { RuleObject } from 'ant-design-vue/es/form/interface'
 import { ComponentsName, ComponentsProps } from '@/components/common/SchemaForm/types/component'
 import { DefaultOptionType } from 'ant-design-vue/es/vc-tree-select/TreeSelect'
 import { MaybeRef, VNode } from 'vue'
 import { ColSize } from 'ant-design-vue/es/grid/Col'
 import { FormExpose } from 'ant-design-vue/es/form/Form'
+import { Gutter } from 'ant-design-vue/es/grid/Row'
 
 // 回调参数
 export interface CallbackParams<TForm extends Recordable = Recordable, DComponentsName extends ComponentsName = ComponentsName> {
@@ -182,11 +183,8 @@ export interface GroupSchemaType<TForm extends Recordable = any, DComponentsName
     // 是否显示展开收起按钮 TODO:未完成
     isShowExpandCollapseButton?: MaybeRef<boolean>
 
-    // 是否展开 TODO:未完成
-    isExpanded?: MaybeRef<boolean>
-
-    // 不收起的field TODO:未完成
-    permanentField?: MaybeRef<keyof TForm[]>
+    // 是否折叠 TODO:未完成
+    isFold?: MaybeRef<boolean>
 
     // 禁用表单 TODO:未完成
     disabled?: MaybeRef<boolean>
@@ -362,10 +360,11 @@ export interface SchemaFormSlots {
 
 
 // JSON 格式配置表单暴露的方法
-export interface SchemaFormExpose {
-    // 重置表单字段
-    resetFields(): any
+export interface SchemaFormExpose extends FormExpose{
 
-    // 验证表单
-    validate(nameList?: NamePath[]): Promise<any>
+}
+
+export interface SchemaFormContentProps {
+    schema?: SchemaType[]
+    rowGutter?: Gutter | [ Gutter, Gutter ]
 }

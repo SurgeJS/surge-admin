@@ -1,21 +1,22 @@
 <script setup lang="ts">
 import {
-  GroupSchemaType,
+  SchemaFormContentProps,
   SchemaFormEmits,
   SchemaFormExpose,
   SchemaFormProps,
   SchemaFormSlots,
-  SchemaLayout,
-  SchemaType
+  SchemaLayout
 } from '@/components/common/SchemaForm/types/type'
-import { useProvideSchemaFormContext } from '@/components/common/SchemaForm/utils/context'
-import { computed, ref, unref } from 'vue'
-import { createReusableTemplate, useToggle } from '@vueuse/core'
-import { FormInstance } from 'ant-design-vue/es/form'
-import { isBoolean, isFunction, isNumber, omit, set, take } from 'lodash-es'
-import SchemaFormItem from '@/components/common/SchemaForm/components/SchemaFormItem.vue'
-import { Modal } from 'ant-design-vue'
-import { Gutter } from 'ant-design-vue/es/grid/Row'
+import { useProvideSchemaFormContext } from '@/components/common/SchemaForm/hooks/useContext'
+import { unref } from 'vue'
+import { createReusableTemplate } from '@vueuse/core'
+import SchemaFormItem from '@/components/common/SchemaForm/components/SchemaFormItem/index.vue'
+import useSchemaFormExpose from '@/components/common/SchemaForm/hooks/useSchemaFormExpose'
+import useSchemaFormSearch from '@/components/common/SchemaForm/hooks/useSchemaFormSearch'
+import useSchemaFormCommon from '@/components/common/SchemaForm/hooks/useSchemaFormCommon'
+import useSchemaFormSteps from '@/components/common/SchemaForm/hooks/useSchemaFormSteps'
+import useSchemaFormGroup from '@/components/common/SchemaForm/hooks/useSchemaFormGroup'
+import useSchemaFormPopup from '@/components/common/SchemaForm/hooks/useSchemaFormPopup'
 
 const props = withDefaults(defineProps<SchemaFormProps>(), {
   required: false,
@@ -50,151 +51,31 @@ const model = defineModel<Recordable>('model', { required: true })
 // 创建表单可复用模板
 const [DefineSchemaForm, SchemaForm] = createReusableTemplate()
 // 创建表单内容可复用模板
-const [DefineFormContent, FormContent] = createReusableTemplate<{ schema?: SchemaType[] }>()
+const [DefineFormContent, FormContent] = createReusableTemplate<SchemaFormContentProps>()
 // 创建按钮操作可复用模板
 const [DefineButtonAction, ButtonAction] = createReusableTemplate<{ schemaLayout?: SchemaLayout }>()
 
 // 提供Schema上下文
-const { aFormProps, getModelValue } = useProvideSchemaFormContext(props, model)
+const { aFormProps } = useProvideSchemaFormContext(props, model)
+// form方法
+const { formRef,formExpose } = useSchemaFormExpose(emits)
+// 通用hook
+const { rowGutter,formClassObj,labelCol,onSubmit } = useSchemaFormCommon(props,emits,formExpose,model)
+// 搜索hook
+const { searchSchemas,searchExpandCollapse,setExpandSearchForm,onSearch } = useSchemaFormSearch(props,emits,formExpose,model)
+// 步骤hook
+const { stepsItems,onNext,onPre } = useSchemaFormSteps(props,emits,formExpose,activeStep)
+// 组hook
+const { handleGroupHide,getGroupExpandCollapseText,setFold,groupSchema } = useSchemaFormGroup(props,model)
+// 弹框hook
+const { onCancel } = useSchemaFormPopup(props,emits,formExpose,visible)
 
-// 是否展开搜索表单
-const [isExpandSearchForm, setExpandSearchForm] = useToggle()
-
-// 表单实例
-const formRef = ref<FormInstance>()
-
-// 间距
-const rowGutter = computed<Gutter>(() => (props.schemaLayout === 'search' ? [12, 12] : 12) as Gutter)
-
-// 搜索Schema
-const searchSchemas = computed(() => {
-  if (!props.searchShowNumber) return props.schema
-  if (isExpandSearchForm.value) return props.schema
-  return take(props.schema, props.searchShowNumber)
-})
-
-const formClassObj = computed(() => {
-  const cls = {
-    form: true,
-    search: props.schemaLayout === 'search'
-  }
-  if (props.formClass) cls[props.formClass] = true
-
-  return cls
-})
-
-// labelCol配置
-const labelCol = computed(() => {
-  if (!props.labelWidth) return props.labelCol
-  return {
-    style: {
-      width: isNumber(props.labelWidth)
-          ? `${props.labelWidth}px`
-          : props.labelWidth
-    }, ...props.labelCol
-  }
-})
-
-// 步骤条选项
-const stepsItems = computed(() => props.stepSchema?.map(item => omit(item, ['form'])))
-
-const expandCollapse = computed(() => ({
-  text: isExpandSearchForm.value ? '收起' : '展开',
-  icon: isExpandSearchForm.value ? 'i-ic:outline-keyboard-arrow-up' : 'i-ic:outline-keyboard-arrow-down'
-}))
-
-// 查询事件
-const onSearch = () => {
-  emits('search', formRef.value!.validate, model.value)
-}
-
-// 提交事件
-const onSubmit = () => {
-  formExpose.validate()
-      .then(() => emits('submitSuccess', model.value))
-      .catch((err) => emits('submitError', err))
-}
-
-const handleGroupHide = (config: GroupSchemaType) => {
-  let isHide = true
-  const hide = unref(config.hide)
-  if (isBoolean(hide)) isHide = !hide
-  if (isFunction(hide)) isHide = !hide({ group: config, model: model.value })
-  return isHide
-}
-
-// 获取当前步骤的Model
-const getCurrentStepModel = () => {
-  if (!props.stepSchema) return {}
-
-  return props.stepSchema[activeStep.value]?.form.reduce<Recordable>((currentModel, item) => {
-    if (!item.field) return currentModel
-    const field = item.field as string
-    set(currentModel, field, getModelValue(field))
-    return currentModel
-  }, {})
-}
-
-// 上一步
-const onPre = () => {
-  emits('pre', activeStep.value - 1)
-}
-
-// 下一步
-const onNext = () => {
-  const currentModel = getCurrentStepModel()
-  formExpose.validate()
-      .then(() => {
-        emits('nextSuccess', activeStep.value + 1, currentModel, props.model)
-      })
-      .catch((err) => emits('nextError', err))
-}
-
-const formExpose: SchemaFormExpose = {
-  validate(nameList) {
-    return formRef.value!.validate(nameList)
-  },
-  resetFields() {
-    formRef.value!.resetFields()
-    emits('afterReset')
-  }
-}
-
-// 关闭弹框并重置表单
-const closeAndReset = () => {
-  props.closeResetModel && formExpose.resetFields()
-  visible.value = false
-}
-
-const showConfirmModal = () => {
-  Modal.confirm({
-    title: props.confirmTitle,
-    content: props.confirmContent,
-    centered: true,
-    onOk() {
-      closeAndReset()
-    },
-    onCancel() {
-      visible.value = true
-    }
-  })
-}
-
-const onCancel = (e) => {
-  if (props.closeConfirm) return showConfirmModal()
-  // 点击的遮罩层
-  if (e.target.tagName === 'DIV') {
-    props.maskClosable && closeAndReset()
-  } else {
-    closeAndReset()
-  }
-}
 defineExpose<SchemaFormExpose>(formExpose)
 </script>
 
 <template>
   <!--  定义FormContent组件 -->
-  <define-form-content v-slot="{schema}">
+  <define-form-content v-slot="{$slots,schema}">
     <a-row class="w-full" :gutter="rowGutter">
       <template
         v-for="config in schema "
@@ -211,9 +92,7 @@ defineExpose<SchemaFormExpose>(formExpose)
           </template>
         </schema-form-item>
       </template>
-      <a-col class="flex-auto">
-        <button-action v-if="props.schemaLayout==='search'" />
-      </a-col>
+      <component :is="$slots.default" v-if="$slots.default" />
     </a-row>
   </define-form-content>
 
@@ -235,13 +114,13 @@ defineExpose<SchemaFormExpose>(formExpose)
     >
       <!-- 组 -->
       <template v-if="props.schemaLayout==='group'">
-        <template v-for="(config,i) in props.groupSchema" :key="i">
+        <template v-for="(config,i) in groupSchema" :key="i">
           <template v-if="handleGroupHide(config)">
-            <div class="flex justify-between items-center gap-1 mb-2 ">
-              <div class="flex items-center tracking-wider gap-1 h-[34px]">
+            <div class="schemaForm-groupHeader">
+              <div class="schemaForm-groupHeader-title">
                 <slot name="groupTitle" :group-schema="config">
-                  <span class="inline-block w-[6px] h-[60%] bg-primary rounded-[2px] flex-x-center" />
-                  <span class="font-bold">{{ unref(config.title) }}</span>
+                  <span class="schemaForm-groupHeader-title-placeholder" />
+                  <span class="schemaForm-groupHeader-title-name">{{ unref(config.title) }}</span>
                 </slot>
                 <a-tooltip v-if="unref(config.helpMessage)">
                   <template #title>{{ unref(config.helpMessage) }}</template>
@@ -252,26 +131,30 @@ defineExpose<SchemaFormExpose>(formExpose)
                   />
                 </a-tooltip>
               </div>
-              <a-button type="link">
-                <icon pointer icon="i-ant-design:caret-down-outlined" />
-                展开
+              <a-button type="link" @click="setFold(config)">
+                <icon pointer :icon="getGroupExpandCollapseText(config).icon" />
+                {{ getGroupExpandCollapseText(config).text }}
               </a-button>
             </div>
-            <form-content :schema="config.form" />
+            <form-content v-show="!unref(config.isFold)" :schema="config.form" />
           </template>
         </template>
-        <button-action v-if="props.container=='card'" />
+        <button-action />
       </template>
       <!-- 步骤 -->
       <template v-else-if="props.schemaLayout==='step'">
         <template v-for="(config,i) in props.stepSchema" :key="i">
           <form-content v-show="i+1 === activeStep" :schema="config.form" />
         </template>
-        <button-action v-if="props.container=='card'" />
+        <button-action />
       </template>
       <!-- 搜索 -->
       <template v-else-if="props.schemaLayout==='search'">
-        <form-content :schema="searchSchemas" />
+        <form-content :schema="searchSchemas">
+          <a-col class="flex-auto">
+            <button-action />
+          </a-col>
+        </form-content>
       </template>
       <template v-else>
         <form-content :schema="props.schema" />
@@ -305,8 +188,8 @@ defineExpose<SchemaFormExpose>(formExpose)
             type="link"
             @click="setExpandSearchForm()"
           >
-            {{ expandCollapse.text }}
-            <icon :icon="expandCollapse.icon" />
+            {{ searchExpandCollapse.text }}
+            <icon :icon="searchExpandCollapse.icon" />
           </a-button>
         </template>
         <template v-if="props.schemaLayout==='group' || !props.schemaLayout">
@@ -400,5 +283,35 @@ defineExpose<SchemaFormExpose>(formExpose)
 
 :deep(.ant-row) {
   margin: 0 !important;
+}
+
+.schemaForm-groupHeader {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 0  0 0 5px;
+  background: theme('colors.primary-shallow');
+  border-radius: 5px;
+  &-title {
+    display: inline-flex;
+    align-items: center;
+    line-height: 20px;
+    gap: 5px;
+
+    &-placeholder {
+      display: inline-block;
+      height: 20px;
+      width: 3px;
+      background: theme('colors.primary');
+    }
+
+    &-name {
+      font-size: 15px;
+      font-weight: bold;
+      position: relative;
+    }
+  }
 }
 </style>

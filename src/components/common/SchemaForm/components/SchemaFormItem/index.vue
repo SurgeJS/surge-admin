@@ -7,7 +7,7 @@ import {
   SchemaConfig,
   SchemaType
 } from '@/components/common/SchemaForm/types/type'
-import { useSchemaFormContext } from '@/components/common/SchemaForm/utils/context'
+import { useSchemaFormContext } from '@/components/common/SchemaForm/hooks/useContext'
 import { ComponentPublicInstance, computed, isVNode, nextTick, ref, unref, useSlots, watch } from 'vue'
 import { SCHEMA_RENDER_COMPONENTS } from '@/components/common/SchemaForm/utils/components'
 import {
@@ -22,7 +22,7 @@ import {
 } from '@/components/common/SchemaForm/utils'
 import { get, isArray, isFunction, isNumber, isString } from 'lodash-es'
 import { objectPathToArray } from '@/utils'
-import { SchemaFormItemProps } from '@/components/common/SchemaForm/components/types/type'
+import { SchemaFormItemProps } from '@/components/common/SchemaForm/components/SchemaFormItem/types/type'
 
 const props = defineProps<SchemaFormItemProps>()
 
@@ -82,7 +82,7 @@ const labelCol = computed<MaybeUndefined<Col>>(() => {
     return { style: { width: isNumber(unref(labelWidth)) ? `${ unref(labelWidth) }px` : unref(labelWidth) } } as Col
   }
   if (schemaFormProps.autoLabelWidth) {
-    return maxLabelWidth.value ? { style: { width: `${ maxLabelWidth.value + 7 }px` } } as Col : undefined
+    return maxLabelWidth.value ? { style: { width: `${ maxLabelWidth.value  }px` } } as Col : undefined
   }
   return undefined
 })
@@ -181,7 +181,7 @@ const callbackParamsFunction = <T = never>(value: T | CallbackParamsFunction<any
 watch(formItemRef, async () => {
   await nextTick()
   const scrollWidth = formItemRef.value?.$el.querySelector('.ant-form-item-label')?.scrollWidth
-  if (scrollWidth > maxLabelWidth.value) maxLabelWidth.value = scrollWidth
+  if (scrollWidth > maxLabelWidth.value) maxLabelWidth.value = scrollWidth + 7
 })
 
 const FormItem = () => {
