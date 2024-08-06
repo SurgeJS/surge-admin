@@ -38,7 +38,7 @@ const props = withDefaults(defineProps<SchemaFormProps>(), {
   modalProps: () => ({ width: 800 })
 })
 
-defineSlots<SchemaFormSlots>()
+const slots = defineSlots<SchemaFormSlots>()
 
 const emits = defineEmits<SchemaFormEmits>()
 // 当前步骤条激活项
@@ -69,6 +69,10 @@ const { stepsItems,onNext,onPre } = useSchemaFormSteps(props,emits,formExpose,ac
 const { handleGroupHide,getGroupExpandCollapseText,setFold,groupSchema } = useSchemaFormGroup(props,model)
 // 弹框hook
 const { onCancel } = useSchemaFormPopup(props,emits,formExpose,visible)
+
+onMounted(() => {
+  console.log(slots)
+})
 
 defineExpose<SchemaFormExpose>(formExpose)
 </script>
@@ -192,7 +196,6 @@ defineExpose<SchemaFormExpose>(formExpose)
           </a-button>
           <a-button
             v-if="props.searchShowNumber"
-            type="link"
             @click="setExpandSearchForm()"
           >
             {{ searchExpandCollapse.text }}

@@ -317,6 +317,9 @@ const submitSuccess = (model) => {
 const submitError = () => {
   message.error('校验失败')
 }
+const t = () => {
+  
+}
 </script>
 
 <template>
@@ -343,6 +346,7 @@ const submitError = () => {
       layout="vertical"
       container-title="默认布局"
       :schema="schema1"
+      @after-reset="t"
       @submit-error="submitError"
       @submit-success="submitSuccess"
     />

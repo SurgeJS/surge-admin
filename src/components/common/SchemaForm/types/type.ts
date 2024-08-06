@@ -196,6 +196,8 @@ export interface StepSchemaType<TForm extends Recordable = any, DComponentsName 
     form: SchemaType<TForm, DComponentsName>[]
 }
 
+
+
 // JSON 格式配置表单参数
 export type SchemaFormProps = FormProps & {
     // 表单类名
@@ -360,7 +362,7 @@ export interface SchemaFormSlots {
 
 
 // JSON 格式配置表单暴露的方法
-export interface SchemaFormExpose extends FormExpose{
+export interface SchemaFormExpose extends FormExpose {
 
 }
 
@@ -368,3 +370,128 @@ export interface SchemaFormContentProps {
     schema?: SchemaType[]
     rowGutter?: Gutter | [ Gutter, Gutter ]
 }
+
+/* --------------------------------------------------- */
+
+
+export type SchemaFormCommonProps = FormProps & {
+    // 表单类名
+    formClass?: string
+
+    // 表单样式
+    formStyle?: Partial<CSSStyleDeclaration>
+
+    // 模型
+    model: Recordable
+
+    // 模态框或者抽屉是否可见（传入 container 有效）
+    visible?: boolean
+
+    // 所有字段是否都必填
+    required?: boolean
+
+    labelCol?: Col
+
+    // label 宽度
+    labelWidth?: number | string
+
+    // 列属性
+    colProps?: ColProps
+
+    // 行属性
+    rowProps?: RowProps
+
+    // 提交loading
+    submitLoading?: boolean
+
+    // 是否隐藏操作按钮
+    hideActionButton?: boolean
+
+    // 默认日期组件格式
+    defaultDateFormat?: DateComponentFormat
+
+    // 默认时间组件格式
+    defaultTimeFormat?: DateComponentFormat
+
+    // 默认日期组件值格式
+    defaultValueDateFormat?: DateComponentFormat
+
+    // 默认时间组件值格式
+    defaultValueTimeFormat?: DateComponentFormat
+
+    // 自动placeholder (item的label的类型为string才会生效，优先级最低)
+    autoPlaceholder?: boolean
+
+    // 自动label宽度 (优先级最低)
+    autoLabelWidth?: boolean
+
+    // 自动规则校验 (当required为真的时候，会根据label自动生成校验提示信息,label的类型为string才会生效，优先级最低)
+    autoRules?: boolean
+
+    // // 步骤条激活项
+    // activeStep?: number
+    //
+    // // 步骤条属性
+    // stepsProps?: StepsProps
+    //
+    // // 抽屉属性
+    // drawerProps?: DrawerProps
+    //
+    // // 模态框属性
+    // modalProps?: ModalProps
+    //
+    // // 卡片属性
+    // cardProps?: CardProps
+    //
+    // // 点击遮罩层是否关闭模态框和抽屉
+    // maskClosable?: boolean
+    //
+    // // 关闭模态框和抽屉的时候重置表单
+    // closeResetModel?: boolean
+    //
+    // // 关闭模态框和抽屉的时候弹框确定是否关闭
+    // closeConfirm?: boolean
+    //
+    // // 确认弹框标题
+    // confirmTitle?: string
+    //
+    // // 确认弹框标题内容
+    // confirmContent?: string
+    //
+    // // 查询表单默认展示个数
+    // searchShowNumber?: number
+}
+
+export interface SchemaFormCommonSlots {
+    // 自定义操作按钮
+    customActionButton(): any
+
+    // 自定义按钮前面
+    beforeButton(): any
+
+    // 自定义按钮后面
+    afterButton(): any
+}
+
+// JSON 格式配置表单暴露的方法
+export interface SchemaFormCommonExpose extends FormExpose {
+
+}
+
+// 搜索 JSON 格式配置表单参数
+export interface SearchSchemaFormProps extends SchemaFormCommonProps {
+    // schema 配置
+    schema: SchemaType[]
+
+    // 查询表单默认展示个数
+    searchShowNumber?: number
+
+    // 搜索方法
+    onSearch(validate: SchemaFormCommonExpose['validate'], model: Recordable):void
+
+    // 重置方法
+    onReset?(validate: SchemaFormCommonExpose['resetFields'], model: Recordable):void
+}
+
+export interface SearchSchemaFormExpose extends SchemaFormCommonExpose {}
+export interface SearchSchemaFormSlots extends SchemaFormCommonSlots {}
