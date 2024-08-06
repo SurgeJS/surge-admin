@@ -8,7 +8,8 @@ const useSchemaFormExpose = (emits:SchemaFormEmits) => {
             return formRef.value!.validate(nameList)
         },
         resetFields(nameList) {
-            formRef.value!.resetFields(nameList)
+            console.log(nameList)
+            formRef.value!.resetFields()
             emits('afterReset')
         },
         validateFields(nameList) {

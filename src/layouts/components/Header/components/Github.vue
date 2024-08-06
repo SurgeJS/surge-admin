@@ -1,0 +1,13 @@
+<script lang="ts" setup>
+
+import IconHoverContainer from '@/layouts/components/Header/components/IconHoverContainer.vue'
+</script>
+<template>
+  <icon-hover-container>
+    <icon icon="i-ant-design:github-filled" />
+  </icon-hover-container>
+</template>
+
+<style scoped>
+
+</style>

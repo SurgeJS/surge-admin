@@ -182,11 +182,11 @@ defineExpose<SchemaFormExpose>(formExpose)
       <slot name="beforeButton" />
       <slot name="customActionButton">
         <template v-if="props.schemaLayout==='search'">
-          <a-button @click="formExpose.resetFields">重置</a-button>
+          <a-button @click="formExpose.resetFields()">重置</a-button>
           <a-button
             type="primary"
             :loading="props.submitLoading"
-            @click="onSearch"
+            @click="onSearch()"
           >
             搜索
           </a-button>
@@ -200,15 +200,15 @@ defineExpose<SchemaFormExpose>(formExpose)
           </a-button>
         </template>
         <template v-if="props.schemaLayout==='group' || !props.schemaLayout">
-          <a-button @click="formExpose.resetFields">重置</a-button>
-          <a-button type="primary" @click="onSubmit">提交</a-button>
+          <a-button @click="formExpose.resetFields()">重置</a-button>
+          <a-button type="primary" @click="onSubmit()">提交</a-button>
         </template>
         <template v-if="props.schemaLayout==='step'">
-          <a-button v-if="activeStep!==1" @click="onPre">上一步</a-button>
+          <a-button v-if="activeStep!==1" @click="onPre()">上一步</a-button>
           <a-button
             v-if="activeStep!==stepsItems?.length"
             type="primary"
-            @click="onNext"
+            @click="onNext()"
           >
             下一步
           </a-button>

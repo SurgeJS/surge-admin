@@ -70,7 +70,7 @@ export class RouterTool {
     static getViewComponent(route: AppRouteRecordRaw) {
         // 内嵌链接存在&不自定义内嵌iframe组件
         if (route.meta?.iframeSrc && !route.meta?.isCustomizeIframeComponent) {
-            return () => import('@/layout/components/DefaultFrame.vue')
+            return () => import('@/layouts/components/DefaultFrame.vue')
         }
         // 组件路径
         const componentPath = `/src/views${ RegUtils.removePathParams(route.path) }/index.vue`
@@ -103,7 +103,7 @@ export class RouterTool {
                     path: recordPath + '-container',
                     name: recordPath + '-container',
                     redirect: route.path,
-                    component: () => import('@/layout/index.vue'),
+                    component: () => import('@/layouts/index.vue'),
                     children: [
                         {
                             ...route,
@@ -118,7 +118,7 @@ export class RouterTool {
                 if (!vueRoute.redirect && vueRoute.children?.length) {
                     vueRoute.redirect = vueRoute.children[0].path
                 }
-                vueRoute.component = () => import('@/layout/index.vue')
+                vueRoute.component = () => import('@/layouts/index.vue')
                 break
             // 目录
             case 'directory':
