@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import { GroupSchemaType } from '@/components/common/SchemaForm/types/type'
 import { DefaultOptionType } from 'ant-design-vue/es/vc-tree-select/TreeSelect'
 import { message } from 'ant-design-vue'
+import { useToggle } from '@vueuse/core'
 
 
 const form = ref({
@@ -81,17 +82,18 @@ const area: DefaultOptionType[] = [
     ]
   }
 ]
-
+const [isShow, setShow] = useToggle()
 const schema1: GroupSchemaType<typeof form.value>[] = [
   {
     title: '基础信息',
     helpMessage: 'test',
+    isHideExpandCollapseButton: true,
     form: [
       {
         field: 'name.test',
         label: '名称',
         component: 'Input',
-        rule: { message: '请输入名称',max: 10,min: 3,type: 'string',trigger: 'blur',required: true }
+        rule: { message: '请输入名称', max: 10, min: 3, type: 'string', trigger: 'blur', required: true }
       },
       {
         field: 'email',
@@ -164,7 +166,7 @@ const schema1: GroupSchemaType<typeof form.value>[] = [
         field: 'date',
         label: '开始结束日期',
         component: 'DateRangePicker',
-        rule: { message: '请选择开始结束日期',trigger: 'change',required: true }
+        rule: { message: '请选择开始结束日期', trigger: 'change', required: true }
       },
       {
         field: 'area',
@@ -202,11 +204,14 @@ const schema1: GroupSchemaType<typeof form.value>[] = [
   },
   {
     title: '企业信息',
+    disabled: isShow,
+    isFold: isShow, 
     form: [
       {
         field: 'companyName',
         component: 'Input',
-        label: '企业名称'
+        label: '企业名称',
+        disabled: false
       },
       {
         field: 'companyType',
@@ -230,6 +235,7 @@ const submitSuccess = (model) => {
 }
 
 const submitError = () => {
+  setShow()
   message.error('校验失败')
 }
 </script>

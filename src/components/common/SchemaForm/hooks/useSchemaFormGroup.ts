@@ -7,7 +7,14 @@ const useSchemaFormGroup = (props: SchemaFormProps, model: ModelRef<Recordable>)
     const groupSchema = computed(() => {
         return props.groupSchema?.map(item => {
             const value = { ...item }
-            value.isFold = toRef(item.isFold)
+            if (!isRef(item.isFold)) {
+                value.isFold = toRef(Boolean(item.isFold))
+            }
+            value.form.forEach(formItem => {
+                if (formItem.disabled === undefined && value.disabled !== undefined) {
+                    formItem.disabled = value.disabled
+                }
+            })
             return value
         })
     })

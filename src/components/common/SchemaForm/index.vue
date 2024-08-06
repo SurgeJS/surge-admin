@@ -131,8 +131,15 @@ defineExpose<SchemaFormExpose>(formExpose)
                   />
                 </a-tooltip>
               </div>
-              <a-button type="link" @click="setFold(config)">
-                <icon pointer :icon="getGroupExpandCollapseText(config).icon" />
+              <a-button
+                v-if="!config.isHideExpandCollapseButton"
+                :disabled="false"
+                type="link"
+                @click="setFold(config)"
+              >
+                <template #icon>
+                  <icon :icon="getGroupExpandCollapseText(config).icon" />
+                </template>
                 {{ getGroupExpandCollapseText(config).text }}
               </a-button>
             </div>
@@ -287,13 +294,14 @@ defineExpose<SchemaFormExpose>(formExpose)
 
 .schemaForm-groupHeader {
   width: 100%;
+  height: 48px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
-  padding: 0  0 0 5px;
+  padding: 8px  0 8px 8px;
   background: theme('colors.primary-shallow');
-  border-radius: 5px;
+  border-radius: 6px;
   &-title {
     display: inline-flex;
     align-items: center;
@@ -305,11 +313,12 @@ defineExpose<SchemaFormExpose>(formExpose)
       height: 20px;
       width: 3px;
       background: theme('colors.primary');
+      border-radius: 6px;
     }
 
     &-name {
       font-size: 15px;
-      font-weight: bold;
+      font-weight: 600;
       position: relative;
     }
   }

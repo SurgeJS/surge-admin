@@ -180,13 +180,13 @@ export interface GroupSchemaType<TForm extends Recordable = any, DComponentsName
     // 表单
     form: SchemaType<TForm, DComponentsName>[]
 
-    // 是否显示展开收起按钮 TODO:未完成
-    isShowExpandCollapseButton?: MaybeRef<boolean>
+    // 是否隐藏展开收起按钮
+    isHideExpandCollapseButton?: MaybeRef<boolean>
 
-    // 是否折叠 TODO:未完成
+    // 是否折叠
     isFold?: MaybeRef<boolean>
 
-    // 禁用表单 TODO:未完成
+    // 禁用表单 
     disabled?: MaybeRef<boolean>
 }
 

@@ -3,6 +3,14 @@ import { defineConfig, presetIcons, presetUno, transformerDirectives } from 'uno
 import { FileSystemIconLoader } from '@iconify/utils/lib/loader/node-loaders'
 
 export default defineConfig({
+    content: {
+        pipeline:{
+            include:[
+                /\.(vue|svelte|[jt]sx|mdx?|astro|elm|php|phtml|html)($|\?)/,
+                'src/**/*.{js,ts}'
+            ]
+        }
+    },
     transformers: [
         transformerDirectives()
     ],
@@ -26,9 +34,9 @@ export default defineConfig({
     rules:
         [
             // 填充（单位 px）
-            [ /^full-(\d+)$/, ([ , d ]) => ({ width: `${ d }px`, height: `${ d }px` }) ],
+            [/^full-(\d+)$/, ([, d]) => ({ width: `${ d }px`, height: `${ d }px` })],
             // 填充（任意单位）
-            [ /^full-\[(.*)]$/, ([ , d ]) => ({ width: d, height: d }) ]
+            [/^full-\[(.*)]$/, ([, d]) => ({ width: d, height: d })]
         ],
     shortcuts:
         {

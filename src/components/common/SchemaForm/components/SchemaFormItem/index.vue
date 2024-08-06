@@ -145,8 +145,8 @@ const dynamicComponentAttribute = computed<any>(() => {
   // 禁用
   if (disabled !== undefined) {
     commonProps.disabled = callbackParamsFunction(unref(disabled))
-  } else if (props.disable !== undefined) {
-    commonProps.disabled = props.disable
+  } else if (schemaFormProps.disabled !== undefined) {
+    commonProps.disabled = schemaFormProps.disabled
   }
 
   return {
