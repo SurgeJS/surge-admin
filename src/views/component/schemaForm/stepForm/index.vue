@@ -2,7 +2,6 @@
 import { ref } from 'vue'
 import { StepSchemaType } from '@/components/common/SchemaForm/types/type'
 import { DefaultOptionType } from 'ant-design-vue/es/vc-tree-select/TreeSelect'
-import { message } from 'ant-design-vue'
 
 
 const form = ref({
@@ -241,45 +240,18 @@ const schema1: StepSchemaType<typeof form.value>[] = [
     ]
   }
 ]
-
-const submitSuccess = (nextActive:number,model) => {
-  activeStep.value = nextActive
-  console.log(model)
-  message.success('提交成功')
-}
-
-const submitError = () => {
-  message.error('校验失败')
-}
 </script>
 
 <template>
-  <div>
-    <a-alert
-      message="Schema Form（JSON 格式配置表单）"
-      type="info"
-      show-icon
-    >
-      <template #description>
-        <p>自动化生成表单：通过定义JSON Schema，可以自动生成对应的表单界面，减少了手工编写表单的工作量。</p>
-        <p>一致性和标准化：使用统一的JSON Schema描述数据结构，确保表单的一致性和标准化，便于维护和扩展。</p>
-        <p>动态性强：表单可以根据Schema动态变化，适应不同的数据结构需求，增强了表单的灵活性。</p>
-        <p>可扩展性好：支持自定义组件，便于开发者根据需要扩展表单功能，满足特定业务需求。</p>
-      </template>
-    </a-alert>
-    <br>
-    <schema-form
-      v-model:active-step="activeStep"
+  <a-card>
+    <step-schema-form
       v-model:model="form"
-      form-class="p-50px"
-      :col-props="{span:12}"
-      schema-layout="step"
-      :step-schema="schema1"
-      @next-error="submitError"
-      @next-success="submitSuccess"
-      @pre="preActive => activeStep=preActive"
+      v-model:active="activeStep"
+      :col-props="12"
+      form-class="p-5%"
+      :schema="schema1"
     />
-  </div>
+  </a-card>
 </template>
 
 <style scoped lang="scss">

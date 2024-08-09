@@ -4,11 +4,11 @@ import { isNumber } from 'lodash-es'
 import { SchemaFormCommonProps } from '@/components/common/SchemaForm/types/type'
 import useOmitProps from '@/hooks/common/useOmitProps'
 import { FormExpose } from 'ant-design-vue/es/form/Form'
-import useCommonExpose from '@/components/common/SchemaForm/hooks/useCommonExpose'
+import useExpose from '@/components/common/SchemaForm/hooks/useExpose'
 
 const props = defineProps<SchemaFormCommonProps>()
 
-const aFormProps = useOmitProps(props,[
+const aFormProps = useOmitProps(props, [
   'formClass',
   'formStyle',
   'model',
@@ -18,16 +18,23 @@ const aFormProps = useOmitProps(props,[
   'labelWidth',
   'colProps',
   'rowProps',
-  'submitLoading',
   'hideActionButton',
   'defaultDateFormat',
   'defaultTimeFormat',
   'defaultValueDateFormat',
   'defaultValueTimeFormat',
   'autoPlaceholder',
+  'resetLoading',
+  'resetText',
+  'submitLoading',
+  'submitText',
+  'onSubmit',
+  'onFinish',
+  'onFinishFailed',
+  'onReset'
 ])
 
-const { formRef,commonExpose } = useCommonExpose()
+const { formRef, commonExpose } = useExpose()
 
 // labelCol配置
 const labelCol = computed(() => {
@@ -40,7 +47,6 @@ const labelCol = computed(() => {
     }, ...props.labelCol
   }
 })
-
 defineExpose<FormExpose>(commonExpose)
 </script>
 

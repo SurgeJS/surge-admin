@@ -82,11 +82,11 @@ const area: DefaultOptionType[] = [
     ]
   }
 ]
-const [isShow, setShow] = useToggle()
+const [isShow] = useToggle(true)
 const schema1: GroupSchemaType<typeof form.value>[] = [
   {
     title: '基础信息',
-    helpMessage: 'test',
+    helpMessage: '这是一个帮助信息',
     isHideExpandCollapseButton: true,
     form: [
       {
@@ -204,14 +204,15 @@ const schema1: GroupSchemaType<typeof form.value>[] = [
   },
   {
     title: '企业信息',
-    disabled: isShow,
-    isFold: isShow, 
+    isFold: isShow,
+    disabled: computed(() => Boolean(form.value.show)),
     form: [
       {
         field: 'companyName',
         component: 'Input',
         label: '企业名称',
-        disabled: false
+        disabled: false,
+        required: true,
       },
       {
         field: 'companyType',
@@ -229,42 +230,26 @@ const schema1: GroupSchemaType<typeof form.value>[] = [
   }
 ]
 
-const submitSuccess = (model) => {
+const onFinish = (model) => {
   console.log(model)
   message.success('提交成功')
 }
 
-const submitError = () => {
-  setShow()
+const onFinishFailed = () => {
   message.error('校验失败')
 }
 </script>
 
 <template>
-  <div>
-    <a-alert
-      message="Schema Form（JSON 格式配置表单）"
-      type="info"
-      show-icon
-    >
-      <template #description>
-        <p>自动化生成表单：通过定义JSON Schema，可以自动生成对应的表单界面，减少了手工编写表单的工作量。</p>
-        <p>一致性和标准化：使用统一的JSON Schema描述数据结构，确保表单的一致性和标准化，便于维护和扩展。</p>
-        <p>动态性强：表单可以根据Schema动态变化，适应不同的数据结构需求，增强了表单的灵活性。</p>
-        <p>可扩展性好：支持自定义组件，便于开发者根据需要扩展表单功能，满足特定业务需求。</p>
-      </template>
-    </a-alert>
-    <br>
-    <schema-form
-      v-model:model="form"
-      label-width="110"
-      :col-props="{span:12}"
-      schema-layout="group"
-      :group-schema="schema1"
-      @submit-error="submitError"
-      @submit-success="submitSuccess"
+  <a-card>
+    <group-schema-form
+      :schema="schema1"
+      :model="form"
+      :col-props="12"
+      :on-finish="onFinish"
+      :on-finish-failed="onFinishFailed"
     />
-  </div>
+  </a-card>
 </template>
 
 <style scoped lang="scss">

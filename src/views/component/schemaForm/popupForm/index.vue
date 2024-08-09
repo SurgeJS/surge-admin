@@ -1,14 +1,12 @@
-<script setup lang="tsx">
-import { ref } from 'vue'
+<script setup lang="ts">
 import { SchemaType } from '@/components/common/SchemaForm/types/type'
-import { DefaultOptionType } from 'ant-design-vue/es/vc-tree-select/TreeSelect'
-import { message } from 'ant-design-vue'
-import { useToggle } from '@vueuse/core'
-import { asyncWait } from '@/utils'
+import { ref } from 'vue'
 import useRenderIcon from '@/hooks/components/useRenderIcon'
+import { DefaultOptionType } from 'ant-design-vue/es/vc-tree-select/TreeSelect'
 
-const [isShow, toggleShow] = useToggle()
+const [visible,setVisible] = useToggle()
 const { RenderUnoIcon } = useRenderIcon()
+
 const form = ref({
   name: {
     test: undefined
@@ -27,6 +25,8 @@ const form = ref({
   show: true,
   description: undefined
 })
+
+const popupType = ref('modal')
 
 const status = ref([
   {
@@ -148,47 +148,36 @@ const schema: SchemaType<typeof form.value>[] = [
     slot: 'test2'
   }
 ]
-
-const onSearch = async () => {
-  toggleShow()
-  await asyncWait(2000)
-  toggleShow()
-  message.success('搜索成功')
+const showPopup = (type) => {
+  popupType.value = type
+  setVisible()
 }
 </script>
 
 <template>
-  <div>
-    <a-alert
-      message="Schema Form（JSON 格式配置表单）"
-      type="info"
-      show-icon
+  <a-card>
+    <a-space>
+      <a-button @click="showPopup('modal')">打开模态框表单</a-button>
+      <a-button @click="showPopup('drawer')">打开抽屉表单</a-button>
+    </a-space>
+    <popup-schema-form
+      v-model:visible="visible"
+      v-model:model="form"
+      :col-props="12"
+      :popup-type="popupType"
+      popup-title="弹框表单"
+      :schema="schema"
     >
-      <template #description>
-        <p>自动化生成表单：通过定义JSON Schema，可以自动生成对应的表单界面，减少了手工编写表单的工作量。</p>
-        <p>一致性和标准化：使用统一的JSON Schema描述数据结构，确保表单的一致性和标准化，便于维护和扩展。</p>
-        <p>动态性强：表单可以根据Schema动态变化，适应不同的数据结构需求，增强了表单的灵活性。</p>
-        <p>可扩展性好：支持自定义组件，便于开发者根据需要扩展表单功能，满足特定业务需求。</p>
+      <template #test>
+        <div class="text-white bg-red h-full flex-center">这是一个<span class="text-black">包含</span>FormItem自定义插槽</div>
       </template>
-    </a-alert>
-    <br>
-    <a-card>
-      <search-schema-form
-        v-model:model="form"
-        :search-loading="isShow"
-        :schema="schema"
-        :on-finish="onSearch"
-      >
-        <template #test>
-          <div class="text-white bg-red h-full flex-center">这是一个<span class="text-black">包含</span>FormItem自定义插槽</div>
-        </template>
-        <template #test2>
-          <div class="text-white bg-red h-full flex-center">这是一个<span class="text-black">不包含</span>FormItem自定义插槽</div>
-        </template>
-      </search-schema-form>
-    </a-card>
-  </div>
+      <template #test2>
+        <div class="text-white bg-red h-full flex-center">这是一个<span class="text-black">不包含</span>FormItem自定义插槽</div>
+      </template>
+    </popup-schema-form>
+  </a-card>
 </template>
 
 <style scoped lang="scss">
+
 </style>

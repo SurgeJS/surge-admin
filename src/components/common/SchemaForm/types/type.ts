@@ -1,20 +1,10 @@
-import {
-    CardProps,
-    ColProps,
-    DrawerProps,
-    FormProps,
-    ModalProps,
-    RowProps,
-    StepProps,
-    StepsProps
-} from 'ant-design-vue'
+import { ColProps, DrawerProps, FormProps, ModalProps, RowProps, StepProps, StepsProps } from 'ant-design-vue'
 import { RuleObject } from 'ant-design-vue/es/form/interface'
 import { ComponentsName, ComponentsProps } from '@/components/common/SchemaForm/types/component'
 import { DefaultOptionType } from 'ant-design-vue/es/vc-tree-select/TreeSelect'
 import { MaybeRef, VNode } from 'vue'
 import { ColSize } from 'ant-design-vue/es/grid/Col'
-import { FormExpose } from 'ant-design-vue/es/form/Form'
-import { Gutter } from 'ant-design-vue/es/grid/Row'
+import { FormExpose, FormLayout } from 'ant-design-vue/es/form/Form'
 
 // 回调参数
 export interface CallbackParams<TForm extends Recordable = Recordable, DComponentsName extends ComponentsName = ComponentsName> {
@@ -74,23 +64,6 @@ export type ComponentSlots = {
  */
 export type RulePresets = 'mail' | 'phone' | 'landline' | 'idCard' | 'url'
 
-/**
- * 布局
- * @description search 查询表单
- * @description group 分组表单
- * @description step 步骤表单
- */
-export type SchemaLayout = 'search' | 'group' | 'step'
-
-/**
- * 布局容器
- * @description drawer 抽屉
- * @description modal 模态框
- * @description card 卡片
- */
-export type SchemaLayoutContainer = 'drawer' | 'modal' | 'card' | false
-
-
 // 组件部分通用Props,这里的属性会映射到组件Props中
 export interface MapComponentCommonProps<TForm extends Recordable = Recordable, DComponentsName extends ComponentsName = ComponentsName> {
     // 禁用状态
@@ -137,7 +110,7 @@ export interface SchemaConfig<
     contentSlot?: string
 
     // 列属性
-    colProps?: ColProps
+    colProps?: number | ColProps
 
     // 规则
     rule?: MaybeRef<RulePresets | RuleObject[] | RuleObject>
@@ -159,6 +132,9 @@ export interface SchemaConfig<
 
     // 额外的
     extra?: SlotsContent | CallbackParamsFunction<TForm, DComponentsName, SlotsContent>
+
+    // label后面的冒号
+    colon?: boolean
 }
 
 
@@ -196,36 +172,20 @@ export interface StepSchemaType<TForm extends Recordable = any, DComponentsName 
     form: SchemaType<TForm, DComponentsName>[]
 }
 
+/* --------------通用类型-------------- */
 
-
-// JSON 格式配置表单参数
-export type SchemaFormProps = FormProps & {
+// 通用props
+export type SchemaFormCommonProps = Omit<FormProps, 'onSubmit' | 'onFinish' | 'onFinishFailed'> & {
     // 表单类名
     formClass?: string
 
     // 表单样式
     formStyle?: Partial<CSSStyleDeclaration>
 
-    // schema 配置
-    schema?: SchemaType[]
-
-    // 分组 schema 配置
-    groupSchema?: GroupSchemaType[]
-
-    // 步骤条 schema 配置
-    stepSchema?: StepSchemaType[]
-
     // 模型
     model: Recordable
 
-    // 容器
-    container?: SchemaLayoutContainer
-
-    // 容器标题
-    containerTitle?: string
-
-    // 模态框或者抽屉是否可见（传入 container 有效）
-    visible?: boolean
+    layout?:FormLayout
 
     // 所有字段是否都必填
     required?: boolean
@@ -236,16 +196,10 @@ export type SchemaFormProps = FormProps & {
     labelWidth?: number | string
 
     // 列属性
-    colProps?: ColProps
+    colProps?: number | ColProps
 
     // 行属性
     rowProps?: RowProps
-
-    // 布局
-    schemaLayout?: SchemaLayout
-
-    // 提交loading
-    submitLoading?: boolean
 
     // 是否隐藏操作按钮
     hideActionButton?: boolean
@@ -271,20 +225,158 @@ export type SchemaFormProps = FormProps & {
     // 自动规则校验 (当required为真的时候，会根据label自动生成校验提示信息,label的类型为string才会生效，优先级最低)
     autoRules?: boolean
 
-    // 步骤条激活项
-    activeStep?: number
+    // 提交Loading
+    submitLoading?: boolean
 
-    // 步骤条属性
+    // 提交按钮文字
+    submitText?: string
+
+    // 重置Loading
+    resetLoading?: boolean
+
+    // 重置按钮文字
+    resetText?: string
+
+    //  隐藏重置按钮
+    hideReset?: boolean
+
+    // 提交事件 (传入该事件后会覆盖 onFinish | onFinishFailed 事件)
+    onSubmit?(validate: SchemaFormCommonExpose['validate'], model: Recordable): void
+
+    // 提交表单且数据验证成功后回调事件
+    onFinish?(model: Recordable): void
+
+    // 提交表单且数据验证失败后回调事件
+    onFinishFailed?(error: any): void
+
+    // 重置方法
+    onReset?(validate: SchemaFormCommonExpose['resetFields'], model: Recordable): void
+}
+
+// 通用插槽
+export interface SchemaFormCommonSlots {
+    // 自定义操作按钮
+    customActionButton(): any
+
+    // 自定义按钮前面
+    buttonBefore(): any
+
+    // 自定义按钮后面
+    buttonAfter(): any
+}
+
+// 通用方法
+export interface SchemaFormCommonExpose extends FormExpose {
+
+}
+
+/* --------------基础表单-------------- */
+
+export interface SchemaFormProps extends SchemaFormCommonProps {
+    // schema 配置
+    schema: SchemaType[]
+}
+
+export interface SchemaFormExpose extends SchemaFormCommonExpose {
+}
+
+export interface SchemaFormSlots extends SchemaFormCommonSlots {
+}
+
+/* --------------搜索表单-------------- */
+
+export interface SearchSchemaFormProps extends SchemaFormCommonProps {
+    // schema 配置
+    schema: SchemaType[]
+
+    // 查询表单默认展示个数
+    searchShowNumber?: number
+}
+
+export interface SearchSchemaFormExpose extends SchemaFormCommonExpose {
+}
+
+export interface SearchSchemaFormSlots extends SchemaFormCommonSlots {
+}
+
+/* --------------分组表单-------------- */
+
+export interface GroupSchemaFormProps extends SchemaFormCommonProps {
+    // schema 配置
+    schema: GroupSchemaType[]
+}
+
+export interface GroupSchemaFormExpose extends SchemaFormCommonExpose {
+}
+
+export interface GroupSchemaFormSlots extends SchemaFormCommonSlots {
+    /**
+     * 自定义group标题(使用后helpMessage会失效)
+     * @param {{groupSchema: GroupSchemaType}} props
+     * @returns {any}
+     */
+    groupTitle(props: { groupSchema: GroupSchemaType }): any
+}
+
+
+/* --------------分步表单-------------- */
+
+export interface StepSchemaFormProps extends SchemaFormCommonProps {
+    // schema 配置
+    schema: StepSchemaType[]
+
+    // 分步激活项
+    active?: number
+
+    // 分步属性
     stepsProps?: StepsProps
+
+    // 上一步Loading
+    preLoading?: boolean
+
+    // 上一步按钮文字
+    preText?: string
+
+    // 下一步Loading
+    nextLoading?: boolean
+
+    // 下一步按钮文字
+    nextText?: string
+
+    // 上一步
+    onPre?(active: number, currentModel: Recordable,expose:StepSchemaFormExpose): void
+
+    // 下一步
+    onNext?(active: number, currentModel: Recordable,expose:StepSchemaFormExpose): void
+}
+
+export interface StepSchemaFormExpose extends SchemaFormCommonExpose {
+}
+
+export interface StepSchemaFormSlots extends SchemaFormCommonSlots {
+
+}
+
+
+/* --------------弹框表单-------------- */
+
+export interface PopupSchemaFormProps extends SchemaFormCommonProps {
+    // schema 配置
+    schema: SchemaType[]
+
+    visible?:boolean
+
+    // 弹框类型  抽屉 | 模态框
+    popupType?: 'drawer' | 'modal'
+
+    // 弹框标题
+    popupTitle?:string
 
     // 抽屉属性
     drawerProps?: DrawerProps
 
     // 模态框属性
     modalProps?: ModalProps
-
-    // 卡片属性
-    cardProps?: CardProps
 
     // 点击遮罩层是否关闭模态框和抽屉
     maskClosable?: boolean
@@ -300,198 +392,21 @@ export type SchemaFormProps = FormProps & {
 
     // 确认弹框标题内容
     confirmContent?: string
-
-    // 查询表单默认展示个数
-    searchShowNumber?: number
 }
 
-// JSON 格式配置表单事件
-export interface SchemaFormEmits {
-    // 搜索事件
-    (e: 'search', validate: FormExpose['validate'], model: Recordable): void
-
-    // 提交校验成功事件
-    (e: 'submitSuccess', model: Recordable): void
-
-    // 提交校验失败事件
-    (e: 'submitError', error: any): void
-
-    // 下一步校验成功事件
-    (e: 'nextSuccess', nextActive: number, currentActiveModel: Recordable, model: Recordable): void
-
-    // 下一步校验失败事件
-    (e: 'nextError', error: any): void
-
-    // 上一步事件
-    (e: 'pre', preActive: number): void
-
-    // 表单重置后
-    (e: 'afterReset'): void
+export interface PopupSchemaFormExpose extends SchemaFormCommonExpose {
 }
 
-// JSON 格式配置表单插槽
-export interface SchemaFormSlots {
-    // 自定义操作按钮
-    customActionButton(): any
+export interface PopupSchemaFormSlots extends SchemaFormCommonSlots {
+    // 弹框头部
+    popupHeader():any
 
-    // 自定义按钮前面
-    beforeButton(): any
+    // 表单前
+    popupFormBefore():any
 
-    // 自定义按钮后面
-    afterButton(): any
+    // 表单后
+    popupFormAfter():any
 
-    // 模态框和抽屉的footer
-    containerFooter(): any
-
-    // 模态框、抽屉、卡片的title
-    containerTitle(): any
-
-    // 容器表单内容前
-    containerFormContentBefore(): any
-
-    // 容器表单内容后
-    containerFormContentAfter(): any
-
-    /**
-     * 自定义group标题(使用了groupTitle后helpMessage会失效)
-     * @param {{groupSchema: GroupSchemaType}} props
-     * @returns {any}
-     */
-    groupTitle(props: { groupSchema: GroupSchemaType }): any
+    // 弹框头部
+    popupFooter():any
 }
-
-
-// JSON 格式配置表单暴露的方法
-export interface SchemaFormExpose extends FormExpose {
-
-}
-
-export interface SchemaFormContentProps {
-    schema?: SchemaType[]
-    rowGutter?: Gutter | [ Gutter, Gutter ]
-}
-
-/* --------------------------------------------------- */
-
-
-export type SchemaFormCommonProps = FormProps & {
-    // 表单类名
-    formClass?: string
-
-    // 表单样式
-    formStyle?: Partial<CSSStyleDeclaration>
-
-    // 模型
-    model: Recordable
-
-    // 模态框或者抽屉是否可见（传入 container 有效）
-    visible?: boolean
-
-    // 所有字段是否都必填
-    required?: boolean
-
-    labelCol?: Col
-
-    // label 宽度
-    labelWidth?: number | string
-
-    // 列属性
-    colProps?: ColProps
-
-    // 行属性
-    rowProps?: RowProps
-
-    // 提交loading
-    submitLoading?: boolean
-
-    // 是否隐藏操作按钮
-    hideActionButton?: boolean
-
-    // 默认日期组件格式
-    defaultDateFormat?: DateComponentFormat
-
-    // 默认时间组件格式
-    defaultTimeFormat?: DateComponentFormat
-
-    // 默认日期组件值格式
-    defaultValueDateFormat?: DateComponentFormat
-
-    // 默认时间组件值格式
-    defaultValueTimeFormat?: DateComponentFormat
-
-    // 自动placeholder (item的label的类型为string才会生效，优先级最低)
-    autoPlaceholder?: boolean
-
-    // 自动label宽度 (优先级最低)
-    autoLabelWidth?: boolean
-
-    // 自动规则校验 (当required为真的时候，会根据label自动生成校验提示信息,label的类型为string才会生效，优先级最低)
-    autoRules?: boolean
-
-    // // 步骤条激活项
-    // activeStep?: number
-    //
-    // // 步骤条属性
-    // stepsProps?: StepsProps
-    //
-    // // 抽屉属性
-    // drawerProps?: DrawerProps
-    //
-    // // 模态框属性
-    // modalProps?: ModalProps
-    //
-    // // 卡片属性
-    // cardProps?: CardProps
-    //
-    // // 点击遮罩层是否关闭模态框和抽屉
-    // maskClosable?: boolean
-    //
-    // // 关闭模态框和抽屉的时候重置表单
-    // closeResetModel?: boolean
-    //
-    // // 关闭模态框和抽屉的时候弹框确定是否关闭
-    // closeConfirm?: boolean
-    //
-    // // 确认弹框标题
-    // confirmTitle?: string
-    //
-    // // 确认弹框标题内容
-    // confirmContent?: string
-    //
-    // // 查询表单默认展示个数
-    // searchShowNumber?: number
-}
-
-export interface SchemaFormCommonSlots {
-    // 自定义操作按钮
-    customActionButton(): any
-
-    // 自定义按钮前面
-    beforeButton(): any
-
-    // 自定义按钮后面
-    afterButton(): any
-}
-
-// JSON 格式配置表单暴露的方法
-export interface SchemaFormCommonExpose extends FormExpose {
-
-}
-
-// 搜索 JSON 格式配置表单参数
-export interface SearchSchemaFormProps extends SchemaFormCommonProps {
-    // schema 配置
-    schema: SchemaType[]
-
-    // 查询表单默认展示个数
-    searchShowNumber?: number
-
-    // 搜索方法
-    onSearch(validate: SchemaFormCommonExpose['validate'], model: Recordable):void
-
-    // 重置方法
-    onReset?(validate: SchemaFormCommonExpose['resetFields'], model: Recordable):void
-}
-
-export interface SearchSchemaFormExpose extends SchemaFormCommonExpose {}
-export interface SearchSchemaFormSlots extends SchemaFormCommonSlots {}

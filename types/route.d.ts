@@ -3,8 +3,8 @@ import { RouteRecordRaw } from 'vue-router'
 declare global {
   /**
    * 路由组件类型
-   * @description 单页面 (例如：登录页)
-   * @description 具有公共部分的布局 (公共左侧菜单栏、公共头部、公共底部)
+   * @description single 单页面 (例如：登录页)
+   * @description basic 具有公共部分的布局 (公共左侧菜单栏、公共头部、公共底部)
    * @description directory 目录
    * @description submenu 子菜单（配合 basic | directory 一起用）
    * @description menu 菜单
@@ -16,9 +16,6 @@ declare global {
   interface AppRouteRecordRaw extends OmitRouteRecordRaw {
     // 组件类型
     component?: RouteComponentType
-
-    // 用于 组件路径&路由缓存（无需手动引入组件）
-    name?: string
 
     // 子路由
     children?: AppRouteRecordRaw[]

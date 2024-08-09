@@ -1,16 +1,22 @@
 <script setup lang="ts">
 import SchemaFormItem from '@/components/common/SchemaForm/components/SchemaFormItem/index.vue'
 import { SchemaFormContent } from '@/components/common/SchemaForm/components/SchemaFormContent/types/type'
+import { useSchemaFormContext } from '@/components/common/SchemaForm/hooks/useContext'
 
 withDefaults(defineProps<SchemaFormContent>(), {
   rowGutter: 12
 })
+const { schemaFormProps } = useSchemaFormContext()!
 </script>
 
 <template>
-  <a-row class="w-full" :gutter="rowGutter">
+  <a-row
+    class="w-full !m-0"
+    :gutter="rowGutter"
+    v-bind="schemaFormProps.rowProps"
+  >
     <template
-      v-for="config in schema "
+      v-for="config in schema"
       :key="config.field||config.slot"
     >
       <schema-form-item

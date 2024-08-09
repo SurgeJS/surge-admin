@@ -41,6 +41,13 @@ export default {
           meta: {
             title: '搜索表单'
           }
+        },
+        {
+          path: '/component/schemaForm/popupForm',
+          component: 'submenu',
+          meta: {
+            title: '弹框表单'
+          }
         }
       ]
     },

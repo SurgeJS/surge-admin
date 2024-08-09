@@ -46,13 +46,12 @@ const {
   extra,
   contentSlot,
   slot,
-  disabled
+  disabled,
+  colon
 } = props.schema
 
 const slots = useSlots()
-
-const { schemaFormProps, globalColProps, model, getModelValue, setModelValue, maxLabelWidth } = useSchemaFormContext()!
-
+const { schemaFormProps, model, getModelValue, setModelValue, maxLabelWidth } = useSchemaFormContext()!
 const formItemRef = ref<ComponentPublicInstance>()
 
 const bindValue = computed({
@@ -76,13 +75,18 @@ const isHide = computed(() => callbackParamsFunction<boolean>(unref(hide)) ?? tr
 
 const isRequired = computed(() => Boolean(unref(required) ?? schemaFormProps.required))
 
+const colPropsMap = computed(() => {
+  const colP = colProps || schemaFormProps.colProps
+  return isNumber(colP) ? { span: colP } : colP
+})
+
 // labelCol配置
 const labelCol = computed<MaybeUndefined<Col>>(() => {
   if (labelWidth) {
     return { style: { width: isNumber(unref(labelWidth)) ? `${ unref(labelWidth) }px` : unref(labelWidth) } } as Col
   }
   if (schemaFormProps.autoLabelWidth) {
-    return maxLabelWidth.value ? { style: { width: `${ maxLabelWidth.value  }px` } } as Col : undefined
+    return maxLabelWidth.value ? { style: { width: `${ maxLabelWidth.value }px` } } as Col : undefined
   }
   return undefined
 })
@@ -178,7 +182,7 @@ const callbackParamsFunction = <T = never>(value: T | CallbackParamsFunction<any
     : value
 
 // 获取最大Label宽度
-watch(formItemRef, async () => {
+watch([formItemRef,label], async () => {
   await nextTick()
   const scrollWidth = formItemRef.value?.$el.querySelector('.ant-form-item-label')?.scrollWidth
   if (scrollWidth > maxLabelWidth.value) maxLabelWidth.value = scrollWidth + 7
@@ -210,7 +214,7 @@ const FormItem = () => {
   return (
       <a-form-item
           ref={ formItemRef }
-          colon
+          colon={unref(colon)}
           rules={ formItemRules.value }
           name={ name }
           label-col={ labelCol.value }
@@ -226,7 +230,7 @@ const FormItem = () => {
 </script>
 
 <template>
-  <a-col v-if="isHide" v-bind="{...{...globalColProps, ...unref(colProps)}}">
+  <a-col v-if="isHide" v-bind="colPropsMap">
     <form-item v-if="!slot" />
     <slot v-else :name="slot" />
   </a-col>

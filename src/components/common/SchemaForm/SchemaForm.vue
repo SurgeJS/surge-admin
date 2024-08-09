@@ -1,59 +1,29 @@
 <script setup lang="ts">
-import {
-  SearchSchemaFormExpose,
-  SearchSchemaFormProps,
-  SearchSchemaFormSlots
-} from '@/components/common/SchemaForm/types/type'
+import { SchemaFormExpose, SchemaFormProps, SchemaFormSlots } from '@/components/common/SchemaForm/types/type'
 import initialProps from '@/components/common/SchemaForm/utils/initialProps'
 import useOmitProps from '@/hooks/common/useOmitProps'
 import useExpose from '@/components/common/SchemaForm/hooks/useExpose'
-import { take } from 'lodash-es'
 import { useProvideSchemaFormContext } from '@/components/common/SchemaForm/hooks/useContext'
 import useMethod from '@/components/common/SchemaForm/hooks/useMethod'
 
-const props = withDefaults(defineProps<SearchSchemaFormProps>(), {
+const props = withDefaults(defineProps<SchemaFormProps>(), {
   ...initialProps,
-  searchShowNumber: 3,
-  submitText: '查询',
-  colProps: () => ({
-    xs: 24,
-    sm: 12,
-    md: 12,
-    lg: 12,
-    xl: 8,
-    xxl: 6
-  })
+  colProps:24
 })
-const slots = defineSlots<SearchSchemaFormSlots>()
+const slots = defineSlots<SchemaFormSlots>()
 
 // 表单模型
 const model = defineModel<Recordable>('model', { required: true })
 // 提供Schema上下文
 useProvideSchemaFormContext(props, model)
-const formProps = useOmitProps(props, ['searchShowNumber', 'schema'])
+const formProps = useOmitProps(props, ['schema'])
 const formContentSlots = useOmitProps(slots, ['customActionButton', 'buttonAfter', 'buttonBefore'])
 
 // 通用方法
 const { formRef, commonExpose } = useExpose()
 const { handleReset, handleSubmit } = useMethod(props, commonExpose, model)
 
-// 是否展开搜索表单
-const [isExpandSearchForm, setExpandSearchForm] = useToggle()
-
-// 搜索Schema
-const searchSchemas = computed(() => {
-  if (!props.searchShowNumber) return props.schema
-  if (isExpandSearchForm.value) return props.schema
-  return take(props.schema, props.searchShowNumber)
-})
-
-// 展开收起文案
-const searchExpandCollapse = computed(() => ({
-  text: isExpandSearchForm.value ? '收起' : '展开',
-  icon: isExpandSearchForm.value ? 'i-ic:outline-keyboard-arrow-up' : 'i-ic:outline-keyboard-arrow-down'
-}))
-
-defineExpose<SearchSchemaFormExpose>(commonExpose)
+defineExpose<SchemaFormExpose>(commonExpose)
 </script>
 
 <template>
@@ -62,7 +32,7 @@ defineExpose<SearchSchemaFormExpose>(commonExpose)
     v-bind="formProps"
     :model="model"
   >
-    <schema-form-content :row-gutter="[12,12]" :schema="searchSchemas">
+    <schema-form-content :schema="schema">
       <template
         v-for="(value,key) in formContentSlots"
         :key="key"
@@ -70,7 +40,11 @@ defineExpose<SearchSchemaFormExpose>(commonExpose)
       >
         <slot :name="key" />
       </template>
-      <a-col v-if="!props.hideActionButton" class="flex-auto flex-inline justify-end items-center gap-[12px]">
+      <a-col
+        v-if="!props.hideActionButton"
+        :span="24"
+        class="flex-inline justify-end items-center gap-[12px] "
+      >
         <slot name="buttonBefore" />
         <slot name="customActionButton">
           <a-button
@@ -87,14 +61,6 @@ defineExpose<SearchSchemaFormExpose>(commonExpose)
           >
             {{ props.submitText }}
           </a-button>
-          <a-button
-            v-if="props.searchShowNumber"
-            type="link"
-            @click="setExpandSearchForm()"
-          >
-            {{ searchExpandCollapse.text }}
-            <icon :icon="searchExpandCollapse.icon" />
-          </a-button>
         </slot>
         <slot name="buttonAfter" />
       </a-col>
@@ -103,7 +69,5 @@ defineExpose<SearchSchemaFormExpose>(commonExpose)
 </template>
 
 <style scoped lang="scss">
-:deep(.ant-form-item) {
-  margin-bottom: 0;
-}
+
 </style>
