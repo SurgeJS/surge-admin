@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import router from '@/router'
 import RouterConfig from '@/config/router'
 import { asyncWait } from '@/utils'
+import { RouteRecordNameGeneric } from 'vue-router'
 
 const useTabBarStore = defineStore('TabBar', {
     state: (): TabBarStore => ({
@@ -21,6 +22,14 @@ const useTabBarStore = defineStore('TabBar', {
         // 当前激活的index
         activeIndex(state) {
             return state.tabs.findIndex(item => item.path === router.currentRoute.value.path)
+        },
+
+        // 缓存菜单
+        cacheMenus(state) {
+            return state.tabs.reduce<RouteRecordNameGeneric[]>((cacheMenus, item) => {
+                item.meta.keepAlive && cacheMenus.push(item.name)
+                return cacheMenus
+            }, [])
         },
     },
     actions: {
@@ -55,7 +64,7 @@ const useTabBarStore = defineStore('TabBar', {
             if (this.isActive(tab.path)) {
                 // 没有标签的时候跳转到首页
                 if (index <= 0) {
-                    router.push(RouterConfig.HOME_PATH)
+                    void router.push(RouterConfig.HOME_PATH)
                 } else {
                     const tab = this.tabs.slice(0, index).reverse().find(item => !item.meta?.disabledMenu)
                     tab ? router.push(tab.path) : router.push(RouterConfig.HOME_PATH)
@@ -120,8 +129,8 @@ const useTabBarStore = defineStore('TabBar', {
 
         // 获取路由中的固定标签
         getRouterAffixTabs(routes: AppRouteRecordRaw[]): Tab[] {
-            return routes.reduce<Tab[]>((tabs, { path, meta, name, children }) => {
-                meta?.affix && tabs.push({ fullPath: path, meta, name, path })
+            return routes.reduce<Tab[]>((tabs, { path, name, meta, children }) => {
+                meta?.affix && tabs.push({ fullPath: path, name, meta, path })
                 children?.length && tabs.push(...this.getRouterAffixTabs(children))
                 return tabs
             }, [])

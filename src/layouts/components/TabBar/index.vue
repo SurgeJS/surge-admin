@@ -5,6 +5,7 @@ import useTabBarStore from '@/store/modules/tabBar'
 import { useRoute, useRouter } from 'vue-router'
 import { useDebounceFn, useEventListener, useToggle } from '@vueuse/core'
 import DropdownContext from '@/layouts/components/TabBar/components/DropdownContext/index.vue'
+import { pick } from 'lodash-es'
 
 defineOptions({ name: 'TabBar' })
 
@@ -56,8 +57,7 @@ useEventListener('resize', () => {
 
 // 监听路由变化
 watch(() => route.path, () => {
-  const { meta, name, path, fullPath } = route
-  tabBarStore.addTab({ meta, name: name as string, path, fullPath })
+  tabBarStore.addTab(pick(route, ['meta', 'path', 'name', 'fullPath']))
   scrollToActive()
 }, { immediate: true })
 

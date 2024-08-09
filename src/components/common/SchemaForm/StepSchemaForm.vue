@@ -96,7 +96,7 @@ defineExpose<StepSchemaFormExpose>(commonExpose)
             </a-button>
             <a-button
               v-if="active!==schema.length"
-              :loading="props.nextText"
+              :loading="props.nextLoading"
               @click="handleNext"
             >
               {{ props.nextText }}

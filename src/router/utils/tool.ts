@@ -3,6 +3,7 @@ import { RouteRecordRaw } from 'vue-router'
 import { Sort } from '@/enums/common'
 import RegUtils from '@/utils/reg'
 import { RoleEnum } from '@/enums/auth'
+import { pathToPascalCase } from '@/utils'
 
 // 路由工具
 export class RouterTool {
@@ -72,11 +73,20 @@ export class RouterTool {
         if (route.meta?.iframeSrc && !route.meta?.isCustomizeIframeComponent) {
             return () => import('@/layouts/components/DefaultFrame.vue')
         }
+        // 原始路径，不包含路径参数
+        const recordPath = RegUtils.removePathParams(route.path)
         // 组件路径
-        const componentPath = `/src/views${ RegUtils.removePathParams(route.path) }/index.vue`
+        const componentPath = `/src/views${ recordPath }/index.vue`
         const viewComponent = Object.keys(this.VIEW_COMPONENTS).find(path => path === componentPath)
         if (!viewComponent) console.warn('没有找到组件：', componentPath)
-        return this.VIEW_COMPONENTS[viewComponent as string]
+        const component = this.VIEW_COMPONENTS[viewComponent as string]
+        return component().then((res: any) => {
+            return ({
+                ...res.default,
+                // 动态设置组件name，于路由name对应上,用于菜单缓存
+                name: pathToPascalCase(recordPath)
+            })
+        })
     }
 
     // 自定义路由转 vue 路由
@@ -86,7 +96,9 @@ export class RouterTool {
         let vueRoute = { ...route, component: undefined } as RouteRecordRaw
         // 原始路径，不包含路径参数
         const recordPath = RegUtils.removePathParams(route.path)
-        vueRoute.name = recordPath
+        // 用于菜单缓存
+        vueRoute.name = pathToPascalCase(recordPath)
+        route.name = pathToPascalCase(recordPath)
         switch (route.component) {
             // 单页面
             case 'single':

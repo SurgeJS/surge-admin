@@ -360,6 +360,8 @@ export interface StepSchemaFormSlots extends SchemaFormCommonSlots {
 
 /* --------------弹框表单-------------- */
 
+export type PopupType = 'drawer' | 'modal'
+
 export interface PopupSchemaFormProps extends SchemaFormCommonProps {
     // schema 配置
     schema: SchemaType[]
@@ -367,7 +369,7 @@ export interface PopupSchemaFormProps extends SchemaFormCommonProps {
     visible?:boolean
 
     // 弹框类型  抽屉 | 模态框
-    popupType?: 'drawer' | 'modal'
+    popupType?: PopupType
 
     // 弹框标题
     popupTitle?:string

@@ -11,7 +11,7 @@ declare global {
    * */
   type RouteComponentType = 'single' | 'basic' | 'directory' | 'submenu' | 'menu'
 
-  type OmitRouteRecordRaw = Omit<RouteRecordRaw, 'component' | 'components' | 'children' | 'name'>
+  type OmitRouteRecordRaw = Omit<RouteRecordRaw, 'component' | 'components' | 'children'>
 
   interface AppRouteRecordRaw extends OmitRouteRecordRaw {
     // 组件类型

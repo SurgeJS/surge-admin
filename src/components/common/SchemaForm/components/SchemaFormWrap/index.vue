@@ -12,7 +12,6 @@ const aFormProps = useOmitProps(props, [
   'formClass',
   'formStyle',
   'model',
-  'visible',
   'required',
   'labelCol',
   'labelWidth',

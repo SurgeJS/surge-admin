@@ -1,9 +1,8 @@
-import {RouteLocationNormalizedLoaded, RouteMeta} from 'vue-router'
+import { RouteLocationNormalizedLoaded, RouteMeta } from 'vue-router'
 
 
 declare global {
-    interface Tab extends Pick<RouteLocationNormalizedLoaded, 'fullPath' | 'path'> {
-        name?: string
+    interface Tab extends Pick<RouteLocationNormalizedLoaded, 'fullPath' | 'path' | 'name'> {
         meta: RouteMeta
     }
 

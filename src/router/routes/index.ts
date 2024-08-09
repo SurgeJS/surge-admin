@@ -22,7 +22,6 @@ export const ROUTE_404: AppRouteRecordRaw = {
     meta: { title: '404' }
 }
 
-
 // 未匹配到页面
 export const ROUTE_NOT_FOUND: AppRouteRecordRaw = {
     path: '/:NotFound(.*)*',

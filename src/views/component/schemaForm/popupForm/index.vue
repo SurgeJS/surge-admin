@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { SchemaType } from '@/components/common/SchemaForm/types/type'
+import { PopupType, SchemaType } from '@/components/common/SchemaForm/types/type'
 import { ref } from 'vue'
 import useRenderIcon from '@/hooks/components/useRenderIcon'
 import { DefaultOptionType } from 'ant-design-vue/es/vc-tree-select/TreeSelect'
@@ -26,7 +26,7 @@ const form = ref({
   description: undefined
 })
 
-const popupType = ref('modal')
+const popupType = ref<PopupType>('modal')
 
 const status = ref([
   {
