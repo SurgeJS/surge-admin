@@ -106,12 +106,8 @@ defineExpose<GroupSchemaFormExpose>(commonExpose)
           </a-button>
         </div>
         <schema-form-content v-show="!unref(config.isFold)" :schema="config.form">
-          <template
-            v-for="(value,key) in formContentSlots"
-            :key="key"
-            #[key]
-          >
-            <slot :name="key" />
+          <template v-for="(slot,key) in formContentSlots" #[key]="scope">
+            <slot :name="key" v-bind="scope||{}" />
           </template>
         </schema-form-content>
       </template>

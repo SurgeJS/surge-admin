@@ -26,7 +26,7 @@ const transitionName = computed(() => base.isPageStartAnimation ? base.pageAnima
       <a-back-top :target="()=>scrollContainer as HTMLDivElement" />
       <router-view v-slot="{ Component, route }">
         <page-transition :name="transitionName">
-          <keep-alive :include="tabBarStore.cacheMenus">
+          <keep-alive :include="tabBarStore.cacheMenus as string[]">
             <component
               :is="Component"
               v-if="tabBarStore.refreshFlag"

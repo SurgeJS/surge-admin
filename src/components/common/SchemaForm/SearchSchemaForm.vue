@@ -63,12 +63,8 @@ defineExpose<SearchSchemaFormExpose>(commonExpose)
     :model="model"
   >
     <schema-form-content :row-gutter="[12,12]" :schema="searchSchemas">
-      <template
-        v-for="(value,key) in formContentSlots"
-        :key="key"
-        #[key]
-      >
-        <slot :name="key" />
+      <template v-for="(slot,key) in formContentSlots" #[key]="scope">
+        <slot :name="key" v-bind="scope||{}" />
       </template>
       <a-col v-if="!props.hideActionButton" class="flex-auto flex-inline justify-end items-center gap-[12px]">
         <slot name="buttonBefore" />

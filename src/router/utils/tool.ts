@@ -76,11 +76,12 @@ export class RouterTool {
         // 原始路径，不包含路径参数
         const recordPath = RegUtils.removePathParams(route.path)
         // 组件路径
-        const componentPath = `/src/views${ recordPath }/index.vue`
+        const componentPath = `/src/views${recordPath}/index.vue`
         const viewComponent = Object.keys(this.VIEW_COMPONENTS).find(path => path === componentPath)
         if (!viewComponent) console.warn('没有找到组件：', componentPath)
         const component = this.VIEW_COMPONENTS[viewComponent as string]
-        return component().then((res: any) => {
+        
+        return () => component().then((res: any) => {
             return ({
                 ...res.default,
                 // 动态设置组件name，于路由name对应上,用于菜单缓存

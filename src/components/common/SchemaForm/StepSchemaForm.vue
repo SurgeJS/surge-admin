@@ -1,9 +1,5 @@
 <script setup lang="ts">
-import {
-  StepSchemaFormExpose,
-  StepSchemaFormProps,
-  StepSchemaFormSlots
-} from '@/components/common/SchemaForm/types/type'
+import { StepSchemaFormExpose, StepSchemaFormProps, StepSchemaFormSlots } from '@/components/common/SchemaForm/types/type'
 import initialProps from '@/components/common/SchemaForm/utils/initialProps'
 import useOmitProps from '@/hooks/common/useOmitProps'
 import useExpose from '@/components/common/SchemaForm/hooks/useExpose'
@@ -73,12 +69,8 @@ defineExpose<StepSchemaFormExpose>(commonExpose)
   >
     <template v-for="(config,i) in props.schema" :key="i">
       <schema-form-content v-show="i+1 === active" :schema="config.form">
-        <template
-          v-for="(value,key) in formContentSlots"
-          :key="key"
-          #[key]
-        >
-          <slot :name="key" />
+        <template v-for="(slot,key) in formContentSlots" #[key]="scope">
+          <slot :name="key" v-bind="scope||{}" />
         </template>
         <a-col
           v-if="!props.hideActionButton"

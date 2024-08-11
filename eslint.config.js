@@ -42,6 +42,8 @@ export default tseslint.config({
         /* -----------------------TypeScript------------------------- */
         // 静止使用 any
         '@typescript-eslint/no-explicit-any': 'off',
+        '@typescript-eslint/no-unused-expressions': 'off',
+        '@typescript-eslint/no-empty-object-type': 'off',
         // 禁用未定义变量
         '@typescript-eslint/no-unused-vars': [
             'error',

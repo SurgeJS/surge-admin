@@ -1,5 +1,31 @@
 .ant-menu {
-  &.ant-menu-inline-collapsed{
+  &.ant-menu-inline-collapsed {
     width: auto;
+  }
+}
+
+.ant-menu-dark {
+  background: theme('backgroundColor.dark');
+
+  .ant-menu-submenu-selected {
+    > .ant-menu-submenu-title {
+      color: theme('colors.primary');
+
+      &:hover {
+        color: theme('colors.primary') !important;
+      }
+    }
+  }
+
+  &.ant-menu-horizontal {
+    .ant-menu-submenu-selected {
+      > .ant-menu-submenu-title {
+        color: white;
+
+        &:hover {
+          color: white !important;
+        }
+      }
+    }
   }
 }

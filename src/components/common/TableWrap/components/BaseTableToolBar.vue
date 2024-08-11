@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { densityList } from '@/components/common/BaseTable/utils/data'
-import { useBaseTableStore } from '@/components/common/BaseTable/utils/context'
+import { densityList } from '@/components/common/TableWrap/utils/data'
+import { useBaseTableStore } from '@/components/common/TableWrap/hooks/useContext'
 import { cloneDeep } from 'lodash-es'
 import { unref } from 'vue'
 import { VueDraggable } from 'vue-draggable-plus'
@@ -64,7 +64,7 @@ const resetColumns = () => {
           <vue-draggable
             v-model="tableColumns"
             :animation="300"
-            class="flex flex-col gap-2"
+            class="flex flex-col gap-[10px]"
             handle=".drag"
           >
             <template v-for="item in tableColumns" :key="item.key">
@@ -72,7 +72,7 @@ const resetColumns = () => {
                 v-if="!item.fixed"
                 class="flex-y-center gap-2 rounded hover:bg-fill-secondary "
               >
-                <icon icon="i-ant-design:holder-outlined" class="cursor-grabbing text-xs" />
+                <icon icon="i-ant-design:holder-outlined" class="drag cursor-grabbing text-xs" />
                 <a-checkbox
                   :checked="!item.hide"
                   @change="()=>item.hide=!item.hide"
@@ -96,12 +96,6 @@ const resetColumns = () => {
           />
         </a-tooltip>
       </a-popover>
-      <a-button>
-        <template #icon>
-          <icon icon="i-ant-design:setting-outlined" />
-        </template>
-        测试
-      </a-button>
     </div>
   </div>
 </template>

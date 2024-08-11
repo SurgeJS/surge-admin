@@ -25,8 +25,8 @@ const { schemaFormProps } = useSchemaFormContext()!
         :schema="config as any"
       >
         <slot v-if="config.contentSlot" :name="config.contentSlot" />
-        <template v-if="config.slot" #[config.slot]>
-          <slot :name="config.slot" />
+        <template v-if="config.slot" #[config.slot]="scope">
+          <slot :name="config.slot" v-bind="scope||{}" />
         </template>
       </schema-form-item>
     </template>

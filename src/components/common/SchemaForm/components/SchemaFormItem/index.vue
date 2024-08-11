@@ -165,8 +165,6 @@ const dynamicComponentAttribute = computed<any>(() => {
 const dynamicComponentSlots = computed(() => {
   // 组件默认插槽内容
   const defaultSlot = (slot: SchemaConfig['componentContent']) => ({ default: () => slot })
-  // TODO:默认上传暂时没思路
-  // if (!componentContent) return component === 'Upload' ? defaultSlot(defaultUpload) : undefined
   if (!componentContent) return undefined
 
   const content = callbackParamsFunction(componentContent)

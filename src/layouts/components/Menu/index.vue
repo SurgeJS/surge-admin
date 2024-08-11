@@ -123,8 +123,4 @@ watch(() => route.path,() => {
   display: inline-flex;
   align-items: center;
 }
-
-:global(.ant-menu-dark) {
-  background: theme('backgroundColor.dark');
-}
 </style>

@@ -63,13 +63,6 @@ export default {
           ]
         }
       ]
-    },
-    {
-      path: '/function/print',
-      component: 'submenu',
-      meta: {
-        title: '打印'
-      }
     }
   ]
 } satisfies AppRouteRecordRaw

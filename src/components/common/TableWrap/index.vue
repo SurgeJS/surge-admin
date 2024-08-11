@@ -1,18 +1,19 @@
 <script lang="ts" setup>
-import { BaseTableProps } from '@/components/common/BaseTable/utils/type'
+import { TableWrapProps, TableWrapSlots } from '@/components/common/TableWrap/types/type'
 import useOmitProps from '@/hooks/common/useOmitProps'
 import { computed } from 'vue'
 import { SuperTableColumn } from '@/components/antd/SuperTable/type/props'
-import { useProvideBaseTableStore } from '@/components/common/BaseTable/utils/context'
+import { useProvideBaseTableStore } from '@/components/common/TableWrap/hooks/useContext'
 import { SizeType } from 'ant-design-vue/es/config-provider'
 
-const props = withDefaults(defineProps<BaseTableProps>(), {
+const props = withDefaults(defineProps<TableWrapProps>(), {
   showHeader: true,
   pagination: undefined,
   showExpandColumn: true,
   showSorterTooltip: true,
   indentSize: 15
 })
+defineSlots<TableWrapSlots>()
 
 const tableColumns = defineModel<SuperTableColumn[]>('columns', { required: true })
 
@@ -31,7 +32,7 @@ const size = computed(() => props.size || currentDensity.value[0] as SizeType)
   <a-card>
     <base-table-tool-bar>
       <template #header-extra>
-        <slot name="header-extra" />
+        <slot name="headerExtra" />
       </template>
       <template #heading>
         <slot name="heading">{{ props.heading }}</slot>

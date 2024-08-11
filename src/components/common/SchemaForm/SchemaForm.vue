@@ -33,12 +33,8 @@ defineExpose<SchemaFormExpose>(commonExpose)
     :model="model"
   >
     <schema-form-content :schema="schema">
-      <template
-        v-for="(value,key) in formContentSlots"
-        :key="key"
-        #[key]
-      >
-        <slot :name="key" />
+      <template v-for="(slot,key) in formContentSlots" #[key]="scope">
+        <slot :name="key" v-bind="scope||{}" />
       </template>
       <a-col
         v-if="!props.hideActionButton"

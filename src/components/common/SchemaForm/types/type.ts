@@ -354,7 +354,6 @@ export interface StepSchemaFormExpose extends SchemaFormCommonExpose {
 }
 
 export interface StepSchemaFormSlots extends SchemaFormCommonSlots {
-
 }
 
 
