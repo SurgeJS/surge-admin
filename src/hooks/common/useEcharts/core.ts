@@ -4,16 +4,16 @@ import * as echarts from 'echarts/core'
 import { BarChart, GaugeChart, LineChart, PictorialBarChart, PieChart, RadarChart, ScatterChart } from 'echarts/charts'
 // 引入提示框，标题，直角坐标系，数据集，内置数据转换器组件，组件后缀都为 Component
 import {
+    CalendarComponent,
     DatasetComponent,
     GridComponent,
     LegendComponent,
+    TimelineComponent,
     TitleComponent,
     ToolboxComponent,
     TooltipComponent,
     TransformComponent,
-    VisualMapComponent,
-    TimelineComponent,
-    CalendarComponent
+    VisualMapComponent
 } from 'echarts/components'
 // 标签自动布局、全局过渡动画等特性
 import { LabelLayout, UniversalTransition } from 'echarts/features'
