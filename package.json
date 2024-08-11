@@ -13,7 +13,7 @@
     "preview": "vite preview --open --port 9999",
     "type-check": "vue-tsc --noEmit --skipLibCheck",
     "lint": "eslint src --fix ",
-    "lint-staged": "lint-staged --no-stash",
+    "lint-staged": "lint-staged --no-stash"
   },
   "dependencies": {
     "@iconify/utils": "^2.1.30",
