@@ -14,7 +14,6 @@
     "type-check": "vue-tsc --noEmit --skipLibCheck",
     "lint": "eslint src --fix ",
     "lint-staged": "lint-staged --no-stash",
-    "commit": "git add . && git cz"
   },
   "dependencies": {
     "@iconify/utils": "^2.1.30",
@@ -47,8 +46,6 @@
     "@vitejs/plugin-legacy": "^5.4.1",
     "@vitejs/plugin-vue": "^4.6.2",
     "@vitejs/plugin-vue-jsx": "^4.0.0",
-    "commitizen": "^4.3.0",
-    "cz-git": "^1.9.4",
     "eslint": "^9.9.0",
     "eslint-plugin-vue": "^9.27.0",
     "lint-staged": "^15.2.8",
@@ -76,12 +73,6 @@
     "*": "eslint --fix"
   },
   "simple-git-hooks": {
-    "commit-msg": "pnpm commit",
     "pre-commit": "pnpm type-check && pnpm lint-staged"
-  },
-  "config": {
-    "commitizen": {
-      "path": "node_modules/cz-git"
-    }
   }
 }
