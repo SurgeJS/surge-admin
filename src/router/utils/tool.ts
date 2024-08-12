@@ -143,10 +143,14 @@ export class RouterUtils {
     }
 
     // 批量自定义路由转 vue 路由
-    static transformCustomRoutesToVueRoutes(routes: AppRouteRecordRaw[]) {
+    static transformCustomRoutesToVueRoutes(routes: AppRouteRecordRaw[], fatherPath?: string) {
         return routes.reduce<RouteRecordRaw[]>((vueRoutes, route) => {
+            route.path = fatherPath ? fatherPath + route.path : route.path
             const vueRoute = this.transformCustomRouteToVueRoute(route)
-            if (route.children?.length && vueRoute) vueRoute.children = this.transformCustomRoutesToVueRoutes(route.children)
+
+            if (route.children?.length && vueRoute) {
+                vueRoute.children = this.transformCustomRoutesToVueRoutes(route.children, route.path)
+            }
             vueRoute && vueRoutes.push(vueRoute)
             return vueRoutes
         }, [])

@@ -8,22 +8,22 @@ const tabs = ref([
   {
     key: 1,
     label:'默认布局',
-    component:DefaultForm
+    component:shallowRef(DefaultForm)
   },
   {
     key: 2,
     label:'两栏布局',
-    component:TwoColumnLayoutForm
+    component:shallowRef(TwoColumnLayoutForm)
   },
   {
     key: 3,
     label:'复杂布局',
-    component:ComplexLayoutForm
+    component:shallowRef(ComplexLayoutForm)
   },
   {
     key: 4,
     label:'动态表单',
-    component:DynamicForm
+    component:shallowRef(DynamicForm)
   }
 ])
 </script>
@@ -35,7 +35,7 @@ const tabs = ref([
         :key="item.key"
         :tab="item.label"
       >
-        <component :is="item.component" />
+        <component :is="item.component" :key="item.key" />
       </a-tab-pane>
     </a-tabs>
   </a-card>

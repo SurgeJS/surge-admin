@@ -42,7 +42,6 @@ const { handleReset, handleSubmit } = useMethod(props, commonExpose, model)
 
 // 关闭弹框并重置表单
 const closeAndReset = () => {
-  console.log(commonExpose.resetFields)
   props.closeResetModel && commonExpose.resetFields()
   visible.value = false
 }
