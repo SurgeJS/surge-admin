@@ -4,7 +4,7 @@ export default {
   meta: {
     title: '系统管理',
     icon: 'ant-design:database-outlined',
-    order: 1
+    order: 2
   },
   children: [
     {

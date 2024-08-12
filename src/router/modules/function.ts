@@ -4,7 +4,7 @@ export default {
   meta: {
     title: '功能',
     icon: 'ant-design:database-outlined',
-    order: 1
+    order: 3
   },
   children: [
     {
@@ -63,6 +63,6 @@ export default {
           ]
         }
       ]
-    }
+    },
   ]
 } satisfies AppRouteRecordRaw

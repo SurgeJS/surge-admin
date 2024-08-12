@@ -94,7 +94,7 @@ watch(tabBarStore.tabs, () => {
         >
           {{ item.meta?.title }}
           <icon
-            v-if="!item.meta?.affix"
+            v-if="!item.meta?.affixTab && tabBarStore.tabs.length>1"
             icon="i-ic:round-close"
             class="tabBar-item-clear text-xs"
             @click.stop="tabBarStore.closeTab(item)"

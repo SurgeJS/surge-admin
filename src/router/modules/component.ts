@@ -4,7 +4,7 @@ export default {
   meta: {
     title: '组件',
     icon: 'ant-design:copyright-circle-filled',
-    order: 2
+    order: 4
   },
   children: [
     {
@@ -56,6 +56,13 @@ export default {
       component: 'submenu',
       meta: {
         title: '动画'
+      },
+    },
+    {
+      path:'/component/table',
+      component: 'submenu',
+      meta: {
+        title: '表格'
       },
     }
   ]

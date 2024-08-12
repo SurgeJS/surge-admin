@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import { UserApi } from '@/services/api/user'
 import { message, notification } from 'ant-design-vue'
 import router from '@/router'
-import { RouterTool } from '@/router/utils/tool'
+import { RouterUtils } from '@/router/utils/tool'
 import RouterConfig from '@/config/router'
 import Hint from '@/config/hint'
 import { tokenCache } from '@/store/caches'
@@ -117,9 +117,9 @@ const useAuthStore = defineStore('Auth', {
         // 初始化前端路由权限
         initFrontRouteAuth() {
             // 获取用户路由
-            this.routes = RouterTool.getUserRouteList(this.roles)
+            this.routes = RouterUtils.getUserRouteList(this.roles)
             // 自定义路由转Vue路由
-            const vueRoutes = RouterTool.transformCustomRoutesToVueRoutes(this.routes)
+            const vueRoutes = RouterUtils.transformCustomRoutesToVueRoutes(this.routes)
             // 添加路由
             vueRoutes.forEach(route => router.addRoute(route))
             this.isGeneratedRoutes = true
@@ -129,7 +129,7 @@ const useAuthStore = defineStore('Auth', {
         async initServerRouteAuth() {
             await this.getUserRoutes()
             // 自定义路由转Vue路由
-            const vueRoutes = RouterTool.transformCustomRoutesToVueRoutes(this.routes)
+            const vueRoutes = RouterUtils.transformCustomRoutesToVueRoutes(this.routes)
             // 添加路由
             vueRoutes.forEach(route => router.addRoute(route))
             this.isGeneratedRoutes = true

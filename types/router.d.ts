@@ -21,7 +21,7 @@ declare module 'vue-router' {
     keepAlive?: boolean
 
     // 是否固定在tab上
-    affix?: boolean
+    affixTab?: boolean
 
     // 图标
     icon?: string

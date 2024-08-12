@@ -1,11 +1,11 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import type { App } from 'vue'
 import createRouterGuard from '@/router/utils/guard'
-import { RouterTool } from '@/router/utils/tool'
+import { RouterUtils } from '@/router/utils/tool'
 
 const router = createRouter({
     history: createWebHashHistory(import.meta.env.VITE_PUBLIC_PATH),
-    routes: RouterTool.transformCustomRoutesToVueRoutes(RouterTool.getStaticRoutes())
+    routes: RouterUtils.transformCustomRoutesToVueRoutes(RouterUtils.getStaticRoutes())
 })
 
 export const setupRouter = async (app: App<Element>) => {

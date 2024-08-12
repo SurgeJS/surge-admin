@@ -58,18 +58,10 @@ const useTabBarStore = defineStore('TabBar', {
 
         // 关闭
         closeTab(tab: Tab) {
+            if (this.tabs.length === 1) return
             const index = this.getIndex(tab.path)
             this.tabs.splice(index, 1)
-            // 激活状态 跳转到上一个标签
-            if (this.isActive(tab.path)) {
-                // 没有标签的时候跳转到首页
-                if (index <= 0) {
-                    void router.push(RouterConfig.HOME_PATH)
-                } else {
-                    const tab = this.tabs.slice(0, index).reverse().find(item => !item.meta?.disabledMenu)
-                    tab ? router.push(tab.path) : router.push(RouterConfig.HOME_PATH)
-                }
-            }
+            this.isActive(tab.path) && router.push(this.tabs[this.tabs.length - 1].path)
             if (!tab.meta?.keepAlive) return
         },
 
@@ -105,7 +97,7 @@ const useTabBarStore = defineStore('TabBar', {
             i !== this.activeIndex && router.push(path)
             const tabs = [...this.getCurrentTabsAffixTab()]
             const tab = this.tabs[i]
-            if (!tab.meta?.affix) tabs.push(tab)
+            if (!tab.meta?.affixTab) tabs.push(tab)
             this.tabs = tabs
         },
 
@@ -123,14 +115,14 @@ const useTabBarStore = defineStore('TabBar', {
                 if (index !== undefined && direction) {
                     boundary = direction === 'left' ? i < index : i > index
                 }
-                return item.meta?.affix && boundary
+                return item.meta?.affixTab && boundary
             })
         },
 
         // 获取路由中的固定标签
         getRouterAffixTabs(routes: AppRouteRecordRaw[]): Tab[] {
             return routes.reduce<Tab[]>((tabs, { path, name, meta, children }) => {
-                meta?.affix && tabs.push({ fullPath: path, name, meta, path })
+                meta?.affixTab && tabs.push({ fullPath: path, name, meta, path })
                 children?.length && tabs.push(...this.getRouterAffixTabs(children))
                 return tabs
             }, [])

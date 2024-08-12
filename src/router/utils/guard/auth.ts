@@ -5,7 +5,6 @@ import { runTacticsAction, TacticsAction } from '@/utils'
 import RouterConfig from '@/config/router'
 import { tokenCache } from '@/store/caches'
 import { message } from 'ant-design-vue'
-import { RouterTool } from '@/router/utils/tool'
 
 const createAuthGuard = (to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext) => {
     const {
@@ -48,7 +47,7 @@ const createAuthGuard = (to: RouteLocationNormalized, from: RouteLocationNormali
         [
             !isLogin,
             () => {
-                // console.info('---未登录，强制跳转到登录页---')
+                console.info('---未登录，强制跳转到登录页---')
                 to.path === RouterConfig.LOGIN_PATH ? next() : next(RouterConfig.LOGIN_PATH)
             }
         ],
@@ -56,7 +55,7 @@ const createAuthGuard = (to: RouteLocationNormalized, from: RouteLocationNormali
         [
             !tokenCache.get(),
             () => {
-                // console.info('---令牌已失效，请重新登录---')
+                console.info('---令牌已失效，请重新登录---')
                 void message.warning('令牌已失效，请重新登录！')
                 initAuthStore()
                 next(RouterConfig.LOGIN_PATH)
@@ -66,7 +65,7 @@ const createAuthGuard = (to: RouteLocationNormalized, from: RouteLocationNormali
         [
             !isAuth,
             async () => {
-                // console.info('---没有鉴权（没有用户信息和角色）---')
+                console.info('---没有鉴权（没有用户信息和角色）---')
                 // 获取用户信息
                 await getUserinfo().catch(() => {
                     next(RouterConfig.LOGIN_PATH)
@@ -80,7 +79,7 @@ const createAuthGuard = (to: RouteLocationNormalized, from: RouteLocationNormali
         [
             !isGeneratedRoutes,
             async () => {
-                // console.info('---没有生成路由---')
+                console.info('---没有生成路由---')
                 await handleRouteAuthMode()
                 to.redirectedFrom ? next(to.redirectedFrom) : next({ ...to, replace: true })
             }
@@ -89,16 +88,7 @@ const createAuthGuard = (to: RouteLocationNormalized, from: RouteLocationNormali
         [
             to.path === RouterConfig.LOGIN_PATH,
             () => {
-                // console.info('---登录情况下不能到登录页面---')
-                next(from.fullPath)
-            }
-        ],
-        //  判断是否是外链
-        [
-            RouterTool.isExternalLink(to.path),
-            () => {
-                // console.info('---打开外链---')
-                RouterTool.openTheLink(to.path)
+                console.info('---登录情况下不能到登录页面---')
                 next(from.fullPath)
             }
         ],

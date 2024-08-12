@@ -6,7 +6,7 @@ import { RoleEnum } from '@/enums/auth'
 import { pathToPascalCase } from '@/utils'
 
 // 路由工具
-export class RouterTool {
+export class RouterUtils {
     // 前端路由模块列表
     static readonly ROUTER_MODULES_LIST = import.meta.glob('../modules/**.ts', { eager: true })
 
@@ -15,6 +15,9 @@ export class RouterTool {
 
     // 页面组件
     static readonly VIEW_COMPONENTS = import.meta.glob('@/views/**/**.vue')
+
+    // 默认内嵌页面
+    static readonly DEFAULT_FRAME = () => import('@/layouts/components/DefaultFrame.vue')
 
     // 静态路由列表
     static getStaticRoutes() {
@@ -70,17 +73,15 @@ export class RouterTool {
     // 获取页面组件
     static getViewComponent(route: AppRouteRecordRaw) {
         // 内嵌链接存在&不自定义内嵌iframe组件
-        if (route.meta?.iframeSrc && !route.meta?.isCustomizeIframeComponent) {
-            return () => import('@/layouts/components/DefaultFrame.vue')
-        }
+        if (route.meta?.iframeSrc && !route.meta?.isCustomizeIframeComponent) return this.DEFAULT_FRAME
         // 原始路径，不包含路径参数
         const recordPath = RegUtils.removePathParams(route.path)
         // 组件路径
-        const componentPath = `/src/views${recordPath}/index.vue`
+        const componentPath = `/src/views${ recordPath }/index.vue`
         const viewComponent = Object.keys(this.VIEW_COMPONENTS).find(path => path === componentPath)
-        if (!viewComponent) console.warn('没有找到组件：', componentPath)
+        if (!viewComponent) console.error('没有找到组件：', componentPath)
         const component = this.VIEW_COMPONENTS[viewComponent as string]
-        
+
         return () => component().then((res: any) => {
             return ({
                 ...res.default,
@@ -93,7 +94,7 @@ export class RouterTool {
     // 自定义路由转 vue 路由
     static transformCustomRouteToVueRoute(route: AppRouteRecordRaw) {
         // 如果是外链就不转vue路由
-        if (this.isExternalLink(route.path)) return undefined
+        if (RegUtils.MATCH_URL.test(route.path)) return undefined
         let vueRoute = { ...route, component: undefined } as RouteRecordRaw
         // 原始路径，不包含路径参数
         const recordPath = RegUtils.removePathParams(route.path)
@@ -158,16 +159,5 @@ export class RouterTool {
             if (type === Sort.Descending) return Number(b.meta?.order) - Number(a.meta?.order)
             return 0
         })
-    }
-
-    // 是否外链
-    static isExternalLink(url) {
-        return RegUtils.MATCH_URL.test(url)
-    }
-
-    // 打开外链
-    static openTheLink(url: string) {
-        const open = window.open('_blank')
-        if (open) open.location = url
     }
 }

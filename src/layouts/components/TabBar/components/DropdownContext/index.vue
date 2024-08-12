@@ -24,7 +24,7 @@ const dropdownList = computed(() => {
     {
       icon: 'i-ant-design:close-outlined',
       title: '关闭',
-      disabled: () => Boolean(tab.value.meta?.affix),
+      disabled: () => Boolean(tab.value.meta?.affixTab),
       handle() {
         tabBarStore.closeTab(props.tab || tabBarStore.tabs[tabBarStore.getIndex(route.path)])
       }
@@ -35,7 +35,7 @@ const dropdownList = computed(() => {
       disabled: () => {
         const index = tabBarStore.getIndex(tab.value.path)
         if (index === 0 || index === -1) return true
-        return !tabBarStore.tabs.slice(0, index).some(item => !item.meta?.affix)
+        return !tabBarStore.tabs.slice(0, index).some(item => !item.meta?.affixTab)
       },
       handle() {
         tabBarStore.closeLeft(tab.value.path)
@@ -47,7 +47,7 @@ const dropdownList = computed(() => {
       disabled: () => {
         const index = tabBarStore.getIndex(tab.value.path)
         if (index === tabBarStore.tabs.length - 1 || index === -1) return true
-        return !tabBarStore.tabs.slice(index).some(item => !item.meta?.affix)
+        return !tabBarStore.tabs.slice(index).some(item => !item.meta?.affixTab)
       },
       handle() {
         tabBarStore.closeRight(tab.value.path)
@@ -57,7 +57,7 @@ const dropdownList = computed(() => {
       icon: 'i-ant-design:arrows-alt-outlined',
       title: '关闭其他',
       disabled: () => {
-        return !tabBarStore.tabs.some(item => item.path !== tab.value.path && !tab.value.meta?.affix)
+        return !tabBarStore.tabs.some(item => item.path !== tab.value.path && !tab.value.meta?.affixTab)
       },
       handle() {
         tabBarStore.closeOther(tab.value.path)
@@ -66,7 +66,7 @@ const dropdownList = computed(() => {
     {
       icon: 'i-ant-design:minus-outlined',
       title: '关闭全部',
-      disabled: () => !tabBarStore.tabs.some(item => !item.meta?.affix),
+      disabled: () => !tabBarStore.tabs.some(item => !item.meta?.affixTab),
       handle() {
         tabBarStore.closeAll()
       }
