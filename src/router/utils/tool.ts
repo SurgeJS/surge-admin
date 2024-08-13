@@ -17,7 +17,7 @@ export class RouterUtils {
     static readonly VIEW_COMPONENTS = import.meta.glob('@/views/**/**.vue')
 
     // 默认内嵌页面
-    static readonly DEFAULT_FRAME = () => import('@/layouts/components/DefaultFrame.vue')
+    static readonly DEFAULT_FRAME = () => import('@/layouts/components/DefaultIframe.vue')
 
     // 静态路由列表
     static getStaticRoutes() {
@@ -102,16 +102,10 @@ export class RouterUtils {
         vueRoute.name = pathToPascalCase(recordPath)
         route.name = pathToPascalCase(recordPath)
         switch (route.component) {
-            // 单页面
-            case 'single':
+            case 'view':
                 vueRoute.component = this.getViewComponent(route)
                 break
-            // 子菜单
-            case 'submenu':
-                vueRoute.component = this.getViewComponent(route)
-                break
-            // 菜单
-            case 'menu':
+            case 'basic-view':
                 // 一级路由转二级路由
                 vueRoute = {
                     path: recordPath + '-container',
@@ -126,7 +120,6 @@ export class RouterUtils {
                     ]
                 }
                 break
-            // 基础布局
             case 'basic':
                 // 访问目录路由 自动重定向到目录下的第一个子菜单
                 if (!vueRoute.redirect && vueRoute.children?.length) {

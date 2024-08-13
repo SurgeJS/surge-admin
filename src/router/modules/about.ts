@@ -6,6 +6,6 @@ export default {
     order: 5,
     keepAlive: true,
   },
-  component: 'menu'
+  component: 'basic-view'
 } satisfies AppRouteRecordRaw
 

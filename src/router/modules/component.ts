@@ -15,35 +15,35 @@ export default {
       children: [
         {
           path: '/basicForm',
-          component: 'single',
+          component: 'view',
           meta: {
             title: '基础表单'
           }
         },
         {
           path: '/groupForm',
-          component: 'single',
+          component: 'view',
           meta: {
             title: '分组表单'
           }
         },
         {
           path: '/stepForm',
-          component: 'single',
+          component: 'view',
           meta: {
             title: '步骤表单'
           }
         },
         {
           path: '/searchForm',
-          component: 'single',
+          component: 'view',
           meta: {
             title: '搜索表单'
           }
         },
         {
           path: '/popupForm',
-          component: 'single',
+          component: 'view',
           meta: {
             title: '弹框表单'
           }
@@ -52,14 +52,14 @@ export default {
     },
     {
       path:'/animation',
-      component: 'single',
+      component: 'view',
       meta: {
         title: '动画'
       },
     },
     {
       path:'/table',
-      component: 'single',
+      component: 'view',
       meta: {
         title: '表格'
       },

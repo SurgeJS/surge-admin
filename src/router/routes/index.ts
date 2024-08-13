@@ -11,14 +11,14 @@ export const ROUTE_ROOT: AppRouteRecordRaw = {
 // 登录页
 export const ROUTE_LOGIN: AppRouteRecordRaw = {
     path: RouterConfig.LOGIN_PATH,
-    component: 'single',
+    component: 'view',
     meta: { title: '登录' }
 }
 
 // 404
 export const ROUTE_404: AppRouteRecordRaw = {
     path: '/404',
-    component: 'single',
+    component: 'view',
     meta: { title: '404' }
 }
 
@@ -34,13 +34,13 @@ export const TEST_ROUTE: AppRouteRecordRaw = {
     children: [
         {
             path: '/a',
-            component: 'single'
+            component: 'view'
         },
         {
             path: '/b',
-            component: 'single'
+            component: 'view'
         }
     ],
 }
 
-export default [ROUTE_ROOT, ROUTE_LOGIN, ROUTE_404, ROUTE_NOT_FOUND,TEST_ROUTE]
+export default [ROUTE_ROOT, ROUTE_LOGIN, ROUTE_404, ROUTE_NOT_FOUND, TEST_ROUTE]

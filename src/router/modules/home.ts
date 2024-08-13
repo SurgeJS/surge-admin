@@ -2,7 +2,7 @@ import RouterConfig from '@/config/router'
 
 export default {
   path: RouterConfig.HOME_PATH,
-  component: 'menu',
+  component: 'basic-view',
   meta: {
     title: '首页',
     icon: 'ant-design:area-chart-outlined',

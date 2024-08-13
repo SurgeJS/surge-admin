@@ -15,7 +15,7 @@ export default {
             children: [
                 {
                     path: '/twoDimensionalMap',
-                    component: 'submenu',
+                    component: 'view',
                     meta: {
                         title: '二维地图'
                     }
@@ -23,42 +23,45 @@ export default {
             ]
         },
         {
-            path: '/multilevelMenu',
+            path: '/menu',
             meta: {
-                title: '多级菜单'
+                title: '多级菜单',
             },
             children: [
                 {
                     path: '/menu-1',
-                    meta: {
-                        title: 'menu-1'
-                    },
+                    meta: { title: '菜单-1' },
                     children: [
                         {
                             path: '/menu-1-1',
-                            meta: {
-                                title: 'menu-1-1'
-                            },
-                            children: [
-                                {
-                                    path: '/menu-1-1-1',
-                                    component: 'submenu',
-                                    meta: {
-                                        title: 'menu-1-1-1'
-                                    }
-                                }
-                            ]
+                            component: 'view',
+                            meta: { title: '菜单-1-1' },
                         },
                         {
                             path: '/menu-1-2',
-                            component: 'submenu',
-                            meta: {
-                                title: 'menu-1-2'
-                            }
+                            meta: { title: '菜单-1-2' },
+                            children: [
+                                {
+                                    path: '/menu-1-2-1',
+                                    component: 'view',
+                                    meta: { title: '菜单-1-2-1' }
+                                }
+                            ],
+                        }
+                    ]
+                },
+                {
+                    path: '/menu-2',
+                    meta: { title: '菜单-2' },
+                    children: [
+                        {
+                            path: '/menu-2-1',
+                            component: 'view',
+                            meta: { title: '菜单-2-1' }
                         }
                     ]
                 }
             ]
-        },
+        }
     ]
 } satisfies AppRouteRecordRaw
