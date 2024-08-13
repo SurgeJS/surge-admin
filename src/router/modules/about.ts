@@ -4,6 +4,7 @@ export default {
     title: '关于',
     icon: 'ant-design:like-filled',
     order: 5,
+    keepAlive: true,
   },
   component: 'menu'
 } satisfies AppRouteRecordRaw

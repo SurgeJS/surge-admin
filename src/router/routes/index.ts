@@ -29,4 +29,18 @@ export const ROUTE_NOT_FOUND: AppRouteRecordRaw = {
     redirect: '/404',
 }
 
-export default [ROUTE_ROOT, ROUTE_LOGIN, ROUTE_404, ROUTE_NOT_FOUND]
+export const TEST_ROUTE: AppRouteRecordRaw = {
+    path: '/test',
+    children: [
+        {
+            path: '/a',
+            component: 'single'
+        },
+        {
+            path: '/b',
+            component: 'single'
+        }
+    ],
+}
+
+export default [ROUTE_ROOT, ROUTE_LOGIN, ROUTE_404, ROUTE_NOT_FOUND,TEST_ROUTE]

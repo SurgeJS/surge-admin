@@ -79,7 +79,7 @@ export class RouterUtils {
         // 组件路径
         const componentPath = `/src/views${ recordPath }/index.vue`
         const viewComponent = Object.keys(this.VIEW_COMPONENTS).find(path => path === componentPath)
-        if (!viewComponent) console.error('没有找到组件：', componentPath)
+        if (!viewComponent) console.error('未找到与路由对应的页面组件：', componentPath)
         const component = this.VIEW_COMPONENTS[viewComponent as string]
 
         return () => component().then((res: any) => {
@@ -134,10 +134,8 @@ export class RouterUtils {
                 }
                 vueRoute.component = () => import('@/layouts/index.vue')
                 break
-            // 目录
-            case 'directory':
+            default :
                 vueRoute.component = undefined
-                break
         }
         return vueRoute
     }
