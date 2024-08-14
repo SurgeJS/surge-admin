@@ -79,8 +79,12 @@ export class RouterUtils {
         // 组件路径
         const componentPath = `/src/views${ recordPath }/index.vue`
         const viewComponent = Object.keys(this.VIEW_COMPONENTS).find(path => path === componentPath)
-        if (!viewComponent) console.error('未找到与路由对应的页面组件：', componentPath)
-        const component = this.VIEW_COMPONENTS[viewComponent as string]
+        if (!viewComponent) {
+            console.error('未找到与路由对应的页面组件：', componentPath)
+            return undefined
+        }
+
+        const component = this.VIEW_COMPONENTS[viewComponent]
 
         return () => component().then((res: any) => {
             return ({
@@ -139,9 +143,14 @@ export class RouterUtils {
             route.path = fatherPath ? fatherPath + route.path : route.path
             const vueRoute = this.transformCustomRouteToVueRoute(route)
 
+            if (route.component === 'view' && route.children) {
+                console.log(route.path)
+            }
+
             if (route.children?.length && vueRoute) {
                 vueRoute.children = this.transformCustomRoutesToVueRoutes(route.children, route.path)
             }
+
             vueRoute && vueRoutes.push(vueRoute)
             return vueRoutes
         }, [])
