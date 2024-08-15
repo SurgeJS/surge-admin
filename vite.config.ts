@@ -4,11 +4,11 @@ import { createVitePlugins } from './build/deploy/plugins'
 import { wrapperEnv } from './build/utils'
 import { proxyConfig } from './build/deploy/proxy'
 
-export default defineConfig(({mode}) => {
+export default defineConfig(({ mode }) => {
     const root = process.cwd()
     // 获取并包装 .env 环境变量
     const viteEnv = wrapperEnv(loadEnv(mode, root))
-    const {VITE_PORT, VITE_PUBLIC_PATH, VITE_DELETE_CONSOLE} = viteEnv
+    const { VITE_PORT, VITE_PUBLIC_PATH, VITE_DELETE_CONSOLE } = viteEnv
     return {
         root,
         base: VITE_PUBLIC_PATH,

@@ -1,5 +1,5 @@
 import '@tanstack/vue-query'
-import { ResponseError } from "@/services/request/axios/types"
+import { ResponseError } from '@/services/request/axios/types'
 
 declare module '@tanstack/vue-query' {
     // 全局注册

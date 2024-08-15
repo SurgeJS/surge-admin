@@ -1,4 +1,4 @@
-import {SizeType} from 'ant-design-vue/es/config-provider'
+import { SizeType } from 'ant-design-vue/es/config-provider'
 
 declare global {
   // 页面切换动画  左滑淡出 | 右滑淡出 | 缩放淡入淡出

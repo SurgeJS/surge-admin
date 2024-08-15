@@ -27,7 +27,7 @@ const schema: SchemaType<typeof form.value>[] = [
 ]
 
 const modifyLabel = () => {
-  nameLabel.value = 'ssssssssss' || faker.person.lastName()
+  nameLabel.value = faker.person.lastName()
 }
 const modifyValue = () => {
   form.value.name = faker.person.fullName()

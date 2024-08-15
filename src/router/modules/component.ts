@@ -18,17 +18,7 @@ export default {
                     component: 'view',
                     meta: {
                         title: '基础表单'
-                    },
-                    children: [
-                        {
-                            path: '/test',
-                            component: 'view',
-                            meta: {
-                                title: '测试',
-                                hideMenu: true
-                            },
-                        }
-                    ]
+                    }
                 },
                 {
                     path: '/groupForm',

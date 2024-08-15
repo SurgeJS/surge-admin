@@ -12,7 +12,7 @@
     "build:test": "vue-tsc --noEmit --skipLibCheck && vite build --mode test",
     "preview": "vite preview --open --port 9999",
     "type-check": "vue-tsc --noEmit --skipLibCheck",
-    "lint": "eslint src --fix ",
+    "lint": "eslint --fix ",
     "lint-staged": "lint-staged --no-stash"
   },
   "dependencies": {
@@ -61,7 +61,7 @@
     "vite-plugin-compression": "^0.5.1",
     "vite-plugin-fake-server": "^2.1.1",
     "vite-plugin-html": "^3.2.2",
-    "vite-plugin-pwa": "^0.20.1",
+    "vite-plugin-vue-devtools": "^7.3.8",
     "vue-eslint-parser": "^9.4.3",
     "vue-tsc": "^2.0.29"
   },

@@ -2,7 +2,7 @@ import { defineFakeRoute } from 'vite-plugin-fake-server/client'
 
 export default defineFakeRoute([
   {
-    url: '/mock/passwordLogin',
+    url: '/passwordLogin',
     method: 'post',
     timeout: 1000,
     response: () => {
@@ -16,7 +16,7 @@ export default defineFakeRoute([
     }
   },
   {
-    url: '/mock/getUserinfo',
+    url: '/getUserinfo',
     method: 'get',
     response: () => {
       return {
@@ -26,7 +26,7 @@ export default defineFakeRoute([
           // 权限
           permissions: [],
           // 角色
-          roles: [ 'Super' ],
+          roles: ['Super'],
           // 用户信息
           userinfo: {
             userId: 1,
@@ -40,7 +40,7 @@ export default defineFakeRoute([
     }
   },
   {
-    url: '/mock/signOut',
+    url: '/signOut',
     method: 'get',
     response: () => {
       return {
@@ -51,7 +51,7 @@ export default defineFakeRoute([
     }
   },
   {
-    url: '/mock/getRoutes',
+    url: '/getRoutes',
     method: 'get',
     response: () => {
       return {

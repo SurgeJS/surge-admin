@@ -4,7 +4,7 @@ import { handleAxiosError, handleResponseError } from '@/services/request/utils'
 import { ResponseContent } from '@/services/request/axios/types'
 
 const fakeAxiosInstance = new CreateAxios<Result>({
-    baseURL: '/mock',
+    baseURL: '/fake',
     timeout: 10000,
     interceptor: {
         onBeforeRequest() {

@@ -2,14 +2,7 @@ import store from 'store2'
 import Cookies from 'js-cookie'
 
 // 缓存类型
-export enum CacheType {
-    // 本地
-    LOCAL = 'local',
-    // 会话
-    SESSION = 'session',
-    // 曲奇
-    Cookie = 'cookie'
-}
+export type CacheType = 'local' | 'session' | 'cookie'
 
 // 缓存模板
 export interface CacheTemplate<T> {
@@ -23,20 +16,13 @@ export interface CacheTemplate<T> {
      */
     set(value: T,expires?: number): void
 
-    /**
-     * 获取缓存
-     * @return T
-     */
+    // 获取缓存
     get(): T | null
 
-    /**
-     * 删除缓存
-     */
+    // 删除缓存
     remove(): void
 
-    /**
-     * 是否存在
-     */
+    // 是否存在
     isExist():boolean
 }
 
@@ -45,48 +31,48 @@ export interface CacheTemplate<T> {
  * @param key 换成名称
  * @param type 缓存类型,默认是local
  */
-export const createCache = <T>(key: string, type: CacheType = CacheType.LOCAL): CacheTemplate<T> => {
+export const createCache = <T>(key: string, type: CacheType = 'local'): CacheTemplate<T> => {
     return {
         key,
         set(value,expires?) {
             switch (type) {
-                case CacheType.LOCAL:
+                case 'local':
                     store.set(key,value)
                     break
-                case CacheType.SESSION:
+                case 'session':
                     store.session.set(key,value)
                     break
-                case CacheType.Cookie:
+                case 'cookie':
                     Cookies.set(key,value as string,{ expires })
             }
         },
         get() {
             switch (type) {
-                case CacheType.LOCAL:
+                case 'local':
                     return store.get(key)
-                case CacheType.SESSION:
+                case 'session':
                     return store.session.get(key)
-                case CacheType.Cookie:
+                case 'cookie':
                     return Cookies.get(key)
             }
         },
         remove() {
             switch (type) {
-                case CacheType.LOCAL:
+                case 'local':
                     return store.remove(key)
-                case CacheType.SESSION:
+                case 'session':
                     return store.session.remove(key)
-                case CacheType.Cookie:
+                case 'cookie':
                     return Cookies.remove(key)
             }
         },
         isExist() {
             switch (type) {
-                case CacheType.LOCAL:
+                case 'local':
                     return store.has(key)
-                case CacheType.SESSION:
+                case 'session':
                     return store.session.has(key)
-                case CacheType.Cookie:
+                case 'cookie':
                     return Boolean(Cookies.get(key))
             }
         }

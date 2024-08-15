@@ -1,12 +1,13 @@
 import { defineFakeRoute } from 'vite-plugin-fake-server/client'
 import { faker } from '@faker-js/faker/locale/zh_CN'
 
+
 export default defineFakeRoute([
     {
-        url: '/mock/getTodos',
+        url: '/getTodos',
         method: 'post',
         timeout:1000,
-        response: (processedRequest,req,res) => {
+        response: (processedRequest) => {
             const { pageSize,pageNo } = processedRequest.body
             const list: Recordable[] = []
             for (let i = 0; i < 500; i++) {
