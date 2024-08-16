@@ -6,7 +6,7 @@ import { cloneDeep } from 'lodash-es'
 
 const appStore = useAppStore()
 const clipboard = useClipboard()
-const [visible,toggleVisible] = useToggle()
+const [ visible,toggleVisible ] = useToggle()
 
 const copyCurrentConfig = () => {
   clipboard.copy(JSON.stringify(appStore.$state,null,4))

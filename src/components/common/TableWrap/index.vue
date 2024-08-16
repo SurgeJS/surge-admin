@@ -20,7 +20,7 @@ const tableColumns = defineModel<SuperTableColumn[]>('columns', { required: true
 const { currentDensity } = useProvideBaseTableStore(props, tableColumns)
 
 // 超级表格Props
-const superTableProps = useOmitProps(props, ['heading', 'hideHeader', 'hideToolBar'])
+const superTableProps = useOmitProps(props, [ 'heading', 'hideHeader', 'hideToolBar' ])
 
 const size = computed(() => props.size || currentDensity.value[0] as SizeType)
 

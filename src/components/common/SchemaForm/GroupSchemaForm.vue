@@ -23,8 +23,8 @@ const slots = defineSlots<GroupSchemaFormSlots>()
 const model = defineModel<Recordable>('model', { required: true })
 // 提供Schema上下文
 useProvideSchemaFormContext(props, model)
-const formProps = useOmitProps(props, ['schema'])
-const formContentSlots = useOmitProps(slots, ['customActionButton', 'buttonAfter', 'buttonBefore','groupTitle'])
+const formProps = useOmitProps(props, [ 'schema' ])
+const formContentSlots = useOmitProps(slots, [ 'customActionButton', 'buttonAfter', 'buttonBefore','groupTitle' ])
 // 通用的导出方法
 const { formRef, commonExpose } = useExpose()
 // 通用方法

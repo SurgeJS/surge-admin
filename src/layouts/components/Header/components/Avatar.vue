@@ -4,7 +4,7 @@ import { message } from 'ant-design-vue'
 
 const authStore = useAuthStore()
 const signOut = async () => {
-  const [,error] = await authStore.signOut()
+  const [ ,error ] = await authStore.signOut()
   if (error) {
     message.warning(error.msg || '接口异常，强制退出登录')
   } else {

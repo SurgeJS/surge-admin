@@ -180,7 +180,7 @@ const callbackParamsFunction = <T = never>(value: T | CallbackParamsFunction<any
     : value
 
 // 获取最大Label宽度
-watch([formItemRef,toRef(label)], async () => {
+watch([ formItemRef,toRef(label) ], async () => {
   await nextTick()
   const scrollWidth = formItemRef.value?.$el.querySelector('.ant-form-item-label')?.scrollWidth
   if (scrollWidth > maxLabelWidth.value) maxLabelWidth.value = scrollWidth + 7

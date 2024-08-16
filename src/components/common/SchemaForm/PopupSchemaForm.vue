@@ -29,12 +29,12 @@ const slots = defineSlots<PopupSchemaFormSlots>()
 // 表单模型
 const model = defineModel<Recordable>('model', { required: true })
 const visible = defineModel<boolean>('visible', { required: true })
-const [DefineActionButton, ActionButton] = createReusableTemplate()
-const [DefineForm, Form] = createReusableTemplate()
+const [ DefineActionButton, ActionButton ] = createReusableTemplate()
+const [ DefineForm, Form ] = createReusableTemplate()
 // 提供Schema上下文
 useProvideSchemaFormContext(props, model)
-const formProps = useOmitProps(props, ['schema', 'visible', 'popupType', 'popupTitle', 'drawerProps', 'modalProps', 'maskClosable', 'closeResetModel', 'closeConfirm', 'confirmTitle', 'confirmContent'])
-const formContentSlots = useOmitProps(slots, ['customActionButton', 'buttonAfter', 'buttonBefore', 'popupHeader', 'popupFormBefore', 'popupFormAfter', 'popupFooter'])
+const formProps = useOmitProps(props, [ 'schema', 'visible', 'popupType', 'popupTitle', 'drawerProps', 'modalProps', 'maskClosable', 'closeResetModel', 'closeConfirm', 'confirmTitle', 'confirmContent' ])
+const formContentSlots = useOmitProps(slots, [ 'customActionButton', 'buttonAfter', 'buttonBefore', 'popupHeader', 'popupFormBefore', 'popupFormAfter', 'popupFooter' ])
 
 // 通用方法
 const { formRef, commonExpose } = useExpose()

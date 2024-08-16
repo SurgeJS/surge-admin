@@ -43,7 +43,7 @@ const flattenMenu = (menus: AppRouteRecordRaw[]): MenuSearchOption[] => {
       if (!menu.children?.length) {
         menuList.push({
           icon: icon as string,
-          labels: [...menuNames, menu.meta?.title as string],
+          labels: [ ...menuNames, menu.meta?.title as string ],
           path: menu.path as string
         })
       } else {

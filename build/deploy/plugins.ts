@@ -39,14 +39,14 @@ export const createVitePlugins = (viteEnv: ImportMetaEnv): PluginOption[] => {
         Components({
             // 为全局组件生成 TypeScript 声明,并指定生成目录
             dts: 'types/components.d.ts',
-            extensions: ['vue'],
-            include: [/\.vue$/, /\.vue\?vue/],
+            extensions: [ 'vue' ],
+            include: [ /\.vue$/, /\.vue\?vue/ ],
             resolvers: [
                 AntDesignVueResolver({ importStyle: false })
             ]
         }),
         AutoImport({
-            imports: ['vue', '@vueuse/core', 'vue-router', 'pinia'],
+            imports: [ 'vue', '@vueuse/core', 'vue-router', 'pinia' ],
             dts: 'types/auto-imports.d.ts'
         }),
         // 打包压缩
@@ -54,7 +54,7 @@ export const createVitePlugins = (viteEnv: ImportMetaEnv): PluginOption[] => {
             algorithm: VITE_BUILD_COMPRESS
         }),
         // 兼容一些旧版浏览器
-        VITE_LEGACY && legacy({ targets: ['defaults', 'not IE 11'] }),
+        VITE_LEGACY && legacy({ targets: [ 'defaults', 'not IE 11' ] }),
         // 数据模拟
         VITE_USE_FAKE && vitePluginFakeServer({
             basename: VITE_FAKE_PREFIX,

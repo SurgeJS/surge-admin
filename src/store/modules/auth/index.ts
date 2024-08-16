@@ -39,7 +39,7 @@ const useAuthStore = defineStore('Auth', {
         },
 
         // 设置 Token
-        setToken(token) {
+        setToken(token: string) {
             this.token = token
             tokenCache.set(token, ServicesConfig.TOKEN_EXPIRATION_TIME)
         },
@@ -52,27 +52,18 @@ const useAuthStore = defineStore('Auth', {
 
         // 密码登录
         async passwordLogin(form: UserModel.PasswordLoginParams) {
-            const [result, error] = await UserApi.passwordLogin(form).catch((err) => {
-                this.initAuthStore()
-                return Promise.reject(err)
-            })
+            const [ result, error ] = await UserApi.passwordLogin(form)
             if (error) return
-            
             this.setToken(result.token)
             await this.handleLoginAfter()
-            return Promise.resolve()
         },
 
         // 获取用户信息
         async getUserinfo() {
-            const [result, error] = await UserApi.getUserinfo().catch(() => {
-                this.initAuthStore()
-                return Promise.reject()
-            })
+            const [ result, error ] = await UserApi.getUserinfo()
             if (error) {
-                message.error(error.msg || Hint.SERVER_ERROR)
                 this.initAuthStore()
-                return Promise.reject()
+                return Promise.reject('用户信息获取失败')
             }
             this.roles = result.roles
             this.permissions = result.permissions
@@ -81,14 +72,14 @@ const useAuthStore = defineStore('Auth', {
 
         // 获取用户路由
         async getUserRoutes() {
-            const [result,error] = await UserApi.getRoutes().catch(() => {
+            const [ result, error ] = await UserApi.getRoutes().catch(() => {
                 this.initAuthStore()
                 return Promise.reject()
             })
             if (error) {
                 message.error(error.msg || Hint.SERVER_ERROR)
                 this.initAuthStore()
-                return Promise.reject()
+                return Promise.reject('用户路由获取失败')
             }
             this.routes = result
         },

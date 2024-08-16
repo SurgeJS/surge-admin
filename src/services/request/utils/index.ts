@@ -18,18 +18,21 @@ export const handleRepeatErrorMessage = (messageContent: string) => {
 // 处理axios错误
 export const handleAxiosError = (err: AxiosError) => {
     let errorMsg: string = Hint.SERVER_ERROR
+    const responseContent: ResponseContent = [ undefined, undefined, err.response ]
     // 处理响应后的错误
     if (err.response) {
         // 请求已发出，但服务器响应的状态码错误
         const msg = ServicesConfig.STATUS_ERROR[err.response.status]
         if (msg) errorMsg = msg
+        responseContent[1] = { code: err.response.status, msg: errorMsg }
     } else {
         // 处理请求时的错误
         const msg = ServicesConfig.REQUEST_ERROR[err.code as string]
         if (msg) errorMsg = msg
+        responseContent[1] = { code: err.code as string, msg: errorMsg }
     }
     handleRepeatErrorMessage(errorMsg)
-    return Promise.reject(errorMsg)
+    return responseContent
 }
 
 // 处理响应错误

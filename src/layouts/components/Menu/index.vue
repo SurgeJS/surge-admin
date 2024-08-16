@@ -13,7 +13,7 @@ const props = withDefaults(defineProps<MenuProps>(), {
 const route = useRoute()
 const router = useRouter()
 const appStore = useAppStore()
-const [isInternal, setInternal] = useToggle()
+const [ isInternal, setInternal ] = useToggle()
 const { RenderDynamicIcon } = useRenderIcon()
 
 const openKeys = ref<string[]>([])
@@ -21,7 +21,7 @@ const levelKeys = computed<Record<string, number>>(() => {
   return getLevelKeys(props.routes)
 })
 
-const selectedKeys = computed(() => [route.path])
+const selectedKeys = computed(() => [ route.path ])
 const theme = computed(() => props.dark ? 'dark' : 'light')
 const menus = computed(() => routesToMenus(props.routes))
 
@@ -102,7 +102,7 @@ watch(() => route.path, () => {
   if (isInternal.value || appStore.base.layoutMode === 'top' || appStore.sidebar.isCollapsed) return
   const pKeys = getParentKeys(route.path, props.routes)
   if (!appStore.sidebar.isMenuAccordion) {
-    openKeys.value = Array.from(new Set([...openKeys.value, ...pKeys]))
+    openKeys.value = Array.from(new Set([ ...openKeys.value, ...pKeys ]))
   } else {
     openKeys.value = pKeys
   }

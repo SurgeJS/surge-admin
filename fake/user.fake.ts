@@ -5,6 +5,7 @@ export default defineFakeRoute([
     url: '/passwordLogin',
     method: 'post',
     timeout: 1000,
+    statusCode: 200,
     response: () => {
       return {
         code: 200,
@@ -20,13 +21,13 @@ export default defineFakeRoute([
     method: 'get',
     response: () => {
       return {
-        code: 200,
+        code: 500,
         msg: 'ok',
         result: {
           // 权限
           permissions: [],
           // 角色
-          roles: ['Super'],
+          roles: [ 'Super' ],
           // 用户信息
           userinfo: {
             userId: 1,

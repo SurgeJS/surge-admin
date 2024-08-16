@@ -16,7 +16,7 @@ const route = useRoute()
 const router = useRouter()
 
 // 滚动按钮是否可见
-const [scrollBtnVisible, toggleScrollBtnVisible] = useToggle()
+const [ scrollBtnVisible, toggleScrollBtnVisible ] = useToggle()
 
 const tabBarContainer = ref<HTMLElement>()
 // 处理滚动按钮是否显示
@@ -57,7 +57,7 @@ useEventListener('resize', () => {
 
 // 监听路由变化
 watch(() => route.path, () => {
-  tabBarStore.addTab(pick(route, ['meta', 'path', 'name', 'fullPath']))
+  tabBarStore.addTab(pick(route, [ 'meta', 'path', 'name', 'fullPath' ]))
   scrollToActive()
 }, { immediate: true })
 

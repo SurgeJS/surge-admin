@@ -1,7 +1,7 @@
 import { computed,ref } from 'vue'
 import { createInjectionState } from '@vueuse/core'
 
-const [useProvideCounterStore,useCounterStore] = createInjectionState((initialValue: number) => {
+const [ useProvideCounterStore,useCounterStore ] = createInjectionState((initialValue: number) => {
     // state
     const count = ref(initialValue)
 

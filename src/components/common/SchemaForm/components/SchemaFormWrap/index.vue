@@ -12,6 +12,7 @@ const aFormProps = useOmitProps(props, [
   'formClass',
   'formStyle',
   'model',
+  'layout',
   'required',
   'labelCol',
   'labelWidth',
@@ -23,14 +24,17 @@ const aFormProps = useOmitProps(props, [
   'defaultValueDateFormat',
   'defaultValueTimeFormat',
   'autoPlaceholder',
-  'resetLoading',
-  'resetText',
+  'autoLabelWidth',
+  'autoRules',
   'submitLoading',
   'submitText',
+  'resetLoading',
+  'resetText',
+  'hideReset',
   'onSubmit',
   'onFinish',
   'onFinishFailed',
-  'onReset'
+  'onReset',
 ])
 
 const { formRef, commonExpose } = useExpose()

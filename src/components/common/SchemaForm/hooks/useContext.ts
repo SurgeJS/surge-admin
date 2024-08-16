@@ -3,7 +3,7 @@ import { SchemaFormCommonProps } from '@/components/common/SchemaForm/types/type
 import { ModelRef, ref } from 'vue'
 import { get, set } from 'lodash-es'
 
-const [useProvideSchemaFormContext,useSchemaFormContext] = createInjectionState((schemaFormProps: SchemaFormCommonProps,model: ModelRef<Recordable>) => {
+const [ useProvideSchemaFormContext,useSchemaFormContext ] = createInjectionState((schemaFormProps: SchemaFormCommonProps,model: ModelRef<Recordable>) => {
   // 最大label宽度
   const maxLabelWidth = ref(0)
 

@@ -2,19 +2,16 @@
 import { useLoginContext } from '@/views/login/utils/context'
 import { reactive, ref } from 'vue'
 import useAuthStore from '@/store/modules/auth'
-import { useToggle } from '@vueuse/core'
-import type { FormInstance } from 'ant-design-vue/es/form'
-import { SchemaType } from '@/components/common/SchemaForm/types/type'
+import { SchemaFormExpose, SchemaType } from '@/components/common/SchemaForm/types/type'
 import { LoginAction } from '@/views/login/type/enum'
 import useRenderIcon from '@/hooks/components/useRenderIcon'
 
-const { setAction } = useLoginContext()!
+const { setAction,loading,setLoading } = useLoginContext()!
 const authStore = useAuthStore()
-const [loading, toggleLoading] = useToggle()
+
 const { RenderUnoIcon } = useRenderIcon()
 
-const formRef = ref<FormInstance>()
-
+const formRef = ref<SchemaFormExpose>()
 
 const form: UserModel.PasswordLoginParams = reactive({
   username: 'admin',
@@ -45,7 +42,7 @@ const schema = ref<SchemaType<UserModel.PasswordLoginParams>[]>([
       size: 'large'
     },
     componentContent: {
-      prefix: () => RenderUnoIcon('i-ant-design:lock-outlined') 
+      prefix: () => RenderUnoIcon('i-ant-design:lock-outlined')
     },
     rule: {
       message: '请输入密码',
@@ -62,8 +59,8 @@ const schema = ref<SchemaType<UserModel.PasswordLoginParams>[]>([
 
 const handleLogin = async () => {
   await formRef.value?.validate()
-  toggleLoading(true)
-  await authStore.passwordLogin(form).finally(() => toggleLoading(false)) 
+  setLoading(true)
+  await authStore.passwordLogin(form).finally(() => setLoading(false))
 }
 </script>
 
@@ -71,7 +68,7 @@ const handleLogin = async () => {
   <a-flex gap="middle" vertical>
     <h1>登录</h1>
     <schema-form
-      :container="false"
+      ref="formRef"
       :model="form"
       hide-action-button
       :schema="schema"

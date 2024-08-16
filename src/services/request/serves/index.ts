@@ -13,18 +13,16 @@ const axiosInstance = new CreateAxios<Result>({
 
         },
         onResponse(response) {
+            const responseContent: ResponseContent<Result> = [ response.data.result, undefined, response ]
+
             // 处理响应错误
             if (ServicesConfig.SUCCESS_CODE !== response.data.code) {
                 // 错误的响应内容
-                const errorResponseContent: ResponseContent<Result> = [
-                    response.data.result,
-                    { code: response.data.code, msg: response.data.msg },
-                    response
-                ]
-                return handleResponseError(response.data.code, errorResponseContent)
+                responseContent[1] = { code: response.data.code, msg: response.data.msg }
+                return handleResponseError(response.data.code, responseContent)
             }
 
-            return [response.data.result, undefined, response]
+            return responseContent
         },
         onResponseError(error) {
             return handleAxiosError(error)

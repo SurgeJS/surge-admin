@@ -10,7 +10,7 @@ export default class CreateAxios<RResult extends Recordable = Recordable> {
     public axiosInstance: AxiosInstance
 
     constructor(config: AxiosConfig<RResult>) {
-        this.axiosInstance = axios.create(omit(config, ['interceptor']))
+        this.axiosInstance = axios.create(omit(config, [ 'interceptor' ]))
 
         // 请求拦截器
         this.axiosInstance.interceptors.request.use(

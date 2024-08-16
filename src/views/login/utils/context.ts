@@ -1,9 +1,11 @@
-import { createInjectionState } from '@vueuse/core'
+import { createInjectionState, useToggle } from '@vueuse/core'
 import { ref } from 'vue'
 import { LoginAction } from '@/views/login/type/enum'
 
 
-const [useProvideLoginContext, useLoginContext] = createInjectionState(() => {
+const [ useProvideLoginContext, useLoginContext ] = createInjectionState(() => {
+    const [ loading, setLoading ] = useToggle()
+
     // 当前行为
     const currentAction = ref<LoginAction>(LoginAction.PasswordLogin)
 
@@ -12,7 +14,7 @@ const [useProvideLoginContext, useLoginContext] = createInjectionState(() => {
         currentAction.value = action
     }
 
-    return { currentAction, setAction }
+    return { currentAction, setAction, loading, setLoading }
 })
 
 export { useProvideLoginContext, useLoginContext }

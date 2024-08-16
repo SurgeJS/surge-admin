@@ -7,7 +7,7 @@ import { useToggle } from '@vueuse/core'
 import { asyncWait } from '@/utils'
 import useRenderIcon from '@/hooks/components/useRenderIcon'
 
-const [isShow, toggleShow] = useToggle()
+const [ isShow, toggleShow ] = useToggle()
 const { RenderUnoIcon } = useRenderIcon()
 const form = ref({
   name: {

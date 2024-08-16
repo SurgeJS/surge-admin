@@ -19,13 +19,13 @@ const model = defineModel<Recordable>('model', { required: true })
 const active = defineModel<number>('active', { default: 1 })
 
 const { getModelValue } = useProvideSchemaFormContext(props, model)
-const formProps = useOmitProps(props, ['schema', 'active','preText','preLoading','nextText','nextLoading','stepsProps','onPre','onNext'])
-const formContentSlots = useOmitProps(slots, ['customActionButton', 'buttonAfter', 'buttonBefore'])
+const formProps = useOmitProps(props, [ 'schema', 'active','preText','preLoading','nextText','nextLoading','stepsProps','onPre','onNext' ])
+const formContentSlots = useOmitProps(slots, [ 'customActionButton', 'buttonAfter', 'buttonBefore' ])
 const { formRef, commonExpose } = useExpose()
 const { handleSubmit } = useMethod(props, commonExpose, model)
 
 // 步骤条选项
-const stepsItems = computed(() => props.schema?.map(item => omit(item, ['form'])))
+const stepsItems = computed(() => props.schema?.map(item => omit(item, [ 'form' ])))
 
 // 获取当前步骤的Model
 const getCurrentStepModel = () => {

@@ -2,13 +2,13 @@ import { AxiosError, AxiosRequestConfig, AxiosResponse, CreateAxiosDefaults } fr
 
 // 响应错误
 export interface ResponseError {
-    code: number
+    code: number | string
 
     msg: string
 }
 
 // 响应内容
-export type ResponseContent<T = any, D = any> = [ T, ResponseError | undefined, AxiosResponse<T, D> ]
+export type ResponseContent<T = any, D = any> = [ T, ResponseError?, AxiosResponse<T, D>? ]
 
 // axios拦截器
 export interface AxiosInterceptor<T = any> {
@@ -19,7 +19,7 @@ export interface AxiosInterceptor<T = any> {
     onResponse?(response: AxiosResponse<T>): ResponseContent<T> | Promise<ResponseContent<T>>
 
     // 响应错误
-    onResponseError?(error: AxiosError): any | Promise<any>
+    onResponseError?(error: AxiosError): ResponseContent | Promise<ResponseContent>
 }
 
 // axios配置

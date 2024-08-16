@@ -43,4 +43,4 @@ export const TEST_ROUTE: AppRouteRecordRaw = {
     ],
 }
 
-export default [ROUTE_ROOT, ROUTE_LOGIN, ROUTE_404, ROUTE_NOT_FOUND, TEST_ROUTE]
+export default [ ROUTE_ROOT, ROUTE_LOGIN, ROUTE_404, ROUTE_NOT_FOUND, TEST_ROUTE ]

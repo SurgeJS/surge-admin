@@ -4,7 +4,7 @@ import { ref } from 'vue'
 import useRenderIcon from '@/hooks/components/useRenderIcon'
 import { DefaultOptionType } from 'ant-design-vue/es/vc-tree-select/TreeSelect'
 
-const [visible,setVisible] = useToggle()
+const [ visible,setVisible ] = useToggle()
 const { RenderUnoIcon } = useRenderIcon()
 
 const form = ref({

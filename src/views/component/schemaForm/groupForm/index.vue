@@ -82,7 +82,7 @@ const area: DefaultOptionType[] = [
     ]
   }
 ]
-const [isShow] = useToggle(true)
+const [ isShow ] = useToggle(true)
 const schema1: GroupSchemaType<typeof form.value>[] = [
   {
     title: '基础信息',

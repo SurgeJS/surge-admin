@@ -24,7 +24,7 @@ export default defineConfig(({ mode }) => {
                 '@': path.resolve('src'),
                 '#': path.resolve('types')
             },
-            extensions: ['.js', '.ts', '.tsx', '.jsx', '.vue']
+            extensions: [ '.js', '.ts', '.tsx', '.jsx', '.vue' ]
         },
         build: {
             chunkSizeWarningLimit: 4000,

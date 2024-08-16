@@ -34,9 +34,9 @@ export default defineConfig({
     rules:
         [
             // 填充（单位 px）
-            [/^full-(\d+)$/, ([, d]) => ({ width: `${ d }px`, height: `${ d }px` })],
+            [ /^full-(\d+)$/, ([ , d ]) => ({ width: `${ d }px`, height: `${ d }px` }) ],
             // 填充（任意单位）
-            [/^full-\[(.*)]$/, ([, d]) => ({ width: d, height: d })]
+            [ /^full-\[(.*)]$/, ([ , d ]) => ({ width: d, height: d }) ]
         ],
     shortcuts:
         {

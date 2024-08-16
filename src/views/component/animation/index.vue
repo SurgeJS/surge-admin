@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const [isShow,toggleShow] = useToggle()
+const [ isShow,toggleShow ] = useToggle()
 </script>
 
 <template>

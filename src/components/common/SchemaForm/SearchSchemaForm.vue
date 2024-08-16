@@ -30,15 +30,15 @@ const slots = defineSlots<SearchSchemaFormSlots>()
 const model = defineModel<Recordable>('model', { required: true })
 // 提供Schema上下文
 useProvideSchemaFormContext(props, model)
-const formProps = useOmitProps(props, ['searchShowNumber', 'schema'])
-const formContentSlots = useOmitProps(slots, ['customActionButton', 'buttonAfter', 'buttonBefore'])
+const formProps = useOmitProps(props, [ 'searchShowNumber', 'schema' ])
+const formContentSlots = useOmitProps(slots, [ 'customActionButton', 'buttonAfter', 'buttonBefore' ])
 
 // 通用方法
 const { formRef, commonExpose } = useExpose()
 const { handleReset, handleSubmit } = useMethod(props, commonExpose, model)
 
 // 是否展开搜索表单
-const [isExpandSearchForm, setExpandSearchForm] = useToggle()
+const [ isExpandSearchForm, setExpandSearchForm ] = useToggle()
 
 // 搜索Schema
 const searchSchemas = computed(() => {

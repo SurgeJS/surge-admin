@@ -20,16 +20,16 @@ const usePaginationQuery =
         asyncFn: (query: PaginationParams<DParams>) => Promise<ResponseContent<TResponse, DParams>>,
         options?: Partial<UseQueryOptions<TResponse>>
     ) => {
-        const keys = isString(queryKey) ? [queryKey] : queryKey
+        const keys = isString(queryKey) ? [ queryKey ] : queryKey
 
         const pageNo = computed(() => query.value.pageNo)
         const pageSize = computed(() => query.value.pageSize)
 
         return useQuery<TResponse>({
-            queryKey: [...keys, pageNo, pageSize],
+            queryKey: [ ...keys, pageNo, pageSize ],
             placeholderData: keepPreviousData,
             queryFn: async () => {
-                const [data, error] = await asyncFn(query.value)
+                const [ data, error ] = await asyncFn(query.value)
                 if (error) return Promise.reject(error)
                 return data
             },

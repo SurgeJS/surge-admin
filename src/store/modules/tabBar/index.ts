@@ -78,7 +78,7 @@ const useTabBarStore = defineStore('TabBar', {
             if (index === 0 || index === -1) return
             index > this.activeIndex && router.push(path)
             const tabs = this.tabs.slice(index)
-            this.tabs = [...this.getCurrentTabsAffixTab(index, 'left'), ...tabs]
+            this.tabs = [ ...this.getCurrentTabsAffixTab(index, 'left'), ...tabs ]
         },
 
         // 关闭右侧
@@ -87,7 +87,7 @@ const useTabBarStore = defineStore('TabBar', {
             if (index === this.tabs.length - 1 || index === -1) return
             index < this.activeIndex && router.push(path)
             const tabs = this.tabs.slice(0, index + 1)
-            this.tabs = [...tabs, ...this.getCurrentTabsAffixTab(index, 'right')]
+            this.tabs = [ ...tabs, ...this.getCurrentTabsAffixTab(index, 'right') ]
         },
 
         // 关闭其他
@@ -95,7 +95,7 @@ const useTabBarStore = defineStore('TabBar', {
             const i = this.getIndex(path)
             if (i === -1) return
             i !== this.activeIndex && router.push(path)
-            const tabs = [...this.getCurrentTabsAffixTab()]
+            const tabs = [ ...this.getCurrentTabsAffixTab() ]
             const tab = this.tabs[i]
             if (!tab.meta?.affixTab) tabs.push(tab)
             this.tabs = tabs
@@ -103,7 +103,7 @@ const useTabBarStore = defineStore('TabBar', {
 
         // 关闭全部
         closeAll() {
-            this.tabs = [...this.getCurrentTabsAffixTab()]
+            this.tabs = [ ...this.getCurrentTabsAffixTab() ]
             // 重定向到首页
             void router.push(RouterConfig.HOME_PATH)
         },
@@ -131,7 +131,7 @@ const useTabBarStore = defineStore('TabBar', {
         // 初始化标签栏
         initializeTabBar(routes: AppRouteRecordRaw[]) {
             // 初始化固定标签
-            this.tabs = [...this.getRouterAffixTabs(routes)]
+            this.tabs = [ ...this.getRouterAffixTabs(routes) ]
         }
     }
 })
