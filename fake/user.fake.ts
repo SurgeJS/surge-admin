@@ -21,7 +21,7 @@ export default defineFakeRoute([
     method: 'get',
     response: () => {
       return {
-        code: 500,
+        code: 200,
         msg: 'ok',
         result: {
           // 权限

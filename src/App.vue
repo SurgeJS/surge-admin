@@ -5,7 +5,6 @@ import useAppStore from '@/store/modules/app'
 import zhCN from 'ant-design-vue/es/locale/zh_CN'
 
 const appStore = useAppStore()
-
 // 全局初始化
 useGlobalInitialize()
 

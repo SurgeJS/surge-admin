@@ -5,6 +5,8 @@ export interface ResponseError {
     code: number | string
 
     msg: string
+
+    axiosError?: AxiosError
 }
 
 // 响应内容

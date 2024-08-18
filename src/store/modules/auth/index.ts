@@ -1,10 +1,9 @@
 import { defineStore } from 'pinia'
 import { UserApi } from '@/services/api/user'
-import { message, notification } from 'ant-design-vue'
+import { notification } from 'ant-design-vue'
 import router from '@/router'
 import { RouterUtils } from '@/router/utils/tool'
 import RouterConfig from '@/config/router'
-import Hint from '@/config/hint'
 import { tokenCache } from '@/store/caches'
 import ServicesConfig from '@/config/services'
 
@@ -72,12 +71,8 @@ const useAuthStore = defineStore('Auth', {
 
         // 获取用户路由
         async getUserRoutes() {
-            const [ result, error ] = await UserApi.getRoutes().catch(() => {
-                this.initAuthStore()
-                return Promise.reject()
-            })
+            const [ result, error ] = await UserApi.getRoutes()
             if (error) {
-                message.error(error.msg || Hint.SERVER_ERROR)
                 this.initAuthStore()
                 return Promise.reject('用户路由获取失败')
             }

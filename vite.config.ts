@@ -8,6 +8,7 @@ export default defineConfig(({ mode }) => {
     const root = process.cwd()
     // 获取并包装 .env 环境变量
     const viteEnv = wrapperEnv(loadEnv(mode, root))
+    console.log(viteEnv)
     const { VITE_PORT, VITE_PUBLIC_PATH, VITE_DELETE_CONSOLE } = viteEnv
     return {
         root,

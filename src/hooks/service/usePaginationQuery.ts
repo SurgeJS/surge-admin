@@ -15,9 +15,9 @@ import { isString } from 'lodash-es'
 const usePaginationQuery =
     <TResponse = any, DParams extends Recordable = Recordable>
     (
-        query: Ref<PaginationParams<DParams>>,
+        query: Ref<PaginationParams<DParams> | DParams>,
         queryKey: QueryKey | string,
-        asyncFn: (query: PaginationParams<DParams>) => Promise<ResponseContent<TResponse, DParams>>,
+        asyncFn: (query: PaginationParams<DParams> | DParams) => Promise<ResponseContent<TResponse, DParams>>,
         options?: Partial<UseQueryOptions<TResponse>>
     ) => {
         const keys = isString(queryKey) ? [ queryKey ] : queryKey
@@ -31,9 +31,6 @@ const usePaginationQuery =
             queryFn: async () => {
                 const [ data, error ] = await asyncFn(query.value)
                 if (error) return Promise.reject(error)
-                return data
-            },
-            select(data) {
                 return data
             },
             ...options
