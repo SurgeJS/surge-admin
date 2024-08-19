@@ -4,9 +4,9 @@ import { getApiUrl, wrapperMetaEnv } from '@/utils/env'
 import CreateAxios from '@/services/request/axios'
 import { ResponseContent } from '@/services/request/axios/types'
 
-const { VITE_API_CONFIG } = wrapperMetaEnv()
+const { VITE_SERVICE_CONFIG } = wrapperMetaEnv()
 const axiosInstance = new CreateAxios<Result>({
-    baseURL: getApiUrl('main', VITE_API_CONFIG),
+    baseURL: getApiUrl('main', VITE_SERVICE_CONFIG),
     timeout: 10000,
     interceptor: {
         onBeforeRequest() {

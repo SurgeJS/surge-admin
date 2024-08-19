@@ -4,10 +4,10 @@ import { handleAxiosError, handleResponseError } from '@/services/request/utils'
 import { ResponseContent } from '@/services/request/axios/types'
 import { getApiUrl, wrapperMetaEnv } from '@/utils/env'
 
-const { VITE_API_CONFIG } = wrapperMetaEnv()
+const { VITE_SERVICE_CONFIG } = wrapperMetaEnv()
 
 const fakeAxiosInstance = new CreateAxios<Result>({
-    baseURL: getApiUrl('fake', VITE_API_CONFIG),
+    baseURL: getApiUrl('fake', VITE_SERVICE_CONFIG),
     timeout: 10000,
     interceptor: {
         onBeforeRequest() {

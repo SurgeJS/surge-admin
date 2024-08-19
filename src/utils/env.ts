@@ -11,9 +11,9 @@ export const wrapperMetaEnv = (env?: Recordable): ImportMetaEnv => {
         return env
     }, {} as ImportMetaEnv)
 }
-
+    
 // 获取url
-export const getApiUrl = (key: keyof ViteApiConfig, apiConfig: ViteApiConfig) => {
+export const getApiUrl = (key: keyof ServiceConfig, apiConfig: ServiceConfig) => {
     const url = apiConfig[key]
     if (!url) {
         console.error(`Api配置错误,未找到该api:${ key }`)

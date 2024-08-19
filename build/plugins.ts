@@ -14,10 +14,9 @@ import devTools from 'vite-plugin-vue-devtools'
 import { getApiUrl } from '../src/utils/env'
 // Vite 插件配置
 export const createVitePlugins = (viteEnv: ImportMetaEnv): PluginOption[] => {
-    const { VITE_USE_FAKE, VITE_API_CONFIG, VITE_LEGACY, VITE_USE_DEV_TOOLS, VITE_BUILD_COMPRESS } = viteEnv
     return [
         // DevTools
-        VITE_USE_DEV_TOOLS && devTools({
+        viteEnv.VITE_USE_DEV_TOOLS && devTools({
             launchEditor: 'webstorm'
         }),
         vue(),
@@ -51,14 +50,14 @@ export const createVitePlugins = (viteEnv: ImportMetaEnv): PluginOption[] => {
             dts: 'types/auto-imports.d.ts'
         }),
         // 打包压缩
-        VITE_BUILD_COMPRESS !== 'none' && compress({
-            algorithm: VITE_BUILD_COMPRESS
+        viteEnv.VITE_BUILD_COMPRESS !== 'none' && compress({
+            algorithm: viteEnv.VITE_BUILD_COMPRESS
         }),
         // 兼容一些旧版浏览器
-        VITE_LEGACY && legacy({ targets: [ 'defaults', 'not IE 11' ] }),
+        viteEnv.VITE_LEGACY && legacy({ targets: [ 'defaults', 'not IE 11' ] }),
         // 数据模拟
-        VITE_USE_FAKE && vitePluginFakeServer({
-            basename: getApiUrl('fake', VITE_API_CONFIG),
+        viteEnv.VITE_USE_FAKE && vitePluginFakeServer({
+            basename: getApiUrl('fake', viteEnv.VITE_SERVICE_CONFIG),
             enableProd: true
         }),
     ]
