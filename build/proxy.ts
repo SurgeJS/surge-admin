@@ -4,10 +4,12 @@ import { ProxyOptions } from 'vite'
 export const proxyConfig = (viteEnv: ImportMetaEnv): Recordable<string | ProxyOptions> => {
     return Object.keys(viteEnv.VITE_API_CONFIG).reduce((proxy, key) => {
         if (typeof viteEnv.VITE_API_CONFIG[key] === 'string') return proxy
+        // 前缀
         const prefix = viteEnv.VITE_API_CONFIG[key][0]
-        const url = viteEnv.VITE_API_CONFIG[key][1]
+        // api地址
+        const api = viteEnv.VITE_API_CONFIG[key][1]
         proxy[prefix] = {
-            target: url,
+            target: api,
             changeOrigin: true,
             rewrite: path => path.replace(new RegExp(`^${prefix}`), '')
         }

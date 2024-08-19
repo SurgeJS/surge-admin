@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import { useEventListener } from '@vueuse/core'
 import { onMounted, ref, watch } from 'vue'
 import useAuthStore from '@/store/modules/auth'
 import { useRouter } from 'vue-router'
+import { menuSearchCache } from '@/store/caches'
 
-interface MenuSearchOption {
+export interface MenuSearchOption {
   labels: string[]
 
   path: string
@@ -12,7 +12,6 @@ interface MenuSearchOption {
   icon?: string
 }
 
-// TODO:打开的时候获取焦点、搜索记录、重置
 const visible = defineModel<boolean>('visible')
 
 const authStore = useAuthStore()
@@ -20,8 +19,10 @@ const router = useRouter()
 
 const menus = ref<MenuSearchOption[]>([])
 const searchText = ref('')
-const searchResult = ref<MenuSearchOption[]>([])
+const searchResult = ref<MenuSearchOption[]>(menuSearchCache.get() || [])
 const active = ref(0)
+
+const isNotFound = computed(() => searchText.value.length && !searchResult.value.length)
 
 // 扁平化菜单
 const flattenMenu = (menus: AppRouteRecordRaw[]): MenuSearchOption[] => {
@@ -32,9 +33,9 @@ const flattenMenu = (menus: AppRouteRecordRaw[]): MenuSearchOption[] => {
       const menuNames = menuNameList || []
       if (!menu.children?.length) {
         menuList.push({
-          icon: icon as string,
+          icon: icon,
           labels: [ ...menuNames, menu.meta?.title as string ],
-          path: menu.path as string
+          path: menu.path
         })
       } else {
         menuNames.push(menu.meta?.title as string)
@@ -60,27 +61,42 @@ const handleKeyboardEvents = (event: KeyboardEvent) => {
       active.value === length - 1 ? (active.value = 0) : (active.value += 1)
       break
     case 'Enter':
-      if (menu) {
-        router.push(menu.path)
-        visible.value = false
-      }
+      handleMenuClick(menu)
       break
   }
 }
 
-const handleMenuClick = (path: string, i: number) => {
-  router.push(path)
+const handleMenuClick = (menu: MenuSearchOption) => {
+  router.push(menu.path)
   visible.value = false
-  active.value = i
+  const menuSearch = menuSearchCache.get() || []
+  const isExists = menuSearch.some(item => menu.path === item.path)
+  if (!isExists) {
+    menuSearch.unshift(menu)
+    menuSearchCache.set(menuSearch)
+  }
+}
+
+const onSearch = () => {
+  const value = searchText.value
+  if (value.length === 0) {
+    searchResult.value = menuSearchCache.get() || []
+  } else {
+    searchResult.value = menus.value.filter(item => item.labels.some(name => value && name.includes(value)))
+  }
 }
 
 onMounted(() => {
-  menus.value = flattenMenu(authStore.routes as AppRouteRecordRaw[])
-  useEventListener(window, 'keyup', handleKeyboardEvents)
+  menus.value = flattenMenu(authStore.routes)
 })
 
-watch(searchText, (value) => {
-  searchResult.value = menus.value.filter(item => item.labels.some(name => value && name.includes(value)))
+useEventListener(window, 'keyup', handleKeyboardEvents)
+
+watch(visible, () => {
+  if (!visible.value) {
+    searchText.value = ''
+    searchResult.value = menuSearchCache.get() || []
+  }
 })
 </script>
 
@@ -98,6 +114,7 @@ watch(searchText, (value) => {
         autofocus
         placeholder="请输入你想搜索的菜单"
         size="large"
+        @change="onSearch"
       >
         <template #suffix>
           <icon icon="i-ant-design:search-outlined" />
@@ -110,7 +127,7 @@ watch(searchText, (value) => {
           :class="{active:active===i}"
           class="menuSearchModal-card"
           size="small"
-          @click="handleMenuClick(item.path,i)"
+          @click="handleMenuClick(item)"
         >
           <div class="menuSearchModal-card-name">
             <iconify-icon :icon="item.icon" />
@@ -124,6 +141,7 @@ watch(searchText, (value) => {
           </div>
           <icon icon="i-tabler:arrow-back" />
         </div>
+        <a-empty v-show="isNotFound" description="没有搜索到" />
       </div>
     </a-flex>
     <template #footer>
@@ -173,16 +191,10 @@ watch(searchText, (value) => {
     border: 1px solid theme('borderColor.secondary');
 
     &.active {
-      background: theme('colors.primary');
-      color: white;
-
-      //:deep(.arco-card-body) {
-      //  color: white;
-      //}
-
+      background: theme('colors.primary-shallow');
+      color: theme('colors.primary');
       box-shadow: 5px 5px 5px theme('colors.primary-shallow');
     }
-
 
     svg {
       flex-shrink: 0;

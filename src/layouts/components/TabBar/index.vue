@@ -143,7 +143,7 @@ watch(tabBarStore.tabs, () => {
     align-items: center;
     background: theme('backgroundColor.container');
     border-radius: theme('borderRadius.md');
-    border: 1px solid theme('colors.fill-quaternary');
+    border: 1px solid theme('colors.fill-secondary');
     user-select: none;
     cursor: pointer;
     height: 30px;

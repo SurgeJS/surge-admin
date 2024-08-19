@@ -1,7 +1,7 @@
 /// <reference types="vite/client" />
 
 // 代理类型 0:前缀 1:url
-type ProxyType = [string, string];
+type ProxyType = [ string, string ];
 
 declare interface ViteApiConfig {
     // 数据模拟
@@ -27,7 +27,7 @@ declare interface ImportMetaEnv {
     // 是否删除console
     readonly VITE_DELETE_CONSOLE: boolean
 
-    // API 配置 ，value如果是字符串就表示不走代理，如果是数组就走代理
+    // API 配置多个服务,需要代理就写 "[前缀,Url]" 不需要就写 "api地址"
     readonly VITE_API_CONFIG: ViteApiConfig
 
     // 是否开启fake
