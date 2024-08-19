@@ -8,41 +8,41 @@ export default {
     },
     children: [
         {
-            path: '/schemaForm',
+            path: '/component/schemaForm',
             meta: {
                 title: 'Schema Form'
             },
             children: [
                 {
-                    path: '/basicForm',
+                    path: '/component/schemaForm/basicForm',
                     component: 'view',
                     meta: {
                         title: '基础表单'
                     }
                 },
                 {
-                    path: '/groupForm',
+                    path: '/component/schemaForm/groupForm',
                     component: 'view',
                     meta: {
                         title: '分组表单'
                     }
                 },
                 {
-                    path: '/stepForm',
+                    path: '/component/schemaForm/stepForm',
                     component: 'view',
                     meta: {
                         title: '步骤表单'
                     }
                 },
                 {
-                    path: '/searchForm',
+                    path: '/component/schemaForm/searchForm',
                     component: 'view',
                     meta: {
                         title: '搜索表单'
                     }
                 },
                 {
-                    path: '/popupForm',
+                    path: '/component/schemaForm/popupForm',
                     component: 'view',
                     meta: {
                         title: '弹框表单'
@@ -51,14 +51,14 @@ export default {
             ]
         },
         {
-            path: '/animation',
+            path: '/component/animation',
             component: 'view',
             meta: {
                 title: '动画'
             },
         },
         {
-            path: '/table',
+            path: '/component/table',
             component: 'view',
             meta: {
                 title: '表格'

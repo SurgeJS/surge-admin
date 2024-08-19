@@ -50,10 +50,9 @@ export const objectPathToArray = (path?: string): string[] => {
 }
 
 // 路径转大驼峰
-export const pathToPascalCase = (path: string) => {
-    return path
-        .split(/[\\/]/)
-        .filter(Boolean)
-        .map(part => part.split(/[-_ ]+/).map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(''))
-        .join('')
-}
+export const pathToPascalCase = (path: string) => path
+    .split(/[/_-]/)  // 使用正则表达式分割路径，支持 `/`, `_`, `-`
+    .filter(Boolean) // 过滤掉空字符串
+    .map(segment => segment.charAt(0).toUpperCase() + segment.slice(1))
+    .join('')
+

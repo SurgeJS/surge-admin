@@ -1,13 +1,8 @@
 <script lang="ts" setup>
-import { useEventListener, useVModel } from '@vueuse/core'
+import { useEventListener } from '@vueuse/core'
 import { onMounted, ref, watch } from 'vue'
 import useAuthStore from '@/store/modules/auth'
 import { useRouter } from 'vue-router'
-
-interface Props {
-  // 可见
-  visible: boolean
-}
 
 interface MenuSearchOption {
   labels: string[]
@@ -17,14 +12,9 @@ interface MenuSearchOption {
   icon?: string
 }
 
-interface Emits {
-  (e: 'update:visible', isShow: boolean): void
-}
+// TODO:打开的时候获取焦点、搜索记录、重置
+const visible = defineModel<boolean>('visible')
 
-const props = defineProps<Props>()
-const emits = defineEmits<Emits>()
-
-const visible = useVModel(props, 'visible', emits)
 const authStore = useAuthStore()
 const router = useRouter()
 

@@ -11,7 +11,7 @@ import Components from 'unplugin-vue-components/dist/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import { AntDesignVueResolver } from 'unplugin-vue-components/dist/resolvers'
 import devTools from 'vite-plugin-vue-devtools'
-import { getApiUrl } from '@/utils/env'
+import { getApiUrl } from '../src/utils/env'
 // Vite 插件配置
 export const createVitePlugins = (viteEnv: ImportMetaEnv): PluginOption[] => {
     const { VITE_USE_FAKE, VITE_API_CONFIG, VITE_LEGACY, VITE_USE_DEV_TOOLS, VITE_BUILD_COMPRESS } = viteEnv

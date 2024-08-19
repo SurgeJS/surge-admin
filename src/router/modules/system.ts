@@ -8,7 +8,7 @@ export default {
     },
     children: [
         {
-            path: '/userManage',
+            path: '/system/userManage',
             meta: { title: '用户管理' },
             component: 'view'
         }

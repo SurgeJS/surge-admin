@@ -3,42 +3,42 @@ import { RoleEnum } from '@/enums/auth'
 
 
 declare module 'vue-router' {
-  // 路由元数据
-  interface RouteMeta {
-    // 名称
-    title: string
+    // 路由元数据
+    interface RouteMeta {
+        // 名称
+        title?: string
 
-    // 细粒度权限
-    permissions?: string[]
+        // 细粒度权限
+        permissions?: string[]
 
-    // 角色
-    roles?: RoleEnum[]
+        // 角色
+        roles?: RoleEnum[]
 
-    // 忽略鉴权，用户可以直接访问
-    ignoreAuth?: boolean
+        // 忽略鉴权，用户可以直接访问
+        ignoreAuth?: boolean
 
-    // 是否缓存 (对iframeSrc无效)
-    keepAlive?: boolean
+        // 是否缓存 (对iframeSrc无效)
+        keepAlive?: boolean
 
-    // 是否固定在tab上
-    affixTab?: boolean
+        // 是否固定在tab上
+        affixTab?: boolean
 
-    // 图标
-    icon?: string
+        // 图标
+        icon?: string
 
-    // 内部嵌套地址
-    iframeSrc?: string
+        // 内部嵌套地址
+        iframeSrc?: string
 
-    // 是否自定义内嵌组件
-    isCustomizeIframeComponent?: boolean
+        // 是否自定义内嵌组件
+        isCustomizeIframeComponent?: boolean
 
-    // 菜单排序
-    order?: number
+        // 菜单排序
+        order?: number
 
-    // 隐藏菜单 (可以通过路由访问)
-    hideMenu?: boolean
+        // 隐藏菜单 (可以通过路由访问)
+        hideMenu?: boolean
 
-    // 禁用菜单 (不能通过路由访问)
-    disabledMenu?: boolean
-  }
+        // 禁用菜单 (不能通过路由访问)
+        disabledMenu?: boolean
+    }
 }

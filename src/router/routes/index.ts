@@ -33,11 +33,14 @@ export const TEST_ROUTE: AppRouteRecordRaw = {
     path: '/test',
     children: [
         {
-            path: '/a',
-            component: 'view'
+            path: '/test/a',
+            component: 'view',
+            meta: {
+                ignoreAuth: true,
+            },
         },
         {
-            path: '/b',
+            path: '/test/b',
             component: 'view'
         }
     ],

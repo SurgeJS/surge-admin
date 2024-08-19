@@ -8,13 +8,13 @@ export default {
     },
     children: [
         {
-            path: '/maps',
+            path: '/function/maps',
             meta: {
                 title: '地图'
             },
             children: [
                 {
-                    path: '/twoDimensionalMap',
+                    path: '/function/maps/twoDimensionalMap',
                     component: 'view',
                     meta: {
                         title: '二维地图'
@@ -23,26 +23,26 @@ export default {
             ]
         },
         {
-            path: '/menu',
+            path: '/function/menu',
             meta: {
                 title: '多级菜单',
             },
             children: [
                 {
-                    path: '/menu-1',
+                    path: '/function/menu/menu-1',
                     meta: { title: '菜单-1' },
                     children: [
                         {
-                            path: '/menu-1-1',
+                            path: '/function/menu/menu-1/menu-1-1',
                             component: 'view',
                             meta: { title: '菜单-1-1' },
                         },
                         {
-                            path: '/menu-1-2',
+                            path: '/function/menu/menu-1/menu-1-2',
                             meta: { title: '菜单-1-2' },
                             children: [
                                 {
-                                    path: '/menu-1-2-1',
+                                    path: '/function/menu/menu-1/menu-1-2/menu-1-2-1',
                                     component: 'view',
                                     meta: { title: '菜单-1-2-1' }
                                 }
@@ -51,11 +51,11 @@ export default {
                     ]
                 },
                 {
-                    path: '/menu-2',
+                    path: '/function/menu/menu-2',
                     meta: { title: '菜单-2' },
                     children: [
                         {
-                            path: '/menu-2-1',
+                            path: '/function/menu/menu-2/menu-2-1',
                             component: 'view',
                             meta: { title: '菜单-2-1' }
                         }
