@@ -1,14 +1,13 @@
 import { defineConfig, loadEnv } from 'vite'
-import * as path from 'path'
-import { createVitePlugins } from './build/deploy/plugins'
-import { wrapperEnv } from './build/utils'
-import { proxyConfig } from './build/deploy/proxy'
+import path from 'path'
+import { createVitePlugins } from './build/plugins'
+import { proxyConfig } from './build/proxy'
+import { wrapperMetaEnv } from './src/utils/env'
 
 export default defineConfig(({ mode }) => {
     const root = process.cwd()
     // 获取并包装 .env 环境变量
-    const viteEnv = wrapperEnv(loadEnv(mode, root))
-    console.log(viteEnv)
+    const viteEnv = wrapperMetaEnv(loadEnv(mode, root))
     const { VITE_PORT, VITE_PUBLIC_PATH, VITE_DELETE_CONSOLE } = viteEnv
     return {
         root,
@@ -22,13 +21,11 @@ export default defineConfig(({ mode }) => {
         resolve: {
             // 别名
             alias: {
-                '@': path.resolve('src'),
-                '#': path.resolve('types')
-            },
-            extensions: [ '.js', '.ts', '.tsx', '.jsx', '.vue' ]
+                '@': path.resolve(__dirname, 'src'),
+                '#': path.resolve(__dirname, 'types')
+            }
         },
         build: {
-            chunkSizeWarningLimit: 4000,
             reportCompressedSize: true,
             sourcemap: false,
             minify: 'terser',

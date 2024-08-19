@@ -2,12 +2,12 @@ import ServicesConfig from '@/config/services'
 import CreateAxios from '@/services/request/axios'
 import { handleAxiosError, handleResponseError } from '@/services/request/utils'
 import { ResponseContent } from '@/services/request/axios/types'
-import { getMetaEnv } from '@/utils/env'
+import { getApiUrl, wrapperMetaEnv } from '@/utils/env'
 
-const { VITE_FAKE_PREFIX } = getMetaEnv()
-console.log(import.meta.env)
+const { VITE_API_CONFIG } = wrapperMetaEnv()
+
 const fakeAxiosInstance = new CreateAxios<Result>({
-    baseURL: VITE_FAKE_PREFIX,
+    baseURL: getApiUrl('fake', VITE_API_CONFIG),
     timeout: 10000,
     interceptor: {
         onBeforeRequest() {
@@ -20,7 +20,7 @@ const fakeAxiosInstance = new CreateAxios<Result>({
             if (ServicesConfig.SUCCESS_CODE !== code) {
                 // 错误的响应内容
                 responseContent[1] = { code, msg }
-                return handleResponseError(code, responseContent,response.config)
+                return handleResponseError(code, responseContent, response.config)
             }
 
             return responseContent

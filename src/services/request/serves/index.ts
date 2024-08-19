@@ -1,12 +1,12 @@
 import ServicesConfig from '@/config/services'
 import { handleAxiosError, handleResponseError } from '@/services/request/utils'
-import { getMetaEnv } from '@/utils/env'
+import { getApiUrl, wrapperMetaEnv } from '@/utils/env'
 import CreateAxios from '@/services/request/axios'
 import { ResponseContent } from '@/services/request/axios/types'
 
-const { VITE_PROXY_PATH } = getMetaEnv()
+const { VITE_API_CONFIG } = wrapperMetaEnv()
 const axiosInstance = new CreateAxios<Result>({
-    baseURL: VITE_PROXY_PATH,
+    baseURL: getApiUrl('main', VITE_API_CONFIG),
     timeout: 10000,
     interceptor: {
         onBeforeRequest() {
@@ -20,7 +20,7 @@ const axiosInstance = new CreateAxios<Result>({
             if (ServicesConfig.SUCCESS_CODE !== code) {
                 // 错误的响应内容
                 responseContent[1] = { code, msg }
-                return handleResponseError(code, responseContent,response.config)
+                return handleResponseError(code, responseContent, response.config)
             }
 
             return responseContent

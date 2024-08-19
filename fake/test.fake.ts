@@ -7,7 +7,7 @@ export default defineFakeRoute([
         url: '/getTodos',
         method: 'post',
         timeout:1000,
-        response: (processedRequest) => {
+        response: ( processedRequest) => {
             const { pageSize,pageNo } = processedRequest.body
             const list: Recordable[] = []
             for (let i = 0; i < 500; i++) {
