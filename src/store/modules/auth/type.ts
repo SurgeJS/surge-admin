@@ -1,14 +1,13 @@
 import { RoleEnum } from '@/enums/auth'
 
-declare global {
-  /**
-   * 路由鉴权模式
-   * @description web：前端配置路由表，通过用户角色来过滤路由，然后自动生成菜单 （适合角色固定的系统）
-   * @description service：后端通过用户角色返回路由表，前端通过路由表自动生成菜单
-   */
-  type RouteAuthMode = 'web' | 'service'
+/**
+ * 路由鉴权模式
+ * @description web：前端配置路由表，通过用户角色来过滤路由，然后自动生成菜单 （适合角色固定的系统）
+ * @description service：后端通过用户角色返回路由表，前端通过路由表自动生成菜单
+ */
+export type RouteAuthMode = 'web' | 'service'
 
-  interface AuthStore {
+export interface AuthStore {
     token: Nullable<string>
 
     // 角色
@@ -28,6 +27,4 @@ declare global {
 
     // 用户的路由
     routes: AppRouteRecordRaw[]
-  }
-
 }

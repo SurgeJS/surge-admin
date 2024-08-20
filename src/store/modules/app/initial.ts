@@ -1,5 +1,6 @@
 import { cloneDeep } from 'lodash-es'
 import { appCache } from '@/store/caches'
+import { AppStore } from '@/store/modules/app/type'
 
 // 移动端处罚宽度
 const mobileTriggerWidth = 800

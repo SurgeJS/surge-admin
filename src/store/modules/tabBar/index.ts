@@ -3,6 +3,7 @@ import router from '@/router'
 import RouterConfig from '@/config/router'
 import { asyncWait } from '@/utils'
 import { RouteRecordNameGeneric } from 'vue-router'
+import { Tab, TabBarStore } from '@/store/modules/tabBar/type'
 
 const useTabBarStore = defineStore('TabBar', {
     state: (): TabBarStore => ({

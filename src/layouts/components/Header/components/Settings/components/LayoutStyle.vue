@@ -2,24 +2,25 @@
 import useAppStore from '@/store/modules/app'
 import LayoutCard from '@/layouts/components/Header/components/Settings/components/LayoutCard.vue'
 import { temporaryClearTransition } from '@/utils'
+import { LayoutStyleOption } from '@/store/modules/app/type'
 
 const layoutStyleList: LayoutStyleOption[] = [
-    {
-        value: 'side-dark',
-        label: '侧边暗色风格'
-    },
-    {
-        value: 'side-top-dark',
-        label: '侧边+顶部暗色风格'
-    },
-    {
-        value: 'side-top-light',
-        label: '侧边+顶部明亮风格'
-    }
+  {
+    value: 'side-dark',
+    label: '侧边暗色风格'
+  },
+  {
+    value: 'side-top-dark',
+    label: '侧边+顶部暗色风格'
+  },
+  {
+    value: 'side-top-light',
+    label: '侧边+顶部明亮风格'
+  }
 ]
 const appStore = useAppStore()
 const { base } = appStore
-const switchStyle = (option:LayoutStyleOption) => {
+const switchStyle = (option: LayoutStyleOption) => {
   temporaryClearTransition(() => {
     base.layoutStyle = option.value
   })

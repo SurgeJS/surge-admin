@@ -9,7 +9,7 @@ export default defineFakeRoute([
         statusCode: 200,
         response: () => {
             return rSuccess({
-                token: '123456'
+                token: 'xx'
             })
         }
     },

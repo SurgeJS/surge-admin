@@ -1,20 +1,21 @@
 <script lang="ts" setup>
 import useAppStore from '@/store/modules/app'
 import LayoutCard from '@/layouts/components/Header/components/Settings/components/LayoutCard.vue'
+import { LayoutModeOption } from '@/store/modules/app/type'
 
 const layoutModeList: LayoutModeOption[] = [
-    {
-        value: 'side',
-        label: '侧边菜单模式'
-    },
-    {
-        value: 'mix-side',
-        label: '侧边菜单混合模式'
-    },
-    {
-        value: 'top',
-        label: '顶部菜单模式'
-    }
+  {
+    value: 'side',
+    label: '侧边菜单模式'
+  },
+  {
+    value: 'mix-side',
+    label: '侧边菜单混合模式'
+  },
+  {
+    value: 'top',
+    label: '顶部菜单模式'
+  }
 ]
 const appStore = useAppStore()
 const { base } = appStore

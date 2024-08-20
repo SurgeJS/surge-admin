@@ -6,6 +6,7 @@ import { setCSSVariable, temporaryClearTransition } from '@/utils'
 import AppConfig from '@/config/app'
 import { theme } from 'ant-design-vue'
 import { ThemeConfig } from 'ant-design-vue/es/config-provider/context'
+import { AppStore, ThemeMode } from '@/store/modules/app/type'
 
 const useAppStore = defineStore('App', {
     state: (): AppStore => appStore,

@@ -73,7 +73,7 @@
             float: none;
             border: 0 solid currentColor;
             box-sizing: border-box;
-            background: linear-gradient(#4244c9,30%, #9641e5);
+            background: linear-gradient(#4244c9, 30%, #9641e5);
             white-space: nowrap;
             position: absolute;
             opacity: .7;
@@ -151,7 +151,7 @@
         @keyframes scale {
             from {
                 opacity: 0;
-                transform:scale(0);
+                transform: scale(0);
             }
             to {
                 opacity: 1;
@@ -163,25 +163,25 @@
         <div class="loading-container">
             <img width="180" src="./logo.png" alt="">
             <div class="loading">
-                <div ></div>
-                <div ></div>
-                <div ></div>
-                <div ></div>
-                <div ></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
             </div>
             <p class="title"><%= title %></p>
         </div>
     </div>
     <script>
-      const appJson = localStorage.getItem('SIMPLE_APP')
-      const app = appJson ? JSON.parse(appJson) : undefined
-      const theme = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
-      const loadingDom = document.querySelector('#app-loading')
-      if (!app) {
-        loadingDom.className = theme
-      } else {
-        loadingDom.className = app.base.themeModeFollowSystem ? theme : app.base.themeMode
-      }
+        const appJson = localStorage.getItem('SIMPLE_APP');
+        const app = appJson ? JSON.parse(appJson) : undefined;
+        const theme = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        const loadingDom = document.querySelector('#app-loading');
+        if (!app) {
+            loadingDom.className = theme;
+        } else {
+            loadingDom.className = app.base.themeModeFollowSystem ? theme : app.base.themeMode;
+        }
     </script>
 </div>
 <script type="module" src="/src/main.ts"></script>

@@ -6,15 +6,15 @@ export const wrapperMetaEnv = (env?: Recordable): ImportMetaEnv => {
         try {
             env[envKey] = JSON.parse(envValue)
         } catch (err) {
-            metaEnv[envKey] = envValue
+            env[envKey] = envValue
         }
         return env
     }, {} as ImportMetaEnv)
 }
-    
-// 获取url
-export const getApiUrl = (key: keyof ServiceConfig, apiConfig: ServiceConfig) => {
-    const url = apiConfig[key]
+
+// 获取服务地址
+export const getServiceAddress = (key: keyof ServiceConfig, apiConfig?: ServiceConfig) => {
+    const url = apiConfig ? apiConfig[key] : wrapperMetaEnv().VITE_SERVICE_CONFIG[key]
     if (!url) {
         console.error(`Api配置错误,未找到该api:${ key }`)
         return undefined

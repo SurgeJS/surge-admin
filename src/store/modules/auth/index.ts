@@ -6,6 +6,7 @@ import { RouterUtils } from '@/router/utils/tool'
 import RouterConfig from '@/config/router'
 import { tokenCache } from '@/store/caches'
 import ServicesConfig from '@/config/services'
+import { AuthStore } from '@/store/modules/auth/type'
 
 const useAuthStore = defineStore('Auth', {
     state: (): AuthStore => ({

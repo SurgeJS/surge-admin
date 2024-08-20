@@ -2,12 +2,10 @@ import ServicesConfig from '@/config/services'
 import CreateAxios from '@/services/request/axios'
 import { handleAxiosError, handleResponseError } from '@/services/request/utils'
 import { ResponseContent } from '@/services/request/axios/types'
-import { getApiUrl, wrapperMetaEnv } from '@/utils/env'
+import { getServiceAddress } from '@/utils/env'
 
-const { VITE_SERVICE_CONFIG } = wrapperMetaEnv()
-
-const fakeAxiosInstance = new CreateAxios<Result>({
-    baseURL: getApiUrl('fake', VITE_SERVICE_CONFIG),
+const fakeService = new CreateAxios<Result>({
+    baseURL: getServiceAddress('fake'),
     timeout: 10000,
     interceptor: {
         onBeforeRequest() {
@@ -31,4 +29,4 @@ const fakeAxiosInstance = new CreateAxios<Result>({
     }
 })
 
-export default fakeAxiosInstance
+export default fakeService

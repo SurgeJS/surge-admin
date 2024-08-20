@@ -11,9 +11,10 @@ import Components from 'unplugin-vue-components/dist/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import { AntDesignVueResolver } from 'unplugin-vue-components/dist/resolvers'
 import devTools from 'vite-plugin-vue-devtools'
-import { getApiUrl } from '../src/utils/env'
+import { getServiceAddress } from '../src/utils/env'
 // Vite 插件配置
 export const createVitePlugins = (viteEnv: ImportMetaEnv): PluginOption[] => {
+    console.log(viteEnv.VITE_APP_TITLE)
     return [
         // DevTools
         viteEnv.VITE_USE_DEV_TOOLS && devTools({
@@ -57,7 +58,7 @@ export const createVitePlugins = (viteEnv: ImportMetaEnv): PluginOption[] => {
         viteEnv.VITE_LEGACY && legacy({ targets: [ 'defaults', 'not IE 11' ] }),
         // 数据模拟
         viteEnv.VITE_USE_FAKE && vitePluginFakeServer({
-            basename: getApiUrl('fake', viteEnv.VITE_SERVICE_CONFIG),
+            basename: getServiceAddress('fake', viteEnv.VITE_SERVICE_CONFIG),
             enableProd: true
         }),
     ]

@@ -1,34 +1,33 @@
 import { SizeType } from 'ant-design-vue/es/config-provider'
 
-declare global {
-  // 页面切换动画  左滑淡出 | 右滑淡出 | 缩放淡入淡出
-  type PageAnimationMode = | 'left-slide-fade' | 'right-slide-fade' | 'zoom-fade'
+// 页面切换动画  左滑淡出 | 右滑淡出 | 缩放淡入淡出
+export type PageAnimationMode = | 'left-slide-fade' | 'right-slide-fade' | 'zoom-fade'
 
-  // 布局模式：侧边 | 混合侧边 | 顶部
-  type LayoutMode = 'side' | 'mix-side' | 'top'
+// 布局模式：侧边 | 混合侧边 | 顶部
+export type LayoutMode = 'side' | 'mix-side' | 'top'
 
-  // 布局风格 侧边暗黑 | 侧边顶部暗黑 | 侧边顶部明亮
-  type LayoutStyle = 'side-dark' | 'side-top-dark' | 'side-top-light'
+// 布局风格 侧边暗黑 | 侧边顶部暗黑 | 侧边顶部明亮
+export type LayoutStyle = 'side-dark' | 'side-top-dark' | 'side-top-light'
 
-  // 主题模式
-  type ThemeMode = 'light' | 'dark'
+// 主题模式
+export type ThemeMode = 'light' | 'dark'
 
-  type Option<T> = {
+export type Option<T> = {
     value: T
     label: string
-  }
+}
 
-  // 布局模式选项
-  type LayoutModeOption = Option<LayoutMode>
+// 布局模式选项
+export type LayoutModeOption = Option<LayoutMode>
 
-  // 布局风格选项
-  type LayoutStyleOption = Option<LayoutStyle>
+// 布局风格选项
+export type LayoutStyleOption = Option<LayoutStyle>
 
-  // 布局风格选项
-  type PageAnimationOption = Option<PageAnimationMode>
+// 布局风格选项
+export type PageAnimationOption = Option<PageAnimationMode>
 
-  // 侧边栏
-  interface LayoutSidebar {
+// 侧边栏
+export interface LayoutSidebar {
     // 是否折叠侧边栏
     isCollapsed: boolean
 
@@ -55,10 +54,10 @@ declare global {
 
     // 混合侧边栏宽度
     mixSidebarWidth: number
-  }
+}
 
-  // 头部
-  interface LayoutHeader {
+// 头部
+export interface LayoutHeader {
     // 是否开启面包屑
     breadcrumbVisible: boolean
 
@@ -70,19 +69,19 @@ declare global {
 
     // 标签栏高度
     tabBarHeight: number
-  }
+}
 
-  // 底部
-  interface LayoutFooter {
+// 底部
+export interface LayoutFooter {
     // 底部可见
     visible: boolean
 
     // 高度
     height: number
-  }
+}
 
 
-  interface LayoutApp {
+export interface LayoutApp {
     // 主题颜色
     themeColor: string
 
@@ -111,18 +110,18 @@ declare global {
     isMobile: boolean
 
     // 全屏loading
-    fullScreenLoading:boolean
-  }
+    fullScreenLoading: boolean
+}
 
-  interface antdConfig {
+export interface antdConfig {
     // 全局组件大小
     size: SizeType
 
     // 设置为 false 时，移除按钮中 2 个汉字之间的空格
     autoInsertSpaceInButton: boolean;
-  }
+}
 
-  interface AppStore {
+export interface AppStore {
     base: LayoutApp
 
     // 侧边栏
@@ -136,6 +135,4 @@ declare global {
 
     // antd 组件库配置
     antdConfig: antdConfig
-  }
 }
-

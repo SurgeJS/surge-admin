@@ -13,7 +13,6 @@ declare interface ServiceConfig {
     other: string | ProxyType
 }
 
-
 // 后台响应结构
 declare interface Result<Data = any> {
     // 系统状态

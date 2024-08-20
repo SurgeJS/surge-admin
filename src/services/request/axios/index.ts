@@ -3,9 +3,6 @@ import { AxiosConfig, ResponseContent } from '@/services/request/axios/types'
 import { omit } from 'lodash-es'
 
 
-/**
- * 统一了请求出口
- */
 export default class CreateAxios<RResult extends Recordable = Recordable> {
     public axiosInstance: AxiosInstance
 
