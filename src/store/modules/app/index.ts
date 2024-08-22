@@ -3,7 +3,7 @@ import { appStore } from '@/store/modules/app/initial'
 import { ComputedRef, nextTick } from 'vue'
 import { GlobalToken } from 'ant-design-vue/es/theme/interface'
 import { setCSSVariable, temporaryClearTransition } from '@/utils'
-import AppConfig from '@/config/app'
+import AppConstant from '@/constant/app'
 import { theme } from 'ant-design-vue'
 import { ThemeConfig } from 'ant-design-vue/es/config-provider/context'
 import { AppStore, ThemeMode } from '@/store/modules/app/type'
@@ -43,7 +43,7 @@ const useAppStore = defineStore('App', {
             },
         // antd 组件库主题配置
         themeConfig: ({ base }): ThemeConfig => {
-            const antdTheme = base.themeMode === 'dark' ? AppConfig.ANTD_DARK_THEME : AppConfig.ANTD_LIGHT_THEME
+            const antdTheme = base.themeMode === 'dark' ? AppConstant.ANTD_DARK_THEME : AppConstant.ANTD_LIGHT_THEME
             return {
                 token: { colorPrimary: base.themeColor, ...antdTheme },
                 algorithm: base.themeMode === 'dark' ? theme.darkAlgorithm : theme.defaultAlgorithm
@@ -73,12 +73,12 @@ const useAppStore = defineStore('App', {
         // 映射Antd主题到Css变量
         mapAntdThemeToCSSVariable(token: ComputedRef<GlobalToken>) {
             void nextTick(() => {
-                const themeVariable = AppConfig.ANTD_THEME_KEY.reduce((initialThemeVariable, key) => {
+                const themeVariable = AppConstant.ANTD_THEME_KEY.reduce((initialThemeVariable, key) => {
                     initialThemeVariable[key] = token.value[key]
                     return initialThemeVariable
                 }, {})
-                const antdTheme = this.base.themeMode === 'dark' ? AppConfig.ANTD_DARK_THEME : AppConfig.ANTD_LIGHT_THEME
-                setCSSVariable({ ...themeVariable, ...antdTheme, ...AppConfig.CUSTOM_THEME })
+                const antdTheme = this.base.themeMode === 'dark' ? AppConstant.ANTD_DARK_THEME : AppConstant.ANTD_LIGHT_THEME
+                setCSSVariable({ ...themeVariable, ...antdTheme, ...AppConstant.CUSTOM_THEME })
             })
         },
 

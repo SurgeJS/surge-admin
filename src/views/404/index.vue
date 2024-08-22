@@ -1,11 +1,11 @@
 <script lang="ts" setup>
 import { useRouter } from 'vue-router'
-import RouterConfig from '@/config/router'
+import RouterConstant from '@/constant/router'
 
 defineOptions({ name: 'NotFound' })
 const router = useRouter()
 const goHome = () => {
-  router.push(RouterConfig.HOME_PATH)
+  router.push(RouterConstant.HOME_PATH)
 }
 </script>
 

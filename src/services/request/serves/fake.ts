@@ -1,4 +1,4 @@
-import ServicesConfig from '@/config/services'
+import ServiceConstant from '@/constant/service'
 import CreateAxios from '@/services/request/axios'
 import { handleAxiosError, handleResponseError } from '@/services/request/utils'
 import { ResponseContent } from '@/services/request/axios/types'
@@ -6,7 +6,7 @@ import { getServiceAddress } from '@/utils/env'
 
 const fakeService = new CreateAxios<Result>({
     baseURL: getServiceAddress('fake'),
-    timeout: 10000,
+    timeout: ServiceConstant.REQUEST_TIMEOUT,
     interceptor: {
         onBeforeRequest() {
         },
@@ -15,7 +15,7 @@ const fakeService = new CreateAxios<Result>({
             const responseContent: ResponseContent<Result> = [ result, undefined, response ]
 
             // 处理响应错误
-            if (ServicesConfig.SUCCESS_CODE !== code) {
+            if (ServiceConstant.SUCCESS_CODE !== code) {
                 // 错误的响应内容
                 responseContent[1] = { code, msg }
                 return handleResponseError(code, responseContent, response.config)

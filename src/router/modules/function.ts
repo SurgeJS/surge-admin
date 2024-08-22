@@ -8,21 +8,6 @@ export default {
     },
     children: [
         {
-            path: '/function/maps',
-            meta: {
-                title: '地图'
-            },
-            children: [
-                {
-                    path: '/function/maps/twoDimensionalMap',
-                    component: 'view',
-                    meta: {
-                        title: '二维地图'
-                    }
-                }
-            ]
-        },
-        {
             path: '/function/menu',
             meta: {
                 title: '多级菜单',

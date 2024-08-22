@@ -1,13 +1,13 @@
 <script lang="ts" setup>
-import { RouteLocationMatched,useRoute,useRouter } from 'vue-router'
-import { ref,watch } from 'vue'
+import { RouteLocationMatched, useRoute, useRouter } from 'vue-router'
+import { ref, watch } from 'vue'
 import useAppStore from '@/store/modules/app'
-import RouterConfig from '@/config/router'
+import RouterConstant from '@/constant/router'
 
 interface Breadcrumb {
-    key: string
-    label?: string
-    children?: Breadcrumb[]
+  key: string
+  label?: string
+  children?: Breadcrumb[]
 }
 
 defineOptions({ name: 'Breadcrumb' })
@@ -18,19 +18,19 @@ const route = useRoute()
 const router = useRouter()
 
 const routeMatchedToBreadcrumb = (routeMatched: RouteLocationMatched[]) => routeMatched.map<Breadcrumb>(item => {
-    return {
-        key: item.path,
-        label: item.meta?.title,
-        children: item.children?.length ? routeMatchedToBreadcrumb(item.children as RouteLocationMatched[]) : undefined
-    }
+  return {
+    key: item.path,
+    label: item.meta?.title,
+    children: item.children?.length ? routeMatchedToBreadcrumb(item.children as RouteLocationMatched[]) : undefined
+  }
 })
 
 const accessMenu = (menu) => {
-    router.push(menu.key)
+  router.push(menu.key)
 }
 
 watch(() => route.path, () => {
-    routes.value = routeMatchedToBreadcrumb(route.matched).filter(item => !item.key.includes(RouterConfig.BASIC_SELF_CONTAINER_ROUTE_PATH_SUFFIX))
+  routes.value = routeMatchedToBreadcrumb(route.matched).filter(item => !item.key.includes(RouterConstant.CONTAINER_SUFFIX))
 }, { immediate: true })
 
 </script>

@@ -3,9 +3,9 @@ import { UserApi } from '@/services/api/user'
 import { notification } from 'ant-design-vue'
 import router from '@/router'
 import { RouterUtils } from '@/router/utils/tool'
-import RouterConfig from '@/config/router'
+import RouterConstant from '@/constant/router'
 import { tokenCache } from '@/store/caches'
-import ServicesConfig from '@/config/services'
+import ServiceConstant from '@/constant/service'
 import { AuthStore } from '@/store/modules/auth/type'
 
 const useAuthStore = defineStore('Auth', {
@@ -18,7 +18,7 @@ const useAuthStore = defineStore('Auth', {
         // 用户信息
         userinfo: null,
         // 路由鉴权模式
-        routeAuthMode: 'web',
+        routeAuthMode: 'service',
         // 是否已生成路由
         isGeneratedRoutes: false,
         // 用户的路由
@@ -41,7 +41,7 @@ const useAuthStore = defineStore('Auth', {
         // 设置 Token
         setToken(token: string) {
             this.token = token
-            tokenCache.set(token, ServicesConfig.TOKEN_EXPIRATION_TIME)
+            tokenCache.set(token, ServiceConstant.TOKEN_EXPIRATION_TIME)
         },
 
         // 删除 Token
@@ -84,7 +84,7 @@ const useAuthStore = defineStore('Auth', {
         async signOut() {
             const data = await UserApi.signOut()
             this.removeToken()
-            await router.push(RouterConfig.LOGIN_PATH)
+            await router.push(RouterConstant.LOGIN_PATH)
             this.initAuthStore()
             return data
         },
@@ -94,7 +94,7 @@ const useAuthStore = defineStore('Auth', {
             // 获取用户信息
             await this.getUserinfo()
             // 重定向路径
-            await router.replace(RouterConfig.HOME_PATH)
+            await router.replace(RouterConstant.HOME_PATH)
             notification.success({
                 message: '登录成功',
                 description: `欢迎回来，${ this.userinfo?.username }！`
@@ -107,7 +107,6 @@ const useAuthStore = defineStore('Auth', {
             this.routes = RouterUtils.getUserRouteList(this.roles)
             // 自定义路由转Vue路由
             const vueRoutes = RouterUtils.transformCustomRoutesToVueRoutes(this.routes)
-            console.log(vueRoutes)
             // 添加路由
             vueRoutes.forEach(route => router.addRoute(route))
             this.isGeneratedRoutes = true

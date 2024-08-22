@@ -30,7 +30,10 @@ const routesToMenus = (routes: AppRouteRecordRaw[]): ItemType[] => {
     if (item.meta?.hideMenu) return menuList
     menuList.push({
       key: item.path,
-      icon: item.meta?.icon ? () => RenderDynamicIcon(item.meta?.icon as string) : undefined,
+      icon: item.meta?.icon ? () => RenderDynamicIcon(item.meta?.icon as string, {
+        width: 18,
+        height: 18,
+      }) : undefined,
       label: item.meta?.title,
       title: item.meta?.title,
       children: item.children?.length ? routesToMenus(item.children) : undefined
@@ -90,7 +93,7 @@ const onOpenChange = (keys: string[]) => {
 }
 
 const onClick = ({ key }) => {
-  if (RegUtils.MATCH_URL.test(key)) return window.open(key,'_blank')
+  if (RegUtils.MATCH_URL.test(key)) return window.open(key, '_blank')
   setInternal(true)
   router.push(key).then(() => {
     setInternal(false)

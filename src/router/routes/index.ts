@@ -1,16 +1,16 @@
-import RouterConfig from '@/config/router'
+import RouterConstant from '@/constant/router'
 
 // Layout 根路由
 export const ROUTE_ROOT: AppRouteRecordRaw = {
     path: '/',
     name: 'root',
     component: 'basic',
-    redirect: RouterConfig.HOME_PATH
+    redirect: RouterConstant.HOME_PATH
 }
 
 // 登录页
 export const ROUTE_LOGIN: AppRouteRecordRaw = {
-    path: RouterConfig.LOGIN_PATH,
+    path: RouterConstant.LOGIN_PATH,
     component: 'view',
     meta: { title: '登录' }
 }
@@ -29,21 +29,4 @@ export const ROUTE_NOT_FOUND: AppRouteRecordRaw = {
     redirect: '/404',
 }
 
-export const TEST_ROUTE: AppRouteRecordRaw = {
-    path: '/test',
-    children: [
-        {
-            path: '/test/a',
-            component: 'view',
-            meta: {
-                ignoreAuth: true,
-            },
-        },
-        {
-            path: '/test/b',
-            component: 'view'
-        }
-    ],
-}
-
-export default [ ROUTE_ROOT, ROUTE_LOGIN, ROUTE_404, ROUTE_NOT_FOUND, TEST_ROUTE ]
+export default [ ROUTE_ROOT, ROUTE_LOGIN, ROUTE_404, ROUTE_NOT_FOUND ]

@@ -1,4 +1,5 @@
-export default class ServicesConfig {
+// 服务常量
+export default class ServiceConstant {
     // token 过期时间 （4小时后过期）
     static TOKEN_EXPIRATION_TIME = 1 / 24 * 4
 
@@ -27,8 +28,8 @@ export default class ServicesConfig {
         401: '401: 用户未授权 ~'
     }
 
-    // 请求错误
-    static REQUEST_ERROR = {
+    // axios请求错误
+    static AXIOS_REQUEST_ERROR = {
         ECONNABORTED: '网络请求超时 ~',
         ETIMEDOUT: '网络请求超时 ~',
         ERR_INVALID_URL: '错误的请求地址，请检查URL ~',

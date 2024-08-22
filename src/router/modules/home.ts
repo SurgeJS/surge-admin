@@ -1,12 +1,12 @@
-import RouterConfig from '@/config/router'
+import RouterConstant from '@/constant/router'
 
 export default {
-  path: RouterConfig.HOME_PATH,
-  component: 'basic-view',
-  meta: {
-    title: '首页',
-    icon: 'ant-design:area-chart-outlined',
-    affixTab: true,
-    order: 1
-  }
+    path: RouterConstant.HOME_PATH,
+    component: 'basic-view',
+    meta: {
+        title: '首页',
+        icon: 'ant-design:area-chart-outlined',
+        affixTab: true,
+        order: 1
+    }
 } satisfies AppRouteRecordRaw

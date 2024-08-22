@@ -44,7 +44,19 @@ export default defineFakeRoute([
         url: '/getRoutes',
         method: 'get',
         response: () => {
-            return rSuccess([])
+            return rSuccess([
+                {
+                    path: '/home',
+                    component: 'basic-view',
+                    meta: {
+                        title: '首页',
+                        icon: 'ant-design:area-chart-outlined',
+                        affixTab: true,
+                        order: 1
+                    }
+                },
+
+            ])
         }
     }
 ])

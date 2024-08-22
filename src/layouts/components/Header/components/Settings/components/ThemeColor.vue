@@ -4,7 +4,7 @@
   </a-divider>
   <a-flex justify="space-between">
     <div
-      v-for="item in AppConfig.THEME_COLOR"
+      v-for="item in AppConstant.THEME_COLOR"
       :key="item"
       :style="{background:item}"
       class="themeCard"
@@ -17,7 +17,7 @@
 
 <script lang="ts" setup>
 import useAppStore from '@/store/modules/app'
-import AppConfig from '@/config/app'
+import AppConstant from '@/constant/app'
 
 const appStore = useAppStore()
 </script>

@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import router from '@/router'
-import RouterConfig from '@/config/router'
+import RouterConstant from '@/constant/router'
 import { asyncWait } from '@/utils'
 import { RouteRecordNameGeneric } from 'vue-router'
 import { Tab, TabBarStore } from '@/store/modules/tabBar/type'
@@ -106,7 +106,7 @@ const useTabBarStore = defineStore('TabBar', {
         closeAll() {
             this.tabs = [ ...this.getCurrentTabsAffixTab() ]
             // 重定向到首页
-            void router.push(RouterConfig.HOME_PATH)
+            void router.push(RouterConstant.HOME_PATH)
         },
 
         // 获取当前Tabs的固定标签

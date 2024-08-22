@@ -2,7 +2,7 @@ import { NavigationGuardNext, RouteLocationNormalized } from 'vue-router'
 import useAuthStore from '@/store/modules/auth'
 import useTabBarStore from '@/store/modules/tabBar'
 import { runTacticsAction, TacticsAction } from '@/utils'
-import RouterConfig from '@/config/router'
+import RouterConstant from '@/constant/router'
 import { tokenCache } from '@/store/caches'
 import { message } from 'ant-design-vue'
 
@@ -48,7 +48,7 @@ const createAuthGuard = (to: RouteLocationNormalized, from: RouteLocationNormali
             !isLogin,
             () => {
                 console.info('---未登录，强制跳转到登录页---')
-                to.path === RouterConfig.LOGIN_PATH ? next() : next(RouterConfig.LOGIN_PATH)
+                to.path === RouterConstant.LOGIN_PATH ? next() : next(RouterConstant.LOGIN_PATH)
             }
         ],
         // 登录的情况下在 cookie 中获取不到 token
@@ -58,7 +58,7 @@ const createAuthGuard = (to: RouteLocationNormalized, from: RouteLocationNormali
                 console.info('---令牌已失效，请重新登录---')
                 void message.warning('令牌已失效，请重新登录！')
                 initAuthStore()
-                next(RouterConfig.LOGIN_PATH)
+                next(RouterConstant.LOGIN_PATH)
             }
         ],
         // 没有鉴权（没有用户信息和角色）
@@ -68,7 +68,7 @@ const createAuthGuard = (to: RouteLocationNormalized, from: RouteLocationNormali
                 console.info('---没有鉴权（没有用户信息和角色）---')
                 // 获取用户信息
                 await getUserinfo().catch(() => {
-                    next(RouterConfig.LOGIN_PATH)
+                    next(RouterConstant.LOGIN_PATH)
                     return Promise.reject()
                 })
                 await handleRouteAuthMode()
@@ -86,7 +86,7 @@ const createAuthGuard = (to: RouteLocationNormalized, from: RouteLocationNormali
         ],
         // 登录情况下不能到登录页面
         [
-            to.path === RouterConfig.LOGIN_PATH,
+            to.path === RouterConstant.LOGIN_PATH,
             () => {
                 console.info('---登录情况下不能到登录页面---')
                 next(from.fullPath)
