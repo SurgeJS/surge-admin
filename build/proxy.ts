@@ -13,7 +13,7 @@ export const proxyConfig = (viteEnv: ImportMetaEnv): Recordable<string | ProxyOp
             changeOrigin: true,
             rewrite: path => path.replace(new RegExp(`^${prefix}`), '')
         }
-
+    
         return proxy
     }, {})
 }

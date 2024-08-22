@@ -14,7 +14,6 @@ import devTools from 'vite-plugin-vue-devtools'
 import { getServiceAddress } from '../src/utils/env'
 // Vite 插件配置
 export const createVitePlugins = (viteEnv: ImportMetaEnv): PluginOption[] => {
-    console.log(viteEnv.VITE_APP_TITLE)
     return [
         // DevTools
         viteEnv.VITE_USE_DEV_TOOLS && devTools({
