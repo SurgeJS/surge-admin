@@ -4,7 +4,7 @@ import { isNumber } from 'lodash-es'
 
 export interface IconProps {
   // 图标名称 例如：i-mdi:account | i-local:login
-  icon: 'i-'| 'i-local:' | string
+  icon: 'i-' | 'i-local:' | string
 
   // 颜色
   color?: string

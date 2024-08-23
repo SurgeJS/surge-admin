@@ -43,7 +43,7 @@ const useAppStore = defineStore('App', {
             },
         // antd 组件库主题配置
         themeConfig: ({ base }): ThemeConfig => {
-            const antdTheme = base.themeMode === 'dark' ? AppConstant.ANTD_DARK_THEME : AppConstant.ANTD_LIGHT_THEME
+            const antdTheme = base.themeMode === 'dark' ? AppConstant.DARK_THEME : AppConstant.LIGHT_THEME
             return {
                 token: { colorPrimary: base.themeColor, ...antdTheme },
                 algorithm: base.themeMode === 'dark' ? theme.darkAlgorithm : theme.defaultAlgorithm
@@ -77,8 +77,12 @@ const useAppStore = defineStore('App', {
                     initialThemeVariable[key] = token.value[key]
                     return initialThemeVariable
                 }, {})
-                const antdTheme = this.base.themeMode === 'dark' ? AppConstant.ANTD_DARK_THEME : AppConstant.ANTD_LIGHT_THEME
-                setCSSVariable({ ...themeVariable, ...antdTheme, ...AppConstant.CUSTOM_THEME })
+                const antdTheme = this.base.themeMode === 'dark' ? AppConstant.DARK_THEME : AppConstant.LIGHT_THEME
+                setCSSVariable({
+                    ...themeVariable,
+                    ...antdTheme,
+                    ...AppConstant.NEUTER_THEME
+                })
             })
         },
 

@@ -22,12 +22,12 @@ const appStore = useAppStore()
   font-size: 16px;
 
   &:hover {
-    background: theme('colors.fill-tertiary');
+    background: theme('colors.fill.tertiary');
   }
 
   &.dark {
     &:hover {
-      background-color: theme('colors.fill-dark');
+      background-color: theme('colors.fill.dark');
     }
   }
 }

@@ -3,13 +3,13 @@
   margin: 0;
   box-sizing: border-box;
   scrollbar-width: thin;
-  scrollbar-color: theme('colors.fill') transparent;
+  scrollbar-color: theme('colors.fill.main') transparent;
 }
 
 html, body, #app {
   width: 100vw;
   height: 100vh;
-  overflow: hidden
+  overflow: hidden;
 }
 
 body {

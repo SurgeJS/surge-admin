@@ -4,6 +4,7 @@ import { Sort } from '@/enums/common'
 import RegUtils from '@/utils/reg'
 import { RoleEnum } from '@/enums/auth'
 import { pathToPascalCase } from '@/utils'
+import RouterConstant from '@/constant/router'
 
 // 路由工具
 export class RouterUtils {
@@ -112,8 +113,8 @@ export class RouterUtils {
             case 'basic-view':
                 // 一级路由转二级路由
                 vueRoute = {
-                    path: recordPath + '-container',
-                    name: recordPath + '-container',
+                    path: recordPath + RouterConstant.CONTAINER_SUFFIX,
+                    name: recordPath + RouterConstant.CONTAINER_SUFFIX,
                     redirect: route.path,
                     component: () => import('@/layouts/index.vue'),
                     children: [

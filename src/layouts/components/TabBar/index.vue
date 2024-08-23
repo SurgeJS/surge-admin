@@ -143,11 +143,11 @@ watch(tabBarStore.tabs, () => {
     align-items: center;
     background: theme('backgroundColor.container');
     border-radius: theme('borderRadius.md');
-    border: 1px solid theme('colors.fill-secondary');
+    border: 1px solid theme('colors.fill.secondary');
     user-select: none;
     cursor: pointer;
     height: 30px;
-    box-shadow: theme('boxShadow.main');
+    box-shadow: 2px 2px 0 0 theme('colors.fill.tertiary');
     flex-shrink: 0;
     color: theme('textColor.main');
     gap: 5px;
@@ -164,7 +164,7 @@ watch(tabBarStore.tabs, () => {
     &.active {
       color: white;
       background: theme('colors.primary');
-      box-shadow: 3px 3px 3px theme('colors.primary-shallow');
+      box-shadow: 6px 6px 0 0 theme('colors.primary-shallow');
 
       .tabBar-item-clear {
         color: white !important;

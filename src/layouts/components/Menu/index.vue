@@ -31,8 +31,8 @@ const routesToMenus = (routes: AppRouteRecordRaw[]): ItemType[] => {
     menuList.push({
       key: item.path,
       icon: item.meta?.icon ? () => RenderDynamicIcon(item.meta?.icon as string, {
-        width: 18,
-        height: 18,
+        width: 20,
+        height: 20,
       }) : undefined,
       label: item.meta?.title,
       title: item.meta?.title,

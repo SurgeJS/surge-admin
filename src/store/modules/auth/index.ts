@@ -18,7 +18,7 @@ const useAuthStore = defineStore('Auth', {
         // 用户信息
         userinfo: null,
         // 路由鉴权模式
-        routeAuthMode: 'service',
+        routeAuthMode: 'web',
         // 是否已生成路由
         isGeneratedRoutes: false,
         // 用户的路由

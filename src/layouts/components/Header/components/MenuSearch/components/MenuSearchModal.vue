@@ -227,7 +227,7 @@ watch(visible, () => {
       div {
         display: flex;
         align-items: center;
-        background: theme('colors.fill-secondary');
+        background: theme('colors.fill.secondary');
         width: 30px;
         height: 20px;
         justify-content: center;

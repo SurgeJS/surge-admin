@@ -1,4 +1,6 @@
 .ant-menu {
+  border-inline-end: 0 !important;
+
   &.ant-menu-inline-collapsed {
     width: auto;
   }

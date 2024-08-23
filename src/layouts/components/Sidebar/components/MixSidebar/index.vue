@@ -113,13 +113,13 @@ watch(() => route.path, () => {
 
     .mixSidebar-container-menu {
       &:hover:not(.active) {
-        background: theme('colors.fill-dark');
+        background: theme('colors.fill.dark');
       }
     }
 
     .mixSidebar-footer {
       &:hover {
-        background: theme('colors.fill-dark');
+        background: theme('colors.fill.dark');
       }
     }
   }
@@ -150,7 +150,7 @@ watch(() => route.path, () => {
       }
 
       &:hover:not(.active) {
-        background: theme('colors.fill-tertiary');
+        background: theme('colors.fill.tertiary');
       }
 
       &.active {
@@ -173,7 +173,7 @@ watch(() => route.path, () => {
     border-radius: theme('borderRadius.md');
 
     &:hover {
-      background: theme('colors.fill-quaternary');
+      background: theme('colors.fill.quaternary');
     }
   }
 }

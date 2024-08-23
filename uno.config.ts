@@ -1,66 +1,63 @@
 // uno.config.ts
 import { defineConfig, presetIcons, presetUno, transformerDirectives } from 'unocss'
 import { FileSystemIconLoader } from '@iconify/utils/lib/loader/node-loaders'
+import { Theme } from '@unocss/preset-uno'
 
-export default defineConfig({
+export default defineConfig<Theme>({
     content: {
-        pipeline:{
-            include:[
-                /\.(vue|svelte|[jt]sx|mdx?|astro|elm|php|phtml|html)($|\?)/,
-                'src/**/*.{js,ts}'
-            ]
+        pipeline: {
+            exclude: [ 'node_modules', 'dist' ],
         }
     },
     transformers: [
         transformerDirectives()
     ],
-    presets:
-        [
-            presetUno(),
-            presetIcons({
-                prefix: 'i-',
-                scale: 1.2,
-                // 额外的CSS属性配置
-                extraProperties: {
-                    'display': 'inline-block',
-                    'vertical-align': 'middle'
-                },
-                collections: {
-                    // 加载本地SVG 使用方式: i-local:xxx
-                    'local': FileSystemIconLoader('./src/assets/svg'),
-                }
-            })
-        ],
-    rules:
-        [
-            // 填充（单位 px）
-            [ /^full-(\d+)$/, ([ , d ]) => ({ width: `${ d }px`, height: `${ d }px` }) ],
-            // 填充（任意单位）
-            [ /^full-\[(.*)]$/, ([ , d ]) => ({ width: d, height: d }) ]
-        ],
-    shortcuts:
-        {
-            'w-h-full': 'w-full h-full',
-            'flex-center': 'flex justify-center items-center',
-            'flex-x-center': 'flex justify-center',
-            'flex-y-center': 'flex items-center'
-        },
+    presets: [
+        presetUno(),
+        presetIcons({
+            scale: 1.2,
+            // 额外的CSS属性配置
+            extraProperties: {
+                'display': 'inline-block',
+                'vertical-align': 'middle'
+            },
+            collections: {
+                // 加载本地SVG 使用方式: i-local:xxx
+                'local': FileSystemIconLoader('./src/assets/svg'),
+            }
+        })
+    ],
+    rules: [
+        // 填充（单位 px）
+        [ /^full-(\d+)$/, ([ , d ]) => ({ width: `${ d }px`, height: `${ d }px` }) ],
+        // 填充（任意单位）
+        [ /^full-\[(.*)]$/, ([ , d ]) => ({ width: d, height: d }) ]
+    ],
+    shortcuts: {
+        'w-h-full': 'w-full h-full',
+        'flex-center': 'flex justify-center items-center',
+        'flex-x-center': 'flex justify-center',
+        'flex-y-center': 'flex items-center'
+    },
     theme: {
         colors: {
             // 主色
             'primary': 'var(--colorPrimary)',
             // 浅主色
             'primary-shallow': 'var(--colorPrimaryBg)',
-            // 一级填充色
-            'fill': 'var(--colorFill)',
-            // 二级填充色
-            'fill-secondary': 'var(--colorFillSecondary)',
-            // 三级填充色
-            'fill-tertiary': 'var(--colorFillTertiary)',
-            // 四级填充色
-            'fill-quaternary': 'var(--colorFillQuaternary)',
-            // 填充暗黑色
-            'fill-dark': 'var(--fillDark)'
+            // 填充色
+            'fill': {
+                // 一级填充色
+                'main': 'var(--colorFill)',
+                // 二级填充色
+                'secondary': 'var(--colorFillSecondary)',
+                // 三级填充色
+                'tertiary': 'var(--colorFillTertiary)',
+                // 四级填充色
+                'quaternary': 'var(--colorFillQuaternary)',
+                // 填充暗黑色
+                'dark': 'var(--fillDark)'
+            },
         },
         textColor: {
             // 一级文本色
@@ -99,5 +96,5 @@ export default defineConfig({
             'main': 'var(--boxShadow)',
             'secondary': 'var(--boxShadowSecondary)'
         }
-    }
+    },
 })
