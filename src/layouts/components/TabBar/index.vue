@@ -147,7 +147,6 @@ watch(tabBarStore.tabs, () => {
     user-select: none;
     cursor: pointer;
     height: 30px;
-    box-shadow: 2px 2px 0 0 theme('colors.fill.tertiary');
     flex-shrink: 0;
     color: theme('textColor.main');
     gap: 5px;
@@ -164,7 +163,6 @@ watch(tabBarStore.tabs, () => {
     &.active {
       color: white;
       background: theme('colors.primary');
-      box-shadow: 6px 6px 0 0 theme('colors.primary-shallow');
 
       .tabBar-item-clear {
         color: white !important;

@@ -6,6 +6,7 @@ export default class AppConstant {
         '#6675ff', '#E74C3C', '#8E44AD', '#3498DB', '#16A085', '#2ECC71', '#F1C40F', '#F39C12', '#D35400'
     ]
 
+    // TODO:边框弧度不统一
     // 明亮主题
     static LIGHT_THEME: ThemeConfig = {}
 
