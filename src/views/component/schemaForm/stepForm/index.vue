@@ -24,8 +24,8 @@ const form = ref({
   companyName: undefined,
   companyType: undefined,
   companyDescription: undefined,
-  remark:undefined,
-  phoneNumber:undefined
+  remark: undefined,
+  phoneNumber: undefined
 })
 
 const activeStep = ref<number>(1)
@@ -93,7 +93,7 @@ const schema1: StepSchemaType<typeof form.value>[] = [
         field: 'name.test',
         label: '名称',
         component: 'Input',
-        rule: { message: '请输入名称',max: 10,min: 3,type: 'string',trigger: 'blur',required: true }
+        rule: { message: '请输入名称', max: 10, min: 3, type: 'string', trigger: 'blur', required: true }
       },
       {
         field: 'email',
@@ -166,7 +166,7 @@ const schema1: StepSchemaType<typeof form.value>[] = [
         field: 'date',
         label: '开始结束日期',
         component: 'DateRangePicker',
-        rule: { message: '请选择开始结束日期',trigger: 'change',required: true }
+        rule: { message: '请选择开始结束日期', trigger: 'change', required: true }
       },
       {
         field: 'area',

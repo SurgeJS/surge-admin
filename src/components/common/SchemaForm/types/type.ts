@@ -1,4 +1,4 @@
-import { ColProps, DrawerProps, FormProps, ModalProps, RowProps, StepProps, StepsProps } from 'ant-design-vue'
+import { ColProps, DrawerProps, FormProps, ModalProps, RowProps, StepsProps } from 'ant-design-vue'
 import { RuleObject } from 'ant-design-vue/es/form/interface'
 import { ComponentsName, ComponentsProps } from '@/components/common/SchemaForm/types/component'
 import { DefaultOptionType } from 'ant-design-vue/es/vc-tree-select/TreeSelect'
@@ -41,9 +41,6 @@ export type Col = ColSize & {
     flex?: ColSpanType;
 }
 
-// 日期、时间组件格式
-export type DateComponentFormat = DateFormat | 'timestamp'
-
 // 插槽内容
 export type SlotsContent = string | VNode | VNode[]
 
@@ -76,10 +73,10 @@ export interface MapComponentCommonProps<TForm extends Recordable = Recordable, 
     options?: MaybeRef<DefaultOptionType[]>
 
     // 日期与时间格式
-    format?: MaybeRef<DateComponentFormat>
+    format?: MaybeRef<DateFormat>
 
     // 绑定值格式
-    valueFormat?: MaybeRef<DateComponentFormat>
+    valueFormat?: MaybeRef<DateFormat>
 }
 
 // Schema配置
@@ -167,7 +164,16 @@ export interface GroupSchemaType<TForm extends Recordable = any, DComponentsName
 }
 
 // 步骤条表单结构 TODO: MaybeRef 未完成
-export interface StepSchemaType<TForm extends Recordable = any, DComponentsName extends ComponentsName = ComponentsName> extends StepProps {
+export interface StepSchemaType<TForm extends Recordable = any, DComponentsName extends ComponentsName = ComponentsName> {
+    // 标题
+    title?: MaybeRef<string>
+
+    // 描述
+    description?: MaybeRef<string>
+
+    // 图标
+    icon?: VNode
+
     // 表单
     form: SchemaType<TForm, DComponentsName>[]
 }
@@ -185,7 +191,7 @@ export type SchemaFormCommonProps = Omit<FormProps, 'onSubmit' | 'onFinish' | 'o
     // 模型
     model: Recordable
 
-    layout?:FormLayout
+    layout?: FormLayout
 
     // 所有字段是否都必填
     required?: boolean
@@ -205,16 +211,16 @@ export type SchemaFormCommonProps = Omit<FormProps, 'onSubmit' | 'onFinish' | 'o
     hideActionButton?: boolean
 
     // 默认日期组件格式
-    defaultDateFormat?: DateComponentFormat
+    defaultDateFormat?: DateFormat
 
     // 默认时间组件格式
-    defaultTimeFormat?: DateComponentFormat
+    defaultTimeFormat?: DateFormat
 
     // 默认日期组件值格式
-    defaultValueDateFormat?: DateComponentFormat
+    defaultValueDateFormat?: DateFormat
 
     // 默认时间组件值格式
-    defaultValueTimeFormat?: DateComponentFormat
+    defaultValueTimeFormat?: DateFormat
 
     // 自动placeholder (item的label的类型为string才会生效，优先级最低)
     autoPlaceholder?: boolean
@@ -344,10 +350,10 @@ export interface StepSchemaFormProps extends SchemaFormCommonProps {
     nextText?: string
 
     // 上一步
-    onPre?(active: number, currentModel: Recordable,expose:StepSchemaFormExpose): void
+    onPre?(active: number, currentModel: Recordable, expose: StepSchemaFormExpose): void
 
     // 下一步
-    onNext?(active: number, currentModel: Recordable,expose:StepSchemaFormExpose): void
+    onNext?(active: number, currentModel: Recordable, expose: StepSchemaFormExpose): void
 }
 
 export interface StepSchemaFormExpose extends SchemaFormCommonExpose {
@@ -365,13 +371,13 @@ export interface PopupSchemaFormProps extends SchemaFormCommonProps {
     // schema 配置
     schema: SchemaType[]
 
-    visible?:boolean
+    visible?: boolean
 
     // 弹框类型  抽屉 | 模态框
     popupType?: PopupType
 
     // 弹框标题
-    popupTitle?:string
+    popupTitle?: string
 
     // 抽屉属性
     drawerProps?: DrawerProps
@@ -400,14 +406,14 @@ export interface PopupSchemaFormExpose extends SchemaFormCommonExpose {
 
 export interface PopupSchemaFormSlots extends SchemaFormCommonSlots {
     // 弹框头部
-    popupHeader():any
+    popupHeader(): any
 
     // 表单前
-    popupFormBefore():any
+    popupFormBefore(): any
 
     // 表单后
-    popupFormAfter():any
+    popupFormAfter(): any
 
     // 弹框头部
-    popupFooter():any
+    popupFooter(): any
 }

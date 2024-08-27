@@ -33,7 +33,7 @@ declare type PaginationParams<DParams extends Recordable> = {
 
 // 分页响应
 declare type PaginationResponse<TResponse extends Recordable> = {
-    list: TResponse[]
+    records: TResponse[]
     total: number
 }
 

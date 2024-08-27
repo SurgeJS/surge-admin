@@ -55,7 +55,6 @@ export default defineFakeRoute([
                         order: 1
                     }
                 },
-
             ])
         }
     }
