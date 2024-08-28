@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import useAppStore from '@/store/modules/app'
 import { computed } from 'vue'
+import { wrapperMetaEnv } from '@/utils/env'
+
+const { VITE_APP_TITLE } = wrapperMetaEnv()
 
 const { sidebar,base,header } = useAppStore()
 const isHide = computed(() => (sidebar.isCollapsed || base.layoutMode === 'mix-side') && !base.isMobile)
@@ -13,7 +16,7 @@ const isHide = computed(() => (sidebar.isCollapsed || base.layoutMode === 'mix-s
       src="../../assets/images/logo.png"
       alt=""
     >
-    <span v-if="!isHide" class="logo-text">Simple Admin</span>
+    <span v-if="!isHide" class="logo-text">{{ VITE_APP_TITLE }}</span>
   </div>
 </template>
 

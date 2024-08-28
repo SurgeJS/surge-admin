@@ -1,10 +1,7 @@
 <script lang="ts" setup>
 import { useGlobalInitialize } from '@/hooks/effect/useGlobalInitialize'
 import { useGlobalSubscribe } from '@/hooks/effect/useGlobalSubscribe'
-import useAppStore from '@/store/modules/app'
-import zhCN from 'ant-design-vue/es/locale/zh_CN'
-
-const appStore = useAppStore()
+import { dateZhCN, zhCN } from 'naive-ui'
 // 全局初始化
 useGlobalInitialize()
 
@@ -13,14 +10,11 @@ useGlobalSubscribe()
 </script>
 
 <template>
-  <a-config-provider
+  <n-config-provider
+    class="w-h-full"
     :locale="zhCN"
-    :auto-insert-space-in-button="appStore.antdConfig.autoInsertSpaceInButton"
-    :component-size="appStore.antdConfig.size"
-    :theme="appStore.themeConfig"
+    :date-locale="dateZhCN"
   >
-    <a-app>
-      <router-view />
-    </a-app>
-  </a-config-provider>
+    <router-view />
+  </n-config-provider>
 </template>

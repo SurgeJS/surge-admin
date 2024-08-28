@@ -92,15 +92,18 @@ const createAuthGuard = (to: RouteLocationNormalized, from: RouteLocationNormali
                 next(from.fullPath)
             }
         ],
+        // 禁用菜单
+        [
+            Boolean(to.meta.disabledMenu),
+            () => {
+                void message.warning('该菜单已被禁用访问！请联系管理员！')
+                return next(from.fullPath)
+            }
+        ],
         // 走到这步直接通过（走到这步就表示已经登录、有权限、有路由了）
         [
             true,
             () => {
-                // 禁用菜单
-                if (to.meta.disabledMenu) {
-                    void message.warning('该菜单已被禁用访问！请联系管理员！')
-                    return next(from.fullPath)
-                }
                 // console.info('---已经登录、有权限、有路由了---')
                 next()
             }

@@ -20,9 +20,10 @@ const authStore = useAuthStore()
     <logo />
     <div class="sidebar-container">
       <Menu
-        :inline-collapsed="sidebar.isCollapsed"
+        :collapsed="sidebar.isCollapsed"
         :dark="appStore.dynamicSidebarDark.isDark"
         :routes="authStore.routes"
+        :collapsed-width="appStore.sidebar.collapsedSidebarWidth"
       />
     </div>
   </div>

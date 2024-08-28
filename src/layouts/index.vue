@@ -4,8 +4,6 @@ import LayoutSidebar from '@/layouts/components/Sidebar/index.vue'
 import LayoutMain from '@/layouts/components/Main.vue'
 import LayoutFooter from '@/layouts/components/Footer.vue'
 import TabBar from '@/layouts/components/TabBar/index.vue'
-
-defineOptions({ name: 'Layout' })
 </script>
 
 <template>

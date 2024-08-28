@@ -29,14 +29,13 @@ const authStore = useAuthStore()
       <breadcrumb v-if="base.layoutMode!=='top'&&header.breadcrumbVisible&&!base.isMobile" />
       <Logo v-if="base.layoutMode==='top'&&!base.isMobile" />
     </a-flex>
-    <div v-if="base.layoutMode==='top'&&!base.isMobile" class="layout-header-menu">
-      <Menu
-        :style="{lineHeight:`${header.headerHeight}px`}"
-        :dark="appStore.dynamicTopDark.isDark"
-        :routes="authStore.routes"
-        mode="horizontal"
-      />
-    </div>
+    <Menu
+      v-if="base.layoutMode==='top'&&!base.isMobile"
+      :dark="appStore.dynamicTopDark.isDark"
+      :routes="authStore.routes"
+      responsive
+      mode="horizontal"
+    />
     <a-flex gap="small" justify="flex-end">
       <menu-search />
       <toggle-theme />
@@ -66,13 +65,6 @@ const authStore = useAuthStore()
     background: theme('backgroundColor.dark');
     color: theme('textColor.light');
     border-bottom: 1px solid theme('borderColor.dark');
-  }
-
-  &-menu {
-    min-width: 0;
-    flex: 1;
-    height: 100%;
-    overflow: hidden;
   }
 }
 </style>

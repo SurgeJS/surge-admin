@@ -36,7 +36,6 @@ const { sidebar } = appStore
         v-model:value="sidebar.collapsedSidebarWidth"
         :step="10"
         addon-after="px"
-        disabled
         mode="button"
       />
     </context-menu>

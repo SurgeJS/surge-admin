@@ -12,6 +12,7 @@ import AutoImport from 'unplugin-auto-import/vite'
 import { AntDesignVueResolver } from 'unplugin-vue-components/dist/resolvers'
 import devTools from 'vite-plugin-vue-devtools'
 import { getServiceAddress } from '../src/utils/env'
+import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
 // Vite 插件配置
 export const createVitePlugins = (viteEnv: ImportMetaEnv): PluginOption[] => {
     return [
@@ -42,11 +43,25 @@ export const createVitePlugins = (viteEnv: ImportMetaEnv): PluginOption[] => {
             extensions: [ 'vue' ],
             include: [ /\.vue$/, /\.vue\?vue/ ],
             resolvers: [
-                AntDesignVueResolver({ importStyle: false })
+                AntDesignVueResolver({ importStyle: false }),
+                NaiveUiResolver()
             ]
         }),
         AutoImport({
-            imports: [ 'vue', '@vueuse/core', 'vue-router', 'pinia' ],
+            imports: [
+                'vue',
+                '@vueuse/core',
+                'vue-router',
+                'pinia',
+                {
+                    'naive-ui': [
+                        'useDialog',
+                        'useMessage',
+                        'useNotification',
+                        'useLoadingBar'
+                    ]
+                }
+            ],
             dts: 'types/auto-imports.d.ts'
         }),
         // 打包压缩

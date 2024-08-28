@@ -1,8 +1,5 @@
-import { MenuMode } from 'ant-design-vue'
+import { MenuProps as NMenuProps } from 'naive-ui'
 
-export interface MenuProps {
+export interface MenuProps extends Omit<NMenuProps, 'options'|'value'|'defaultValue'> {
     routes: AppRouteRecordRaw[]
-    mode?: MenuMode
-    inlineCollapsed?: boolean
-    dark?: boolean
 }
