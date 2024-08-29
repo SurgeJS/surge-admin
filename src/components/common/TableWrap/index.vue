@@ -2,7 +2,7 @@
 import { TableWrapProps, TableWrapSlots } from '@/components/common/TableWrap/types/type'
 import useOmitProps from '@/hooks/common/useOmitProps'
 import { computed } from 'vue'
-import { SuperTableColumn } from '@/components/antd/SuperTable/type/props'
+import { SuperTableColumn } from '@/components/naive/SuperTable/type/props'
 import { useProvideBaseTableStore } from '@/components/common/TableWrap/hooks/useContext'
 import { SizeType } from 'ant-design-vue/es/config-provider'
 

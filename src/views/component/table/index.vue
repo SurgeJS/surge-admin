@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
-import { SuperTableColumn } from '@/components/antd/SuperTable/type/props'
+import { SuperTableColumn } from '@/components/naive/SuperTable/type/props'
 
 const columns = ref<SuperTableColumn[]>([
   {

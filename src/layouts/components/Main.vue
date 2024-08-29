@@ -15,7 +15,7 @@ const transitionName = computed(() => base.isPageStartAnimation ? base.pageAnima
 </script>
 
 <template>
-  <div class="layout-main">
+  <n-layout-content class="layout-main">
     <full-screen-loading v-show="base.fullScreenLoading" />
     <div
       v-show="!base.fullScreenLoading"
@@ -36,7 +36,7 @@ const transitionName = computed(() => base.isPageStartAnimation ? base.pageAnima
         </page-transition>
       </router-view>
     </div>
-  </div>
+  </n-layout-content>
 </template>
 
 <style lang="scss" scoped>

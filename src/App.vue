@@ -12,9 +12,12 @@ useGlobalSubscribe()
 <template>
   <n-config-provider
     class="w-h-full"
+    inline-theme-disabled
     :locale="zhCN"
     :date-locale="dateZhCN"
   >
-    <router-view />
+    <app-provider>
+      <router-view />
+    </app-provider>
   </n-config-provider>
 </template>

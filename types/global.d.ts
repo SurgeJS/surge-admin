@@ -1,14 +1,17 @@
 import { MaybeRef } from 'vue'
+import type { DialogProviderInst, LoadingBarProviderInst, MessageProviderInst, NotificationProviderInst } from 'naive-ui'
 
 declare global {
-    // 百度地图
-    const BMap: any
 
-    // 高德地图
-    const AMap: any
+    export interface Window {
+        $loadingBar: LoadingBarProviderInst
 
-    // 腾讯地图
-    const TMap: any
+        $dialog: DialogProviderInst
+
+        $message: MessageProviderInst
+
+        $notification: NotificationProviderInst
+    }
 
     type Nullable<T> = T | null
     type Recordable<T = any> = Record<string, T>

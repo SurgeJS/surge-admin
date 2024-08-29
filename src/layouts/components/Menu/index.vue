@@ -41,8 +41,8 @@ const onClick = (key) => {
 <template>
   <n-menu
     :value="route.path"
-    :default-value="route.path"
     :options="menus"
+    :accordion="appStore.sidebar.isMenuAccordion"
     v-bind="props"
     @update:value="onClick"
   />

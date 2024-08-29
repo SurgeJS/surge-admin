@@ -26,7 +26,7 @@ const sidebarWidth = computed(() => {
 
 <template>
   <transition name="fold">
-    <div
+    <n-layout-sider
       v-if="!base.isMobile && base.layoutMode!=='top'"
       :class="appStore.dynamicSidebarDark.className"
       :style="{width:`${sidebarWidth}px`}"
@@ -36,7 +36,7 @@ const sidebarWidth = computed(() => {
         <sidebar-component v-if="base.layoutMode==='side'" />
         <mix-sidebar v-else-if="base.layoutMode==='mix-side'" />
       </transition>
-    </div>
+    </n-layout-sider>
   </transition>
   <mobile-sidebar v-if="base.isMobile" />
 </template>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { SuperTableProps, SuperTableSlots } from '@/components/antd/SuperTable/type/props'
+import { SuperTableProps, SuperTableSlots } from '@/components/naive/SuperTable/type/props'
 import { Table } from 'ant-design-vue'
 import { computed, ref } from 'vue'
 import useOmitProps from '@/hooks/common/useOmitProps'

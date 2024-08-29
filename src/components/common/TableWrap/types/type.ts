@@ -1,4 +1,4 @@
-import { SuperTableProps } from '@/components/antd/SuperTable/type/props'
+import { SuperTableProps } from '@/components/naive/SuperTable/type/props'
 
 export interface TableWrapProps extends SuperTableProps {
   // 标题
