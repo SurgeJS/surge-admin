@@ -1,4 +1,4 @@
-import { RouteRecordRaw } from 'vue-router'
+import { RawRouteComponent, RouteRecordRaw } from 'vue-router'
 
 declare global {
     /**
@@ -13,7 +13,7 @@ declare global {
 
     interface AppRouteRecordRaw extends OmitRouteRecordRaw {
         // 组件类型
-        component?: RouteComponentType
+        component?: RouteComponentType | RawRouteComponent
 
         // 子路由
         children?: AppRouteRecordRaw[]

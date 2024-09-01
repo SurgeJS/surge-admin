@@ -7,20 +7,15 @@ const { footer } = appStore
 </script>
 
 <template>
-  <a-divider>底部</a-divider>
-  <a-flex gap="middle" vertical>
+  <n-divider>底部</n-divider>
+  <n-flex>
     <context-menu label="显示底部">
-      <a-switch v-model:checked="footer.visible" />
+      <n-switch v-model:value="footer.visible" />
     </context-menu>
     <context-menu label="底部高度">
-      <a-input-number
-        v-model:value="footer.height"
-        :step="10"
-        addon-after="px"
-        mode="button"
-      />
+      <n-input-number v-model:value="footer.height" :step="10" />
     </context-menu>
-  </a-flex>
+  </n-flex>
 </template>
 
 <style scoped>

@@ -15,18 +15,11 @@ export const ROUTE_LOGIN: AppRouteRecordRaw = {
     meta: { title: '登录' }
 }
 
-// 404
-export const ROUTE_404: AppRouteRecordRaw = {
-    path: '/404',
-    component: 'view',
-    meta: { title: '404' }
-}
-
 // 未匹配到页面
 export const ROUTE_NOT_FOUND: AppRouteRecordRaw = {
     path: '/:NotFound(.*)*',
-    name: 'NotFound',
-    redirect: '/404',
+    component: () => import('@/views/404/index.vue'),
+    meta: { title: '404' }
 }
 
-export default [ ROUTE_ROOT, ROUTE_LOGIN, ROUTE_404, ROUTE_NOT_FOUND ]
+export default [ ROUTE_ROOT, ROUTE_LOGIN, ROUTE_NOT_FOUND ]

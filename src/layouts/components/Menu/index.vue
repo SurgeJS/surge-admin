@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import useRenderIcon from '@/hooks/components/useRenderIcon'
 import useAppStore from '@/store/modules/app'
-import RegUtils from '@/utils/reg'
 import type { MenuMixedOption } from 'naive-ui/es/menu/src/interface'
 import { MenuProps } from '@/layouts/components/Menu/type/props'
+import useOmitProps from '@/hooks/common/useOmitProps'
 
 const props = defineProps<MenuProps>()
 
@@ -11,7 +11,7 @@ const route = useRoute()
 const router = useRouter()
 const appStore = useAppStore()
 const { RenderDynamicIcon } = useRenderIcon()
-
+const menuProps = useOmitProps(props,[ 'routes' ])
 const menus = computed(() => routesToMenus(props.routes))
 
 const routesToMenus = (routes: AppRouteRecordRaw[]): MenuMixedOption[] => {
@@ -30,10 +30,7 @@ const routesToMenus = (routes: AppRouteRecordRaw[]): MenuMixedOption[] => {
 }
 
 const onClick = (key) => {
-  if (RegUtils.MATCH_URL.test(key)) return window.open(key, '_blank')
-  router.push(key).then(() => {
-    appStore.base.isMobile && appStore.toggleMobileSidebarVisible(false)
-  })
+  router.push(key)
 }
 
 </script>
@@ -43,7 +40,8 @@ const onClick = (key) => {
     :value="route.path"
     :options="menus"
     :accordion="appStore.sidebar.isMenuAccordion"
-    v-bind="props"
+    v-bind="menuProps"
+    class="w-full"
     @update:value="onClick"
   />
 </template>

@@ -38,7 +38,7 @@ const onAfterLeave = async (el: HTMLElement) => {
     @before-enter="onBeforeEnter"
   >
     <div
-      v-show="sidebar.mixSidebarDrawerVisible"
+      v-show="true"
       :class="appStore.dynamicSidebarDark.className"
       :style="{width:`${sidebar.sidebarWidth}px`}"
       class="mixMenuDrawers"
@@ -67,9 +67,10 @@ const onAfterLeave = async (el: HTMLElement) => {
   border-left: 1px solid theme('borderColor.secondary');
   border-right: 1px solid theme('borderColor.secondary');
   transform: translateX(100%);
-  z-index: 100;
+  z-index: 1000;
   overflow: hidden;
-  background: theme('backgroundColor.container');
+  //background: theme('backgroundColor.container');
+  background: red;
   display: flex;
   flex-direction: column;
 

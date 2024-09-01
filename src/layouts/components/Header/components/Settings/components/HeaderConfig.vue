@@ -7,31 +7,21 @@ const { header } = appStore
 </script>
 
 <template>
-  <a-divider>头部</a-divider>
-  <a-flex gap="middle" vertical>
+  <n-divider>头部</n-divider>
+  <n-flex>
     <context-menu label="头部高度">
-      <a-input-number
-        v-model:value="header.headerHeight"
-        :step="10"
-        addon-after="px"
-        mode="button"
-      />
+      <n-input-number v-model:value="header.headerHeight" :step="10" />
     </context-menu>
     <context-menu label="标签栏高度">
-      <a-input-number
-        v-model:value="header.tabBarHeight"
-        :step="10"
-        addon-after="px"
-        mode="button"
-      />
+      <n-input-number v-model:value="header.tabBarHeight" :step="10" />
     </context-menu>
     <context-menu label="显示标签栏">
-      <a-switch v-model:checked="header.tabBarVisible" />
+      <n-switch v-model:value="header.tabBarVisible" />
     </context-menu>
     <context-menu label="显示面包屑">
-      <a-switch v-model:checked="header.breadcrumbVisible" />
+      <n-switch v-model:value="header.breadcrumbVisible" />
     </context-menu>
-  </a-flex>
+  </n-flex>
 </template>
 
 <style scoped>

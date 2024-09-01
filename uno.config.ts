@@ -61,7 +61,7 @@ export default defineConfig<Theme>({
             colors: {
                 ...theme.colors,
                 // 主色
-                'primary': 'var(--colorPrimary)',
+                'primary': 'var(--primaryColor)',
                 // 浅主色
                 'primary-shallow': 'var(--colorPrimaryBg)',
                 // 填充色

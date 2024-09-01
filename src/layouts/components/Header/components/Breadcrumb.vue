@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { RouteLocationMatched, useRoute, useRouter } from 'vue-router'
 import { ref, watch } from 'vue'
-import useAppStore from '@/store/modules/app'
 import RouterConstant from '@/constant/router'
 
 interface Breadcrumb {
@@ -12,7 +11,6 @@ interface Breadcrumb {
 
 defineOptions({ name: 'Breadcrumb' })
 
-const appStore = useAppStore()
 const routes = ref<Breadcrumb[]>([])
 const route = useRoute()
 const router = useRouter()
@@ -25,8 +23,8 @@ const routeMatchedToBreadcrumb = (routeMatched: RouteLocationMatched[]) => route
   }
 })
 
-const accessMenu = (menu) => {
-  router.push(menu.key)
+const handleSelect = (key) => {
+  router.push(key)
 }
 
 watch(() => route.path, () => {
@@ -36,40 +34,18 @@ watch(() => route.path, () => {
 </script>
 
 <template>
-  <a-breadcrumb
-    :class="{dark :appStore.base.layoutStyle === 'side-top-dark'}"
-    class="breadcrumb"
-  >
-    <a-breadcrumb-item v-for="item in routes" :key="item.key">
-      <span @click="!item.children?.length&&router.push(item.key)">
-        {{ item.label }}
-      </span>
-      <template v-if="item.children" #overlay>
-        <a-menu :items="item.children" @click="accessMenu" />
-      </template>
-    </a-breadcrumb-item>
-  </a-breadcrumb>
+  <n-breadcrumb class="breadcrumb">
+    <n-breadcrumb-item v-for="item in routes" :key="item.key">
+      <n-dropdown :options="item.children" @select="handleSelect">
+        <span>{{ item.label }}</span>
+      </n-dropdown>
+    </n-breadcrumb-item>
+  </n-breadcrumb>
 </template>
 
 <style lang="scss" scoped>
 .breadcrumb {
   display: flex;
   align-items: center;
-
-  &.dark {
-    color: theme('textColor.light');
-
-    &:hover {
-      color: theme('textColor.light');
-    }
-
-    :deep(.ant-dropdown-trigger) {
-      color: theme('textColor.light');
-    }
-
-    :deep(li:last-child), :deep(.ant-breadcrumb-separator) {
-      color: theme('textColor.light');
-    }
-  }
 }
 </style>

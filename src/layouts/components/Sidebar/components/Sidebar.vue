@@ -12,39 +12,18 @@ const authStore = useAuthStore()
 </script>
 
 <template>
-  <div
-    :class="appStore.dynamicSidebarDark.className"
-    :style="{width:`${appStore.dynamicSidebarWidth}px`}"
-    class="sidebar"
-  >
+  <div class="w-full flex flex-col">
     <logo />
-    <div class="sidebar-container">
+    <div class="flex-1 overflow-x-hidden overflow-y-auto">
       <Menu
         :collapsed="sidebar.isCollapsed"
-        :dark="appStore.dynamicSidebarDark.isDark"
+        :collapsed-width="sidebar.collapsedSidebarWidth"
         :routes="authStore.routes"
-        :collapsed-width="appStore.sidebar.collapsedSidebarWidth"
       />
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
-.sidebar {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  transition: width .2s;
-  border-right: 1px solid theme('borderColor.secondary');
 
-  &.dark {
-    border-right: 1px solid theme('borderColor.dark');
-  }
-
-  &-container {
-    flex: 1;
-    overflow-y: auto;
-    overflow-x: hidden;
-  }
-}
 </style>

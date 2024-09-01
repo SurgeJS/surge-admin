@@ -1,55 +1,36 @@
 <script lang="ts" setup>
-import ConfigMenu from '@/layouts/components/Header/components/Settings/components/ContextMenu.vue'
 import useAppStore from '@/store/modules/app'
-import { ref, watch } from 'vue'
 
 const appStore = useAppStore()
-const isDark = ref(appStore.base.themeMode === 'dark')
-
-const onUpdate = (value) => appStore.setThemeMode(value ? 'dark' : 'light')
-
-watch(() => appStore.base.themeMode,() => {
-  isDark.value = appStore.base.themeMode === 'dark'
-})
 </script>
 
 <template>
-  <a-divider>
+  <n-divider>
     主题模式
-  </a-divider>
-  <a-flex gap="middle" vertical>
-    <config-menu label="主题模式">
-      <a-switch
-        v-model:checked="isDark"
-        checked-color="#464e62"
-        class="themeSwitch"
-        unchecked-color="#464e62"
-        @change="onUpdate"
-      >
-        <template #checkedChildren>
-          <icon icon="i-ant-design:moon-filled" color="#4f60fc" />
+  </n-divider>
+  <n-flex>
+    <n-tabs
+      v-model:value="appStore.base.themeMode"
+      type="segment"
+      animated
+    >
+      <n-tab-pane name="light" tab="第一章">
+        <template #tab>
+          <icon icon="i-ant-design:sun-filled" />
         </template>
-        <template #unCheckedChildren>
-          <icon icon="i-ant-design:sun-filled" color="#ffb948" />
+      </n-tab-pane>
+      <n-tab-pane name="dark" tab="第二章">
+        <template #tab>
+          <icon icon="i-ant-design:moon-filled" />
         </template>
-      </a-switch>
-    </config-menu>
-    <config-menu label="跟随系统">
-      <a-switch
-        v-model:checked="appStore.base.themeModeFollowSystem"
-        checked-color="#464e62"
-        class="themeSwitch"
-        unchecked-color="#464e62"
-      >
-        <template #checkedChildren>
+      </n-tab-pane>
+      <n-tab-pane name="system" tab="第三章">
+        <template #tab>
           <icon icon="i-ic:round-hdr-auto" />
         </template>
-        <template #unCheckedChildren>
-          <icon icon="i-ic:baseline-do-disturb-on" />
-        </template>
-      </a-switch>
-    </config-menu>
-  </a-flex>
+      </n-tab-pane>
+    </n-tabs>
+  </n-flex>
 </template>
 
 <style lang="scss" scoped>

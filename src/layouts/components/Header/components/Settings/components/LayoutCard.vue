@@ -17,18 +17,18 @@ const emits = defineEmits<Emits>()
 </script>
 
 <template>
-  <a-popover position="bottom" trigger="hover">
-    <div
-      :class="active ? 'active' : undefined"
-      class="layoutCard"
-      @click="emits('clickCard')"
-    >
-      <slot />
-    </div>
-    <template #content>
-      <span>{{ popoverContent }}</span>
+  <n-popover trigger="hover">
+    <template #trigger>
+      <div
+        :class="active ? 'active' : undefined"
+        class="layoutCard"
+        @click="emits('clickCard')"
+      >
+        <slot />
+      </div>
     </template>
-  </a-popover>
+    <span>{{ popoverContent }}</span>
+  </n-popover>
 </template>
 
 <style lang="scss" scoped>

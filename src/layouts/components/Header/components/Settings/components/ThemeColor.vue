@@ -1,8 +1,8 @@
 <template>
-  <a-divider>
+  <n-divider>
     主题颜色
-  </a-divider>
-  <a-flex justify="space-between">
+  </n-divider>
+  <n-flex justify="space-between" :wrap="false">
     <div
       v-for="item in AppConstant.THEME_COLOR"
       :key="item"
@@ -12,7 +12,7 @@
     >
       <icon v-if="appStore.base.themeColor===item" icon="i-ant-design:check-outlined" />
     </div>
-  </a-flex>
+  </n-flex>
 </template>
 
 <script lang="ts" setup>

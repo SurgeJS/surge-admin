@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import useAppStore from '@/store/modules/app'
-import { useClipboard,useToggle } from '@vueuse/core'
+import { useClipboard, useToggle } from '@vueuse/core'
 import { initialAppStore } from '@/store/modules/app/initial'
 import { cloneDeep } from 'lodash-es'
 
@@ -19,35 +19,35 @@ const resetCurrentConfig = () => {
 </script>
 
 <template>
-  <a-flex gap="middle" vertical>
-    <a-button
+  <n-flex class="w-full">
+    <n-button
       block
       type="primary"
       @click="copyCurrentConfig"
     >
       拷贝当前配置
-    </a-button>
-    <a-button
+    </n-button>
+    <n-button
       block
-      danger
-      type="primary"
+      type="warning"
       @click="resetCurrentConfig"
     >
       重置当前配置
-    </a-button>
-  </a-flex>
-  <a-modal
-    v-model:open="visible"
+    </n-button>
+  </n-flex>
+  <n-modal
+    v-model:show="visible"
+    preset="dialog"
     hide-cancel
+    title="提示"
     title-align="start"
   >
-    <template #title>提示</template>
     复制成功，请到
-    <a-button type="link">src/store/modules/app/initial.ts</a-button>
+    <n-button quaternary type="info">src/store/modules/app/initial.ts</n-button>
     文件中,覆盖
-    <a-button type="link">initialAppStore</a-button>
+    <n-button quaternary type="info">initialAppStore</n-button>
     对象
-  </a-modal>
+  </n-modal>
 </template>
 
 <style lang="scss" scoped>

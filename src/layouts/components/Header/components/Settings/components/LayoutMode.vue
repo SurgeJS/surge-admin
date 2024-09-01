@@ -22,9 +22,9 @@ const { base } = appStore
 </script>
 
 <template>
-  <a-divider>
+  <n-divider>
     布局模式
-  </a-divider>
+  </n-divider>
   <div class="layoutMode">
     <layout-card
       v-for="item in layoutModeList"

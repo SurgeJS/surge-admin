@@ -5,6 +5,7 @@ import { runTacticsAction, TacticsAction } from '@/utils'
 import RouterConstant from '@/constant/router'
 import { tokenCache } from '@/store/caches'
 import { message } from 'ant-design-vue'
+import RegUtils from '@/utils/reg'
 
 const createAuthGuard = (to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext) => {
     const {
@@ -72,7 +73,8 @@ const createAuthGuard = (to: RouteLocationNormalized, from: RouteLocationNormali
                     return Promise.reject()
                 })
                 await handleRouteAuthMode()
-                to.redirectedFrom ? next(to.redirectedFrom) : next({ ...to, replace: true })
+                next({ ...to, replace: true })
+                // to.redirectedFrom ? next(to.redirectedFrom) : next({ ...to, replace: true })
             }
         ],
         // 没有生成路由
@@ -81,7 +83,8 @@ const createAuthGuard = (to: RouteLocationNormalized, from: RouteLocationNormali
             async () => {
                 console.info('---没有生成路由---')
                 await handleRouteAuthMode()
-                to.redirectedFrom ? next(to.redirectedFrom) : next({ ...to, replace: true })
+                next({ ...to, replace: true })
+                // to.redirectedFrom ? next(to.redirectedFrom) : next({ ...to, replace: true })
             }
         ],
         // 登录情况下不能到登录页面
@@ -90,6 +93,14 @@ const createAuthGuard = (to: RouteLocationNormalized, from: RouteLocationNormali
             () => {
                 console.info('---登录情况下不能到登录页面---')
                 next(from.fullPath)
+            }
+        ],
+        // 打开外链
+        [
+            RegUtils.MATCH_URL.test(to.path),
+            () => {
+                window.open(to.path.replace('/',''), '_blank')
+                return next(from.fullPath)
             }
         ],
         // 禁用菜单

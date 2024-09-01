@@ -7,13 +7,14 @@ const { footer } = appStore
 </script>
 
 <template>
-  <div
+  <n-layout-footer
     v-if="footer.visible"
+    bordered
     :style="{height:`${footer.height}px`}"
     class="layoutFooter"
   >
     Copyright ©2022 Simple Admin
-  </div>
+  </n-layout-footer>
 </template>
 
 <style lang="scss" scoped>
@@ -21,6 +22,7 @@ const { footer } = appStore
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: height .2s ease-in-out;
   background: theme('backgroundColor.container');
   width: 100%;
   flex-shrink: 0;

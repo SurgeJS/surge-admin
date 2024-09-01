@@ -100,7 +100,7 @@ export class RouterUtils {
     static transformCustomRouteToVueRoute(route: AppRouteRecordRaw) {
         // 如果是外链就不转vue路由
         if (RegUtils.MATCH_URL.test(route.path)) return undefined
-        let vueRoute = { ...route, component: undefined } as RouteRecordRaw
+        let vueRoute = { ...route } as RouteRecordRaw
         // 原始路径，不包含路径参数
         const recordPath = RegUtils.removePathParams(route.path)
         // 用于菜单缓存
@@ -132,8 +132,6 @@ export class RouterUtils {
                 }
                 vueRoute.component = () => import('@/layouts/index.vue')
                 break
-            default :
-                vueRoute.component = undefined
         }
         return vueRoute
     }

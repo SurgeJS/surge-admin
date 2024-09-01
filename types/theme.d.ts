@@ -1,8 +1,9 @@
-import { GlobalToken } from 'ant-design-vue/es/theme/interface'
+import { GlobalThemeOverrides } from 'naive-ui'
+
 
 declare global {
 
-    interface ThemeConfig extends Partial<GlobalToken> {
+    interface ThemeOverrides extends GlobalThemeOverrides {
     }
 
     /* ------中性主题变量------ */

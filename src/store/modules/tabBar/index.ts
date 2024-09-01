@@ -4,6 +4,7 @@ import RouterConstant from '@/constant/router'
 import { asyncWait } from '@/utils'
 import { RouteRecordNameGeneric } from 'vue-router'
 import { Tab, TabBarStore } from '@/store/modules/tabBar/type'
+import useAppStore from '@/store/modules/app'
 
 const useTabBarStore = defineStore('TabBar', {
     state: (): TabBarStore => ({
@@ -68,6 +69,8 @@ const useTabBarStore = defineStore('TabBar', {
 
         // 刷新当前激活的路由
         async refresh() {
+            const appStore = useAppStore()
+            appStore.setFullScreenLoading(false)
             this.refreshFlag = false
             await asyncWait(this.refreshWaitDuration)
             this.refreshFlag = true

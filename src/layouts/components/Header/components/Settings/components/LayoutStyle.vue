@@ -28,9 +28,9 @@ const switchStyle = (option: LayoutStyleOption) => {
 </script>
 
 <template>
-  <a-divider>
+  <n-divider>
     布局风格
-  </a-divider>
+  </n-divider>
   <div class="layoutStyle">
     <layout-card
       v-for="item in layoutStyleList"

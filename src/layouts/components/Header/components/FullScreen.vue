@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { useFullscreen } from '@vueuse/core'
 import { computed } from 'vue'
-import IconHoverContainer from '@/layouts/components/Header/components/IconHoverContainer.vue'
+import IconHoverContainer from '@/layouts/components/Header/components/HoverContainer.vue'
 
 const { isFullscreen,toggle } = useFullscreen()
 const iconName = computed(() => !isFullscreen ? 'i-ant-design:expand-outlined' : 'i-ant-design:compress-outlined')

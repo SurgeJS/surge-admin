@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import IconHoverContainer from '@/layouts/components/Header/components/IconHoverContainer.vue'
+import IconHoverContainer from '@/layouts/components/Header/components/HoverContainer.vue'
 import MenuSearchModal from '@/layouts/components/Header/components/MenuSearch/components/MenuSearchModal.vue'
 
 defineOptions({ name: 'MenuSearch' })

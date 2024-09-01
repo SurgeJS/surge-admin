@@ -2,8 +2,8 @@
 import useAppStore from '@/store/modules/app'
 import { computed } from 'vue'
 import MobileSidebar from '@/layouts/components/Sidebar/components/MobileSidebar.vue'
-import MixSidebar from '@/layouts/components/Sidebar/components/MixSidebar/index.vue'
 import SidebarComponent from '@/layouts/components/Sidebar/components/Sidebar.vue'
+import MixSidebar from '@/layouts/components/Sidebar/components/MixSidebar/index.vue'
 
 defineOptions({ name: 'LayoutSidebar' })
 
@@ -28,9 +28,11 @@ const sidebarWidth = computed(() => {
   <transition name="fold">
     <n-layout-sider
       v-if="!base.isMobile && base.layoutMode!=='top'"
-      :class="appStore.dynamicSidebarDark.className"
-      :style="{width:`${sidebarWidth}px`}"
+      bordered
       class="layout-sidebar"
+      content-class="min-w-100%!"
+      :width="sidebarWidth"
+      :collapsed-width="sidebar.collapsedSidebarWidth"
     >
       <transition name="slide-left">
         <sidebar-component v-if="base.layoutMode==='side'" />
@@ -43,23 +45,7 @@ const sidebarWidth = computed(() => {
 
 <style lang="scss" scoped>
 .layout-sidebar {
-  background: theme('backgroundColor.container');
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  transition: width .2s ease-in-out;
-  overflow: hidden;
-
-  &.dark {
-    background: theme('backgroundColor.dark');
-    color: theme('textColor.light');
-  }
-
-  &-container {
-    flex: 1;
-    overflow: auto;
-    width: 100%;
-  }
+  transition: .2s ease-in-out !important;
 }
 
 // 左滑

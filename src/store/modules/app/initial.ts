@@ -1,9 +1,7 @@
 import { cloneDeep } from 'lodash-es'
 import { appCache } from '@/store/caches'
 import { AppStore } from '@/store/modules/app/type'
-
-// 移动端处罚宽度
-const mobileTriggerWidth = 800
+import AppConstant from '@/constant/app'
 
 // 初始设置
 export const initialAppStore: AppStore = {
@@ -11,11 +9,8 @@ export const initialAppStore: AppStore = {
         // 主题颜色
         themeColor: '#6675ff',
 
-        // 主题模式是否跟随系统
-        themeModeFollowSystem: true,
-
         // 主题模式
-        themeMode: 'light',
+        themeMode: 'system',
 
         // 是否开启页面切换动画
         isPageStartAnimation: true,
@@ -33,7 +28,7 @@ export const initialAppStore: AppStore = {
         mobileTriggerWidth: 800,
 
         // 是否移动端
-        isMobile: document.body.offsetWidth <= mobileTriggerWidth,
+        isMobile: document.body.offsetWidth <= AppConstant.MOBILE_TRIGGER_WIDTH,
 
         // 全屏loading
         fullScreenLoading: false

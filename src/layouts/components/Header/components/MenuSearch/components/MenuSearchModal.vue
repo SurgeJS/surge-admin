@@ -101,15 +101,16 @@ watch(visible, () => {
 </script>
 
 <template>
-  <a-modal
-    v-model:open="visible"
-    :align-center="false"
+  <n-modal
+    v-model:show="visible"
+    title="搜索菜单"
+    style="width: 680px;margin-top: 100px"
     :closable="false"
-    title-align="start"
-    width="630px"
+    :bordered="false" 
+    preset="card"
   >
-    <a-flex gap="middle" vertical>
-      <a-input
+    <n-flex vertical>
+      <n-input
         v-model:value="searchText"
         autofocus
         placeholder="请输入你想搜索的菜单"
@@ -119,7 +120,7 @@ watch(visible, () => {
         <template #suffix>
           <icon icon="i-ant-design:search-outlined" />
         </template>
-      </a-input>
+      </n-input>
       <div class="menuSearchModal">
         <div
           v-for="(item,i) in searchResult"
@@ -143,7 +144,7 @@ watch(visible, () => {
         </div>
         <a-empty v-show="isNotFound" description="没有搜索到" />
       </div>
-    </a-flex>
+    </n-flex>
     <template #footer>
       <div class="menuSearchModal-footer">
         <div class="menuSearchModal-footer-keys">
@@ -167,7 +168,7 @@ watch(visible, () => {
         </div>
       </div>
     </template>
-  </a-modal>
+  </n-modal>
 </template>
 
 <style lang="scss" scoped>

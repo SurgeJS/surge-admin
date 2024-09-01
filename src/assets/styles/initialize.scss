@@ -37,6 +37,6 @@ iframe {
 }
 
 // 清除过度效果(不包括 ant switch 组件)
-.noTransition *:not(.ant-switch *) {
+.noTransition *:not(.n-switch *) {
   transition: none !important;
 }

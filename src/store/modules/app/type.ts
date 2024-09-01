@@ -1,16 +1,16 @@
-import { SizeType } from 'ant-design-vue/es/config-provider'
+import { SizeType } from 'ant-design-vue/es/config-provider' // 页面切换动画  左滑淡出 | 右滑淡出 | 缩放淡入淡出
 
-// 页面切换动画  左滑淡出 | 右滑淡出 | 缩放淡入淡出
+// 页面切换动画: 左滑淡出 | 右滑淡出 | 缩放淡入淡出
 export type PageAnimationMode = | 'left-slide-fade' | 'right-slide-fade' | 'zoom-fade'
 
 // 布局模式：侧边 | 混合侧边 | 顶部
 export type LayoutMode = 'side' | 'mix-side' | 'top'
 
-// 布局风格 侧边暗黑 | 侧边顶部暗黑 | 侧边顶部明亮
+// 布局风格: 侧边暗黑 | 侧边顶部暗黑 | 侧边顶部明亮
 export type LayoutStyle = 'side-dark' | 'side-top-dark' | 'side-top-light'
 
-// 主题模式
-export type ThemeMode = 'light' | 'dark'
+// 主题模式: 明亮 | 暗黑 | 跟随系统
+export type ThemeMode = 'light' | 'dark' | 'system'
 
 export type Option<T> = {
     value: T
@@ -22,9 +22,6 @@ export type LayoutModeOption = Option<LayoutMode>
 
 // 布局风格选项
 export type LayoutStyleOption = Option<LayoutStyle>
-
-// 布局风格选项
-export type PageAnimationOption = Option<PageAnimationMode>
 
 // 侧边栏
 export interface LayoutSidebar {
@@ -84,9 +81,6 @@ export interface LayoutFooter {
 export interface LayoutApp {
     // 主题颜色
     themeColor: string
-
-    // 主题模式跟随系统 优先级 大于 themeMode
-    themeModeFollowSystem: boolean
 
     // 主题模式
     themeMode: ThemeMode

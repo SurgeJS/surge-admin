@@ -62,7 +62,6 @@ watch(() => route.path, () => {
 
 <template>
   <div
-    :class="appStore.dynamicSidebarDark.className"
     :style="{width:`${appStore.dynamicMixSidebarWidth}px`}"
     class="mixSidebar"
     @mouseleave="onMouseLeave"
@@ -81,9 +80,11 @@ watch(() => route.path, () => {
           :size="sidebar.isCollapsedMix ? 20: 24"
           pointer
         />
-        <p v-if="!sidebar.isCollapsedMix" class="mixSidebar-container-menu-text">
-          {{ item?.meta?.title }}
-        </p>
+        <n-collapse-transition class="text-center" :show="!sidebar.isCollapsedMix">
+          <n-ellipsis>
+            {{ item?.meta?.title }}
+          </n-ellipsis>
+        </n-collapse-transition>
       </div>
     </div>
     <div
@@ -139,7 +140,6 @@ watch(() => route.path, () => {
       align-items: center;
       justify-content: center;
       padding: 10px 7px;
-      gap: 7px;
       transition: .2s;
       border-radius: theme('borderRadius.md');
       cursor: pointer;
@@ -156,10 +156,6 @@ watch(() => route.path, () => {
       &.active {
         background: theme('colors.primary');
         color: white;
-      }
-
-      &-text {
-        white-space: nowrap;
       }
     }
   }

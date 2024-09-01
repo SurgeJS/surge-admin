@@ -7,15 +7,15 @@ const appStore = useAppStore()
 
 const animationList = [
   {
-    label: '缩放淡入淡出',
+    label: '缩放',
     value: 'zoom-fade'
   },
   {
-    label: '左滑动淡入淡出',
+    label: '左滑动',
     value: 'left-slide-fade'
   },
   {
-    label: '右滑动淡入淡出',
+    label: '右滑动',
     value: 'right-slide-fade'
   }
 ]
@@ -24,25 +24,15 @@ const { base } = appStore
 </script>
 
 <template>
-  <a-divider>其他</a-divider>
-  <a-flex gap="middle" vertical>
+  <n-divider>其他</n-divider>
+  <n-flex>
     <context-menu label="开启页面切换动画">
-      <a-switch v-model:checked="base.isPageStartAnimation" />
+      <n-switch v-model:value="base.isPageStartAnimation" />
     </context-menu>
-    <context-menu label="组件尺寸">
-      <a-select v-model:value="base.pageAnimationMode">
-        <a-select-option
-          v-for="item in animationList"
-          :key="item.value"
-          :value="item.value"
-        >
-          {{
-            item.label
-          }}
-        </a-select-option>
-      </a-select>
+    <context-menu label="页面切换动画风格">
+      <n-select v-model:value="base.pageAnimationMode" :options="animationList" />
     </context-menu>
-  </a-flex>
+  </n-flex>
 </template>
 
 <style scoped>

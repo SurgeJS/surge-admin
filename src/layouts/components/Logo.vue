@@ -5,18 +5,20 @@ import { wrapperMetaEnv } from '@/utils/env'
 
 const { VITE_APP_TITLE } = wrapperMetaEnv()
 
-const { sidebar,base,header } = useAppStore()
+const { sidebar, base, header } = useAppStore()
 const isHide = computed(() => (sidebar.isCollapsed || base.layoutMode === 'mix-side') && !base.isMobile)
 </script>
 
 <template>
   <div class="logo" :style="{height:`${header.headerHeight}px`}">
     <img
-      height="28"
+      height="40"
       src="../../assets/images/logo.png"
-      alt=""
+      :alt="VITE_APP_TITLE"
     >
-    <span v-if="!isHide" class="logo-text">{{ VITE_APP_TITLE }}</span>
+    <n-collapse-transition class="w-auto" :show="!isHide">
+      <span class="logo-text">{{ VITE_APP_TITLE }}</span>
+    </n-collapse-transition>
   </div>
 </template>
 
@@ -25,9 +27,8 @@ const isHide = computed(() => (sidebar.isCollapsed || base.layoutMode === 'mix-s
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
   transition: height .2s ease-in-out;
-
+  padding: 10px;
   &-text {
     font-weight: bold;
     font-size: 18px;
