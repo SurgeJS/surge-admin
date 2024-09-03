@@ -148,7 +148,7 @@ watch(tabBarStore.tabs, () => {
     cursor: pointer;
     height: 30px;
     flex-shrink: 0;
-    color: theme('textColor.main');
+    color: theme('textColor.base');
     gap: 5px;
     font-size: 14px;
     white-space: nowrap;
@@ -175,7 +175,7 @@ watch(tabBarStore.tabs, () => {
       color: theme('textColor.tertiary');
 
       &:hover {
-        color: theme('textColor.main');
+        color: theme('textColor.base');
       }
     }
   }

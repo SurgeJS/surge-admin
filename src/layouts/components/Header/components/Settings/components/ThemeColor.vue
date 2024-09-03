@@ -4,7 +4,7 @@
   </n-divider>
   <n-flex justify="space-between" :wrap="false">
     <div
-      v-for="item in AppConstant.THEME_COLOR"
+      v-for="item in AppConstant.THEME_COLORS"
       :key="item"
       :style="{background:item}"
       class="themeCard"

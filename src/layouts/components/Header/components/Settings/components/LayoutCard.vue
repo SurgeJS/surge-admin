@@ -1,14 +1,14 @@
 <script lang="ts" setup>
 interface Props {
-    // 是否激活
-    active?: boolean
+  // 是否激活
+  active?: boolean
 
-    // 弹框文字内容
-    popoverContent?: string
+  // 弹框文字内容
+  popoverContent?: string
 }
 
 interface Emits {
-    (e: 'clickCard'): void
+  (e: 'clickCard'): void
 }
 
 defineOptions({ name: 'LayoutCard' })
@@ -33,9 +33,9 @@ const emits = defineEmits<Emits>()
 
 <style lang="scss" scoped>
 .layoutCard {
-  background:theme('backgroundColor.container');
-  height: 65px;
-  width: 75px;
+  background: theme('backgroundColor.container');
+  width: 105px;
+  height: 85px;
   border-radius: 4px;
   cursor: pointer;
   box-shadow: theme('boxShadow.main');
@@ -46,7 +46,7 @@ const emits = defineEmits<Emits>()
 
   &.active {
     box-shadow: 5px 5px 5px theme('colors.primary-shallow');
-    border-color:theme('colors.primary');
+    border-color: theme('colors.primary');
   }
 }
 </style>

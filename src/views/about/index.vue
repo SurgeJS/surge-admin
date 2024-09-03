@@ -1,41 +1,24 @@
 <script lang="ts" setup>
-import useAppStore from '@/store/modules/app'
-import { generate, presetPalettes } from '@ant-design/colors'
-
-defineOptions({
-  name: 'Test',
-})
-const count = ref(0)
-const appStore = useAppStore()
-const palette = generate('#6675ff', {
-  theme: 'dark',
-})
-console.log(presetPalettes)
-console.log(palette)
-const test = () => {
-  appStore.setFullScreenLoading(true)
-  setTimeout(() => {
-    appStore.setFullScreenLoading(false)
-  }, 2000)
-}
-onMounted(() => {
-  console.log(111)
-  test()
-})
 </script>
 
 <template>
   <div class="w-full h-full">
-    <a-button @click="test">test</a-button>
-    <a-button @click="count++">test222</a-button>
-    {{ count }}
-    <p
-      v-for="(item,i) in 100"
-      :key="item"
-      :style="{background:palette[i]}"
-    >
-      {{ item }}
-    </p>
+    <n-flex>
+      <n-input placeholder="xxx" />
+      <n-button>test222</n-button>
+      <n-button type="primary">test222</n-button>
+      <span class="p-10px hover:bg-[rgba(255,255,255,.1)]">55</span>
+      <span class="p-10px hover:bg-[rgba(255,255,255,.08)]">55</span>
+      <span class="p-10px hover:bg-[rgba(255,255,255,.05)]">55</span>
+
+      <span class="p-10px hover:bg-[rgba(50,50,50,.1)]">55</span>
+      <span class="p-10px hover:bg-[rgba(0,0,0,.08)]">55</span>
+      <span class="p-10px hover:bg-[rgba(0,0,0,.05)]">55</span>
+    </n-flex>
+    <n-divider>字体颜色梯度</n-divider>
+    <n-card class="mt-20px" title="卡片">
+      卡片内容
+    </n-card>
   </div>
 </template>
 

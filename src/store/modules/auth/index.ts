@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia'
 import { UserApi } from '@/services/api/user'
-import { notification } from 'ant-design-vue'
 import router from '@/router'
 import { RouterUtils } from '@/router/utils'
 import RouterConstant from '@/constant/router'
@@ -95,9 +94,9 @@ const useAuthStore = defineStore('Auth', {
             await this.getUserinfo()
             // 重定向路径
             await router.replace(RouterConstant.HOME_PATH)
-            notification.success({
-                message: '登录成功',
-                description: `欢迎回来，${ this.userinfo?.username }！`
+            window.$notification.success({
+                title: '登录成功',
+                content: `欢迎回来，${ this.userinfo?.username }！`
             })
         },
 

@@ -13,9 +13,8 @@ html, body, #app {
 }
 
 body {
-  font-family: "Microsoft YaHei UI Light", serif;
   background: theme('backgroundColor.layout');
-  color: theme('textColor.main');
+  color: theme('textColor.base');
 }
 
 ul, ol, li {
@@ -37,6 +36,7 @@ iframe {
 }
 
 // 清除过度效果(不包括 ant switch 组件)
-.noTransition *:not(.n-switch *) {
+.noTransition *:not(.n-tabs-capsule) {
   transition: none !important;
+  animation: none !important;
 }

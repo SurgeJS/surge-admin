@@ -1,18 +1,10 @@
 import { defineStore } from 'pinia'
 import { appStore } from '@/store/modules/app/initial'
-import { temporaryClearTransition } from '@/utils'
-import { AppStore, ThemeMode } from '@/store/modules/app/type'
-import { darkTheme, lightTheme } from 'naive-ui'
+import { AppStore } from '@/store/modules/app/type'
 
 const useAppStore = defineStore('App', {
     state: (): AppStore => appStore,
     getters: {
-        // 主题
-        theme: ({ base }) => base.themeMode === 'dark' ? darkTheme : lightTheme,
-        // 主题覆盖
-        themeOverride: ({ base }) =>{
-            return base
-        },
         // 动态侧边栏宽度
         dynamicSidebarWidth: ({ sidebar }) => sidebar.isCollapsed ? sidebar.collapsedSidebarWidth : sidebar.sidebarWidth,
         // 动态混合侧边栏宽度
@@ -41,14 +33,6 @@ const useAppStore = defineStore('App', {
             },
     },
     actions: {
-        // 设置主题模式
-        setThemeMode(mode: ThemeMode) {
-            // 临时清除过渡效果
-            temporaryClearTransition(() => {
-                this.base.themeMode = mode
-            })
-        },
-
         // 设置主题颜色
         setThemeColor(color: string) {
             this.base.themeColor = color
@@ -56,7 +40,7 @@ const useAppStore = defineStore('App', {
 
         // 切换Sidebar折叠
         toggleSidebarCollapsed(isCollapsed?: boolean) {
-            this.sidebar.isCollapsed =  isCollapsed ?? !this.sidebar.isCollapsed
+            this.sidebar.isCollapsed = isCollapsed ?? !this.sidebar.isCollapsed
         },
 
         // 切换移动端Sidebar可见

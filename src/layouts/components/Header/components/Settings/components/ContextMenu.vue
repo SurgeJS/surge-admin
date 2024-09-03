@@ -2,7 +2,7 @@
 defineOptions({ name: 'ConfigMenu' })
 
 interface Props {
-    label: string
+  label: string
 }
 
 defineProps<Props>()
@@ -25,7 +25,7 @@ defineProps<Props>()
   width: 100%;
 
   &-title {
-    color: theme('textColor.main');
+    color: theme('textColor.base');
   }
 
   &-content {

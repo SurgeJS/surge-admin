@@ -40,16 +40,11 @@ export default defineConfig<Theme>({
         'flex-y-center': 'flex items-center',
 
         /* 为了自定义主题的代码提示 (unocss bug) */
-        'text-main': 'text-main',
+        'text-base': 'text-base',
         'text-secondary': 'text-secondary',
         'text-tertiary': 'text-tertiary',
-        'text-quaternary': 'text-quaternary',
-        'text-light': 'text-light',
         'bg-container': 'bg-container',
-        'bg-container-elevated': 'bg-container-elevated',
         'bg-layout': 'bg-layout',
-        'bg-spotlight': 'bg-spotlight',
-        'bg-mask': 'bg-mask',
         'bg-dark': 'bg-dark',
         'b-main': 'b-main',
         'b-secondary': 'b-secondary',
@@ -63,7 +58,7 @@ export default defineConfig<Theme>({
                 // 主色
                 'primary': 'var(--primaryColor)',
                 // 浅主色
-                'primary-shallow': 'var(--colorPrimaryBg)',
+                'primary-shallow': 'var(--primaryColorHover)',
                 // 填充色
                 'fill': {
                     // 一级填充色
@@ -81,28 +76,20 @@ export default defineConfig<Theme>({
             textColor: {
                 ...theme.textColor,
                 // 一级文本色
-                'main': 'var(--colorText)',
+                'base': 'var(--textColor1)',
                 // 二级级文本色
-                'secondary': 'var(--colorTextSecondary)',
+                'secondary': 'var(--textColor2)',
                 // 三级文本色
                 'tertiary': 'var(--colorTextTertiary)',
-                // 四级文本色
-                'quaternary': 'var(--colorTextQuaternary)',
                 // 亮色
                 'light': 'var(--textLight)'
             },
             backgroundColor: {
                 ...theme.backgroundColor,
-                // 组件容器背景色
-                'container': 'var(--colorBgContainer)',
-                // 浮层容器背景色
-                'container-elevated': 'var(--colorBgElevated)',
                 // 布局背景色
-                'layout': 'var(--colorBgLayout)',
-                // 引起注意的背景色
-                'spotlight': 'var(--colorBgSpotlight)',
-                // 浮层的背景蒙层颜色
-                'mask': 'var(--colorBgMask)',
+                'layout': 'var(--bodyColor)',
+                // 容器背景色
+                'container': 'var(--cardColor)',
                 // 背景暗黑色
                 'dark': 'var(--bgDark)'
             },
