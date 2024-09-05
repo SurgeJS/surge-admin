@@ -19,6 +19,7 @@ const authStore = useAuthStore()
 <template>
   <n-layout-header
     :style="{height:`${header.headerHeight}px`}"
+    :inverted="appStore.sidebarAndHeaderInverted"
     bordered
     class="layout-header"
   >
@@ -30,10 +31,11 @@ const authStore = useAuthStore()
     <Menu
       v-if="base.layoutMode==='top'&&!base.isMobile"
       :routes="authStore.routes"
+      :inverted="appStore.sidebarAndHeaderInverted"
       responsive
       mode="horizontal"
     />
-    <n-flex :wrap="false">
+    <n-flex :wrap="false" align="center">
       <menu-search />
       <full-screen />
       <settings />

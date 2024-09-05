@@ -1,11 +1,7 @@
-<script lang="ts" setup>
-import useAppStore from '@/store/modules/app'
-
-const appStore = useAppStore()
-</script>
+<script lang="ts" setup></script>
 
 <template>
-  <div :class="appStore.dynamicTopDark.className" class="iconHoverContainer">
+  <div class="iconHoverContainer">
     <slot />
   </div>
 </template>
@@ -20,15 +16,10 @@ const appStore = useAppStore()
   cursor: pointer;
   transition: .1s;
   font-size: 16px;
+  flex-shrink: 0;
 
   &:hover {
-    background: theme('colors.fill.tertiary');
-  }
-
-  &.dark {
-    &:hover {
-      background-color: theme('colors.fill.dark');
-    }
+    background: theme('colors.fill.secondary');
   }
 }
 </style>

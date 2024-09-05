@@ -106,7 +106,7 @@ watch(visible, () => {
     title="搜索菜单"
     style="width: 680px;margin-top: 100px"
     :closable="false"
-    :bordered="false" 
+    :bordered="false"
     preset="card"
   >
     <n-flex vertical>
@@ -115,7 +115,7 @@ watch(visible, () => {
         autofocus
         placeholder="请输入你想搜索的菜单"
         size="large"
-        @change="onSearch"
+        @input="onSearch"
       >
         <template #suffix>
           <icon icon="i-ant-design:search-outlined" />

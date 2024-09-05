@@ -32,6 +32,7 @@ const sidebarWidth = computed(() => {
       class="layout-sidebar"
       content-class="min-w-100%!"
       :width="sidebarWidth"
+      :inverted="appStore.sidebarInverted || appStore.sidebarAndHeaderInverted"
       :collapsed-width="sidebar.collapsedSidebarWidth"
     >
       <transition name="slide-left">

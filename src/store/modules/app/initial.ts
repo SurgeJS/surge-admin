@@ -7,7 +7,7 @@ import AppConstant from '@/constant/app'
 export const initialAppStore: AppStore = {
     base: {
         // 主题颜色
-        themeColor: '#6675ff',
+        themeColor: AppConstant.PRIMARY_COLOR,
 
         // 主题模式
         themeMode: 'system',

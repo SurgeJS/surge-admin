@@ -143,7 +143,7 @@ watch(tabBarStore.tabs, () => {
     align-items: center;
     background: theme('backgroundColor.container');
     border-radius: theme('borderRadius.md');
-    border: 1px solid theme('colors.fill.secondary');
+    border: 1px solid theme('borderColor.tertiary');
     user-select: none;
     cursor: pointer;
     height: 30px;
@@ -152,8 +152,6 @@ watch(tabBarStore.tabs, () => {
     gap: 5px;
     font-size: 14px;
     white-space: nowrap;
-    z-index: 10;
-    position: relative;
 
     &.action {
       width: 30px;
@@ -191,7 +189,6 @@ watch(tabBarStore.tabs, () => {
     overflow: hidden;
     height: 100%;
     align-items: center;
-    position: relative;
   }
 }
 </style>

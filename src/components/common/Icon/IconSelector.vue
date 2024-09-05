@@ -1,15 +1,15 @@
 <script lang="ts" setup>
-import { onBeforeMount,ref } from 'vue'
+import { onBeforeMount, ref } from 'vue'
 import { iconSetPrefix } from '@/assets/iconify'
 import { listIcons } from '@iconify/vue'
 import { useToggle } from '@vueuse/core'
 
 const iconValue = defineModel<string>('value')
 
-const [ visible,setVisible ] = useToggle()
+const [ visible, setVisible ] = useToggle()
 
 // 弹出窗口宽度
-const icons = ref<string[]>(listIcons('',iconSetPrefix[0]))
+const icons = ref<string[]>(listIcons('', iconSetPrefix[0]))
 const pageIcons = ref<string[]>([])
 const page = ref<number>(1)
 const pageSize = ref<number>(100)
@@ -25,13 +25,13 @@ const onPageChange = () => {
 }
 
 const onTabsChange = (key: string) => {
-  icons.value = listIcons('',key)
+  icons.value = listIcons('', key)
   page.value = 1
   setPageIcons()
 }
 
 const setPageIcons = () => {
-  pageIcons.value = icons.value.slice((page.value - 1) * pageSize.value,pageSize.value * page.value)
+  pageIcons.value = icons.value.slice((page.value - 1) * pageSize.value, pageSize.value * page.value)
 }
 
 onBeforeMount(() => {
@@ -72,7 +72,7 @@ onBeforeMount(() => {
           <div
             v-for="item in pageIcons"
             :key="item"
-            class="w-[100%] h-[40px] border border-solid border-main flex-center rounded cursor-pointer hover:border-primary"
+            class="w-[100%] h-[40px] border border-solid border-base flex-center rounded cursor-pointer hover:border-primary"
             @click="selectIcon(item)"
           >
             <iconify-icon size="20px" :icon="item" />

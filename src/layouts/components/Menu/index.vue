@@ -11,7 +11,8 @@ const route = useRoute()
 const router = useRouter()
 const appStore = useAppStore()
 const { RenderDynamicIcon } = useRenderIcon()
-const menuProps = useOmitProps(props,[ 'routes' ])
+const menuProps = useOmitProps(props, [ 'routes' ])
+
 const menus = computed(() => routesToMenus(props.routes))
 
 const routesToMenus = (routes: AppRouteRecordRaw[]): MenuMixedOption[] => {

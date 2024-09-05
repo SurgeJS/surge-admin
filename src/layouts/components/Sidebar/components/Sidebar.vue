@@ -7,7 +7,6 @@ import useAuthStore from '@/store/modules/auth'
 
 const appStore = useAppStore()
 const { sidebar } = appStore
-
 const authStore = useAuthStore()
 </script>
 
@@ -16,6 +15,7 @@ const authStore = useAuthStore()
     <logo />
     <div class="flex-1 overflow-x-hidden overflow-y-auto">
       <Menu
+        :inverted="appStore.sidebarInverted || appStore.sidebarAndHeaderInverted"
         :collapsed="sidebar.isCollapsed"
         :collapsed-width="sidebar.collapsedSidebarWidth"
         :routes="authStore.routes"

@@ -1,6 +1,6 @@
 import { darkTheme, GlobalThemeOverrides, lightTheme, useOsTheme } from 'naive-ui'
 import useAppStore from '@/store/modules/app'
-import { temporaryClearTransition } from '@/utils'
+import { setCSSVariable, temporaryClearTransition, toKebabCase } from '@/utils'
 import AppConstant from '@/constant/app'
 import { generate } from '@ant-design/colors'
 import { omit } from 'lodash-es'
@@ -21,9 +21,30 @@ const useTheme = () => {
         theme: isDark.value ? 'dark' : 'default',
     })
 
+    // 生成主题css变量
+    const generateThemeCSSVariables = (theme: Theme) => {
+        Object.keys(theme).forEach(key => {
+            const variable = Object.keys(theme[key]).reduce((obj, item) => {
+                obj[`${ toKebabCase(key) }-${ item }`] = theme[key][item]
+                return obj
+            }, {})
+            setCSSVariable(variable)
+        })
+    }
+
+    // 生成色板CSS变量
+    const generatePaletteCSSVariables = (name: string, colors: string[]) => {
+        const variable = colors.reduce((obj, item, i) => {
+            obj[`${ name }-${ i }`] = item
+            return obj
+        }, {})
+        setCSSVariable(variable)
+    }
+
     // 生成主题色色板
     const generatePrimaryColorPalette = (): GlobalThemeOverrides['common'] => {
         const colors = generateColorPalette(base.themeColor)
+        generatePaletteCSSVariables('primary', colors)
         return {
             primaryColor: colors[5],
             primaryColorHover: colors[4],
@@ -34,19 +55,23 @@ const useTheme = () => {
 
     const generateCommonTheme = (): GlobalThemeOverrides['common'] => {
         const theme = !isDark.value ? AppConstant.LIGHT_THEME : AppConstant.DARK_THEME
-        const { backgroundColors, textColors, borderColors } = theme
+        generateThemeCSSVariables(theme)
+        const { backgroundColor, textColor, borderColor, borderRadius } = theme
         return {
             /* 文字颜色 */
-            textColor1: textColors?.base,
-            textColor2: textColors?.secondary,
-            textColor3: textColors?.tertiary,
-            textColorDisabled: textColors?.disabled,
+            textColor1: textColor?.base,
+            textColor2: textColor?.secondary,
+            textColor3: textColor?.tertiary,
+            textColorDisabled: textColor?.disabled,
             /* 背景颜色 */
-            bodyColor: backgroundColors?.layout,
-            cardColor: backgroundColors?.container,
-            modalColor: backgroundColors?.layer,
+            bodyColor: backgroundColor?.layout,
+            cardColor: backgroundColor?.container,
+            modalColor: backgroundColor?.layer,
             /* 边框颜色 */
-            borderColor: borderColors?.base,
+            borderColor: borderColor?.base,
+            /* 边框圆角 */
+            borderRadius: borderRadius?.md,
+            borderRadiusSmall: borderRadius?.sm
         }
     }
 

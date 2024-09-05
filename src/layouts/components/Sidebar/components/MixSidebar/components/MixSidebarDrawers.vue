@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import Menu from '@/layouts/components/Menu/index.vue'
-
 import useAppStore from '@/store/modules/app'
-import { computed, nextTick } from 'vue'
+import { computed } from 'vue'
+import { wrapperMetaEnv } from '@/utils/env'
 
 interface Props {
   menus: AppRouteRecordRaw[]
@@ -13,41 +13,34 @@ defineProps<Props>()
 const appStore = useAppStore()
 const { sidebar, header } = appStore
 
+const { VITE_APP_TITLE } = wrapperMetaEnv()
+
 const thumbtackIcon = computed(() => sidebar.isFixedMixSidebarDrawer
     ? 'i-ant-design:pushpin-filled'
     : 'i-ant-design:pushpin-twotone')
 
-const onBeforeEnter = async (el: HTMLElement) => {
-  await nextTick()
-  const parentElement = el.parentElement?.parentElement
-  if (parentElement) return parentElement.style.overflow = 'visible'
-}
-
-const onAfterLeave = async (el: HTMLElement) => {
-  await nextTick()
-  const parentElement = el.parentElement?.parentElement
-  if (parentElement) parentElement.style.overflow = 'hidden'
-}
-
+const dynamicStyles = computed(() => {
+  return {
+    width: `${ sidebar.sidebarWidth }px`,
+    left: `${ appStore.dynamicMixSidebarWidth }px`,
+  }
+})
 </script>
 
 <template>
   <transition
     name="fold"
-    @after-leave="onAfterLeave"
-    @before-enter="onBeforeEnter"
   >
     <div
-      v-show="true"
-      :class="appStore.dynamicSidebarDark.className"
-      :style="{width:`${sidebar.sidebarWidth}px`}"
+      v-show="sidebar.mixSidebarDrawerVisible"
+      :style="dynamicStyles"
       class="mixMenuDrawers"
     >
       <div :style="{height:`${header.headerHeight}px`}" class="mixMenuDrawers-header">
-        Simple Admin
+        {{ VITE_APP_TITLE }}
         <icon
           :icon="thumbtackIcon"
-          class="mixMenuDrawers-header-fixed text-base"
+          class="mixMenuDrawers-header-fixed "
           @click="appStore.toggleFixedMixSidebarDrawer()"
         />
       </div>
@@ -61,29 +54,15 @@ const onAfterLeave = async (el: HTMLElement) => {
 <style lang="scss" scoped>
 .mixMenuDrawers {
   height: 100%;
-  position: absolute;
-  right: -1px;
+  position: fixed;
   top: 0;
-  border-left: 1px solid theme('borderColor.secondary');
-  border-right: 1px solid theme('borderColor.secondary');
-  transform: translateX(100%);
-  z-index: 1000;
+  z-index: 100;
   overflow: hidden;
-  //background: theme('backgroundColor.container');
-  background: red;
+  background: theme('backgroundColor.container');
+  border-right: 1px solid theme('borderColor.base');
   display: flex;
   flex-direction: column;
-
-  &.dark {
-    background: theme('backgroundColor.dark');
-    color: theme('textColor.light');
-    border-left: 1px solid theme('borderColor.dark');
-    border-right: 1px solid theme('borderColor.dark');
-
-    .mixMenuDrawers-header {
-      border-bottom: 1px solid theme('borderColor.dark');
-    }
-  }
+  transition: left .2s ease-in-out;
 
   &-header {
     display: flex;
@@ -102,6 +81,7 @@ const onAfterLeave = async (el: HTMLElement) => {
       right: 5px;
       top: 5px;
       cursor: pointer;
+      font-size: 16px;
     }
   }
 

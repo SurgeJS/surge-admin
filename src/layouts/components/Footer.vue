@@ -26,6 +26,5 @@ const { footer } = appStore
   background: theme('backgroundColor.container');
   width: 100%;
   flex-shrink: 0;
-  box-shadow: theme('boxShadow.main');
 }
 </style>

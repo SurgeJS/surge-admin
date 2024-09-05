@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <div class="w-h-full flex-1 pos-absolute left-0 top-0 right-0 bottom-0  z-1 bg-layout flex-center overflow-hidden">
+  <div class="w-h-full flex-1 pos-absolute left-0 top-0 right-0 bottom-0  z-10 bg-layout flex-center overflow-hidden">
     <div class="loading-container">
       <div class="loading">
         <div />
@@ -27,6 +27,7 @@
   gap: 10px;
   animation: scale .2s 1 ease-in-out;
   font-size: 16px;
+
   .loading {
     display: block;
     height: 20px;
@@ -44,7 +45,7 @@
       width: 20px;
       height: 20px;
       border-radius: 100%;
-      animation: ball-running-dots-animate 2s  linear infinite;
+      animation: ball-running-dots-animate 2s linear infinite;
 
       &:nth-child(1) {
         animation-delay: 0s;
@@ -88,10 +89,11 @@
     transform: translateY(-100%) translateX(500%);
   }
 }
+
 @keyframes scale {
   from {
     opacity: 0;
-    transform:scale(0);
+    transform: scale(0);
   }
   to {
     opacity: 1;

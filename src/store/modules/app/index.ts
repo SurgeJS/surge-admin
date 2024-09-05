@@ -9,6 +9,10 @@ const useAppStore = defineStore('App', {
         dynamicSidebarWidth: ({ sidebar }) => sidebar.isCollapsed ? sidebar.collapsedSidebarWidth : sidebar.sidebarWidth,
         // 动态混合侧边栏宽度
         dynamicMixSidebarWidth: ({ sidebar }) => sidebar.isCollapsedMix ? sidebar.collapsedSidebarWidth : sidebar.mixSidebarWidth,
+        // 侧边栏是否反转
+        sidebarInverted: ({ base }) => base.layoutStyle === 'side-dark',
+        // 侧边栏与头部是否反转
+        sidebarAndHeaderInverted: ({ base }) => base.layoutStyle === 'side-top-dark',
         // 动态侧边栏暗黑模式
         dynamicSidebarDark: ({ base }) => (base.layoutStyle === 'side-dark' || base.layoutStyle === 'side-top-dark') && base.themeMode !== 'dark'
             ?

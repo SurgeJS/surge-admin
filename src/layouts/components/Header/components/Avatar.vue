@@ -2,7 +2,6 @@
 import useAuthStore from '@/store/modules/auth'
 import { message } from 'ant-design-vue'
 import type { DropdownMixedOption } from 'naive-ui/es/dropdown/src/interface'
-import HoverContainer from '@/layouts/components/Header/components/HoverContainer.vue'
 
 const authStore = useAuthStore()
 
@@ -39,16 +38,14 @@ const handleAction = (key: string) => {
 
 <template>
   <n-dropdown :options="actionList" @select="handleAction">
-    <hover-container>
-      <div class="flex-y-center gap-[10px] cursor-pointer">
-        <icon
-          icon="i-local:avatar"
-          size="30px"
-          class="rounded-[5px]"
-        />
-        <span>admin</span>
-      </div>
-    </hover-container>
+    <div class="flex-y-center gap-[10px] cursor-pointer">
+      <icon
+        icon="i-local:avatar"
+        size="30px"
+        class="rounded-[5px]"
+      />
+      <span>admin</span>
+    </div>
   </n-dropdown>
 </template>
 

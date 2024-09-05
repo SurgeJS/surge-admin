@@ -1,5 +1,5 @@
 // 文字颜色
-declare interface ThemeTextColors {
+declare interface ThemeTextColor {
     // 一级文本颜色
     base?: string
 
@@ -14,7 +14,7 @@ declare interface ThemeTextColors {
 }
 
 // 背景颜色
-declare interface ThemeBackgroundColors {
+declare interface ThemeBackgroundColor {
     // 布局背景颜色
     layout?: string
 
@@ -29,7 +29,7 @@ declare interface ThemeBackgroundColors {
 }
 
 // 边框颜色
-declare interface ThemeBorderColors {
+declare interface ThemeBorderColor {
     // 一级边框颜色
     base?: string
 
@@ -41,7 +41,7 @@ declare interface ThemeBorderColors {
 }
 
 // 填充颜色
-declare interface ThemeFillColors {
+declare interface ThemeFillColor {
     // 一级填充颜色
     base?: string
 
@@ -52,20 +52,28 @@ declare interface ThemeFillColors {
     tertiary?: string
 }
 
+declare interface ThemeBorderRadius {
+    sm?: string
+
+    md?: string
+
+    lg?: string
+}
+
 // 主题
 declare interface Theme {
-    // 主要颜色
-    primaryColors?: string[]
-
     // 文字颜色
-    textColors?: ThemeTextColors
+    textColor?: ThemeTextColor
 
     // 背景颜色
-    backgroundColors?: ThemeBackgroundColors
+    backgroundColor?: ThemeBackgroundColor
 
     // 边框颜色
-    borderColors?: ThemeBorderColors
+    borderColor?: ThemeBorderColor
 
     // 填充颜色
-    fillColors?: ThemeFillColors
+    fillColor?: ThemeFillColor
+
+    // 边框圆角
+    borderRadius?: ThemeBorderRadius
 }

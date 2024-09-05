@@ -109,22 +109,6 @@ watch(() => route.path, () => {
   position: relative;
   transition: width .2s ease-in-out;
 
-  &.dark {
-    border-right: 1px solid theme('borderColor.dark');
-
-    .mixSidebar-container-menu {
-      &:hover:not(.active) {
-        background: theme('colors.fill.dark');
-      }
-    }
-
-    .mixSidebar-footer {
-      &:hover {
-        background: theme('colors.fill.dark');
-      }
-    }
-  }
-
   &-container {
     flex: 1;
     overflow-x: hidden;
@@ -169,7 +153,7 @@ watch(() => route.path, () => {
     border-radius: theme('borderRadius.md');
 
     &:hover {
-      background: theme('colors.fill.quaternary');
+      background: theme('colors.fill.tertiary');
     }
   }
 }

@@ -50,62 +50,57 @@ export default defineConfig<Theme>({
         'b-secondary': 'b-secondary',
         'b-dark': 'b-dark',
     },
-    extendTheme(theme) {
-        return {
-            ...theme,
-            colors: {
-                ...theme.colors,
-                // 主色
-                'primary': 'var(--primaryColor)',
-                // 浅主色
-                'primary-shallow': 'var(--primaryColorHover)',
-                // 填充色
-                'fill': {
-                    // 一级填充色
-                    'main': 'var(--colorFill)',
-                    // 二级填充色
-                    'secondary': 'var(--colorFillSecondary)',
-                    // 三级填充色
-                    'tertiary': 'var(--colorFillTertiary)',
-                    // 四级填充色
-                    'quaternary': 'var(--colorFillQuaternary)',
-                    // 填充暗黑色
-                    'dark': 'var(--fillDark)'
-                },
+    theme: {
+        colors: {
+            // 主色
+            'primary': 'var(--primary-5)',
+            // 浅主色
+            'primary-shallow': 'var(--primary-2)',
+            // 填充色
+            'fill': {
+                // 一级填充色
+                'base': 'var(--fill-color-base)',
+                // 二级填充色
+                'secondary': 'var(--fill-color-secondary)',
+                // 三级填充色
+                'tertiary': 'var(--fill-color-tertiary)',
+                // 填充暗黑色
+                'dark': 'var(--fillDark)'
             },
-            textColor: {
-                ...theme.textColor,
-                // 一级文本色
-                'base': 'var(--textColor1)',
-                // 二级级文本色
-                'secondary': 'var(--textColor2)',
-                // 三级文本色
-                'tertiary': 'var(--colorTextTertiary)',
-                // 亮色
-                'light': 'var(--textLight)'
-            },
-            backgroundColor: {
-                ...theme.backgroundColor,
-                // 布局背景色
-                'layout': 'var(--bodyColor)',
-                // 容器背景色
-                'container': 'var(--cardColor)',
-                // 背景暗黑色
-                'dark': 'var(--bgDark)'
-            },
-            borderColor: {
-                ...theme.borderColor,
-                // 一级边框色
-                'main': 'var(--colorBorder)',
-                // 二级边框色
-                'secondary': 'var(--colorBorderSecondary)',
-                'dark': 'var(--borderDark)'
-            },
-            boxShadow: {
-                ...theme.boxShadow,
-                'main': 'var(--boxShadow)',
-                'secondary': 'var(--boxShadowSecondary)'
-            }
+        },
+        textColor: {
+            // 一级文本色
+            'base': 'var(--text-color-base)',
+            // 二级级文本色
+            'secondary': 'var(--text-color-secondary)',
+            // 三级文本色
+            'tertiary': 'var(--text-color-tertiary)',
+            // 亮色
+            'light': 'var(--textLight)'
+        },
+        backgroundColor: {
+            // 布局背景色
+            'layout': 'var(--background-color-layout)',
+            // 容器背景色
+            'container': 'var(--background-color-container)',
+            // 浮层背景色
+            'layer': 'var(--background-color-layer)',
+            // 背景暗黑色
+            'dark': 'var(--bgDark)'
+        },
+        borderColor: {
+            // 一级边框色
+            'base': 'var(--border-color-base)',
+            // 二级边框色
+            'secondary': 'var(--border-color-secondary)',
+            // 三级边框色
+            'tertiary': 'var(--border-color-tertiary)',
+            'dark': 'var(--borderDark)'
+        },
+        borderRadius: {
+            sm: 'var(--border-radius-sm)',
+            md: 'var(--border-radius-md)',
+            lg: 'var(--border-radius-lg)',
         }
     },
 })
