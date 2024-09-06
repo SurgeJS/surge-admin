@@ -38,7 +38,7 @@ const useEcharts = (renderMode: RendererType = 'canvas') => {
             echartsInstance?.dispose()
             echartsInstanceSet.delete(echartsInstance)
         }
-        echartsInstance = echarts.init(echartsDom.value, appStore.base.themeMode, {
+        echartsInstance = echarts.init(echartsDom.value, appStore.themeMode, {
             renderer: renderMode
         })
         resizeObserver.observe(echartsDom.value)
@@ -76,7 +76,7 @@ const useEcharts = (renderMode: RendererType = 'canvas') => {
         echartsDom.value && resizeObserver.unobserve(echartsDom.value)
     })
 
-    watch(() => appStore.base.themeMode, async () => {
+    watch(() => appStore.themeMode, async () => {
         const option = echartsInstance?.getOption()
         await init()
         option && setOption(option)

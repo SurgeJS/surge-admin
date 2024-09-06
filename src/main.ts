@@ -20,7 +20,7 @@ const bootStart = async () => {
 
     // 挂载路由
     await setupRouter(app)
-
+    
     app.mount('#app')
 }
 

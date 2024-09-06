@@ -1,5 +1,11 @@
 import { App } from 'vue'
 import { createPinia } from 'pinia'
+import plugins from '@/store/plugins'
 
-const pinia = createPinia()
-export const setupStore = (app: App<Element>) => app.use(pinia)
+export const setupStore = (app: App<Element>) => {
+    const pinia = createPinia()
+
+    plugins.forEach(item => pinia.use(item))
+    
+    app.use(pinia)
+}

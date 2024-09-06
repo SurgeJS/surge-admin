@@ -180,7 +180,7 @@
         if (!app) {
             loadingDom.className = theme;
         } else {
-            loadingDom.className = app.base.themeModeFollowSystem ? theme : app.base.themeMode;
+            loadingDom.className = app.themeMode === 'system' ? theme : app.themeMode;
         }
     </script>
 </div>

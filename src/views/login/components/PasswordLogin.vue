@@ -6,7 +6,7 @@ import { SchemaFormExpose, SchemaType } from '@/components/common/SchemaForm/typ
 import { LoginAction } from '@/views/login/type/enum'
 import useRenderIcon from '@/hooks/components/useRenderIcon'
 
-const { setAction,loading,setLoading } = useLoginContext()!
+const { setAction, loading, setLoading } = useLoginContext()!
 const authStore = useAuthStore()
 
 const { RenderUnoIcon } = useRenderIcon()
@@ -65,7 +65,7 @@ const handleLogin = async () => {
 </script>
 
 <template>
-  <a-flex gap="middle" vertical>
+  <n-flex gap="middle" vertical>
     <h1>登录</h1>
     <schema-form
       ref="formRef"
@@ -96,12 +96,30 @@ const handleLogin = async () => {
         </a-button>
       </template>
     </schema-form>
-    <a-flex gap="middle" justify="space-between">
-      <a-button block @click="setAction(LoginAction.PhoneLogin)">手机号登录</a-button>
-      <a-button block @click="setAction(LoginAction.QrCodeLogin)">二维码登录</a-button>
-      <a-button block @click="setAction(LoginAction.Register)">注册</a-button>
-    </a-flex>
-  </a-flex>
+    <n-flex justify="space-between" :wrap="false">
+      <n-button
+        class="flex-shrink"
+        block
+        @click="setAction(LoginAction.PhoneLogin)"
+      >
+        手机号登录
+      </n-button>
+      <n-button
+        class="flex-shrink"
+        block
+        @click="setAction(LoginAction.QrCodeLogin)"
+      >
+        二维码登录
+      </n-button>
+      <n-button
+        class="flex-shrink"
+        block
+        @click="setAction(LoginAction.Register)"
+      >
+        注册
+      </n-button>
+    </n-flex>
+  </n-flex>
 </template>
 
 <style scoped>

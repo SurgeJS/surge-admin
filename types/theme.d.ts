@@ -11,6 +11,9 @@ declare interface ThemeTextColor {
 
     // 禁用
     disabled?: string
+
+    // 反转
+    inverted?: string
 }
 
 // 背景颜色
@@ -26,6 +29,9 @@ declare interface ThemeBackgroundColor {
 
     // 遮罩层背景
     mask?: string
+
+    // 反转
+    inverted?: string
 }
 
 // 边框颜色
@@ -38,6 +44,9 @@ declare interface ThemeBorderColor {
 
     // 三级边框颜色
     tertiary?: string
+
+    // 反转
+    inverted?: string
 }
 
 // 填充颜色
@@ -50,8 +59,12 @@ declare interface ThemeFillColor {
 
     // 三级填充颜色
     tertiary?: string
+
+    // 反转
+    inverted?: string
 }
 
+// 边框圆角
 declare interface ThemeBorderRadius {
     sm?: string
 

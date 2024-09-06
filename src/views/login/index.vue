@@ -1,6 +1,6 @@
 <template>
   <div class="w-h-full flex">
-    <div v-if="!appStore.base.isMobile" class="w-[50%] h-full bg-primary flex-center">
+    <div v-if="!appStore.isMobile" class="w-[50%] h-full bg-primary flex-center">
       <div v-motion-slide-left class="i-local:login full-[80%]" />
     </div>
     <div v-motion-slide-right class="relative flex-1 flex-center">

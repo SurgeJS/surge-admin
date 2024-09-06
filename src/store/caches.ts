@@ -1,5 +1,5 @@
 import { createCache } from '@/utils/cache'
-import { MenuSearchOption } from '@/layouts/components/Header/components/MenuSearch/components/MenuSearchModal.vue'
+import { MenuSearchOption } from '@/layout/components/Header/components/MenuSearch/components/MenuSearchModal.vue'
 import { AppStore } from '@/store/modules/app/type'
 
 // Token缓存

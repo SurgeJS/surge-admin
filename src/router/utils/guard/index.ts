@@ -18,7 +18,7 @@ const createRouterGuard = (router: Router) => {
     router.afterEach(to => {
         const appStore = useAppStore()
         useTitle(to.meta.title)
-        appStore.base.isMobile && appStore.toggleMobileSidebarVisible(false)
+        appStore.isMobile && appStore.toggleMobileSidebarVisible(false)
         window.$loadingBar?.finish()
     })
 }

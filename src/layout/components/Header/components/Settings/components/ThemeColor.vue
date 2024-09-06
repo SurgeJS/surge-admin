@@ -1,0 +1,36 @@
+<template>
+  <n-divider>
+    主题颜色
+  </n-divider>
+  <n-flex justify="space-between" :wrap="false">
+    <div
+      v-for="item in AppConstant.THEME_COLORS"
+      :key="item"
+      :style="{background:item}"
+      class="themeCard"
+      @click="appStore.setThemeColor(item)"
+    >
+      <icon v-if="appStore.themeColor===item" icon="i-ant-design:check-outlined" />
+    </div>
+  </n-flex>
+</template>
+
+<script lang="ts" setup>
+import useAppStore from '@/store/modules/app'
+import AppConstant from '@/constant/app'
+
+const appStore = useAppStore()
+</script>
+
+<style lang="scss" scoped>
+.themeCard {
+  width: 20px;
+  height: 20px;
+  border-radius: theme('borderRadius.sm');
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+</style>

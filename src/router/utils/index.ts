@@ -18,7 +18,7 @@ export class RouterUtils {
     static readonly VIEW_COMPONENTS = import.meta.glob('@/views/**/**.vue')
 
     // 默认内嵌页面
-    static readonly DEFAULT_FRAME = () => import('@/layouts/components/DefaultIframe.vue')
+    static readonly DEFAULT_FRAME = () => import('@/layout/components/DefaultIframe.vue')
 
     // 静态路由列表
     static getStaticRoutes() {
@@ -116,7 +116,7 @@ export class RouterUtils {
                     path: recordPath + RouterConstant.CONTAINER_SUFFIX,
                     name: recordPath + RouterConstant.CONTAINER_SUFFIX,
                     redirect: route.path,
-                    component: () => import('@/layouts/index.vue'),
+                    component: () => import('@/layout/index.vue'),
                     children: [
                         {
                             ...route,
@@ -130,7 +130,7 @@ export class RouterUtils {
                 if (!vueRoute.redirect && vueRoute.children?.length) {
                     vueRoute.redirect = vueRoute.children[0].path
                 }
-                vueRoute.component = () => import('@/layouts/index.vue')
+                vueRoute.component = () => import('@/layout/index.vue')
                 break
         }
         return vueRoute

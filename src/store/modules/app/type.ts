@@ -1,5 +1,3 @@
-import { SizeType } from 'ant-design-vue/es/config-provider' // 页面切换动画  左滑淡出 | 右滑淡出 | 缩放淡入淡出
-
 // 页面切换动画: 左滑淡出 | 右滑淡出 | 缩放淡入淡出
 export type PageAnimationMode = | 'left-slide-fade' | 'right-slide-fade' | 'zoom-fade'
 
@@ -22,36 +20,6 @@ export type LayoutModeOption = Option<LayoutMode>
 
 // 布局风格选项
 export type LayoutStyleOption = Option<LayoutStyle>
-
-// 侧边栏
-export interface LayoutSidebar {
-    // 是否折叠侧边栏
-    isCollapsed: boolean
-
-    // 是否折叠混合侧边栏
-    isCollapsedMix: boolean
-
-    // 是否固定混合侧边栏抽屉
-    isFixedMixSidebarDrawer: boolean
-
-    // 混合侧边栏抽屉是否可见
-    mixSidebarDrawerVisible: boolean
-
-    // 菜单是否开启手风琴模式
-    isMenuAccordion: boolean
-
-    // 移动端 Sidebar 可见
-    mobileSidebarVisible: boolean
-
-    // 侧边栏宽度
-    sidebarWidth: number
-
-    // 折叠侧边栏的宽度
-    collapsedSidebarWidth: number
-
-    // 混合侧边栏宽度
-    mixSidebarWidth: number
-}
 
 // 头部
 export interface LayoutHeader {
@@ -78,7 +46,7 @@ export interface LayoutFooter {
 }
 
 
-export interface LayoutApp {
+export interface AppStore {
     // 主题颜色
     themeColor: string
 
@@ -105,28 +73,49 @@ export interface LayoutApp {
 
     // 全屏loading
     fullScreenLoading: boolean
-}
 
-export interface antdConfig {
-    // 全局组件大小
-    size: SizeType
+    // 是否折叠侧边栏
+    isCollapsedSidebar: boolean
 
-    // 设置为 false 时，移除按钮中 2 个汉字之间的空格
-    autoInsertSpaceInButton: boolean;
-}
+    // 是否折叠混合侧边栏
+    isCollapsedMixSidebar: boolean
 
-export interface AppStore {
-    base: LayoutApp
+    // 是否固定混合侧边栏抽屉
+    isFixedMixSidebarDrawer: boolean
 
-    // 侧边栏
-    sidebar: LayoutSidebar
+    // 混合侧边栏抽屉是否可见
+    mixSidebarDrawerVisible: boolean
 
-    // 头部
-    header: LayoutHeader
+    // 菜单是否开启手风琴模式
+    isMenuAccordion: boolean
 
-    // 底部
-    footer: LayoutFooter
+    // 移动端 Sidebar 可见
+    mobileSidebarVisible: boolean
 
-    // antd 组件库配置
-    antdConfig: antdConfig
+    // 侧边栏宽度
+    sidebarWidth: number
+
+    // 折叠侧边栏的宽度
+    collapsedSidebarWidth: number
+
+    // 混合侧边栏宽度
+    mixSidebarWidth: number
+
+    // 是否开启面包屑
+    breadcrumbVisible: boolean
+
+    // 标签栏可见
+    tabBarVisible: boolean
+
+    // 高度
+    headerHeight: number
+
+    // 标签栏高度
+    tabBarHeight: number
+
+    // 底部可见
+    footerVisible: boolean
+
+    // 高度
+    footerHeight: number
 }

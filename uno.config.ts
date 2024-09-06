@@ -43,12 +43,11 @@ export default defineConfig<Theme>({
         'text-base': 'text-base',
         'text-secondary': 'text-secondary',
         'text-tertiary': 'text-tertiary',
+        'text-inverted': 'text-inverted',
         'bg-container': 'bg-container',
         'bg-layout': 'bg-layout',
-        'bg-dark': 'bg-dark',
-        'b-main': 'b-main',
-        'b-secondary': 'b-secondary',
-        'b-dark': 'b-dark',
+        'bg-layer': 'bg-layer',
+        'bg-inverted': 'bg-inverted',
     },
     theme: {
         colors: {
@@ -64,8 +63,8 @@ export default defineConfig<Theme>({
                 'secondary': 'var(--fill-color-secondary)',
                 // 三级填充色
                 'tertiary': 'var(--fill-color-tertiary)',
-                // 填充暗黑色
-                'dark': 'var(--fillDark)'
+                // 反转
+                'inverted': 'var(--fill-color-inverted)',
             },
         },
         textColor: {
@@ -75,8 +74,8 @@ export default defineConfig<Theme>({
             'secondary': 'var(--text-color-secondary)',
             // 三级文本色
             'tertiary': 'var(--text-color-tertiary)',
-            // 亮色
-            'light': 'var(--textLight)'
+            // 反转
+            'inverted': 'var(--text-color-inverted)',
         },
         backgroundColor: {
             // 布局背景色
@@ -85,8 +84,8 @@ export default defineConfig<Theme>({
             'container': 'var(--background-color-container)',
             // 浮层背景色
             'layer': 'var(--background-color-layer)',
-            // 背景暗黑色
-            'dark': 'var(--bgDark)'
+            // 反转
+            'inverted': 'var(--background-color-inverted)',
         },
         borderColor: {
             // 一级边框色
@@ -95,7 +94,8 @@ export default defineConfig<Theme>({
             'secondary': 'var(--border-color-secondary)',
             // 三级边框色
             'tertiary': 'var(--border-color-tertiary)',
-            'dark': 'var(--borderDark)'
+            // 反转
+            'inverted': 'var(--border-color-inverted)',
         },
         borderRadius: {
             sm: 'var(--border-radius-sm)',

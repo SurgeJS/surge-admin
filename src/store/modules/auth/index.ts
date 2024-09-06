@@ -94,7 +94,7 @@ const useAuthStore = defineStore('Auth', {
             await this.getUserinfo()
             // 重定向路径
             await router.replace(RouterConstant.HOME_PATH)
-            window.$notification.success({
+            window.$notification.info({
                 title: '登录成功',
                 content: `欢迎回来，${ this.userinfo?.username }！`
             })

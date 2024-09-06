@@ -2,10 +2,9 @@
 import { useGlobalInitialize } from '@/hooks/effect/useGlobalInitialize'
 import { useGlobalSubscribe } from '@/hooks/effect/useGlobalSubscribe'
 import { dateZhCN, zhCN } from 'naive-ui'
-import useTheme from '@/hooks/effect/useTheme'
+import useAppStore from '@/store/modules/app'
 
-// 主题
-const { theme, themeOverrides } = useTheme()
+const appStore = useAppStore()
 
 // 全局初始化
 useGlobalInitialize()
@@ -18,8 +17,8 @@ useGlobalSubscribe()
   <n-config-provider
     class="w-h-full"
     inline-theme-disabled
-    :theme="theme"
-    :theme-overrides="themeOverrides"
+    :theme="appStore.naiveTheme"
+    :theme-overrides="appStore.themeOverrides"
     :locale="zhCN"
     :date-locale="dateZhCN"
   >
