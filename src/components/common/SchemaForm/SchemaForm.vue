@@ -36,30 +36,30 @@ defineExpose<SchemaFormExpose>(commonExpose)
       <template v-for="(slot,key) in formContentSlots" #[key]="scope">
         <slot :name="key" v-bind="scope||{}" />
       </template>
-      <a-col
+      <n-col
         v-if="!props.hideActionButton"
         :span="24"
         class="flex-inline justify-end items-center gap-[12px] "
       >
         <slot name="buttonBefore" />
         <slot name="customActionButton">
-          <a-button
+          <n-button
             v-if="!hideReset"
             :loading="props.resetLoading"
             @click="handleReset"
           >
             {{ props.resetText }}
-          </a-button>
-          <a-button
+          </n-button>
+          <n-button
             type="primary"
             :loading="props.submitLoading"
             @click="handleSubmit"
           >
             {{ props.submitText }}
-          </a-button>
+          </n-button>
         </slot>
         <slot name="buttonAfter" />
-      </a-col>
+      </n-col>
     </schema-form-content>
   </schema-form-wrap>
 </template>

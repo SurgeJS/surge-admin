@@ -1,10 +1,17 @@
-import { ColProps, DrawerProps, FormProps, ModalProps, RowProps, StepsProps } from 'ant-design-vue'
-import { RuleObject } from 'ant-design-vue/es/form/interface'
 import { ComponentsName, ComponentsProps } from '@/components/common/SchemaForm/types/component'
-import { DefaultOptionType } from 'ant-design-vue/es/vc-tree-select/TreeSelect'
 import { MaybeRef, VNode } from 'vue'
-import { ColSize } from 'ant-design-vue/es/grid/Col'
-import { FormExpose, FormLayout } from 'ant-design-vue/es/form/Form'
+import {
+    ColProps,
+    DrawerProps,
+    FormInst,
+    FormItemProps,
+    FormItemRule,
+    FormRules,
+    ModalProps,
+    RowProps,
+    StepsProps
+} from 'naive-ui'
+import { FormSetupProps } from 'naive-ui/es/form/src/Form'
 
 // 回调参数
 export interface CallbackParams<TForm extends Recordable = Recordable, DComponentsName extends ComponentsName = ComponentsName> {
@@ -26,21 +33,6 @@ export type CallbackParamsFunction<TForm extends Recordable = Recordable, DCompo
 // 组回调参数
 export type GroupCallbackParamsFunction<TForm extends Recordable = Recordable, DComponentsName extends ComponentsName = ComponentsName, R = never> = ((params: GroupCallbackParams<TForm, DComponentsName>) => R)
 
-type ColSpanType = number | string;
-
-// col
-export type Col = ColSize & {
-    style?: Partial<CSSStyleDeclaration>
-    xs?: ColSpanType | ColSize;
-    sm?: ColSpanType | ColSize;
-    md?: ColSpanType | ColSize;
-    lg?: ColSpanType | ColSize;
-    xl?: ColSpanType | ColSize;
-    xxl?: ColSpanType | ColSize;
-    prefixCls?: string;
-    flex?: ColSpanType;
-}
-
 // 插槽内容
 export type SlotsContent = string | VNode | VNode[]
 
@@ -61,33 +53,16 @@ export type ComponentSlots = {
  */
 export type RulePresets = 'mail' | 'phone' | 'landline' | 'idCard' | 'url'
 
-// 组件部分通用Props,这里的属性会映射到组件Props中
-export interface MapComponentCommonProps<TForm extends Recordable = Recordable, DComponentsName extends ComponentsName = ComponentsName> {
-    // 禁用状态
-    disabled?: MaybeRef<boolean> | CallbackParamsFunction<TForm, DComponentsName, boolean>
-
-    // 占位符(对 Input | Select | AutoComplete | Cascader | DatePicker | DateRangePicker | InputNumber | Mentions | TimePicker | TimeRangePicker | TreeSelect起作用)
-    placeholder?: MaybeRef<string | string[]>
-
-    // 选项(对 Select | AutoComplete | Cascader | CheckboxGroup | Mentions | RadioGroup | TreeSelect起作用)
-    options?: MaybeRef<DefaultOptionType[]>
-
-    // 日期与时间格式
-    format?: MaybeRef<DateFormat>
-
-    // 绑定值格式
-    valueFormat?: MaybeRef<DateFormat>
-}
-
 // Schema配置
-export interface SchemaConfig<
+export interface Schema<
     TForm extends Recordable = Recordable,
-    DComponentsName extends ComponentsName = ComponentsName> extends MapComponentCommonProps<TForm, DComponentsName> {
+    DComponentsName extends ComponentsName = ComponentsName
+> extends Omit<FormItemProps, 'label' | 'rule' | 'path'> {
     // 字段
-    field?: MaybeRef<keyof TForm | string>
+    field?: keyof TForm | string
 
     // label 标签的文本
-    label?: MaybeRef<SlotsContent | CallbackParamsFunction<TForm, DComponentsName, SlotsContent>>
+    label?: SlotsContent | CallbackParamsFunction<TForm, DComponentsName, SlotsContent>
 
     // 组件
     component?: DComponentsName
@@ -109,35 +84,32 @@ export interface SchemaConfig<
     // 列属性
     colProps?: number | ColProps
 
-    // 规则
-    rule?: MaybeRef<RulePresets | RuleObject[] | RuleObject>
-
-    // 必填
-    required?: MaybeRef<boolean>
+    // 规则 TODO: 不知道 FormRules 是个啥
+    rule?: RulePresets | FormRules | FormItemRule | FormItemRule[]
 
     // 该formItem是否隐藏
-    hide?: MaybeRef<boolean> | CallbackParamsFunction<TForm, DComponentsName, boolean>
-
-    // label 宽度
-    labelWidth?: MaybeRef<number | string>
+    hide?: boolean | CallbackParamsFunction<TForm, DComponentsName, boolean>
 
     // 帮助提示信息
-    tooltip?: MaybeRef<string>
-
-    // 帮助提示自定义渲染
-    tooltipCustomRender?: SlotsContent | CallbackParamsFunction<TForm, DComponentsName, SlotsContent>
-
-    // 额外的
-    extra?: SlotsContent | CallbackParamsFunction<TForm, DComponentsName, SlotsContent>
-
-    // label后面的冒号
-    colon?: boolean
+    tooltip?: string
 }
+
+// 定义 Schema 配置
+// export type DefineSchema<TForm extends Recordable = Recordable, DComponentsName extends ComponentsName = ComponentsName> = MaybeRefs<SchemaType<TForm, DComponentsName>>
 
 
 // JSON 格式配置
 export type SchemaType<TForm extends Recordable = any, DComponentsName extends ComponentsName = ComponentsName>
-    = DComponentsName extends ComponentsName ? SchemaConfig<TForm, DComponentsName> : never;
+    = DComponentsName extends ComponentsName ? Schema<TForm, DComponentsName> : never;
+
+const test: SchemaType[] = [
+    {
+        component: 'select',
+        componentProps: {
+            passivelyActivated: true
+        }
+    }
+]
 
 // 模块表单结构
 export interface GroupSchemaType<TForm extends Recordable = any, DComponentsName extends ComponentsName = ComponentsName> {
@@ -180,8 +152,9 @@ export interface StepSchemaType<TForm extends Recordable = any, DComponentsName 
 
 /* --------------通用类型-------------- */
 
+
 // 通用props
-export type SchemaFormCommonProps = Omit<FormProps, 'onSubmit' | 'onFinish' | 'onFinishFailed'> & {
+export type SchemaFormCommonProps = Partial<FormSetupProps> & {
     // 表单类名
     formClass?: string
 
@@ -190,16 +163,6 @@ export type SchemaFormCommonProps = Omit<FormProps, 'onSubmit' | 'onFinish' | 'o
 
     // 模型
     model: Recordable
-
-    layout?: FormLayout
-
-    // 所有字段是否都必填
-    required?: boolean
-
-    labelCol?: Col
-
-    // label 宽度
-    labelWidth?: number | string
 
     // 列属性
     colProps?: number | ColProps
@@ -224,9 +187,6 @@ export type SchemaFormCommonProps = Omit<FormProps, 'onSubmit' | 'onFinish' | 'o
 
     // 自动placeholder (item的label的类型为string才会生效，优先级最低)
     autoPlaceholder?: boolean
-
-    // 自动label宽度 (优先级最低)
-    autoLabelWidth?: boolean
 
     // 自动规则校验 (当required为真的时候，会根据label自动生成校验提示信息,label的类型为string才会生效，优先级最低)
     autoRules?: boolean
@@ -272,8 +232,8 @@ export interface SchemaFormCommonSlots {
 }
 
 // 通用方法
-export interface SchemaFormCommonExpose extends FormExpose {
-
+export interface SchemaFormCommonExpose extends FormInst {
+    resetFields(): void
 }
 
 /* --------------基础表单-------------- */

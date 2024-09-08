@@ -36,7 +36,7 @@ const switchStyle = (option: LayoutStyleOption) => {
       :key="item.value"
       :active="item.value === appStore.layoutStyle"
       :popover-content="item.label"
-      @click-card="switchStyle(item)"
+      @click="switchStyle(item)"
     >
       <div v-if="item.value === 'side-dark'" class="vertical">
         <div class="side dark" />

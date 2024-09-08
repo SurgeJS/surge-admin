@@ -30,7 +30,7 @@ const appStore = useAppStore()
       :key="item.value"
       :active="item.value === appStore.layoutMode"
       :popover-content="item.label"
-      @click-card="appStore.layoutMode = item.value"
+      @click="appStore.layoutMode = item.value"
     >
       <div v-if="item.value === 'side'" class="vertical">
         <div class="side" />

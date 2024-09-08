@@ -1,11 +1,35 @@
 <script lang="ts" setup>
 import useAppStore from '@/store/modules/app'
+import { Reactive } from 'vue'
+
+type Avc = Reactive<{
+  test: Ref<{ t:number }>
+  b:number
+}>
+
+const zz = ref({
+  t:1
+})
+const aaa:Avc = {
+  test: zz
+}
 
 const appStore = useAppStore()
+const b = ref({
+  test: 1
+})
+const a = reactive<{
+  test: Ref<{ t:number }>
+  b:number
+}>({
+  test: zz,
+  z: 1
+})
 
 const test = () => {
-  appStore.setFullScreenLoading(true)
-
+  // b.value.test = 222
+  // appStore.setFullScreenLoading(true)
+  a.t.test = 1113
   setTimeout(() => {
     // appStore.setFullScreenLoading(false)
   }, 2000)
@@ -17,7 +41,9 @@ const test = () => {
     <n-flex>
       <n-input placeholder="xxx" />
       <n-button @click="test">test222</n-button>
-      <n-button type="primary">test222</n-button>
+      {{ a }}
+      <br>
+      {{ b }}
       <span class="p-10px hover:bg-[rgba(255,255,255,.1)]">55</span>
       <span class="p-10px hover:bg-[rgba(255,255,255,.08)]">55</span>
       <span class="p-10px hover:bg-[rgba(255,255,255,.05)]">55</span>

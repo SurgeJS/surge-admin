@@ -1,7 +1,7 @@
-import { SchemaConfig } from '@/components/common/SchemaForm/types/type'
+import { Schema } from '@/components/common/SchemaForm/types/type'
 
 export interface SchemaFormItemProps {
-    schema: Required<SchemaConfig>
+    schema: Required<Schema>
 
     disable?:boolean
 }

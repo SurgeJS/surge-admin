@@ -8,7 +8,7 @@ interface Props {
 }
 
 interface Emits {
-  (e: 'clickCard'): void
+  (e: 'click'): void
 }
 
 defineOptions({ name: 'LayoutCard' })
@@ -22,7 +22,7 @@ const emits = defineEmits<Emits>()
       <div
         :class="active ? 'active' : undefined"
         class="layoutCard"
-        @click="emits('clickCard')"
+        @click="emits('click')"
       >
         <slot />
       </div>

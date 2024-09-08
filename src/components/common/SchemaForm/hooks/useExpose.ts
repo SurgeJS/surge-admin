@@ -1,14 +1,17 @@
-import { FormInstance } from 'ant-design-vue/es/form'
+import { FormInst } from 'naive-ui'
 import { SchemaFormCommonExpose } from '@/components/common/SchemaForm/types/type'
 
 const useExpose = () => {
-    const formRef = ref<FormInstance>()
-    const commonExpose:SchemaFormCommonExpose = {} as  SchemaFormCommonExpose
-
+    const formRef = ref<FormInst>()
+    const commonExpose: SchemaFormCommonExpose = {
+        resetFields() {
+        }
+    } as SchemaFormCommonExpose
+    
     const setExpose = () => {
-        formRef.value && Object.keys(formRef.value).forEach((key) => {
-            commonExpose[key] = formRef.value![key]
-        })
+        if (!formRef.value) return
+        commonExpose['validate'] = formRef.value.validate
+        commonExpose['restoreValidation'] = formRef.value.restoreValidation
     }
 
     onMounted(() => {
@@ -19,7 +22,7 @@ const useExpose = () => {
         setExpose()
     })
 
-    return { formRef,commonExpose }
+    return { formRef, commonExpose }
 }
 
 export default useExpose

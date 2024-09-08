@@ -1,28 +1,20 @@
 <script setup lang="tsx">
-import {
-  CallbackParams,
-  CallbackParamsFunction,
-  Col,
-  MapComponentCommonProps,
-  SchemaConfig,
-  SchemaType
-} from '@/components/common/SchemaForm/types/type'
+import { CallbackParams, CallbackParamsFunction, Schema, SchemaType } from '@/components/common/SchemaForm/types/type'
 import { useSchemaFormContext } from '@/components/common/SchemaForm/hooks/useContext'
-import { ComponentPublicInstance, computed, isVNode, nextTick, ref, unref, useSlots, watch } from 'vue'
+import { computed, isVNode, ref, unref, useSlots } from 'vue'
 import { SCHEMA_RENDER_COMPONENTS } from '@/components/common/SchemaForm/utils/components'
 import {
-  generatePlaceholder,
   generateRule,
   handleRulePresets,
   isCheckComponent,
-  isDateComponent,
-  isMapOptions,
-  isMapPlaceholder,
-  isTimeComponent
+  isInputComponent,
+  isPickComponent,
 } from '@/components/common/SchemaForm/utils'
 import { get, isArray, isFunction, isNumber, isString } from 'lodash-es'
-import { objectPathToArray } from '@/utils'
 import { SchemaFormItemProps } from '@/components/common/SchemaForm/components/SchemaFormItem/types/type'
+import useOmitProps from '@/hooks/common/useOmitProps'
+import { ComponentsName } from '@/components/common/SchemaForm/types/component'
+
 
 const props = defineProps<SchemaFormItemProps>()
 
@@ -30,29 +22,31 @@ const {
   field,
   component,
   label,
-  options,
-  placeholder,
-  format,
-  valueFormat,
   componentProps,
   componentContent,
   hide,
   rule,
-  required,
-  labelWidth,
+  showRequireMark,
   tooltip,
   colProps,
-  tooltipCustomRender,
-  extra,
   contentSlot,
   slot,
-  disabled,
-  colon
 } = props.schema
 
 const slots = useSlots()
-const { schemaFormProps, model, getModelValue, setModelValue, maxLabelWidth } = useSchemaFormContext()!
-const formItemRef = ref<ComponentPublicInstance>()
+const { schemaFormProps, model, getModelValue, setModelValue } = useSchemaFormContext()!
+const formItemProps = useOmitProps(props.schema, [ 'field',
+  'component',
+  'label',
+  'componentProps',
+  'componentContent',
+  'hide',
+  'rule',
+  'tooltip',
+  'colProps',
+  'contentSlot',
+  'slot'
+])
 
 const bindValue = computed({
   get() {
@@ -73,30 +67,19 @@ const callbackParams = computed<CallbackParams>(() => ({
 
 const isHide = computed(() => callbackParamsFunction<boolean>(unref(hide)) ?? true)
 
-const isRequired = computed(() => Boolean(unref(required) ?? schemaFormProps.required))
-
 const colPropsMap = computed(() => {
   const colP = colProps || schemaFormProps.colProps
+  console.log(isNumber(colP) ? { span: colP } : colP)
   return isNumber(colP) ? { span: colP } : colP
 })
 
-// labelCol配置
-const labelCol = computed<MaybeUndefined<Col>>(() => {
-  if (labelWidth) {
-    return { style: { width: isNumber(unref(labelWidth)) ? `${ unref(labelWidth) }px` : unref(labelWidth) } } as Col
-  }
-  if (schemaFormProps.autoLabelWidth) {
-    return maxLabelWidth.value ? { style: { width: `${ maxLabelWidth.value }px` } } as Col : undefined
-  }
-  return undefined
-})
 
 const formItemRules = computed(() => {
   const ruleValue = unref(rule)
   if (!ruleValue) {
+    const isRequire = Boolean(unref(showRequireMark) ?? schemaFormProps.showRequireMark)
     // 自动生成校验
-    if (schemaFormProps.autoRules && isRequired.value) return generateRule(unref(label), component)
-    return
+    return schemaFormProps.autoRules && isRequire ? generateRule(unref(label), component) : undefined
   }
   // 处理规则预设
   if (typeof ruleValue === 'string') return handleRulePresets(ruleValue)
@@ -107,65 +90,60 @@ const formItemRules = computed(() => {
 const formItemSlots = computed(() => {
   const formItemSlots: Recordable = {}
   if (unref(label)) formItemSlots.label = () => callbackParamsFunction(unref(label))
-  if (tooltipCustomRender) formItemSlots.tooltip = () => callbackParamsFunction(tooltipCustomRender)
-  if (extra) formItemSlots.extra = () => callbackParamsFunction(extra)
   return formItemSlots
 })
 
 // 动态组件属性
-const dynamicComponentAttribute = computed<any>(() => {
-  // 常用的Props
-  const commonProps: MapComponentCommonProps = {}
-  // 全局默认Props
-  const globalDefaultProps: Recordable = {}
-
+const dynamicComponentAttribute = computed<Recordable>(() => {
+  const p: Recordable = {}
   // 处理默认日期格式
-  if (isDateComponent(component)) {
-    globalDefaultProps.format = schemaFormProps.defaultDateFormat
-    globalDefaultProps.valueFormat = schemaFormProps.defaultValueDateFormat
+  if (component === 'datePicker') {
+    p.format = schemaFormProps.defaultDateFormat
+    p.valueFormat = schemaFormProps.defaultValueDateFormat
   }
 
   // 处理默认日期格式
-  if (isTimeComponent(component)) {
-    globalDefaultProps.format = schemaFormProps.defaultTimeFormat
-    globalDefaultProps.valueFormat = schemaFormProps.defaultValueTimeFormat
+  if (component === 'timePicker') {
+    p.format = schemaFormProps.defaultTimeFormat
+    p.valueFormat = schemaFormProps.defaultValueTimeFormat
   }
 
   // 处理自动生成Placeholder
-  if (schemaFormProps.autoPlaceholder) commonProps.placeholder = generatePlaceholder(unref(label), component)
-
-  // 映射选项列表
-  if (unref(options) && isMapOptions(component)) commonProps.options = unref(options)
-
-  // 映射占位符
-  if (unref(placeholder) && isMapPlaceholder(component)) commonProps.placeholder = unref(placeholder)
-
-  // 映射日期、日期格式
-  if ((unref(format) || unref(valueFormat)) && (isDateComponent(component) || isTimeComponent(component))) {
-    if (unref(format)) commonProps.format = unref(format)
-    if (unref(valueFormat)) commonProps.valueFormat = unref(valueFormat)
+  if (schemaFormProps.autoPlaceholder && isString(unref(label))) {
+    const placeholderDefault = {
+      daterange: [ '开始日期', '结束日期' ],
+      datetimerange: [ '开始日期时间', '结束日期时间' ],
+      yearrange: [ '开始年', '结束年' ],
+      monthrange: [ '开始月', '结束月' ],
+      quarterrange: [ '开始季度', '结束季度' ],
+      input:`请输入${label}`,
+      select:`请选择${label}`
+    }
+    //  处理日期范围类型
+    if (component === 'datePicker' && componentProps?.type.includes('range')) {
+      p.startPlaceholder = placeholderDefault[componentProps.type][0]
+      p.endPlaceholder = placeholderDefault[componentProps.type][1]
+    } else if (isInputComponent(component)) {
+      p.placeholder = placeholderDefault['input']
+    } else if (isPickComponent(component)) {
+      p.placeholder = placeholderDefault['select']
+    }
   }
 
-  // 禁用
-  if (disabled !== undefined) {
-    commonProps.disabled = callbackParamsFunction(unref(disabled))
-  } else if (schemaFormProps.disabled !== undefined) {
-    commonProps.disabled = schemaFormProps.disabled
-  }
 
   return {
-    ...globalDefaultProps,
-    ...commonProps,
+    ...p,
     // 声明ref会自动解包componentProps中的ref
-    ...ref(componentProps).value as any
+    ...ref(componentProps).value
   }
 })
 
 // 动态组件插槽
 const dynamicComponentSlots = computed(() => {
-  // 组件默认插槽内容
-  const defaultSlot = (slot: SchemaConfig['componentContent']) => ({ default: () => slot })
   if (!componentContent) return undefined
+
+  // 组件默认插槽内容
+  const defaultSlot = (slot: Schema['componentContent']) => ({ default: () => slot })
 
   const content = callbackParamsFunction(componentContent)
 
@@ -179,67 +157,64 @@ const callbackParamsFunction = <T = never>(value: T | CallbackParamsFunction<any
     ? value(callbackParams.value)
     : value
 
-// 获取最大Label宽度
-watch([ formItemRef,toRef(label) ], async () => {
-  await nextTick()
-  const scrollWidth = formItemRef.value?.$el.querySelector('.ant-form-item-label')?.scrollWidth
-  if (scrollWidth > maxLabelWidth.value) maxLabelWidth.value = scrollWidth + 7
-})
+// 设置 Placeholder
+const setPlaceholder = (label: string, component: ComponentsName, componentProps: Recordable) => {
+
+  const placeholderDefault = {
+    daterange: [ '开始日期', '结束日期' ],
+    datetimerange: [ '开始日期时间', '结束日期时间' ],
+    yearrange: [ '开始年', '结束年' ],
+    monthrange: [ '开始月', '结束月' ],
+    quarterrange: [ '开始季度', '结束季度' ],
+    input:`请输入${label}`,
+    select:`请选择${label}`
+  }
+
+}
 
 const FormItem = () => {
   const DynamicComponent = SCHEMA_RENDER_COMPONENTS[component]
-
+  if (!DynamicComponent) return console.error(`未找到该组件：${component}`)
   const renderComponent = () => {
     return isCheckComponent(unref(component)) ?
         (
             <DynamicComponent
-                v-model:checked={ bindValue.value }
-                v-slots={ dynamicComponentSlots.value }
-                { ...dynamicComponentAttribute.value }>
+                v-model:checked={bindValue.value}
+                v-slots={dynamicComponentSlots.value}
+                {...dynamicComponentAttribute.value}>
             </DynamicComponent>
         ) :
         (
             <DynamicComponent
-                v-model:value={ bindValue.value }
-                v-slots={ dynamicComponentSlots.value }
-                { ...dynamicComponentAttribute.value }>
+                v-model:value={bindValue.value}
+                v-slots={dynamicComponentSlots.value}
+                {...dynamicComponentAttribute.value}>
             </DynamicComponent>
         )
   }
-  // form item 组件的name属性不能接受 a.b.c 格式，只能将复杂的对象嵌套转成数组
-  const arrayName = objectPathToArray(unref(field))
-  const name = arrayName.length ? arrayName : undefined
   return (
-      <a-form-item
-          ref={ formItemRef }
-          colon={unref(colon)}
-          rules={ formItemRules.value }
-          name={ name }
-          label-col={ labelCol.value }
-          tooltip={ unref(tooltip) }
-          required={ isRequired.value }
-          v-slots={ formItemSlots.value }
+      <n-form-item
+          rules={formItemRules.value}
+          path={unref(field)}
+          {...formItemProps}
+          v-slots={formItemSlots.value}
       >
-        { contentSlot ? slots.default?.() : renderComponent() }
-      </a-form-item>
+        {contentSlot ? slots.default?.() : renderComponent()}
+      </n-form-item>
   )
 
 }
 </script>
 
 <template>
-  <a-col v-if="isHide" v-bind="colPropsMap">
+  <n-col v-if="isHide" v-bind="colPropsMap">
     <form-item v-if="!slot" />
     <slot v-else :name="slot" />
-  </a-col>
+  </n-col>
 </template>
 
 <style scoped lang="scss">
-:deep(.ant-input-number) {
-  width: 100%;
-}
-
-:deep(.ant-picker) {
+:deep(.n-input-number) {
   width: 100%;
 }
 </style>

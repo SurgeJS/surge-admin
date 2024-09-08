@@ -35,8 +35,8 @@ iframe {
   vertical-align: middle;
 }
 
-// 清除过度效果(不包括 ant switch 组件)
-.noTransition *:not(.n-tabs-capsule) {
+// 清除过度效果
+.noTransition *:not(.n-tabs-capsule,.loading-container,.loading > div) {
   transition: none !important;
   animation: none !important;
 }

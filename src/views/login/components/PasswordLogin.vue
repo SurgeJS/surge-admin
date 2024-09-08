@@ -21,10 +21,10 @@ const form: UserModel.PasswordLoginParams = reactive({
 const schema = ref<SchemaType<UserModel.PasswordLoginParams>[]>([
   {
     field: 'username',
-    placeholder: '请输入用户名',
-    component: 'Input',
+    component: 'input',
     componentProps: {
-      size: 'large'
+      size: 'large',
+      placeholder: '请输入用户名'
     },
     componentContent: {
       prefix: () => RenderUnoIcon('i-ant-design:user-outlined')
@@ -36,10 +36,11 @@ const schema = ref<SchemaType<UserModel.PasswordLoginParams>[]>([
   },
   {
     field: 'password',
-    component: 'InputPassword',
-    placeholder: '请输入密码',
+    component: 'input',
     componentProps: {
-      size: 'large'
+      size: 'large',
+      type: 'password',
+      placeholder: '请输入密码'
     },
     componentContent: {
       prefix: () => RenderUnoIcon('i-ant-design:lock-outlined')
@@ -71,6 +72,7 @@ const handleLogin = async () => {
       ref="formRef"
       :model="form"
       hide-action-button
+      show-require-mark
       :schema="schema"
     >
       <template #action>
@@ -80,12 +82,12 @@ const handleLogin = async () => {
           align="center"
           justify="space-between"
         >
-          <a-checkbox>记住密码</a-checkbox>
-          <a-button type="link">忘记密码？</a-button>
+          <n-checkbox>记住密码</n-checkbox>
+          <span class="text-primary">忘记密码？</span>
         </a-flex>
       </template>
       <template #submit>
-        <a-button
+        <n-button
           :loading="loading"
           block
           size="large"
@@ -93,7 +95,7 @@ const handleLogin = async () => {
           @click="handleLogin"
         >
           登录
-        </a-button>
+        </n-button>
       </template>
     </schema-form>
     <n-flex justify="space-between" :wrap="false">

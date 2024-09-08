@@ -1,10 +1,7 @@
 const initialProps = {
-    required: false,
     autoPlaceholder: true,
-    autoLabelWidth: true,
     autoRules: true,
     hideActionButton: false,
-    colon: true,
     submitText: '提交',
     resetText: '重置',
     defaultDateFormat: 'YYYY-MM-DD',

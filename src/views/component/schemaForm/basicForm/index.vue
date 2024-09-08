@@ -28,17 +28,18 @@ const tabs = ref([
 ])
 </script>
 <template>
-  <a-card>
-    <a-tabs>
-      <a-tab-pane
+  <n-card>
+    <n-tabs>
+      <n-tab-pane
         v-for="item in tabs"
         :key="item.key"
+        :name="item.key"
         :tab="item.label"
       >
         <component :is="item.component" :key="item.key" />
-      </a-tab-pane>
-    </a-tabs>
-  </a-card>
+      </n-tab-pane>
+    </n-tabs>
+  </n-card>
 </template>
 
 <style scoped lang="scss">

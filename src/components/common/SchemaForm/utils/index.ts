@@ -1,89 +1,39 @@
 import { ComponentsName } from '@/components/common/SchemaForm/types/component'
-import { RulePresets, SchemaConfig } from '@/components/common/SchemaForm/types/type'
+import { RulePresets, Schema } from '@/components/common/SchemaForm/types/type'
 import { Rule } from 'ant-design-vue/es/form'
 import RegUtils from '@/utils/reg'
 import { RuleObject } from 'ant-design-vue/es/form/interface'
 
-// 是否映射options
-export const isMapOptions = (component: ComponentsName) => [
-    'Select',
-    'AutoComplete',
-    'Cascader',
-    'CheckboxGroup',
-    'Mentions',
-    'RadioGroup',
-    'TreeSelect'
-].includes(component)
-
-// 是否映射placeholder
-export const isMapPlaceholder = (component: ComponentsName) => [
-    'Input',
-    'InputPassword',
-    'Select',
-    'Textarea',
-    'AutoComplete',
-    'Cascader',
-    'DatePicker',
-    'DateRangePicker',
-    'InputNumber',
-    'Mentions',
-    'TimePicker',
-    'TimeRangePicker',
-    'TreeSelect'
-].includes(component)
-
 // 是否Check类型的组件
-export const isCheckComponent = (component: ComponentsName) => [ 'Switch', 'Checkbox', 'Radio' ].includes(component)
+export const isCheckComponent = (component: ComponentsName) => [ 'switch', 'checkbox', 'radio' ].includes(component)
 
-// 是否日期类型组件
-export const isDateComponent = (component: ComponentsName) => [
-    'DatePicker',
-    'DateRangePicker'
-].includes(component)
 
-// 是否时间类型组件
-export const isTimeComponent = (component: ComponentsName) => [
-    'TimePicker',
-    'TimeRangePicker'
-].includes(component)
-
-// 是否日期时间范围类型组件
-export const isDateTimeRangeComponent = (component: ComponentsName) => [
-    'DateRangePicker',
-    'TimeRangePicker'
-].includes(component)
 
 // 是否输入类型的组件
 export const isInputComponent = (component: ComponentsName) => [
-    'Input',
-    'InputPassword',
-    'Textarea',
-    'AutoComplete',
-    'InputNumber',
-    'Mentions'
+    'input',
+    'inputNumber',
+    'autoComplete',
+    'mentions'
 ].includes(component)
 
 // 是否选择类型的组件
 export const isPickComponent = (component: ComponentsName) => [
-    'Select',
-    'Cascader',
-    'DatePicker',
-    'DateRangePicker',
-    'TimePicker',
-    'TimeRangePicker',
-    'TreeSelect'
+    'select',
+    'cascader',
+    'datePicker',
+    'timePicker',
+    'treeSelect'
 ].includes(component)
 
 // 生成placeholder
-export const generatePlaceholder = (label: SchemaConfig['label'], component: ComponentsName) => {
-    if ([ 'DateRangePicker' ].includes(component)) return [ '开始日期', '结束日期' ]
-    if ([ 'TimeRangePicker' ].includes(component)) return [ '开始时间', '结束时间' ]
+export const generatePlaceholder = (label: Schema['label'], component: ComponentsName) => {
     if (isInputComponent(component) && typeof label === 'string') return `请输入${ label }`
     if (isPickComponent(component) && typeof label === 'string') return `请选择${ label }`
 }
 
 // 生成规则
-export const generateRule = (label: SchemaConfig['label'], component: ComponentsName): RuleObject => {
+export const generateRule = (label: Schema['label'], component: ComponentsName): RuleObject => {
     let msg: string = `${ label }是必填项`
     if (isInputComponent(component) && typeof label === 'string') msg = `请输入${ label }`
     if (isPickComponent(component) && typeof label === 'string') msg = `请选择${ label }`
