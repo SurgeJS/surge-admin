@@ -1,7 +1,7 @@
-import { SchemaType } from '@/components/common/SchemaForm/types/type'
+import { UnwrapRefSchema } from '@/components/common/SchemaForm/types/type'
 
 export interface SchemaFormContent {
-    schema: SchemaType[]
+    schema: UnwrapRefSchema[]
 
-    rowGutter?: string | number | [number, number]
+    rowGutter?: string | number | [ number, number ]
 }

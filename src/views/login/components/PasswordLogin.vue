@@ -2,7 +2,7 @@
 import { useLoginContext } from '@/views/login/utils/context'
 import { reactive, ref } from 'vue'
 import useAuthStore from '@/store/modules/auth'
-import { SchemaFormExpose, SchemaType } from '@/components/common/SchemaForm/types/type'
+import { DefineSchema, SchemaFormExpose } from '@/components/common/SchemaForm/types/type'
 import { LoginAction } from '@/views/login/type/enum'
 import useRenderIcon from '@/hooks/components/useRenderIcon'
 
@@ -18,7 +18,7 @@ const form: UserModel.PasswordLoginParams = reactive({
   password: '123456'
 })
 
-const schema = ref<SchemaType<UserModel.PasswordLoginParams>[]>([
+const schema = ref<DefineSchema<UserModel.PasswordLoginParams>[]>([
   {
     field: 'username',
     component: 'input',

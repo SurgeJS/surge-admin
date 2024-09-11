@@ -104,7 +104,6 @@ watch(() => route.path, () => {
   height: 100%;
   flex-direction: column;
   justify-content: space-between;
-  border-right: 1px solid theme('borderColor.secondary');
   padding: 7px;
   position: relative;
   transition: width .2s ease-in-out;

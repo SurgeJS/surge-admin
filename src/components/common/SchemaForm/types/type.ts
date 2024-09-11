@@ -1,12 +1,11 @@
-import { ComponentsName, ComponentsProps } from '@/components/common/SchemaForm/types/component'
-import { MaybeRef, VNode } from 'vue'
+import { ComponentsName, ComponentsNameRef, ComponentsProps } from '@/components/common/SchemaForm/types/component'
+import { MaybeRef, UnwrapRef, VNode } from 'vue'
 import {
     ColProps,
     DrawerProps,
     FormInst,
     FormItemProps,
     FormItemRule,
-    FormRules,
     ModalProps,
     RowProps,
     StepsProps
@@ -15,7 +14,7 @@ import { FormSetupProps } from 'naive-ui/es/form/src/Form'
 
 // 回调参数
 export interface CallbackParams<TForm extends Recordable = Recordable, DComponentsName extends ComponentsName = ComponentsName> {
-    schema: SchemaType<TForm, DComponentsName>;
+    schema: DefineSchema<TForm, DComponentsName>;
     value: any;
     model: TForm;
     field: keyof TForm;
@@ -53,63 +52,59 @@ export type ComponentSlots = {
  */
 export type RulePresets = 'mail' | 'phone' | 'landline' | 'idCard' | 'url'
 
+export type SafeComponentProps<T> = T extends Recordable ? T : never;
+
 // Schema配置
-export interface Schema<
-    TForm extends Recordable = Recordable,
-    DComponentsName extends ComponentsName = ComponentsName
-> extends Omit<FormItemProps, 'label' | 'rule' | 'path'> {
+export type Schema<
+    TForm extends Recordable = any,
+    DComponentsName extends ComponentsNameRef = ComponentsNameRef
+> = MaybeRefs<Omit<FormItemProps, 'label' | 'rule' | 'path'>> & {
     // 字段
-    field?: keyof TForm | string
+    field?: MaybeRef<keyof TForm | string>
 
     // label 标签的文本
-    label?: SlotsContent | CallbackParamsFunction<TForm, DComponentsName, SlotsContent>
+    label?: MaybeRef<string> | SlotsContent | CallbackParamsFunction<TForm, UnwrapRef<DComponentsName>, SlotsContent>
+
+    // 双向绑定名称
+    vModelBind?: MaybeRef<string>
 
     // 组件
     component?: DComponentsName
 
     // 组件属性
-    componentProps?: ComponentsProps[DComponentsName]
+    componentProps?: MaybeRefs<SafeComponentProps<ComponentsProps[UnwrapRef<DComponentsName>]>>
 
     // 组件内容
     componentContent?: SlotsContent
         | ComponentSlots
-        | ((callbackParams: CallbackParams<TForm, DComponentsName>) => SlotsContent | ComponentSlots)
+        | ((callbackParams: CallbackParams<TForm, UnwrapRef<DComponentsName>>) => SlotsContent | ComponentSlots)
 
     // 自定义插槽
-    slot?: string
+    slot?: MaybeRef<string>
 
     // formItem 插槽
-    contentSlot?: string
+    contentSlot?: MaybeRef<string>
 
     // 列属性
-    colProps?: number | ColProps
+    colProps?: MaybeRef<number | ColProps>
 
-    // 规则 TODO: 不知道 FormRules 是个啥
-    rule?: RulePresets | FormRules | FormItemRule | FormItemRule[]
+    // 规则
+    rule?: MaybeRef<RulePresets | FormItemRule | FormItemRule[]>
 
     // 该formItem是否隐藏
-    hide?: boolean | CallbackParamsFunction<TForm, DComponentsName, boolean>
+    hide?: MaybeRef<boolean> | CallbackParamsFunction<TForm, UnwrapRef<DComponentsName>, boolean>
 
     // 帮助提示信息
-    tooltip?: string
+    tooltip?: MaybeRef<string>
 }
 
-// 定义 Schema 配置
-// export type DefineSchema<TForm extends Recordable = Recordable, DComponentsName extends ComponentsName = ComponentsName> = MaybeRefs<SchemaType<TForm, DComponentsName>>
+// 定义JSON 格式配置
+export type DefineSchema<TForm extends Recordable = any, DComponentsName extends ComponentsNameRef = ComponentsNameRef>
+    = DComponentsName extends ComponentsNameRef ? Schema<TForm, DComponentsName> : never;
 
-
-// JSON 格式配置
-export type SchemaType<TForm extends Recordable = any, DComponentsName extends ComponentsName = ComponentsName>
-    = DComponentsName extends ComponentsName ? Schema<TForm, DComponentsName> : never;
-
-const test: SchemaType[] = [
-    {
-        component: 'select',
-        componentProps: {
-            passivelyActivated: true
-        }
-    }
-]
+// 解包 JSON 格式配置
+export type UnwrapRefSchema<TForm extends Recordable = any, DComponentsName extends ComponentsNameRef = ComponentsNameRef>
+    = UnwrapRef<DefineSchema<TForm, DComponentsName>>
 
 // 模块表单结构
 export interface GroupSchemaType<TForm extends Recordable = any, DComponentsName extends ComponentsName = ComponentsName> {
@@ -123,7 +118,7 @@ export interface GroupSchemaType<TForm extends Recordable = any, DComponentsName
     hide?: MaybeRef<boolean> | GroupCallbackParamsFunction<TForm, DComponentsName, boolean>
 
     // 表单
-    form: SchemaType<TForm, DComponentsName>[]
+    form: DefineSchema<TForm, DComponentsName>[]
 
     // 是否隐藏展开收起按钮
     isHideExpandCollapseButton?: MaybeRef<boolean>
@@ -135,7 +130,7 @@ export interface GroupSchemaType<TForm extends Recordable = any, DComponentsName
     disabled?: MaybeRef<boolean>
 }
 
-// 步骤条表单结构 TODO: MaybeRef 未完成
+// 步骤条表单结构
 export interface StepSchemaType<TForm extends Recordable = any, DComponentsName extends ComponentsName = ComponentsName> {
     // 标题
     title?: MaybeRef<string>
@@ -147,14 +142,14 @@ export interface StepSchemaType<TForm extends Recordable = any, DComponentsName 
     icon?: VNode
 
     // 表单
-    form: SchemaType<TForm, DComponentsName>[]
+    form: DefineSchema<TForm, DComponentsName>[]
 }
 
 /* --------------通用类型-------------- */
 
 
 // 通用props
-export type SchemaFormCommonProps = Partial<FormSetupProps> & {
+export interface SchemaFormCommonProps extends Partial<Omit<FormSetupProps, 'onSubmit'>> {
     // 表单类名
     formClass?: string
 
@@ -180,10 +175,10 @@ export type SchemaFormCommonProps = Partial<FormSetupProps> & {
     defaultTimeFormat?: DateFormat
 
     // 默认日期组件值格式
-    defaultValueDateFormat?: DateFormat
+    defaultDateValueFormat?: DateFormat
 
     // 默认时间组件值格式
-    defaultValueTimeFormat?: DateFormat
+    defaultTimeValueFormat?: DateFormat
 
     // 自动placeholder (item的label的类型为string才会生效，优先级最低)
     autoPlaceholder?: boolean
@@ -240,7 +235,7 @@ export interface SchemaFormCommonExpose extends FormInst {
 
 export interface SchemaFormProps extends SchemaFormCommonProps {
     // schema 配置
-    schema: SchemaType[]
+    schema: UnwrapRefSchema[]
 }
 
 export interface SchemaFormExpose extends SchemaFormCommonExpose {
@@ -253,7 +248,7 @@ export interface SchemaFormSlots extends SchemaFormCommonSlots {
 
 export interface SearchSchemaFormProps extends SchemaFormCommonProps {
     // schema 配置
-    schema: SchemaType[]
+    schema: DefineSchema[]
 
     // 查询表单默认展示个数
     searchShowNumber?: number
@@ -329,7 +324,7 @@ export type PopupType = 'drawer' | 'modal'
 
 export interface PopupSchemaFormProps extends SchemaFormCommonProps {
     // schema 配置
-    schema: SchemaType[]
+    schema: DefineSchema[]
 
     visible?: boolean
 

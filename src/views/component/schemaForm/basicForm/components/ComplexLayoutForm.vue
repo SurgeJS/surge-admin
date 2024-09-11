@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { SchemaType } from '@/components/common/SchemaForm/types/type'
+import { DefineSchema } from '@/components/common/SchemaForm/types/type'
 import { message } from 'ant-design-vue'
 import { ref } from 'vue'
 import { DefaultOptionType } from 'ant-design-vue/es/vc-tree-select/TreeSelect'
@@ -75,7 +75,7 @@ const area: DefaultOptionType[] = [
     ]
   }
 ]
-const schema1: SchemaType<typeof form.value>[] = [
+const schema1: DefineSchema<typeof form.value>[] = [
   {
     field: 'name.test',
     label: '名称',
@@ -221,10 +221,14 @@ const onFinishFailed = () => {
     :on-finish-failed="onFinishFailed"
   >
     <template #test>
-      <div class="text-white bg-red h-full flex-center">这是一个<span class="text-black">包含</span>FormItem自定义插槽</div>
+      <div class="text-white bg-red h-full flex-center">
+        这是一个<span class="text-black">包含</span>FormItem自定义插槽
+      </div>
     </template>
     <template #test2>
-      <div class="text-white bg-red h-full flex-center">这是一个<span class="text-black">不包含</span>FormItem自定义插槽</div>
+      <div class="text-white bg-red h-full flex-center">
+        这是一个<span class="text-black">不包含</span>FormItem自定义插槽
+      </div>
     </template>
   </schema-form>
 </template>

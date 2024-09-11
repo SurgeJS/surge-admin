@@ -1,8 +1,9 @@
-<script setup lang="ts">
-import { SchemaType } from '@/components/common/SchemaForm/types/type'
+<script setup lang="tsx">
+import { DefineSchema } from '@/components/common/SchemaForm/types/type'
 import { message } from 'ant-design-vue'
 import { ref } from 'vue'
 import { DefaultOptionType } from 'ant-design-vue/es/vc-tree-select/TreeSelect'
+import { ComponentsName } from '@/components/common/SchemaForm/types/component'
 
 const form = ref({
   name: {
@@ -75,17 +76,26 @@ const area: DefaultOptionType[] = [
     ]
   }
 ]
-const schema1: SchemaType<typeof form.value>[] = [
+
+const label = ref('名称')
+const com = ref<ComponentsName>('input')
+const schema = reactive<DefineSchema<typeof form.value>[]>([
   {
-    field: 'name.test',
-    label: '名称',
-    component: 'input',
+    label: label,
+    component: com,
+    componentProps: {
+      options: [],
+    },
     rule: { message: '请输入名称', max: 10, min: 3, type: 'string', trigger: 'blur', required: true }
   },
   {
     field: 'email',
     label: '邮箱',
-    component: 'input',
+    component: 'select',
+    componentProps: {
+      placeholder: label,
+      xxx: 1
+    },
     rule: 'mail'
   },
   {
@@ -93,69 +103,69 @@ const schema1: SchemaType<typeof form.value>[] = [
     label: '年龄',
     component: 'inputNumber',
     componentProps: {
-      min: 1,
-      max: 150
+      min: ref(1)
     }
   },
   {
     field: 'password',
     label: '密码',
     component: 'input',
-    componentProps: {
-      type: 'password'
-    }
+    componentProps: {}
   },
   {
     field: 'status',
     label: '状态',
     component: 'select',
-    componentProps:{
-      options: status
+    componentProps: {
+      options: status,
     }
   },
-  // {
-  //   field: 'startTime',
-  //   label: '开始时间',
-  //   component: 'timePicker'
-  // },
-  // {
-  //   field: 'endTime',
-  //   label: '结束时间',
-  //   component: 'timePicker'
-  // },
-  // {
-  //   field: 'skill',
-  //   label: '技能',
-  //   component: 'checkboxGroup',
-  //   componentProps:{
-  //     options: [
-  //       {
-  //         label: 'Vue2',
-  //         value: 0
-  //       },
-  //       {
-  //         label: 'Vue3',
-  //         value: 1
-  //       },
-  //       {
-  //         label: 'React',
-  //         value: 3
-  //       },
-  //       {
-  //         label: 'TypeScript',
-  //         value: 4
-  //       },
-  //       {
-  //         label: 'Linux',
-  //         value: 5
-  //       },
-  //       {
-  //         label: 'Docker',
-  //         value: 6
-  //       }
-  //     ],
-  //   }
-  // },
+  {
+    field: 'startTime',
+    label: '开始时间',
+    vModelBind: 'formattedValue',
+    component: 'timePicker',
+    componentProps: {}
+  },
+  {
+    field: 'endTime',
+    label: '结束时间',
+    component: 'timePicker'
+  },
+  {
+    field: 'skill',
+    label: '技能',
+    component: 'checkboxGroup',
+    componentProps: {
+      // options: [
+      //   {
+      //     label: 'Vue2',
+      //     value: 0
+      //   },
+      //   {
+      //     label: 'Vue3',
+      //     value: 1
+      //   },
+      //   {
+      //     label: 'React',
+      //     value: 3
+      //   },
+      //   {
+      //     label: 'TypeScript',
+      //     value: 4
+      //   },
+      //   {
+      //     label: 'Linux',
+      //     value: 5
+      //   },
+      //   {
+      //     label: 'Docker',
+      //     value: 6
+      //   }
+      // ],
+    },
+    componentContent: (<n-checkbox value="Beijing" label="北京"/>)
+  },
   // {
   //   field: 'date',
   //   label: '开始结束日期',
@@ -177,7 +187,7 @@ const schema1: SchemaType<typeof form.value>[] = [
   //   field: 'organization',
   //   label: '组织机构',
   //   component: 'treeSelect',
-  //   componentProps:{
+  //   componentProps: {
   //     options: area
   //   }
   // },
@@ -202,42 +212,50 @@ const schema1: SchemaType<typeof form.value>[] = [
   //   field: 'description',
   //   label: '描述',
   //   component: 'input',
-  //   componentProps:{
+  //   componentProps: {
   //     type: 'textarea'
   //   }
   // },
-]
-
-
+])
+console.log(schema)
 const onFinish = (model) => {
   console.log(model)
+  label.value = '889441615'
   message.success('提交成功')
 }
 
 const onFinishFailed = () => {
+  label.value = '889441615'
+  com.value = 'select'
   message.error('校验失败')
 }
+
 </script>
 
 <template>
-  <schema-form
-    :schema="schema1"
-    layout="vertical"
-    :model="form"
-    :on-finish="onFinish"
-    :on-finish-failed="onFinishFailed"
-  >
-    <template #test>
-      <div class="text-white bg-red h-full flex-center">
-        这是一个<span class="text-black">包含</span>FormItem自定义插槽
-      </div>
-    </template>
-    <template #test2>
-      <div class="text-white bg-red h-full flex-center">
-        这是一个<span class="text-black">不包含</span>FormItem自定义插槽
-      </div>
-    </template>
-  </schema-form>
+  <n-flex :wrap="false">
+    <p>{{ JSON.stringify(form, null, 4) }}</p>
+    <div>
+      <n-button @click="label='8888888'">测试</n-button>
+      <schema-form
+        v-model:schema="schema"
+        v-model:model="form"
+        :on-finish="onFinish"
+        :on-finish-failed="onFinishFailed"
+      >
+        <template #test>
+          <div class="text-white bg-red h-full flex-center">
+            这是一个<span class="text-black">包含</span>FormItem自定义插槽
+          </div>
+        </template>
+        <template #test2>
+          <div class="text-white bg-red h-full flex-center">
+            这是一个<span class="text-black">不包含</span>FormItem自定义插槽
+          </div>
+        </template>
+      </schema-form>
+    </div>
+  </n-flex>
 </template>
 
 <style scoped lang="scss">

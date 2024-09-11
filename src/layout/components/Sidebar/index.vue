@@ -45,7 +45,9 @@ const sidebarWidth = computed(() => {
 
 <style lang="scss" scoped>
 .layout-sidebar {
+  height: 100%;
   transition: width .2s ease-in-out, .2s ease-in-out;
+  z-index: 100;
 }
 
 // 左滑

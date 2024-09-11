@@ -14,8 +14,8 @@ const nFormProps = useOmitProps(props, [
   'hideActionButton',
   'defaultDateFormat',
   'defaultTimeFormat',
-  'defaultValueDateFormat',
-  'defaultValueTimeFormat',
+  'defaultDateValueFormat',
+  'defaultTimeValueFormat',
   'autoPlaceholder',
   'autoRules',
   'submitLoading',
@@ -28,7 +28,6 @@ const nFormProps = useOmitProps(props, [
   'onFinishFailed',
   'onReset',
 ])
-
 const { formRef, commonExpose } = useExpose()
 
 defineExpose<SchemaFormCommonExpose>(commonExpose)

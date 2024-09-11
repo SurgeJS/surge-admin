@@ -21,7 +21,7 @@ const thumbtackIcon = computed(() => appStore.isFixedMixSidebarDrawer
 const dynamicStyles = computed(() => {
   return {
     width: `${ appStore.sidebarWidth }px`,
-    left: `${ appStore.dynamicMixSidebarWidth }px`,
+    left: `${ appStore.dynamicMixSidebarWidth - 0.5 }px`,
   }
 })
 </script>
@@ -57,7 +57,7 @@ const dynamicStyles = computed(() => {
   z-index: 100;
   overflow: hidden;
   background: theme('backgroundColor.container');
-  border-right: 1px solid theme('borderColor.base');
+  border-right: 1px solid theme('borderColor.tertiary');
   display: flex;
   flex-direction: column;
   transition: left .2s ease-in-out;

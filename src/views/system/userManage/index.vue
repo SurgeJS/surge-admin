@@ -1,13 +1,13 @@
 <script lang="ts" setup>
 import Tree from '@/views/system/userManage/components/Tree.vue'
-import { SchemaType } from '@/components/common/SchemaForm/types/type'
+import { DefineSchema } from '@/components/common/SchemaForm/types/type'
 import { asyncWait } from '@/utils'
 import { message } from 'ant-design-vue'
 import { useToggle } from '@vueuse/core'
 import { ref } from 'vue'
 import { DefaultOptionType } from 'ant-design-vue/es/vc-tree-select/TreeSelect'
 
-const [ isShow,toggleShow ] = useToggle()
+const [ isShow, toggleShow ] = useToggle()
 
 const form = ref({
   name: {
@@ -83,7 +83,7 @@ const area: DefaultOptionType[] = [
   }
 ]
 
-const schema1: SchemaType<typeof form.value>[] = [
+const schema1: DefineSchema<typeof form.value>[] = [
   {
     field: 'name.test',
     label: '名称',

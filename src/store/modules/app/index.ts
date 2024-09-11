@@ -187,7 +187,7 @@ const useAppStore = defineStore('App', () => {
                 cardColor: backgroundColor?.container,
                 modalColor: backgroundColor?.layer,
                 invertedColor: backgroundColor?.inverted,
-                popoverColor:backgroundColor?.layer,
+                popoverColor: backgroundColor?.layer,
                 /* 边框颜色 */
                 borderColor: borderColor?.base,
                 /* 边框圆角 */
@@ -209,21 +209,15 @@ const useAppStore = defineStore('App', () => {
         }
     }
 
-    // 适配 naive 组件主题
-    const adaptNaiveTheme = () => {
-        // 自定义 naive 组件主题
-        const customizeOverrides = !isDark.value ? AppConstant.NAIVE_COMPONENT_LIGHT_THEME : AppConstant.NAIVE_COMPONENT_DARK_THEME
-        // 映射主题
-        const mapTheme = generateTheme()
-        themeOverrides.value = merge(mapTheme, customizeOverrides)
-    }
-
     // 监听 主题模式 | 主题颜色 | 操作系统主题 变化
     watch([ () => appStore.themeMode, () => appStore.themeColor, osTheme ], () => {
         // 临时清除全局的过渡效果
         temporaryClearTransition(() => {
-            // 适配 naive 组件主题
-            adaptNaiveTheme()
+            // 自定义 naive 组件主题
+            const customizeOverrides = !isDark.value ? AppConstant.NAIVE_COMPONENT_LIGHT_THEME : AppConstant.NAIVE_COMPONENT_DARK_THEME
+            // 映射主题
+            const mapTheme = generateTheme()
+            themeOverrides.value = merge(mapTheme, customizeOverrides)
         })
     }, { immediate: true })
 

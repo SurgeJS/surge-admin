@@ -1,6 +1,6 @@
 <script setup lang="tsx">
 import { ref } from 'vue'
-import { SchemaType } from '@/components/common/SchemaForm/types/type'
+import { DefineSchema } from '@/components/common/SchemaForm/types/type'
 import { DefaultOptionType } from 'ant-design-vue/es/vc-tree-select/TreeSelect'
 import { message } from 'ant-design-vue'
 import { useToggle } from '@vueuse/core'
@@ -83,7 +83,7 @@ const area: DefaultOptionType[] = [
   }
 ]
 
-const schema: SchemaType<typeof form.value>[] = [
+const schema: DefineSchema<typeof form.value>[] = [
   {
     field: 'name.test',
     label: '名称',
@@ -136,7 +136,7 @@ const schema: SchemaType<typeof form.value>[] = [
     component: 'Textarea',
     placeholder: '一整行',
     componentProps: {
-      rows:5
+      rows: 5
     },
     colProps: 24
   },
@@ -180,10 +180,14 @@ const onSearch = async () => {
         :on-finish="onSearch"
       >
         <template #test>
-          <div class="text-white bg-red h-full flex-center">这是一个<span class="text-black">包含</span>FormItem自定义插槽</div>
+          <div class="text-white bg-red h-full flex-center">
+            这是一个<span class="text-black">包含</span>FormItem自定义插槽
+          </div>
         </template>
         <template #test2>
-          <div class="text-white bg-red h-full flex-center">这是一个<span class="text-black">不包含</span>FormItem自定义插槽</div>
+          <div class="text-white bg-red h-full flex-center">
+            这是一个<span class="text-black">不包含</span>FormItem自定义插槽
+          </div>
         </template>
       </search-schema-form>
     </a-card>

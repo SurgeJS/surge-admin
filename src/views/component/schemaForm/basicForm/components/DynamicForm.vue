@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { SchemaType } from '@/components/common/SchemaForm/types/type'
+import { DefineSchema } from '@/components/common/SchemaForm/types/type'
 import { faker } from '@faker-js/faker/locale/zh_CN'
 
 const form = ref({
@@ -9,7 +9,7 @@ const form = ref({
 
 const nameLabel = ref('test1')
 
-const schema: SchemaType<typeof form.value>[] = [
+const schema: DefineSchema<typeof form.value>[] = [
   {
     field: 'name',
     label: nameLabel,

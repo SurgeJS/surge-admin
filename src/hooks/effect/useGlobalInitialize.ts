@@ -1,11 +1,11 @@
 import useAppStore from '@/store/modules/app'
-import day from '@/utils/day'
+// import day from '@/utils/day'
 
 // 全局初始化
 export const useGlobalInitialize = () => {
     const appStore = useAppStore()
     // 使用本地化语言
-    day.locale('zh-cn')
+    // day.locale('zh-cn')
     // 判断是否移动端
     appStore.isMobile = document.body.offsetWidth <= appStore.mobileTriggerWidth
 }

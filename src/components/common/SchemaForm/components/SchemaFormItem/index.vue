@@ -1,155 +1,44 @@
 <script setup lang="tsx">
-import { CallbackParams, CallbackParamsFunction, Schema, SchemaType } from '@/components/common/SchemaForm/types/type'
+import {
+  CallbackParams,
+  CallbackParamsFunction,
+  Schema,
+  UnwrapRefSchema
+} from '@/components/common/SchemaForm/types/type'
 import { useSchemaFormContext } from '@/components/common/SchemaForm/hooks/useContext'
-import { computed, isVNode, ref, unref, useSlots } from 'vue'
+import { computed, isVNode, useSlots } from 'vue'
 import { SCHEMA_RENDER_COMPONENTS } from '@/components/common/SchemaForm/utils/components'
 import {
   generateRule,
   handleRulePresets,
-  isCheckComponent,
+  isCheckedBind,
   isInputComponent,
-  isPickComponent,
+  isPickComponent
 } from '@/components/common/SchemaForm/utils'
 import { get, isArray, isFunction, isNumber, isString } from 'lodash-es'
-import { SchemaFormItemProps } from '@/components/common/SchemaForm/components/SchemaFormItem/types/type'
 import useOmitProps from '@/hooks/common/useOmitProps'
-import { ComponentsName } from '@/components/common/SchemaForm/types/component'
+import { ColProps } from 'naive-ui'
 
 
-const props = defineProps<SchemaFormItemProps>()
-
-const {
-  field,
-  component,
-  label,
-  componentProps,
-  componentContent,
-  hide,
-  rule,
-  showRequireMark,
-  tooltip,
-  colProps,
-  contentSlot,
-  slot,
-} = props.schema
+const schema = defineModel<UnwrapRefSchema>('schema', { required: true })
 
 const slots = useSlots()
-const { schemaFormProps, model, getModelValue, setModelValue } = useSchemaFormContext()!
-const formItemProps = useOmitProps(props.schema, [ 'field',
-  'component',
-  'label',
-  'componentProps',
-  'componentContent',
-  'hide',
-  'rule',
-  'tooltip',
-  'colProps',
-  'contentSlot',
-  'slot'
-])
 
-const bindValue = computed({
-  get() {
-    return getModelValue(unref(field))
-  },
-  set(value) {
-    setModelValue(unref(field), value)
-  }
-})
+const { schemaFormProps, model, getModelValue, setModelValue } = useSchemaFormContext()!
 
 // 回调参数
-const callbackParams = computed<CallbackParams>(() => ({
-  schema: props.schema as SchemaType,
+const callbackParams = computed(() => ({
+  schema: schema.value,
   model: model.value,
-  value: model.value[get(model.value, unref(field))],
-  field: unref(field)
-}))
+  value: schema.value.field ? model.value[get(model.value, schema.value.field)] : undefined,
+  field: schema.value.field
+}) as CallbackParams)
 
-const isHide = computed(() => callbackParamsFunction<boolean>(unref(hide)) ?? true)
+const isHide = computed(() => callbackParamsFunction<boolean | undefined>(schema.value.hide) ?? true)
 
 const colPropsMap = computed(() => {
-  const colP = colProps || schemaFormProps.colProps
-  console.log(isNumber(colP) ? { span: colP } : colP)
-  return isNumber(colP) ? { span: colP } : colP
-})
-
-
-const formItemRules = computed(() => {
-  const ruleValue = unref(rule)
-  if (!ruleValue) {
-    const isRequire = Boolean(unref(showRequireMark) ?? schemaFormProps.showRequireMark)
-    // 自动生成校验
-    return schemaFormProps.autoRules && isRequire ? generateRule(unref(label), component) : undefined
-  }
-  // 处理规则预设
-  if (typeof ruleValue === 'string') return handleRulePresets(ruleValue)
-  return ruleValue
-})
-
-// formItem slots
-const formItemSlots = computed(() => {
-  const formItemSlots: Recordable = {}
-  if (unref(label)) formItemSlots.label = () => callbackParamsFunction(unref(label))
-  return formItemSlots
-})
-
-// 动态组件属性
-const dynamicComponentAttribute = computed<Recordable>(() => {
-  const p: Recordable = {}
-  // 处理默认日期格式
-  if (component === 'datePicker') {
-    p.format = schemaFormProps.defaultDateFormat
-    p.valueFormat = schemaFormProps.defaultValueDateFormat
-  }
-
-  // 处理默认日期格式
-  if (component === 'timePicker') {
-    p.format = schemaFormProps.defaultTimeFormat
-    p.valueFormat = schemaFormProps.defaultValueTimeFormat
-  }
-
-  // 处理自动生成Placeholder
-  if (schemaFormProps.autoPlaceholder && isString(unref(label))) {
-    const placeholderDefault = {
-      daterange: [ '开始日期', '结束日期' ],
-      datetimerange: [ '开始日期时间', '结束日期时间' ],
-      yearrange: [ '开始年', '结束年' ],
-      monthrange: [ '开始月', '结束月' ],
-      quarterrange: [ '开始季度', '结束季度' ],
-      input:`请输入${label}`,
-      select:`请选择${label}`
-    }
-    //  处理日期范围类型
-    if (component === 'datePicker' && componentProps?.type.includes('range')) {
-      p.startPlaceholder = placeholderDefault[componentProps.type][0]
-      p.endPlaceholder = placeholderDefault[componentProps.type][1]
-    } else if (isInputComponent(component)) {
-      p.placeholder = placeholderDefault['input']
-    } else if (isPickComponent(component)) {
-      p.placeholder = placeholderDefault['select']
-    }
-  }
-
-
-  return {
-    ...p,
-    // 声明ref会自动解包componentProps中的ref
-    ...ref(componentProps).value
-  }
-})
-
-// 动态组件插槽
-const dynamicComponentSlots = computed(() => {
-  if (!componentContent) return undefined
-
-  // 组件默认插槽内容
-  const defaultSlot = (slot: Schema['componentContent']) => ({ default: () => slot })
-
-  const content = callbackParamsFunction(componentContent)
-
-  if (isArray(content) || isString(content) || isVNode(content)) return defaultSlot(content)
-
-  return content
+  const colP = schema.value.colProps || schemaFormProps.colProps
+  return (isNumber(colP) ? { span: colP } : colP) as ColProps
 })
 
 // 执行回调函数并返回原值
@@ -157,64 +46,166 @@ const callbackParamsFunction = <T = never>(value: T | CallbackParamsFunction<any
     ? value(callbackParams.value)
     : value
 
-// 设置 Placeholder
-const setPlaceholder = (label: string, component: ComponentsName, componentProps: Recordable) => {
+const FormItem = defineComponent(() => {
+  const formItemProps = useOmitProps(schema.value, [
+    'field',
+    'component',
+    'label',
+    'componentProps',
+    'componentContent',
+    'hide',
+    'rule',
+    'tooltip',
+    'colProps',
+    'contentSlot',
+    'slot'
+  ])
+  // formItem rule
+  const formItemRules = computed(() => {
+    const rule = schema.value.rule
+    if (!rule) {
+      const isRequire = Boolean(schema.value.showRequireMark ?? schemaFormProps.showRequireMark)
+      // 自动生成校验
+      if (schemaFormProps.autoRules && isRequire && schema.value.component) {
+        return generateRule(schema.value.label, schema.value.component)
+      }
+      return undefined
+    }
+    // 处理规则预设
+    if (typeof rule === 'string') return handleRulePresets(rule)
+    return rule
+  })
 
-  const placeholderDefault = {
-    daterange: [ '开始日期', '结束日期' ],
-    datetimerange: [ '开始日期时间', '结束日期时间' ],
-    yearrange: [ '开始年', '结束年' ],
-    monthrange: [ '开始月', '结束月' ],
-    quarterrange: [ '开始季度', '结束季度' ],
-    input:`请输入${label}`,
-    select:`请选择${label}`
-  }
+  // formItem slots
+  const formItemSlots = computed(() => {
+    const formItemSlots: Recordable = {
+      default: () => schema.value.contentSlot ? slots.default?.() : renderComponent()
+    }
+    if (schema.value.label) formItemSlots.label = () => callbackParamsFunction(schema.value.label)
+    return formItemSlots
+  })
 
-}
+  const DynamicComponent = computed(() => schema.value.component ? SCHEMA_RENDER_COMPONENTS[schema.value.component] : undefined)
 
-const FormItem = () => {
-  const DynamicComponent = SCHEMA_RENDER_COMPONENTS[component]
-  if (!DynamicComponent) return console.error(`未找到该组件：${component}`)
+  const bindValue = computed({
+    get() {
+      return getModelValue(schema.value.field as string)
+    },
+    set(value) {
+      setModelValue(schema.value.field as string, value)
+    }
+  })
+
+
+  // 动态组件属性
+  const dynamicComponentAttribute = computed<Recordable>(() => {
+    const component = schema.value.component
+    if (!component) return {}
+
+    const p: Recordable = {}
+    // 处理默认日期格式
+    if (component === 'datePicker') {
+      p.format = schemaFormProps.defaultDateFormat
+      p.valueFormat = schemaFormProps.defaultDateValueFormat
+    }
+
+    // 处理默认日期格式
+    if (component === 'timePicker') {
+      p.format = schemaFormProps.defaultTimeFormat
+      p.valueFormat = schemaFormProps.defaultTimeValueFormat
+    }
+
+    // 处理自动生成Placeholder
+    if (schemaFormProps.autoPlaceholder && isString(schema.value.label)) {
+      const placeholderDefault = {
+        daterange: [ '开始日期', '结束日期' ],
+        datetimerange: [ '开始日期时间', '结束日期时间' ],
+        yearrange: [ '开始年', '结束年' ],
+        monthrange: [ '开始月', '结束月' ],
+        quarterrange: [ '开始季度', '结束季度' ],
+        input: `请输入${ schema.value.label }`,
+        select: `请选择${ schema.value.label }`
+      }
+      const type = schema.value.componentProps?.type
+      //  处理日期范围类型
+      if (component === 'datePicker' && type.includes('range')) {
+        p.startPlaceholder = placeholderDefault[type][0]
+        p.endPlaceholder = placeholderDefault[type][1]
+      } else if (isInputComponent(component)) {
+        p.placeholder = placeholderDefault['input']
+      } else if (isPickComponent(component)) {
+        p.placeholder = placeholderDefault['select']
+      }
+    }
+
+    return {
+      ...p,
+      ...schema.value.componentProps
+    }
+  })
+
+  // 动态组件插槽
+  const dynamicComponentSlots = computed(() => {
+    const componentContent = schema.value.componentContent
+    if (!componentContent) return undefined
+
+    // 组件默认插槽内容
+    const defaultSlot = (slot: Schema['componentContent']) => ({ default: () => slot })
+
+    const content = callbackParamsFunction(componentContent)
+
+    if (isArray(content) || isString(content) || isVNode(content)) return defaultSlot(content)
+
+    return content
+  })
+
+
+  // 渲染动态组件
   const renderComponent = () => {
-    return isCheckComponent(unref(component)) ?
-        (
-            <DynamicComponent
-                v-model:checked={bindValue.value}
-                v-slots={dynamicComponentSlots.value}
-                {...dynamicComponentAttribute.value}>
-            </DynamicComponent>
-        ) :
-        (
-            <DynamicComponent
-                v-model:value={bindValue.value}
-                v-slots={dynamicComponentSlots.value}
-                {...dynamicComponentAttribute.value}>
-            </DynamicComponent>
-        )
-  }
-  return (
-      <n-form-item
-          rules={formItemRules.value}
-          path={unref(field)}
-          {...formItemProps}
-          v-slots={formItemSlots.value}
-      >
-        {contentSlot ? slots.default?.() : renderComponent()}
-      </n-form-item>
-  )
+    const component = schema.value.component
+    const field = schema.value.field
 
-}
+    if (!component) return
+    if (!DynamicComponent.value) return console.error(`未找到该组件：${ component }`)
+    if (!field) return console.error('请绑定field')
+
+    const bindType = schema.value?.vModelBind ? schema.value?.vModelBind : isCheckedBind(component) ? 'checked' : 'value'
+
+    const modelBind = {
+      [bindType]: bindValue.value,
+      [`onUpdate:${ bindType }`]: v => bindValue.value = v,
+    }
+
+    return (
+        <DynamicComponent.value
+            v-slots={ dynamicComponentSlots.value }
+            { ...modelBind }
+            { ...dynamicComponentAttribute.value }>
+        </DynamicComponent.value>
+    )
+  }
+
+  return () => (
+      <n-form-item
+          key={ schema.value.label }
+          rule={ formItemRules.value }
+          path={ schema.value.field }
+          { ...formItemProps.value }
+          v-slots={ formItemSlots.value }
+      />
+  )
+})
 </script>
 
 <template>
   <n-col v-if="isHide" v-bind="colPropsMap">
-    <form-item v-if="!slot" />
-    <slot v-else :name="slot" />
+    <form-item v-if="!schema.slot" />
+    <slot v-else :name="schema.slot" />
   </n-col>
 </template>
 
 <style scoped lang="scss">
-:deep(.n-input-number) {
+:deep(.n-input-number), :deep(.n-time-picker) {
   width: 100%;
 }
 </style>

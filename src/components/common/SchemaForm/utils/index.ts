@@ -4,10 +4,8 @@ import { Rule } from 'ant-design-vue/es/form'
 import RegUtils from '@/utils/reg'
 import { RuleObject } from 'ant-design-vue/es/form/interface'
 
-// 是否Check类型的组件
-export const isCheckComponent = (component: ComponentsName) => [ 'switch', 'checkbox', 'radio' ].includes(component)
-
-
+// 组件的双向绑定是否是 Checked
+export const isCheckedBind = (component: ComponentsName) => [ 'checkbox', 'radio' ].includes(component)
 
 // 是否输入类型的组件
 export const isInputComponent = (component: ComponentsName) => [

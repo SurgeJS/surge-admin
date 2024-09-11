@@ -13,7 +13,7 @@ import TabBar from '@/layout/components/TabBar/index.vue'
     class="h-full"
   >
     <layout-sidebar />
-    <n-layout content-class="flex flex-col">
+    <n-layout content-class="flex flex-col ">
       <layout-header />
       <tab-bar />
       <layout-main />

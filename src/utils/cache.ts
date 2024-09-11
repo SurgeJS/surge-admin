@@ -1,5 +1,5 @@
 import store from 'store2'
-import Cookies from 'js-cookie'
+import Cookies from 'universal-cookie'
 
 // 缓存类型
 export type CacheType = 'local' | 'session' | 'cookie'
@@ -14,7 +14,7 @@ export interface CacheTemplate<T> {
      * @param value 缓存的值
      * @param expires 过期时间，缓存类型为 Cookie 的时候有效
      */
-    set(value: T,expires?: number): void
+    set(value: T, expires?: Date): void
 
     // 获取缓存
     get(): T | null
@@ -23,7 +23,7 @@ export interface CacheTemplate<T> {
     remove(): void
 
     // 是否存在
-    isExist():boolean
+    isExist(): boolean
 }
 
 /**
@@ -32,18 +32,19 @@ export interface CacheTemplate<T> {
  * @param type 缓存类型,默认是local
  */
 export const createCache = <T>(key: string, type: CacheType = 'local'): CacheTemplate<T> => {
+    const cookies = new Cookies()
     return {
         key,
-        set(value,expires?) {
+        set(value, expires?) {
             switch (type) {
                 case 'local':
-                    store.set(key,value)
+                    store.set(key, value)
                     break
                 case 'session':
-                    store.session.set(key,value)
+                    store.session.set(key, value)
                     break
                 case 'cookie':
-                    Cookies.set(key,value as string,{ expires })
+                    cookies.set(key, value, { expires })
             }
         },
         get() {
@@ -53,7 +54,7 @@ export const createCache = <T>(key: string, type: CacheType = 'local'): CacheTem
                 case 'session':
                     return store.session.get(key)
                 case 'cookie':
-                    return Cookies.get(key)
+                    return cookies.get(key)
             }
         },
         remove() {
@@ -63,7 +64,7 @@ export const createCache = <T>(key: string, type: CacheType = 'local'): CacheTem
                 case 'session':
                     return store.session.remove(key)
                 case 'cookie':
-                    return Cookies.remove(key)
+                    return cookies.remove(key)
             }
         },
         isExist() {
@@ -73,7 +74,7 @@ export const createCache = <T>(key: string, type: CacheType = 'local'): CacheTem
                 case 'session':
                     return store.session.has(key)
                 case 'cookie':
-                    return Boolean(Cookies.get(key))
+                    return Boolean(cookies.get(key))
             }
         }
     }
