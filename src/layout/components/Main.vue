@@ -12,7 +12,7 @@ const transitionName = computed(() => appStore.isPageStartAnimation ? appStore.p
 </script>
 
 <template>
-  <n-layout-content content-class="flex-1 flex-shrink-0 p-[10px]">
+  <n-layout-content content-class="flex-1 flex-shrink-0 p-[10px] pt-0">
     <n-back-top right="20" bottom="50" />
     <transition name="fade">
       <full-screen-loading v-show="appStore.fullScreenLoading" />

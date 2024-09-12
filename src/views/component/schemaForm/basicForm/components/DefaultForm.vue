@@ -1,7 +1,6 @@
 <script setup lang="tsx">
 import { DefineSchema } from '@/components/common/SchemaForm/types/type'
 import { message } from 'ant-design-vue'
-import { ref } from 'vue'
 import { DefaultOptionType } from 'ant-design-vue/es/vc-tree-select/TreeSelect'
 import { ComponentsName } from '@/components/common/SchemaForm/types/component'
 
@@ -79,6 +78,22 @@ const area: DefaultOptionType[] = [
 
 const label = ref('名称')
 const com = ref<ComponentsName>('input')
+const tes:DefineSchema<typeof form.value>[] = [
+  {
+    // component:''
+  }
+]
+const a = ref<DefineSchema<typeof form.value>[]>([
+  {
+    field:'',
+    component:'input',
+    componentProps:{
+      checkable:true,
+      placeholder:'xx',
+      options: [],
+    }
+  }
+])
 const schema = reactive<DefineSchema<typeof form.value>[]>([
   {
     label: label,
@@ -88,84 +103,57 @@ const schema = reactive<DefineSchema<typeof form.value>[]>([
     },
     rule: { message: '请输入名称', max: 10, min: 3, type: 'string', trigger: 'blur', required: true }
   },
-  {
-    field: 'email',
-    label: '邮箱',
-    component: 'select',
-    componentProps: {
-      placeholder: label,
-      xxx: 1
-    },
-    rule: 'mail'
-  },
-  {
-    field: 'age',
-    label: '年龄',
-    component: 'inputNumber',
-    componentProps: {
-      min: ref(1)
-    }
-  },
-  {
-    field: 'password',
-    label: '密码',
-    component: 'input',
-    componentProps: {}
-  },
-  {
-    field: 'status',
-    label: '状态',
-    component: 'select',
-    componentProps: {
-      options: status,
-    }
-  },
-  {
-    field: 'startTime',
-    label: '开始时间',
-    vModelBind: 'formattedValue',
-    component: 'timePicker',
-    componentProps: {}
-  },
-  {
-    field: 'endTime',
-    label: '结束时间',
-    component: 'timePicker'
-  },
-  {
-    field: 'skill',
-    label: '技能',
-    component: 'checkboxGroup',
-    componentProps: {
-      // options: [
-      //   {
-      //     label: 'Vue2',
-      //     value: 0
-      //   },
-      //   {
-      //     label: 'Vue3',
-      //     value: 1
-      //   },
-      //   {
-      //     label: 'React',
-      //     value: 3
-      //   },
-      //   {
-      //     label: 'TypeScript',
-      //     value: 4
-      //   },
-      //   {
-      //     label: 'Linux',
-      //     value: 5
-      //   },
-      //   {
-      //     label: 'Docker',
-      //     value: 6
-      //   }
-      // ],
-    },
-    componentContent: (<n-checkbox value="Beijing" label="北京"/>)
-  },
+  // {
+  //   field: 'email',
+  //   label: '邮箱',
+  //   component: 'select',
+  //   componentProps: {
+  //     placeholder: label,
+  //     xxx: 1
+  //   },
+  //   rule: 'mail'
+  // },
+  // {
+  //   field: 'age',
+  //   label: '年龄',
+  //   component: 'inputNumber',
+  //   componentProps: {
+  //     min: ref(1)
+  //   }
+  // },
+  // {
+  //   field: 'password',
+  //   label: '密码',
+  //   component: 'input',
+  //   componentProps: {}
+  // },
+  // {
+  //   field: 'status',
+  //   label: '状态',
+  //   component: 'select',
+  //   componentProps: {
+  //     options: status,
+  //   }
+  // },
+  // {
+  //   field: 'startTime',
+  //   label: '开始时间',
+  //   vModelBind: 'formattedValue',
+  //   component: 'timePicker',
+  //   componentProps: {}
+  // },
+  // {
+  //   field: 'endTime',
+  //   label: '结束时间',
+  //   component: 'timePicker'
+  // },
+  // {
+  //   field: 'skill',
+  //   label: '技能',
+  //   component: 'checkboxGroup',
+  //   componentProps: {},
+  //   componentContent: (<n-checkbox value="Beijing" label="北京"/>)
+  // },
   // {
   //   field: 'date',
   //   label: '开始结束日期',

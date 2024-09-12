@@ -15,15 +15,13 @@ import {
   isInputComponent,
   isPickComponent
 } from '@/components/common/SchemaForm/utils'
-import { get, isArray, isFunction, isNumber, isString } from 'lodash-es'
+import { get, isArray, isFunction, isNumber, isString, isUndefined, omitBy } from 'lodash-es'
 import useOmitProps from '@/hooks/common/useOmitProps'
 import { ColProps } from 'naive-ui'
-
 
 const schema = defineModel<UnwrapRefSchema>('schema', { required: true })
 
 const slots = useSlots()
-
 const { schemaFormProps, model, getModelValue, setModelValue } = useSchemaFormContext()!
 
 // 回调参数
@@ -60,6 +58,7 @@ const FormItem = defineComponent(() => {
     'contentSlot',
     'slot'
   ])
+
   // formItem rule
   const formItemRules = computed(() => {
     const rule = schema.value.rule
@@ -76,15 +75,6 @@ const FormItem = defineComponent(() => {
     return rule
   })
 
-  // formItem slots
-  const formItemSlots = computed(() => {
-    const formItemSlots: Recordable = {
-      default: () => schema.value.contentSlot ? slots.default?.() : renderComponent()
-    }
-    if (schema.value.label) formItemSlots.label = () => callbackParamsFunction(schema.value.label)
-    return formItemSlots
-  })
-
   const DynamicComponent = computed(() => schema.value.component ? SCHEMA_RENDER_COMPONENTS[schema.value.component] : undefined)
 
   const bindValue = computed({
@@ -95,7 +85,6 @@ const FormItem = defineComponent(() => {
       setModelValue(schema.value.field as string, value)
     }
   })
-
 
   // 动态组件属性
   const dynamicComponentAttribute = computed<Recordable>(() => {
@@ -123,8 +112,8 @@ const FormItem = defineComponent(() => {
         yearrange: [ '开始年', '结束年' ],
         monthrange: [ '开始月', '结束月' ],
         quarterrange: [ '开始季度', '结束季度' ],
-        input: `请输入${ schema.value.label }`,
-        select: `请选择${ schema.value.label }`
+        input: `请输入${schema.value.label}`,
+        select: `请选择${schema.value.label}`
       }
       const type = schema.value.componentProps?.type
       //  处理日期范围类型
@@ -159,39 +148,62 @@ const FormItem = defineComponent(() => {
     return content
   })
 
-
   // 渲染动态组件
   const renderComponent = () => {
     const component = schema.value.component
-    const field = schema.value.field
-
     if (!component) return
-    if (!DynamicComponent.value) return console.error(`未找到该组件：${ component }`)
-    if (!field) return console.error('请绑定field')
+    if (!DynamicComponent.value) return console.error(`未找到该组件：${component}`)
 
     const bindType = schema.value?.vModelBind ? schema.value?.vModelBind : isCheckedBind(component) ? 'checked' : 'value'
 
     const modelBind = {
       [bindType]: bindValue.value,
-      [`onUpdate:${ bindType }`]: v => bindValue.value = v,
+      [`onUpdate:${bindType}`]: v => bindValue.value = v,
     }
 
     return (
         <DynamicComponent.value
-            v-slots={ dynamicComponentSlots.value }
-            { ...modelBind }
-            { ...dynamicComponentAttribute.value }>
+            v-slots={dynamicComponentSlots.value}
+            {...modelBind}
+            {...dynamicComponentAttribute.value}>
         </DynamicComponent.value>
     )
   }
 
+  const renderFormItemSlots = () => {
+    // 处理默认插槽
+    const defaultSlot = () => {
+      return () => schema.value.contentSlot ? slots.default?.() : renderComponent()
+    }
+    // 处理label
+    const labelSlot = () => {
+      if (!schema.value.label) return
+      console.log(111)
+      const label = callbackParamsFunction(schema.value.label)
+      return schema.value.tooltip ? () => (
+          <n-tooltip>
+            {{
+              default: () => schema.value.tooltip,
+              trigger: () => label
+            }}
+          </n-tooltip>
+      ) : () => label
+    }
+
+    return omitBy({
+          default: defaultSlot(),
+          label: labelSlot()
+        },
+        isUndefined
+    )
+  }
   return () => (
       <n-form-item
-          key={ schema.value.label }
-          rule={ formItemRules.value }
-          path={ schema.value.field }
-          { ...formItemProps.value }
-          v-slots={ formItemSlots.value }
+          key={schema.value.label}
+          rule={formItemRules.value}
+          path={schema.value.field}
+          {...formItemProps.value}
+          v-slots={renderFormItemSlots()}
       />
   )
 })

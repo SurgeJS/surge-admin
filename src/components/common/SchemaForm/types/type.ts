@@ -1,19 +1,12 @@
 import { ComponentsName, ComponentsNameRef, ComponentsProps } from '@/components/common/SchemaForm/types/component'
 import { MaybeRef, UnwrapRef, VNode } from 'vue'
-import {
-    ColProps,
-    DrawerProps,
-    FormInst,
-    FormItemProps,
-    FormItemRule,
-    ModalProps,
-    RowProps,
-    StepsProps
-} from 'naive-ui'
+import { ColProps, DrawerProps, FormInst, FormItemProps, FormItemRule, ModalProps, RowProps, StepsProps } from 'naive-ui'
 import { FormSetupProps } from 'naive-ui/es/form/src/Form'
 
 // 回调参数
-export interface CallbackParams<TForm extends Recordable = Recordable, DComponentsName extends ComponentsName = ComponentsName> {
+export interface CallbackParams<
+    TForm extends Recordable = Recordable,
+    DComponentsName extends ComponentsName = ComponentsName> {
     schema: DefineSchema<TForm, DComponentsName>;
     value: any;
     model: TForm;
@@ -21,16 +14,26 @@ export interface CallbackParams<TForm extends Recordable = Recordable, DComponen
 }
 
 // 回调参数
-export interface GroupCallbackParams<TForm extends Recordable = Recordable, DComponentsName extends ComponentsName = ComponentsName> {
+export interface GroupCallbackParams<
+    TForm extends Recordable = Recordable,
+    DComponentsName extends ComponentsName = ComponentsName> {
     group: GroupSchemaType<TForm, DComponentsName>
     model: TForm;
 }
 
 // 回调参数
-export type CallbackParamsFunction<TForm extends Recordable = Recordable, DComponentsName extends ComponentsName = ComponentsName, R = never> = ((params: CallbackParams<TForm, DComponentsName>) => R)
+export type CallbackParamsFunction<
+    TForm extends Recordable = Recordable,
+    DComponentsName extends ComponentsName = ComponentsName,
+    R = never>
+    = ((params: CallbackParams<TForm, DComponentsName>) => R)
 
 // 组回调参数
-export type GroupCallbackParamsFunction<TForm extends Recordable = Recordable, DComponentsName extends ComponentsName = ComponentsName, R = never> = ((params: GroupCallbackParams<TForm, DComponentsName>) => R)
+export type GroupCallbackParamsFunction<
+    TForm extends Recordable = Recordable,
+    DComponentsName extends ComponentsName = ComponentsName,
+    R = never>
+    = ((params: GroupCallbackParams<TForm, DComponentsName>) => R)
 
 // 插槽内容
 export type SlotsContent = string | VNode | VNode[]
@@ -99,15 +102,23 @@ export type Schema<
 }
 
 // 定义JSON 格式配置
-export type DefineSchema<TForm extends Recordable = any, DComponentsName extends ComponentsNameRef = ComponentsNameRef>
+export type DefineSchema<
+    TForm extends Recordable = any,
+    DComponentsName extends ComponentsNameRef = ComponentsNameRef>
     = DComponentsName extends ComponentsNameRef ? Schema<TForm, DComponentsName> : never;
 
 // 解包 JSON 格式配置
-export type UnwrapRefSchema<TForm extends Recordable = any, DComponentsName extends ComponentsNameRef = ComponentsNameRef>
+export type UnwrapRefSchema<
+    TForm extends Recordable = any,
+    DComponentsName extends ComponentsNameRef = ComponentsNameRef>
     = UnwrapRef<DefineSchema<TForm, DComponentsName>>
 
+console.log(11)
+
 // 模块表单结构
-export interface GroupSchemaType<TForm extends Recordable = any, DComponentsName extends ComponentsName = ComponentsName> {
+export interface GroupSchemaType<
+    TForm extends Recordable = any,
+    DComponentsName extends ComponentsName = ComponentsName> {
     // 模块标题
     title: MaybeRef<string>
 
@@ -131,7 +142,9 @@ export interface GroupSchemaType<TForm extends Recordable = any, DComponentsName
 }
 
 // 步骤条表单结构
-export interface StepSchemaType<TForm extends Recordable = any, DComponentsName extends ComponentsName = ComponentsName> {
+export interface StepSchemaType<
+    TForm extends Recordable = any,
+    DComponentsName extends ComponentsName = ComponentsName> {
     // 标题
     title?: MaybeRef<string>
 

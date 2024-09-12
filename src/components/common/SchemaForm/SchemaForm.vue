@@ -18,6 +18,7 @@ const props = withDefaults(defineProps<SchemaFormProps>(), {
   labelWidth: 'auto',
   showLabel: true,
   showFeedback: true,
+  showRequireMark:false,
   labelPlacement: 'left',
   submitText: '提交',
   resetText: '重置',
