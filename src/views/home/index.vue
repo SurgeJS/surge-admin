@@ -1,7 +1,12 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+</script>
 
 <template>
-  <div class="w-h-full overflow-auto" />
+  <div>
+    <n-card>
+      <icon-selector />
+    </n-card>
+  </div>
 </template>
 
 <style scoped lang="scss">

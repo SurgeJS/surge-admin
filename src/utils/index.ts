@@ -63,3 +63,8 @@ export const toKebabCase = (str: string) => {
         .replace(/([A-Z])([A-Z][a-z])/g, '$1-$2') // 在连续大写字母和小写字母之间加上 -
         .toLowerCase() // 转为小写
 }
+
+// 判断是否有滚动条
+export const hasScrollBar = (element: HTMLElement) => {
+    return element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth
+}

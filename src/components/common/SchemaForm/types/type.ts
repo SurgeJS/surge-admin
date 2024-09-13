@@ -1,7 +1,22 @@
 import { ComponentsName, ComponentsNameRef, ComponentsProps } from '@/components/common/SchemaForm/types/component'
 import { MaybeRef, UnwrapRef, VNode } from 'vue'
-import { ColProps, DrawerProps, FormInst, FormItemProps, FormItemRule, ModalProps, RowProps, StepsProps } from 'naive-ui'
+import {
+    ColProps,
+    DrawerProps,
+    FormInst,
+    FormItemProps,
+    FormItemRule,
+    ModalProps,
+    RowProps,
+    StepsProps,
+} from 'naive-ui'
 import { FormSetupProps } from 'naive-ui/es/form/src/Form'
+import type { SelectMixedOption } from 'naive-ui/es/select/src/interface'
+import { AutoCompleteOptions } from 'naive-ui/es/auto-complete/src/interface'
+import type { TreeSelectOption } from 'naive-ui/es/tree-select/src/interface'
+import type { MentionOption } from 'naive-ui/es/mention/src/interface'
+import type { CascaderOption } from 'naive-ui/es/cascader/src/interface'
+import type { Option } from 'naive-ui/es/transfer/src/interface'
 
 // 回调参数
 export interface CallbackParams<
@@ -57,11 +72,31 @@ export type RulePresets = 'mail' | 'phone' | 'landline' | 'idCard' | 'url'
 
 export type SafeComponentProps<T> = T extends Recordable ? T : never;
 
+export type FormItemPropsRefs = MaybeRefs<Omit<FormItemProps, 'label' | 'rule' | 'path' | 'required'>>
+
+// 通用的选项类型
+export type OptionType =
+    SelectMixedOption
+    | AutoCompleteOptions
+    | TreeSelectOption
+    | MentionOption
+    | CascaderOption
+    | Option
+
+// 常用组件属性映射
+export interface CommonComponentPropsMap {
+    // 占位符
+    placeholder?: string
+
+    // 选项
+    options?: MaybeRef<OptionType[]>
+}
+
 // Schema配置
-export type Schema<
+export interface Schema<
     TForm extends Recordable = any,
     DComponentsName extends ComponentsNameRef = ComponentsNameRef
-> = MaybeRefs<Omit<FormItemProps, 'label' | 'rule' | 'path'>> & {
+> extends FormItemPropsRefs, CommonComponentPropsMap {
     // 字段
     field?: MaybeRef<keyof TForm | string>
 
@@ -113,53 +148,7 @@ export type UnwrapRefSchema<
     DComponentsName extends ComponentsNameRef = ComponentsNameRef>
     = UnwrapRef<DefineSchema<TForm, DComponentsName>>
 
-console.log(11)
-
-// 模块表单结构
-export interface GroupSchemaType<
-    TForm extends Recordable = any,
-    DComponentsName extends ComponentsName = ComponentsName> {
-    // 模块标题
-    title: MaybeRef<string>
-
-    // 帮助提示信息
-    helpMessage?: MaybeRef<string>
-
-    // 是否隐藏
-    hide?: MaybeRef<boolean> | GroupCallbackParamsFunction<TForm, DComponentsName, boolean>
-
-    // 表单
-    form: DefineSchema<TForm, DComponentsName>[]
-
-    // 是否隐藏展开收起按钮
-    isHideExpandCollapseButton?: MaybeRef<boolean>
-
-    // 是否折叠
-    isFold?: MaybeRef<boolean>
-
-    // 禁用表单 
-    disabled?: MaybeRef<boolean>
-}
-
-// 步骤条表单结构
-export interface StepSchemaType<
-    TForm extends Recordable = any,
-    DComponentsName extends ComponentsName = ComponentsName> {
-    // 标题
-    title?: MaybeRef<string>
-
-    // 描述
-    description?: MaybeRef<string>
-
-    // 图标
-    icon?: VNode
-
-    // 表单
-    form: DefineSchema<TForm, DComponentsName>[]
-}
-
 /* --------------通用类型-------------- */
-
 
 // 通用props
 export interface SchemaFormCommonProps extends Partial<Omit<FormSetupProps, 'onSubmit'>> {
@@ -275,6 +264,32 @@ export interface SearchSchemaFormSlots extends SchemaFormCommonSlots {
 
 /* --------------分组表单-------------- */
 
+// 模块表单结构
+export interface GroupSchemaType<
+    TForm extends Recordable = any,
+    DComponentsName extends ComponentsName = ComponentsName> {
+    // 模块标题
+    title: MaybeRef<string>
+
+    // 帮助提示信息
+    helpMessage?: MaybeRef<string>
+
+    // 是否隐藏
+    hide?: MaybeRef<boolean> | GroupCallbackParamsFunction<TForm, DComponentsName, boolean>
+
+    // 表单
+    form: DefineSchema<TForm, DComponentsName>[]
+
+    // 是否隐藏展开收起按钮
+    isHideExpandCollapseButton?: MaybeRef<boolean>
+
+    // 是否折叠
+    isFold?: MaybeRef<boolean>
+
+    // 禁用表单
+    disabled?: MaybeRef<boolean>
+}
+
 export interface GroupSchemaFormProps extends SchemaFormCommonProps {
     // schema 配置
     schema: GroupSchemaType[]
@@ -294,6 +309,23 @@ export interface GroupSchemaFormSlots extends SchemaFormCommonSlots {
 
 
 /* --------------分步表单-------------- */
+
+// 步骤条表单结构
+export interface StepSchemaType<
+    TForm extends Recordable = any,
+    DComponentsName extends ComponentsName = ComponentsName> {
+    // 标题
+    title?: MaybeRef<string>
+
+    // 描述
+    description?: MaybeRef<string>
+
+    // 图标
+    icon?: VNode
+
+    // 表单
+    form: DefineSchema<TForm, DComponentsName>[]
+}
 
 export interface StepSchemaFormProps extends SchemaFormCommonProps {
     // schema 配置

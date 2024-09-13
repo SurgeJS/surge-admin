@@ -4,7 +4,7 @@ import { Icon as DynamicIcon, IconProps as DynamicIconProps } from '@iconify/vue
 
 const useRenderIcon = () => {
     // 渲染 uno 图标（可以离线使用，无法动态使用）
-    const RenderUnoIcon = (icon: IconProps['icon'], props?: IconProps) => h(Icon, { icon, ...props })
+    const RenderUnoIcon = (icon: IconProps['icon'], props?: IconProps | Recordable) => h(Icon, { icon, ...props })
 
     // 动态图标（图标集范围在 src/assets/iconify/index.ts 中查看，可以离线使用，可以动态使用）
     const RenderDynamicIcon = (icon: string, props?: Omit<DynamicIconProps, 'icon'>) => h(DynamicIcon, { icon, ...props })

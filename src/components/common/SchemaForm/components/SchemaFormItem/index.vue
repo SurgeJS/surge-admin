@@ -18,17 +18,19 @@ import {
 import { get, isArray, isFunction, isNumber, isString, isUndefined, omitBy } from 'lodash-es'
 import useOmitProps from '@/hooks/common/useOmitProps'
 import { ColProps } from 'naive-ui'
+import useRenderIcon from '@/hooks/components/useRenderIcon'
 
 const schema = defineModel<UnwrapRefSchema>('schema', { required: true })
 
 const slots = useSlots()
 const { schemaFormProps, model, getModelValue, setModelValue } = useSchemaFormContext()!
+const { RenderUnoIcon } = useRenderIcon()
 
 // 回调参数
 const callbackParams = computed(() => ({
   schema: schema.value,
   model: model.value,
-  value: schema.value.field ? model.value[get(model.value, schema.value.field)] : undefined,
+  value: schema.value.field ? get(model.value, schema.value.field) : undefined,
   field: schema.value.field
 }) as CallbackParams)
 
@@ -112,8 +114,8 @@ const FormItem = defineComponent(() => {
         yearrange: [ '开始年', '结束年' ],
         monthrange: [ '开始月', '结束月' ],
         quarterrange: [ '开始季度', '结束季度' ],
-        input: `请输入${schema.value.label}`,
-        select: `请选择${schema.value.label}`
+        input: `请输入${ schema.value.label }`,
+        select: `请选择${ schema.value.label }`
       }
       const type = schema.value.componentProps?.type
       //  处理日期范围类型
@@ -152,20 +154,20 @@ const FormItem = defineComponent(() => {
   const renderComponent = () => {
     const component = schema.value.component
     if (!component) return
-    if (!DynamicComponent.value) return console.error(`未找到该组件：${component}`)
+    if (!DynamicComponent.value) return console.error(`未找到该组件：${ component }`)
 
     const bindType = schema.value?.vModelBind ? schema.value?.vModelBind : isCheckedBind(component) ? 'checked' : 'value'
 
     const modelBind = {
       [bindType]: bindValue.value,
-      [`onUpdate:${bindType}`]: v => bindValue.value = v,
+      [`onUpdate:${ bindType }`]: v => bindValue.value = v,
     }
 
     return (
         <DynamicComponent.value
-            v-slots={dynamicComponentSlots.value}
-            {...modelBind}
-            {...dynamicComponentAttribute.value}>
+            v-slots={ dynamicComponentSlots.value }
+            { ...modelBind }
+            { ...dynamicComponentAttribute.value }>
         </DynamicComponent.value>
     )
   }
@@ -178,16 +180,22 @@ const FormItem = defineComponent(() => {
     // 处理label
     const labelSlot = () => {
       if (!schema.value.label) return
-      console.log(111)
       const label = callbackParamsFunction(schema.value.label)
-      return schema.value.tooltip ? () => (
-          <n-tooltip>
-            {{
-              default: () => schema.value.tooltip,
-              trigger: () => label
-            }}
-          </n-tooltip>
-      ) : () => label
+      return () => (<>
+        { label }
+        {
+          schema.value.tooltip ?
+              <n-tooltip>
+                { {
+                  default: () => schema.value.tooltip,
+                  trigger: () => RenderUnoIcon('i-ic:outline-help', {
+                    class: 'ml-5px'
+                  })
+                } }
+              </n-tooltip>
+              : undefined
+        }
+      </>)
     }
 
     return omitBy({
@@ -199,11 +207,11 @@ const FormItem = defineComponent(() => {
   }
   return () => (
       <n-form-item
-          key={schema.value.label}
-          rule={formItemRules.value}
-          path={schema.value.field}
-          {...formItemProps.value}
-          v-slots={renderFormItemSlots()}
+          key={ schema.value.label }
+          rule={ formItemRules.value }
+          path={ schema.value.field }
+          { ...formItemProps.value }
+          v-slots={ renderFormItemSlots() }
       />
   )
 })
@@ -219,5 +227,11 @@ const FormItem = defineComponent(() => {
 <style scoped lang="scss">
 :deep(.n-input-number), :deep(.n-time-picker) {
   width: 100%;
+}
+
+:deep(.n-form-item-label__text) {
+  display: inline-flex;
+  align-items: center;
+  line-height: normal;
 }
 </style>

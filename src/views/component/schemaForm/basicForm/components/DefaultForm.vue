@@ -1,8 +1,8 @@
 <script setup lang="tsx">
 import { DefineSchema } from '@/components/common/SchemaForm/types/type'
 import { message } from 'ant-design-vue'
-import { DefaultOptionType } from 'ant-design-vue/es/vc-tree-select/TreeSelect'
 import { ComponentsName } from '@/components/common/SchemaForm/types/component'
+import { reactive } from 'vue'
 
 const form = ref({
   name: {
@@ -41,7 +41,7 @@ const status = ref([
     label: '失败'
   }
 ])
-const area: DefaultOptionType[] = [
+const area = [
   {
     value: 'zhejiang',
     label: '浙江',
@@ -78,41 +78,30 @@ const area: DefaultOptionType[] = [
 
 const label = ref('名称')
 const com = ref<ComponentsName>('input')
-const tes:DefineSchema<typeof form.value>[] = [
-  {
-    // component:''
-  }
-]
-const a = ref<DefineSchema<typeof form.value>[]>([
-  {
-    field:'',
-    component:'input',
-    componentProps:{
-      checkable:true,
-      placeholder:'xx',
-      options: [],
-    }
-  }
-])
+
 const schema = reactive<DefineSchema<typeof form.value>[]>([
   {
-    label: label,
+    label: (s) => {
+      return label.value
+    },
     component: com,
+    field: 'name.test',
+    tooltip: 'xxx',
     componentProps: {
       options: [],
     },
     rule: { message: '请输入名称', max: 10, min: 3, type: 'string', trigger: 'blur', required: true }
   },
-  // {
-  //   field: 'email',
-  //   label: '邮箱',
-  //   component: 'select',
-  //   componentProps: {
-  //     placeholder: label,
-  //     xxx: 1
-  //   },
-  //   rule: 'mail'
-  // },
+  {
+    field: 'email',
+    label: '邮箱',
+    component: 'select',
+    componentProps: {
+      placeholder: label,
+      options: [],
+    },
+    rule: 'mail'
+  },
   // {
   //   field: 'age',
   //   label: '年龄',
@@ -127,14 +116,14 @@ const schema = reactive<DefineSchema<typeof form.value>[]>([
   //   component: 'input',
   //   componentProps: {}
   // },
-  // {
-  //   field: 'status',
-  //   label: '状态',
-  //   component: 'select',
-  //   componentProps: {
-  //     options: status,
-  //   }
-  // },
+  {
+    field: 'status',
+    label: '状态',
+    component: 'select',
+    componentProps: {
+      options: status,
+    }
+  },
   // {
   //   field: 'startTime',
   //   label: '开始时间',
@@ -163,14 +152,14 @@ const schema = reactive<DefineSchema<typeof form.value>[]>([
   //   },
   //   rule: { message: '请选择开始结束日期', trigger: 'change', required: true }
   // },
-  // {
-  //   field: 'area',
-  //   label: '地区',
-  //   component: 'cascader',
-  //   componentProps: {
-  //     options: area
-  //   },
-  // },
+  {
+    field: 'area',
+    label: '地区',
+    component: 'cascader',
+    componentProps: {
+      options: area
+    },
+  },
   // {
   //   field: 'organization',
   //   label: '组织机构',
@@ -222,8 +211,9 @@ const onFinishFailed = () => {
 
 <template>
   <n-flex :wrap="false">
-    <p>{{ JSON.stringify(form, null, 4) }}</p>
-    <div>
+    <pre class="w-300px">{{ JSON.stringify(form, null, 4) }}</pre>
+
+    <div class="flex-1">
       <n-button @click="label='8888888'">测试</n-button>
       <schema-form
         v-model:schema="schema"
