@@ -4,8 +4,9 @@ import { nextTick, ref, watch } from 'vue'
 import useTabBarStore from '@/store/modules/tabBar'
 import { useRoute, useRouter } from 'vue-router'
 import { useDebounceFn, useEventListener, useToggle } from '@vueuse/core'
-import DropdownContext from '@/layout/components/TabBar/components/DropdownContext/index.vue'
+import ContextMenu from '@/layout/components/TabBar/components/ContextMenu.vue'
 import { pick } from 'lodash-es'
+import { Tab } from '@/store/modules/tabBar/type'
 
 defineOptions({ name: 'TabBar' })
 
@@ -13,11 +14,15 @@ const appStore = useAppStore()
 const tabBarStore = useTabBarStore()
 const route = useRoute()
 const router = useRouter()
-
 // 滚动按钮是否可见
 const [ scrollBtnVisible, toggleScrollBtnVisible ] = useToggle()
+const [ contextMenuVisible, setContextMenuVisible ] = useToggle()
 
 const tabBarContainer = ref<HTMLElement>()
+const x = ref(0)
+const y = ref(0)
+const currentTab = ref<Tab>()
+
 // 处理滚动按钮是否显示
 const handleScrollBtnVisible = async () => {
   await nextTick()
@@ -49,6 +54,12 @@ const scrollToActive = useDebounceFn(async () => {
   })
 }, 300)
 
+const handleContextMenu = (e:MouseEvent,tab:Tab) => {
+  x.value = e.x
+  y.value = e.y
+  currentTab.value = tab
+  setContextMenuVisible(true)
+}
 
 useEventListener('resize', () => {
   handleScrollBtnVisible()
@@ -80,26 +91,22 @@ watch(tabBarStore.tabs, () => {
       <icon icon="i-ic:baseline-chevron-left" />
     </div>
     <div ref="tabBarContainer" class="tabBar-container">
-      <dropdown-context
+      <div
         v-for="item in tabBarStore.tabs"
         :key="item.path"
-        :tab="item"
-        trigger="contextmenu"
+        :class="route.path === item.path ? 'active' : undefined"
+        class="tabBar-item"
+        @click="router.push(item.fullPath)"
+        @contextmenu.prevent="handleContextMenu($event, item)"
       >
-        <div
-          :class="route.path === item.path ? 'active' : undefined"
-          class="tabBar-item"
-          @click="router.push(item.fullPath)"
-        >
-          {{ item.meta?.title }}
-          <icon
-            v-if="!item.meta?.affixTab && tabBarStore.tabs.length>1"
-            icon="i-ic:round-close"
-            class="tabBar-item-clear text-xs"
-            @click.stop="tabBarStore.closeTab(item)"
-          />
-        </div>
-      </dropdown-context>
+        {{ item.meta?.title }}
+        <icon
+          v-if="!item.meta?.affixTab && tabBarStore.tabs.length>1"
+          icon="i-ic:round-close"
+          class="tabBar-item-clear text-xs"
+          @click.stop="tabBarStore.closeTab(item)"
+        />
+      </div>
     </div>
     <div
       v-if="scrollBtnVisible"
@@ -115,12 +122,19 @@ watch(tabBarStore.tabs, () => {
         icon="i-ic:baseline-refresh"
       />
     </div>
-    <dropdown-context :trigger="['click','contextmenu']">
+    <context-menu trigger="click">
       <div class="tabBar-item action">
         <icon icon="i-ic:baseline-keyboard-arrow-down" />
       </div>
-    </dropdown-context>
+    </context-menu>
   </div>
+  <context-menu
+    v-model:visible="contextMenuVisible"
+    trigger="manual"
+    :x="x"
+    :y="y"
+    :tab="currentTab"
+  />
 </template>
 
 <style lang="scss" scoped>
@@ -131,7 +145,7 @@ watch(tabBarStore.tabs, () => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 6px;
+  gap: 10px;
   flex-shrink: 0;
   transition: height .2s ease-in-out;
 

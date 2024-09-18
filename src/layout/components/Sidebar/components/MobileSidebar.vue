@@ -11,7 +11,7 @@ const authStore = useAuthStore()
 <template>
   <n-drawer
     v-model:show="appStore.mobileSidebarVisible"
-    :width="appStore.sidebarWidth"
+    width="70%"
     placement="left"
   >
     <div class="mobileSidebar" :class="{inverted:appStore.isInvertedSidebar}">

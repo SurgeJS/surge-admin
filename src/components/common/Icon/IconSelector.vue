@@ -36,7 +36,7 @@ const fullContainer = async () => {
   await nextTick()
   await fullContainer()
 }
-console.log(iconSetPrefix)
+
 const loadIcon = () => {
   if (pageIcons.value.length === icons.value.length) return
 

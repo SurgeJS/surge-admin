@@ -136,6 +136,10 @@ const useAppStore = defineStore('App', () => {
         appStore.fullScreenLoading = isShow ?? !appStore.fullScreenLoading
     }
 
+    const updateMobile = () => {
+        appStore.isMobile = document.body.offsetWidth <= appStore.mobileTriggerWidth
+    }
+
     // 生成色板
     const generateColorPalette = (color: string) => generate(color, {
         theme: isDark.value ? 'dark' : 'default',
@@ -238,6 +242,7 @@ const useAppStore = defineStore('App', () => {
         toggleMixSidebarDrawerVisible,
         toggleFixedMixSidebarDrawer,
         setFullScreenLoading,
+        updateMobile
     }
 })
 

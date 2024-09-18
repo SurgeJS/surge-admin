@@ -10,8 +10,11 @@ import OtherConfig from '@/layout/components/Header/components/Settings/componen
 import ActionButton from '@/layout/components/Header/components/Settings/components/ActionButton.vue'
 import { ref } from 'vue'
 import ThemeColor from '@/layout/components/Header/components/Settings/components/ThemeColor.vue'
+import useAppStore from '@/store/modules/app'
 
-defineOptions({ name: 'Settings' })
+const appStore = useAppStore()
+
+const width = computed(() => appStore.isMobile ? '100%' : 400)
 
 const open = ref(false)
 </script>
@@ -19,7 +22,7 @@ const open = ref(false)
 <template>
   <n-drawer
     v-model:show="open"
-    :width="400"
+    :width="width"
     title="系统配置"
   >
     <n-drawer-content closable title="系统配置">

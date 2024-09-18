@@ -7,5 +7,5 @@ export const useGlobalInitialize = () => {
     // 使用本地化语言
     // day.locale('zh-cn')
     // 判断是否移动端
-    appStore.isMobile = document.body.offsetWidth <= appStore.mobileTriggerWidth
+    appStore.updateMobile()
 }

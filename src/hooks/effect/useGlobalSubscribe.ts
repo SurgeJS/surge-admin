@@ -15,6 +15,6 @@ export const useGlobalSubscribe = () => {
     // 监听窗口大小变化
     useEventListener(window, 'resize', () => {
         // 判断是否是移动端
-        appStore.isMobile = document.body.offsetWidth <= appStore.mobileTriggerWidth
+        appStore.updateMobile()
     })
 }
