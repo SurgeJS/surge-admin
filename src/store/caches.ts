@@ -3,10 +3,10 @@ import { MenuSearchOption } from '@/layout/components/Header/components/MenuSear
 import { AppStore } from '@/store/modules/app/type'
 
 // Token缓存
-export const tokenCache = createCache<string>('SIMPLE_TOKEN', 'cookie')
+export const tokenCache = createCache<string>('SLEEK_TOKEN', 'cookie')
 
 // App配置缓存
-export const appCache = createCache<AppStore>('SIMPLE_APP')
+export const appCache = createCache<AppStore>('SLEEK_APP')
 
 // 菜单搜索缓存
-export const menuSearchCache = createCache<MenuSearchOption[]>('SIMPLE_MENU_SEARCH')
+export const menuSearchCache = createCache<MenuSearchOption[]>('SLEEK_MENU_SEARCH')

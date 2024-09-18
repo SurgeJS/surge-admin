@@ -1,13 +1,13 @@
 <template>
-  <div class="w-h-full flex">
-    <div v-if="!appStore.isMobile" class="w-[50%] h-full bg-primary flex-center">
-      <div v-motion-slide-left class="i-local:login full-[80%]" />
-    </div>
-    <div v-motion-slide-right class="relative flex-1 flex-center">
-      <div class="relative w-[95%] max-w-[400px]">
-        <component :is="LOGIN_ACTION[currentAction]" v-motion-fade />
-      </div>
-    </div>
+  <div class="w-h-full flex flex-center relative">
+    <dynamic-background />
+    <n-card
+      bordered
+      hoverable
+      class="w-[70vw] h-[60vh]"
+    >
+      1
+    </n-card>
   </div>
 </template>
 
@@ -18,6 +18,7 @@ import PhoneLogin from '@/views/login/components/PhoneLogin.vue'
 import QrCodeLogin from '@/views/login/components/QrCodeLogin.vue'
 import Register from '@/views/login/components/Register.vue'
 import { useProvideLoginContext } from '@/views/login/utils/context'
+import DynamicBackground from '@/views/login/components/DynamicBackground.vue'
 
 defineOptions({ name: 'Login' })
 // 登录行为
@@ -29,5 +30,6 @@ const { currentAction } = useProvideLoginContext()
 </script>
 
 <style lang="scss" scoped>
+
 </style>
 

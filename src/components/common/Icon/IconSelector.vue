@@ -64,6 +64,7 @@ watch(visible, () => {
   <n-popover
     v-model:show="visible"
     width="trigger"
+    :show-arrow="false"
     trigger="click"
   >
     <template #trigger>
