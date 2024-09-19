@@ -16,12 +16,12 @@ const appStore = useAppStore()
     >
       <n-tab-pane name="light" tab="第一章">
         <template #tab>
-          <icon icon="i-ant-design:sun-filled" />
+          <icon icon="i-ic:baseline-wb-sunny" />
         </template>
       </n-tab-pane>
       <n-tab-pane name="dark" tab="第二章">
         <template #tab>
-          <icon icon="i-ant-design:moon-filled" />
+          <icon icon="i-ic:sharp-dark-mode" />
         </template>
       </n-tab-pane>
       <n-tab-pane name="system" tab="第三章">

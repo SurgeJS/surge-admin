@@ -1,18 +1,17 @@
 import ServiceConstant from '@/constant/service'
-import { message } from 'ant-design-vue'
 import { AxiosError, AxiosRequestConfig } from 'axios'
 import MessageConstant from '@/constant/message'
 import { ResponseContent, ResponseError } from '@/services/request/axios/types'
 import useAuthStore from '@/store/modules/auth'
-import { MessageInstance } from 'ant-design-vue/es/message'
+import { MessageApiInjection } from 'naive-ui/es/message/src/MessageProvider'
 
 // 用来解决重复错误提示
 let lastMessage: string | undefined
 
 // 解决重复提示
-export const handleRepeatMessage = (messageContent: string, type: keyof Omit<MessageInstance, 'useMessage'> = 'error') => {
+export const handleRepeatMessage = (messageContent: string, type: keyof Omit<MessageApiInjection, 'destroyAll'> = 'error') => {
     if (messageContent === lastMessage && ServiceConstant.CLOSE_REPEAT_ERROR_MESSAGE) return
-    void message[type]({ content: messageContent, onClose: () => lastMessage = undefined })
+    void window.$message[type](messageContent,{ onAfterLeave: () => lastMessage = undefined })
     lastMessage = messageContent
 }
 

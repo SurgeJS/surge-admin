@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { DefineSchema } from '@/components/common/SchemaForm/types/type'
-import { message } from 'ant-design-vue'
 import { ref } from 'vue'
 import { DefaultOptionType } from 'ant-design-vue/es/vc-tree-select/TreeSelect'
+
+const message = useMessage()
 
 const form = ref({
   name: {

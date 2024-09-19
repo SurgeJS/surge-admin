@@ -1,8 +1,9 @@
 <script setup lang="tsx">
 import { DefineSchema } from '@/components/common/SchemaForm/types/type'
-import { message } from 'ant-design-vue'
 import { ComponentsName } from '@/components/common/SchemaForm/types/component'
 import { reactive } from 'vue'
+
+const message = useMessage()
 
 const form = ref({
   name: {

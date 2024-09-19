@@ -2,11 +2,11 @@
 import { ref } from 'vue'
 import { DefineSchema } from '@/components/common/SchemaForm/types/type'
 import { DefaultOptionType } from 'ant-design-vue/es/vc-tree-select/TreeSelect'
-import { message } from 'ant-design-vue'
 import { useToggle } from '@vueuse/core'
 import { asyncWait } from '@/utils'
 import useRenderIcon from '@/hooks/components/useRenderIcon'
 
+const message = useMessage()
 const [ isShow, toggleShow ] = useToggle()
 const { RenderUnoIcon } = useRenderIcon()
 const form = ref({

@@ -1,24 +1,39 @@
-<script lang="ts" setup>
-import { useLoginContext } from '@/views/login/utils/context'
-import { reactive, ref } from 'vue'
-import useAuthStore from '@/store/modules/auth'
+<script setup lang="ts">
+import { reactive } from 'vue'
 import { DefineSchema, SchemaFormExpose } from '@/components/common/SchemaForm/types/type'
-import { LoginAction } from '@/views/login/type/enum'
+import useAuthStore from '@/store/modules/auth'
 import useRenderIcon from '@/hooks/components/useRenderIcon'
 
-const { setAction, loading, setLoading } = useLoginContext()!
 const authStore = useAuthStore()
 
 const { RenderUnoIcon } = useRenderIcon()
-
-const formRef = ref<SchemaFormExpose>()
-
+const [ loading, setLoading ] = useToggle()
+const formRef = useTemplateRef<SchemaFormExpose>('formRef')
+const router = useRouter()
+const otherLogins = ref([
+  {
+    tooltip:'Github登录',
+    icon: 'i-mdi:github',
+  },
+  {
+    tooltip:'微信登录',
+    icon: 'i-mdi:wechat',
+  },
+  {
+    tooltip:'QQ登录',
+    icon: 'i-mdi:qqchat',
+  },
+  {
+    tooltip:'谷歌登录',
+    icon: 'i-mdi:google',
+  }
+])
 const form: UserModel.PasswordLoginParams = reactive({
   username: 'admin',
   password: '123456'
 })
 
-const schema = ref<DefineSchema<UserModel.PasswordLoginParams>[]>([
+const schema = reactive<DefineSchema<UserModel.PasswordLoginParams>[]>([
   {
     field: 'username',
     component: 'input',
@@ -63,11 +78,14 @@ const handleLogin = async () => {
   setLoading(true)
   await authStore.passwordLogin(form).finally(() => setLoading(false))
 }
+const test = () => {
+  console.log(11)
+}
 </script>
 
 <template>
-  <n-flex gap="middle" vertical>
-    <h1>登录</h1>
+  <div class="h-full flex flex-col justify-center ">
+    <h1 class="mb-[24px]">Hi 欢迎回来👋</h1>
     <schema-form
       ref="formRef"
       :model="form"
@@ -83,7 +101,7 @@ const handleLogin = async () => {
           justify="space-between"
         >
           <n-checkbox>记住密码</n-checkbox>
-          <span class="text-primary">忘记密码？</span>
+          <span class="text-primary cursor-pointer">忘记密码？</span>
         </a-flex>
       </template>
       <template #submit>
@@ -98,32 +116,51 @@ const handleLogin = async () => {
         </n-button>
       </template>
     </schema-form>
-    <n-flex justify="space-between" :wrap="false">
+    <n-flex
+      class="w-full mt-[24px]"
+      justify="space-between"
+      :wrap="false"
+    >
       <n-button
+        type="primary"
+        tertiary
         class="flex-shrink"
         block
-        @click="setAction(LoginAction.PhoneLogin)"
+        @click="router.push('/auth/phoneLogin')"
       >
         手机号登录
       </n-button>
       <n-button
+        type="primary"
+        tertiary
         class="flex-shrink"
         block
-        @click="setAction(LoginAction.QrCodeLogin)"
       >
         二维码登录
       </n-button>
       <n-button
+        type="primary"
+        tertiary
         class="flex-shrink"
         block
-        @click="setAction(LoginAction.Register)"
       >
         注册
       </n-button>
     </n-flex>
-  </n-flex>
+    <n-divider>第三方登录</n-divider>
+    <n-flex justify="center">
+      <hover-container
+        v-for="item in otherLogins"
+        :key="item.icon"
+        :tooltip="item.tooltip"
+        @click="test"
+      >
+        <icon size="20px" :icon="item.icon" />
+      </hover-container>
+    </n-flex>
+  </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 
 </style>

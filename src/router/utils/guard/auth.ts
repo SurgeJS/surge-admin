@@ -4,7 +4,6 @@ import useTabBarStore from '@/store/modules/tabBar'
 import { runTacticsAction, TacticsAction } from '@/utils'
 import RouterConstant from '@/constant/router'
 import { tokenCache } from '@/store/caches'
-import { message } from 'ant-design-vue'
 import RegUtils from '@/utils/reg'
 
 const createAuthGuard = (to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext) => {
@@ -49,7 +48,7 @@ const createAuthGuard = (to: RouteLocationNormalized, from: RouteLocationNormali
             !isLogin,
             () => {
                 console.info('---未登录，强制跳转到登录页---')
-                to.path === RouterConstant.LOGIN_PATH ? next() : next(RouterConstant.LOGIN_PATH)
+                to.path.startsWith(RouterConstant.AUTH_ROUTE) ? next() : next(RouterConstant.LOGIN_PATH)
             }
         ],
         // 登录的情况下在 cookie 中获取不到 token
@@ -57,7 +56,7 @@ const createAuthGuard = (to: RouteLocationNormalized, from: RouteLocationNormali
             !tokenCache.get(),
             () => {
                 console.info('---令牌已失效，请重新登录---')
-                void message.warning('令牌已失效，请重新登录！')
+                void window.$message.warning('令牌已失效，请重新登录！')
                 initAuthStore()
                 next(RouterConstant.LOGIN_PATH)
             }
@@ -107,7 +106,7 @@ const createAuthGuard = (to: RouteLocationNormalized, from: RouteLocationNormali
         [
             Boolean(to.meta.disabledMenu),
             () => {
-                void message.warning('该菜单已被禁用访问！请联系管理员！')
+                void window.$message.warning('该菜单已被禁用访问！请联系管理员！')
                 return next(from.fullPath)
             }
         ],

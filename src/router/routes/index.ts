@@ -8,11 +8,27 @@ export const ROUTE_ROOT: AppRouteRecordRaw = {
     redirect: RouterConstant.HOME_PATH
 }
 
-// 登录页
-export const ROUTE_LOGIN: AppRouteRecordRaw = {
-    path: RouterConstant.LOGIN_PATH,
+// 鉴权
+export const ROUTE_AUTH: AppRouteRecordRaw = {
+    path: RouterConstant.AUTH_ROUTE,
     component: 'view',
-    meta: { title: '登录' }
+    redirect: RouterConstant.LOGIN_PATH,
+    children: [
+        {
+            path: RouterConstant.LOGIN_PATH,
+            component: 'view',
+            meta: {
+                title: '登录'
+            }
+        },
+        {
+            path: `${RouterConstant.AUTH_ROUTE}/phoneLogin`,
+            component: 'view',
+            meta: {
+                title: '手机号登录'
+            }
+        }
+    ],
 }
 
 // 未匹配到页面
@@ -22,4 +38,4 @@ export const ROUTE_NOT_FOUND: AppRouteRecordRaw = {
     meta: { title: '404' }
 }
 
-export default [ ROUTE_ROOT, ROUTE_LOGIN, ROUTE_NOT_FOUND ]
+export default [ ROUTE_ROOT, ROUTE_AUTH, ROUTE_NOT_FOUND ]

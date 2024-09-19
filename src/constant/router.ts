@@ -1,7 +1,10 @@
 // 路由常量
 export default class RouterConstant {
+    // 鉴权路径
+    static AUTH_ROUTE = '/auth'
+
     // 登录路径
-    static LOGIN_PATH = '/login'
+    static LOGIN_PATH = `${this.AUTH_ROUTE}/pwdLogin`
 
     // 首页路径
     static HOME_PATH = '/home'

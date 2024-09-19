@@ -2,12 +2,13 @@
 import Tree from '@/views/system/userManage/components/Tree.vue'
 import { DefineSchema } from '@/components/common/SchemaForm/types/type'
 import { asyncWait } from '@/utils'
-import { message } from 'ant-design-vue'
 import { useToggle } from '@vueuse/core'
 import { ref } from 'vue'
 import { DefaultOptionType } from 'ant-design-vue/es/vc-tree-select/TreeSelect'
 
 const [ isShow, toggleShow ] = useToggle()
+
+const message = useMessage()
 
 const form = ref({
   name: {

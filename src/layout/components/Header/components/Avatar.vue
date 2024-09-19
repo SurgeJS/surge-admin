@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import useAuthStore from '@/store/modules/auth'
-import { message } from 'ant-design-vue'
 import type { DropdownMixedOption } from 'naive-ui/es/dropdown/src/interface'
 
+const message = useMessage()
 const authStore = useAuthStore()
 
 const actionList = ref<DropdownMixedOption[]>([
