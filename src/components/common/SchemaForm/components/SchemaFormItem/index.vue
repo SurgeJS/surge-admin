@@ -189,7 +189,7 @@ const FormItem = defineComponent(() => {
                 { {
                   default: () => schema.value.tooltip,
                   trigger: () => RenderUnoIcon('i-ic:outline-help', {
-                    class: 'ml-5px'
+                    class: 'ml-5px mb-4px'
                   })
                 } }
               </n-tooltip>
@@ -227,11 +227,5 @@ const FormItem = defineComponent(() => {
 <style scoped lang="scss">
 :deep(.n-input-number), :deep(.n-time-picker) {
   width: 100%;
-}
-
-:deep(.n-form-item-label__text) {
-  display: inline-flex;
-  align-items: center;
-  line-height: normal;
 }
 </style>

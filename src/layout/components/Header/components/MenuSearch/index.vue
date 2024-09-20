@@ -1,15 +1,16 @@
 <script setup lang="ts">
-import IconHoverContainer from '@/layout/components/Header/components/HoverContainer.vue'
 import MenuSearchModal from '@/layout/components/Header/components/MenuSearch/components/MenuSearchModal.vue'
+import useAppStore from '@/store/modules/app'
 
 defineOptions({ name: 'MenuSearch' })
+const appStore = useAppStore()
 const [ visible, setVisible ] = useToggle()
 </script>
 
 <template>
-  <icon-hover-container @click="setVisible(true)">
+  <hover-container :inverted="appStore.isInvertedHeader" @click="setVisible(true)">
     <icon icon="i-ant-design:search-outlined" />
-  </icon-hover-container>
+  </hover-container>
   <menu-search-modal v-model:visible="visible" />
 </template>
 

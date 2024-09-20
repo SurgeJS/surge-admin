@@ -78,7 +78,8 @@ watch(visible, () => {
         <n-button
           class="flex-1"
           :bordered="false"
-          secondary
+          type="primary"
+          tertiary
         >
           <template #icon>
             <iconify-icon size="18px" :icon="iconValue||'ant-design:appstore-twotone'" />

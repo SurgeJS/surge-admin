@@ -1,9 +1,11 @@
 <script lang="ts" setup>
 import useAuthStore from '@/store/modules/auth'
 import type { DropdownMixedOption } from 'naive-ui/es/dropdown/src/interface'
+import useAppStore from '@/store/modules/app'
 
 const message = useMessage()
 const authStore = useAuthStore()
+const appStore = useAppStore()
 
 const actionList = ref<DropdownMixedOption[]>([
   {

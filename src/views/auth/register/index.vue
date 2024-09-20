@@ -9,16 +9,40 @@ const [ loading ] = useToggle()
 const router = useRouter()
 
 const form = reactive({
+  username: undefined,
+  password: undefined,
   phone: undefined,
   verificationCode: undefined
 })
 
 const schema = reactive<DefineSchema<typeof form>[]>([
   {
+    field: 'username',
+    component: 'input',
+    componentProps: {
+      placeholder: '请输入用户名'
+    },
+    rule: {
+      message: '请输入账号',
+      required: true
+    }
+  },
+  {
+    field: 'password',
+    component: 'input',
+    componentProps: {
+      type: 'password',
+      placeholder: '请输入密码'
+    },
+    rule: {
+      message: '请输入密码',
+      required: true
+    }
+  },
+  {
     field: 'phone',
     component: 'input',
     componentProps: {
-      size: 'large',
       placeholder: '请输入手机号'
     },
     rule: 'phone'
@@ -42,7 +66,7 @@ const handleLogin = () => {
 
 <template>
   <div class="h-full flex flex-col justify-center ">
-    <h1 class="mb-[24px]">手机号登录📱</h1>
+    <h1 class="mb-[24px]">注册🖖</h1>
     <schema-form
       ref="formRef"
       :model="form"
@@ -51,16 +75,8 @@ const handleLogin = () => {
     >
       <template #verificationCode>
         <n-input-group>
-          <n-input
-            v-model:value="form.verificationCode"
-            size="large"
-            placeholder="请输入验证码"
-          />
-          <n-button
-            size="large"
-            type="primary"
-            secondary
-          >
+          <n-input v-model:value="form.verificationCode" placeholder="请输入验证码" />
+          <n-button type="primary" tertiary>
             发生验证码
           </n-button>
         </n-input-group>
@@ -73,7 +89,7 @@ const handleLogin = () => {
           type="primary"
           @click="handleLogin"
         >
-          登录
+          注册
         </n-button>
       </template>
     </schema-form>

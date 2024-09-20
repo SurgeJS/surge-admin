@@ -1,6 +1,13 @@
 <script setup lang="ts">
 import useAppStore from '@/store/modules/app'
 
+interface ThemeSwitchProps {
+  inverted?: boolean
+  tooltip?: boolean
+}
+
+defineProps<ThemeSwitchProps>()
+
 const appStore = useAppStore()
 
 const iconConfig = computed(() => {
@@ -27,7 +34,11 @@ const iconConfig = computed(() => {
 </script>
 
 <template>
-  <hover-container :tooltip="iconConfig.tooltip" @click="appStore.switchThemeMode()">
+  <hover-container
+    :inverted="inverted"
+    :tooltip="tooltip ? iconConfig.tooltip :undefined"
+    @click="appStore.switchThemeMode()"
+  >
     <icon :icon="iconConfig.icon" />
   </hover-container>
 </template>

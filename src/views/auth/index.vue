@@ -7,6 +7,8 @@
     </div>
     <n-card
       v-motion-pop-visible
+      bordered
+      size="large"
       class="auth-card lg:w-[55vh] md:w-[60%] w-[70%] h-[60vh] transition-width"
       content-class="h-full"
     >
@@ -16,7 +18,7 @@
             <component
               :is="Component"
               :key="route.fullPath"
-              v-motion-slide-right
+              v-motion-slide-visible-right
             />
           </router-view>
         </div>
@@ -31,7 +33,7 @@ import DynamicBackground from '@/views/auth/components/DynamicBackground.vue'
 
 <style lang="scss" scoped>
 .auth-card {
-  box-shadow: 0 0 40px -15px theme('colors.primary-shallow');
+  box-shadow: 0 0 50px -30px theme('colors.primary');
 }
 </style>
 

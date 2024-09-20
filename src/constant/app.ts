@@ -23,7 +23,7 @@ export default class AppConstant {
             secondary: 'rgba(51, 54, 57, .9)',
             tertiary: 'rgba(118, 124, 130, .9)',
             disabled: 'rgba(194, 194, 194, .9)',
-            inverted: 'rgba(255, 255, 255, .7)',
+            inverted: 'rgba(255, 255, 255, .9)',
         },
         backgroundColor: {
             layout: '#f6f6f6',
@@ -78,6 +78,14 @@ export default class AppConstant {
 
     // 系统主题色预设
     static THEME_COLORS = [
-        this.PRIMARY_COLOR, '#E74C3C', '#8E44AD', '#3498DB', '#16A085', '#2ECC71', '#F1C40F', '#F39C12', '#D35400'
+        this.PRIMARY_COLOR,
+        '#31b3b3',
+        '#3498DB',
+        '#dd4939',
+        '#D35400',
+        '#F39C12',
+        '#8e4dc3',
+        '#16A085',
+        '#27bc51',
     ]
 }

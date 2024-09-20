@@ -7,7 +7,9 @@ const message = useMessage()
 
 const form = ref({
   name: {
-    test: undefined
+    a:{
+      b:undefined
+    }
   },
   email: undefined,
   age: undefined,
@@ -23,6 +25,7 @@ const form = ref({
   show: true,
   description: undefined
 })
+
 const status = ref([
   {
     value: 0,

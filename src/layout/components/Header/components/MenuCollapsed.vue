@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import useAppStore from '@/store/modules/app'
 import { computed } from 'vue'
-import IconHoverContainer from '@/layout/components/Header/components/HoverContainer.vue'
 
 const appStore = useAppStore()
 
@@ -16,9 +15,9 @@ const handle = () => {
 </script>
 
 <template>
-  <icon-hover-container @click="handle">
+  <hover-container :inverted="appStore.isInvertedHeader" @click="handle">
     <icon :icon="iconName" />
-  </icon-hover-container>
+  </hover-container>
 </template>
 
 <style scoped>

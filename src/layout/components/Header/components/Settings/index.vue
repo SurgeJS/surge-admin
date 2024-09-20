@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import IconHoverContainer from '@/layout/components/Header/components/HoverContainer.vue'
 import ThemeMode from '@/layout/components/Header/components/Settings/components/ThemeMode.vue'
 import LayoutMode from '@/layout/components/Header/components/Settings/components/LayoutMode.vue'
 import LayoutStyle from '@/layout/components/Header/components/Settings/components/LayoutStyle.vue'
@@ -39,9 +38,9 @@ const open = ref(false)
       </template>
     </n-drawer-content>
   </n-drawer>
-  <icon-hover-container @click="open=!open">
+  <hover-container :inverted="appStore.isInvertedHeader" @click="open=!open">
     <icon icon="i-ic:baseline-settings" />
-  </icon-hover-container>
+  </hover-container>
 </template>
 
 <style lang="scss" scoped>

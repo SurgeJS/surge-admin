@@ -3,6 +3,7 @@ import { reactive } from 'vue'
 import { DefineSchema, SchemaFormExpose } from '@/components/common/SchemaForm/types/type'
 import useAuthStore from '@/store/modules/auth'
 import useRenderIcon from '@/hooks/components/useRenderIcon'
+import OtherLogins from '@/views/auth/components/OtherLogins.vue'
 
 const authStore = useAuthStore()
 
@@ -10,25 +11,24 @@ const { RenderUnoIcon } = useRenderIcon()
 const [ loading, setLoading ] = useToggle()
 const formRef = useTemplateRef<SchemaFormExpose>('formRef')
 const router = useRouter()
-const otherLogins = ref([
+
+// 其他操作
+const otherOperations = reactive([
   {
-    tooltip:'Github登录',
-    icon: 'i-mdi:github',
+    name: '手机号登录',
+    path: '/auth/phoneLogin'
   },
   {
-    tooltip:'微信登录',
-    icon: 'i-mdi:wechat',
+    name: '二维码登录',
+    path: '/auth/qRCodeLogin'
   },
   {
-    tooltip:'QQ登录',
-    icon: 'i-mdi:qqchat',
-  },
-  {
-    tooltip:'谷歌登录',
-    icon: 'i-mdi:google',
+    name: '注册',
+    path: '/auth/register'
   }
 ])
-const form: UserModel.PasswordLoginParams = reactive({
+
+const form = reactive<UserModel.PasswordLoginParams>({
   username: 'admin',
   password: '123456'
 })
@@ -78,9 +78,6 @@ const handleLogin = async () => {
   setLoading(true)
   await authStore.passwordLogin(form).finally(() => setLoading(false))
 }
-const test = () => {
-  console.log(11)
-}
 </script>
 
 <template>
@@ -88,10 +85,9 @@ const test = () => {
     <h1 class="mb-[24px]">Hi 欢迎回来👋</h1>
     <schema-form
       ref="formRef"
+      v-model:schema="schema"
       :model="form"
       hide-action-button
-      show-require-mark
-      :schema="schema"
     >
       <template #action>
         <a-flex
@@ -122,42 +118,18 @@ const test = () => {
       :wrap="false"
     >
       <n-button
+        v-for="item in otherOperations"
+        :key="item.path"
         type="primary"
         tertiary
         class="flex-shrink"
         block
-        @click="router.push('/auth/phoneLogin')"
+        @click="router.push(item.path)"
       >
-        手机号登录
-      </n-button>
-      <n-button
-        type="primary"
-        tertiary
-        class="flex-shrink"
-        block
-      >
-        二维码登录
-      </n-button>
-      <n-button
-        type="primary"
-        tertiary
-        class="flex-shrink"
-        block
-      >
-        注册
+        {{ item.name }}
       </n-button>
     </n-flex>
-    <n-divider>第三方登录</n-divider>
-    <n-flex justify="center">
-      <hover-container
-        v-for="item in otherLogins"
-        :key="item.icon"
-        :tooltip="item.tooltip"
-        @click="test"
-      >
-        <icon size="20px" :icon="item.icon" />
-      </hover-container>
-    </n-flex>
+    <other-logins />
   </div>
 </template>
 

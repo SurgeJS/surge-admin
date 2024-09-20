@@ -27,6 +27,20 @@ export const ROUTE_AUTH: AppRouteRecordRaw = {
             meta: {
                 title: '手机号登录'
             }
+        },
+        {
+            path: `${RouterConstant.AUTH_ROUTE}/qrCodeLogin`,
+            component: 'view',
+            meta: {
+                title: '二维码登录'
+            }
+        },
+        {
+            path: `${RouterConstant.AUTH_ROUTE}/register`,
+            component: 'view',
+            meta: {
+                title: '注册'
+            }
         }
     ],
 }
