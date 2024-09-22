@@ -86,10 +86,16 @@ export type OptionType =
 // 常用组件属性映射
 export interface CommonComponentPropsMap {
     // 占位符
-    placeholder?: string
+    $placeholder?: string
+
+    // 日期范围组件 开始占位符
+    $startPlaceholder?:string
+
+    // 日期范围组件 开始占位符
+    $endPlaceholder?:string
 
     // 选项
-    options?: MaybeRef<OptionType[]>
+    $options?: MaybeRef<OptionType[]>
 }
 
 // Schema配置
@@ -110,7 +116,7 @@ export interface Schema<
     component?: DComponentsName
 
     // 组件属性
-    componentProps?: MaybeRefs<SafeComponentProps<ComponentsProps[UnwrapRef<DComponentsName>]>>
+    componentProps?: MaybeRefs<SafeComponentProps<ComponentsProps[UnwrapRef<DComponentsName>]>> | Recordable
 
     // 组件内容
     componentContent?: SlotsContent

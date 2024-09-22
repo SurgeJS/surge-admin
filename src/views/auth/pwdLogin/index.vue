@@ -86,6 +86,7 @@ const handleLogin = async () => {
     <schema-form
       ref="formRef"
       v-model:schema="schema"
+      :show-label="false"
       :model="form"
       hide-action-button
     >

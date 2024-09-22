@@ -8,23 +8,26 @@ import {
 import { useSchemaFormContext } from '@/components/common/SchemaForm/hooks/useContext'
 import { computed, isVNode, useSlots } from 'vue'
 import { SCHEMA_RENDER_COMPONENTS } from '@/components/common/SchemaForm/utils/components'
-import {
-  generateRule,
-  handleRulePresets,
-  isCheckedBind,
-  isInputComponent,
-  isPickComponent
-} from '@/components/common/SchemaForm/utils'
 import { get, isArray, isFunction, isNumber, isString, isUndefined, omitBy } from 'lodash-es'
 import useOmitProps from '@/hooks/common/useOmitProps'
 import { ColProps } from 'naive-ui'
 import useRenderIcon from '@/hooks/components/useRenderIcon'
+import useSchemaFormItemUtils
+  from '@/components/common/SchemaForm/components/SchemaFormItem/hooks/useSchemaFormItemUtils'
 
 const schema = defineModel<UnwrapRefSchema>('schema', { required: true })
 
 const slots = useSlots()
 const { schemaFormProps, model, getModelValue, setModelValue } = useSchemaFormContext()!
 const { RenderUnoIcon } = useRenderIcon()
+const {
+  generateRule,
+  handleRulePresets,
+  isCheckedBind,
+  generatePlaceholder,
+  isInputComponent,
+  isPickComponent
+} = useSchemaFormItemUtils()
 
 // 回调参数
 const callbackParams = computed(() => ({
@@ -90,48 +93,52 @@ const FormItem = defineComponent(() => {
 
   // 动态组件属性
   const dynamicComponentAttribute = computed<Recordable>(() => {
-    const component = schema.value.component
+    const { component, componentProps, $placeholder, $startPlaceholder, $endPlaceholder } = schema.value
+
     if (!component) return {}
 
-    const p: Recordable = {}
-    // 处理默认日期格式
-    if (component === 'datePicker') {
-      p.format = schemaFormProps.defaultDateFormat
-      p.valueFormat = schemaFormProps.defaultDateValueFormat
-    }
+    // 需要映射的Props
+    const mapProps: Recordable = {}
 
     // 处理默认日期格式
+    if (component === 'datePicker') {
+      mapProps.format = schemaFormProps.defaultDateFormat
+      mapProps.valueFormat = schemaFormProps.defaultDateValueFormat
+    }
+
+    // 处理默认时间格式
     if (component === 'timePicker') {
-      p.format = schemaFormProps.defaultTimeFormat
-      p.valueFormat = schemaFormProps.defaultTimeValueFormat
+      mapProps.format = schemaFormProps.defaultTimeFormat
+      mapProps.valueFormat = schemaFormProps.defaultTimeValueFormat
     }
 
     // 处理自动生成Placeholder
     if (schemaFormProps.autoPlaceholder && isString(schema.value.label)) {
-      const placeholderDefault = {
-        daterange: [ '开始日期', '结束日期' ],
-        datetimerange: [ '开始日期时间', '结束日期时间' ],
-        yearrange: [ '开始年', '结束年' ],
-        monthrange: [ '开始月', '结束月' ],
-        quarterrange: [ '开始季度', '结束季度' ],
-        input: `请输入${ schema.value.label }`,
-        select: `请选择${ schema.value.label }`
-      }
-      const type = schema.value.componentProps?.type
-      //  处理日期范围类型
-      if (component === 'datePicker' && type.includes('range')) {
-        p.startPlaceholder = placeholderDefault[type][0]
-        p.endPlaceholder = placeholderDefault[type][1]
-      } else if (isInputComponent(component)) {
-        p.placeholder = placeholderDefault['input']
-      } else if (isPickComponent(component)) {
-        p.placeholder = placeholderDefault['select']
+      const placeholder = generatePlaceholder(schema.value.label, component, componentProps as Recordable)
+      if (isArray(placeholder)) {
+        mapProps.startPlaceholder = placeholder[0]
+        mapProps.endPlaceholder = placeholder[1]
+      } else {
+        mapProps.placeholder = placeholder
       }
     }
 
+    // 映射placeholder
+    if ($placeholder && (isInputComponent(component) || isPickComponent(component))) {
+      mapProps.placeholder = $placeholder
+    }
+
+    // 映射日期范围placeholder
+    if (($startPlaceholder || $endPlaceholder) && component === 'timePicker' && componentProps?.type?.includes('range')) {
+      if ($startPlaceholder) mapProps.startPlaceholder = $startPlaceholder
+      if ($endPlaceholder) mapProps.endPlaceholder = $endPlaceholder
+    }
+
+
+
     return {
-      ...p,
-      ...schema.value.componentProps
+      ...mapProps,
+      ...componentProps
     }
   })
 
@@ -198,7 +205,8 @@ const FormItem = defineComponent(() => {
       </>)
     }
 
-    return omitBy({
+    return omitBy(
+        {
           default: defaultSlot(),
           label: labelSlot()
         },

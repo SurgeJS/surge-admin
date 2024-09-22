@@ -46,6 +46,7 @@ const handleLogin = () => {
     <schema-form
       ref="formRef"
       :model="form"
+      :show-label="false"
       hide-action-button
       :schema="schema"
     >

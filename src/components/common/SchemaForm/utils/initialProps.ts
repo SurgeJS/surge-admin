@@ -1,5 +1,3 @@
-import { SchemaFormCommonProps } from '@/components/common/SchemaForm/types/type'
-
 const initialProps = {
     autoPlaceholder: true,
     autoRules: true,
@@ -14,4 +12,4 @@ const initialProps = {
     defaultValueDateFormat: 'YYYY-MM-DD',
     defaultValueTimeFormat: 'HH:mm:ss'
 }
-export default initialProps as SchemaFormCommonProps
+export default initialProps

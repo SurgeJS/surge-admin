@@ -11,9 +11,7 @@
   background: theme('colors.primary');
   -webkit-mask: url('@/assets/svg/bg.svg') no-repeat bottom;
   mask: url('@/assets/svg/bg.svg') no-repeat bottom;
-  background-size: contain;
   position: absolute;
-  z-index: 0;
   left: 0;
   top: 0;
   right: 0;

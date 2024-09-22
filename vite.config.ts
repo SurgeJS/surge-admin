@@ -37,6 +37,13 @@ export default defineConfig(({ mode }) => {
                     drop_debugger: true
                 }
             }
+        },
+        css:{
+            preprocessorOptions:{
+                scss:{
+                    api:'modern-compiler'
+                }
+            }
         }
     }
 })
