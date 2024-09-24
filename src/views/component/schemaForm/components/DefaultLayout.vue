@@ -15,7 +15,8 @@ const form = ref({
   confirmPassword: '',
   status: 0,
   skill: undefined,
-  date: [],
+  date: null,
+  dateRange: [],
   startTime: undefined,
   endTime: undefined,
   area: undefined,
@@ -24,7 +25,6 @@ const form = ref({
   show: true,
   description: undefined
 })
-
 
 const emailAutoComplete = computed(() => [ '@gmail.com', '@163.com', '@qq.com' ].map(v => {
       const prefix = form.value.email.split('@')[0]
@@ -41,15 +41,14 @@ const schema = reactive<DefineSchema<typeof form.value>[]>([
     label: '名称',
     component: 'input',
     tooltip: '这是一个Tooltip',
+    placeholder: '这个placeholder会覆盖到自动生成的placeholder',
     showRequireMark: true,
   },
   {
     field: 'email',
     label: '邮箱',
     component: 'autoComplete',
-    componentProps: {
-      options: emailAutoComplete,
-    },
+    options: emailAutoComplete,
     rule: 'mail'
   },
   {
@@ -100,18 +99,22 @@ const schema = reactive<DefineSchema<typeof form.value>[]>([
     field: 'status',
     label: '状态',
     component:'select',
-    componentProps:{
-      options: [
-        {
-          label:'未完成',
-          value:0,
-        },
-        {
-          label:'已完成',
-          value:1,
-        }
-      ]
-    }
+    options: [
+      {
+        label:'未完成',
+        value:0,
+      },
+      {
+        label:'已完成',
+        value:1,
+      }
+    ]
+  },
+  {
+    field:'date',
+    label: '日期',
+    component:'datePicker',
+    showRequireMark: true,
   }
 ])
 

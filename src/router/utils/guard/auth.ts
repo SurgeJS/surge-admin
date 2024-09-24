@@ -88,7 +88,7 @@ const createAuthGuard = (to: RouteLocationNormalized, from: RouteLocationNormali
         ],
         // 登录情况下不能到登录页面
         [
-            to.path === RouterConstant.LOGIN_PATH,
+            to.path.startsWith(RouterConstant.AUTH_ROUTE),
             () => {
                 console.info('---登录情况下不能到登录页面---')
                 next(from.fullPath)

@@ -70,6 +70,12 @@ export type ComponentSlots = {
  */
 export type RulePresets = 'mail' | 'phone' | 'landline' | 'idCard' | 'url'
 
+export type RulePresetsType = Record<RulePresets, {
+    requiredMessage: string,
+    incorrectMessage: string,
+    validator(value: string): boolean
+}>
+
 export type SafeComponentProps<T> = T extends Recordable ? T : never;
 
 export type FormItemPropsRefs = MaybeRefs<Omit<FormItemProps, 'label' | 'rule' | 'path' | 'required'>>
@@ -86,16 +92,16 @@ export type OptionType =
 // 常用组件属性映射
 export interface CommonComponentPropsMap {
     // 占位符
-    $placeholder?: string
+    placeholder?: string
 
     // 日期范围组件 开始占位符
-    $startPlaceholder?:string
+    startPlaceholder?:string
 
     // 日期范围组件 开始占位符
-    $endPlaceholder?:string
+    endPlaceholder?:string
 
     // 选项
-    $options?: MaybeRef<OptionType[]>
+    options?: MaybeRef<OptionType[]>
 }
 
 // Schema配置

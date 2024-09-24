@@ -24,9 +24,11 @@ const {
   generateRule,
   handleRulePresets,
   isCheckedBind,
+  isDateComponent,
+  isTimeComponent,
   generatePlaceholder,
-  isInputComponent,
-  isPickComponent
+  isMapPlaceholderComponent,
+    isMapOptionsComponent
 } = useSchemaFormItemUtils()
 
 // 回调参数
@@ -71,7 +73,9 @@ const FormItem = defineComponent(() => {
       const isRequire = Boolean(schema.value.showRequireMark ?? schemaFormProps.showRequireMark)
       // 自动生成校验
       if (schemaFormProps.autoRules && isRequire && schema.value.component) {
-        return generateRule(schema.value.label, schema.value.component)
+        const test = generateRule(schema.value.label, schema.value.component)
+        console.log(test)
+        return test
       }
       return undefined
     }
@@ -93,7 +97,7 @@ const FormItem = defineComponent(() => {
 
   // 动态组件属性
   const dynamicComponentAttribute = computed<Recordable>(() => {
-    const { component, componentProps, $placeholder, $startPlaceholder, $endPlaceholder } = schema.value
+    const { component, componentProps, placeholder, startPlaceholder, endPlaceholder, options } = schema.value
 
     if (!component) return {}
 
@@ -101,20 +105,20 @@ const FormItem = defineComponent(() => {
     const mapProps: Recordable = {}
 
     // 处理默认日期格式
-    if (component === 'datePicker') {
+    if (isDateComponent(component)) {
       mapProps.format = schemaFormProps.defaultDateFormat
       mapProps.valueFormat = schemaFormProps.defaultDateValueFormat
     }
 
     // 处理默认时间格式
-    if (component === 'timePicker') {
+    if (isTimeComponent(component)) {
       mapProps.format = schemaFormProps.defaultTimeFormat
       mapProps.valueFormat = schemaFormProps.defaultTimeValueFormat
     }
 
     // 处理自动生成Placeholder
     if (schemaFormProps.autoPlaceholder && isString(schema.value.label)) {
-      const placeholder = generatePlaceholder(schema.value.label, component, componentProps as Recordable)
+      const placeholder = generatePlaceholder(schema.value.label, component, (componentProps as Recordable)?.type)
       if (isArray(placeholder)) {
         mapProps.startPlaceholder = placeholder[0]
         mapProps.endPlaceholder = placeholder[1]
@@ -124,18 +128,21 @@ const FormItem = defineComponent(() => {
     }
 
     // 映射placeholder
-    if ($placeholder && (isInputComponent(component) || isPickComponent(component))) {
-      mapProps.placeholder = $placeholder
-    }
+    if (placeholder && isMapPlaceholderComponent(component)) mapProps.placeholder = placeholder
 
     // 映射日期范围placeholder
-    if (($startPlaceholder || $endPlaceholder) && component === 'timePicker' && componentProps?.type?.includes('range')) {
-      if ($startPlaceholder) mapProps.startPlaceholder = $startPlaceholder
-      if ($endPlaceholder) mapProps.endPlaceholder = $endPlaceholder
+    if (
+        (startPlaceholder || endPlaceholder) &&
+        isDateComponent(component) &&
+        (componentProps as Recordable)?.type.includes('range')) {
+      if (startPlaceholder) mapProps.startPlaceholder = startPlaceholder
+      if (endPlaceholder) mapProps.endPlaceholder = endPlaceholder
     }
 
-
-
+    // 映射 options
+    if (options && isMapOptionsComponent(component)) {
+      mapProps.options = options
+    }
     return {
       ...mapProps,
       ...componentProps
@@ -233,7 +240,7 @@ const FormItem = defineComponent(() => {
 </template>
 
 <style scoped lang="scss">
-:deep(.n-input-number), :deep(.n-time-picker) {
+:deep(.n-input-number), :deep(.n-time-picker) ,:deep(.n-date-picker){
   width: 100%;
 }
 </style>

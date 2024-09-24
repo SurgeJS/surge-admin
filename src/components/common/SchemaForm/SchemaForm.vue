@@ -36,9 +36,8 @@ const schema = defineModel<UnwrapRefSchema[]>('schema', { required: true })
 useProvideSchemaFormContext(props, model)
 const formProps = useOmitProps(props, [ 'schema' ])
 const formContentSlots = useOmitProps(slots, [ 'customActionButton', 'buttonAfter', 'buttonBefore' ])
-
 // 通用方法
-const { formRef, commonExpose } = useExpose()
+const { formRef, commonExpose } = useExpose(model)
 const { handleReset, handleSubmit } = useMethod(props, commonExpose, model)
 
 defineExpose<SchemaFormExpose>(commonExpose)

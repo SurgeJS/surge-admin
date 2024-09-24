@@ -1,6 +1,6 @@
 // 路由常量
 export default class RouterConstant {
-    // 鉴权路径
+    // 授权路径
     static AUTH_ROUTE = '/auth'
 
     // 登录路径
