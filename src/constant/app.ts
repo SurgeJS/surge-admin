@@ -29,13 +29,14 @@ export default class AppConstant {
             layout: '#f6f6f6',
             container: '#ffffff',
             layer: '#ffffff',
-            inverted: '#001428',
+            inverted: '#24242b',
         },
         fillColor: {
             base: 'rgba(225,225,225,.8)',
             secondary: 'rgba(225,225,225,.4)',
             tertiary: 'rgba(225,225,225,.2)',
-            inverted: 'rgba(90,90,90,.4)',
+            // inverted: 'rgba(90,90,90,.4)',
+            inverted: 'rgba(100,100,100,.2)',
         },
         borderColor: {
             base: 'rgba(224,224,230,.9)',

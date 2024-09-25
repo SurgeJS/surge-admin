@@ -1,28 +1,18 @@
-import { FormInst } from 'naive-ui'
 import { SchemaFormCommonExpose } from '@/components/common/SchemaForm/types/type'
-import { cloneDeep } from 'lodash-es'
-import { ModelRef } from 'vue'
 
-const useExpose = (model:ModelRef<Recordable>) => {
-    const formRef = ref<FormInst>()
-    const initModel = cloneDeep(model.value)
-    const commonExpose: SchemaFormCommonExpose = {
-        resetFields() {
-            model.value = initModel
-        }
-    } as SchemaFormCommonExpose
-    
+const useExpose = () => {
+    const formRef = ref<SchemaFormCommonExpose>()
+    const commonExpose: SchemaFormCommonExpose = {} as SchemaFormCommonExpose
+
     const setExpose = () => {
-        if (!formRef.value) return
-        commonExpose['validate'] = formRef.value.validate
-        commonExpose['restoreValidation'] = formRef.value.restoreValidation
+        const expose = formRef.value
+        if (!expose) return
+        Object.keys(expose).forEach((key) => {
+            commonExpose[key] = expose[key]
+        })
     }
 
     onMounted(() => {
-        setExpose()
-    })
-
-    watch(formRef, () => {
         setExpose()
     })
 

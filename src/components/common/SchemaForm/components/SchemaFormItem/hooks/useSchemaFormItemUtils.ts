@@ -111,6 +111,7 @@ const useSchemaFormItemUtils = () => {
         return {
             required: true,
             message: msg,
+            type:'array',
             trigger: isInputComponent(component) ? 'blur' : 'change'
         }
     }
@@ -118,7 +119,6 @@ const useSchemaFormItemUtils = () => {
     // 处理规则预设
     const handleRulePresets = (rule: RulePresets): FormItemRule => ({
         required: true,
-        type: 'number',
         validator(_rule: FormItemRule, value: string) {
             const { requiredMessage, incorrectMessage, validator } = rulePresets[rule]
             if (!value) return Promise.reject(requiredMessage)

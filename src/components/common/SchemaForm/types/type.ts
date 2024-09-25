@@ -12,7 +12,7 @@ import {
 } from 'naive-ui'
 import { FormSetupProps } from 'naive-ui/es/form/src/Form'
 import type { SelectMixedOption } from 'naive-ui/es/select/src/interface'
-import { AutoCompleteOptions } from 'naive-ui/es/auto-complete/src/interface'
+import { AutoCompleteGroupOption, AutoCompleteOption } from 'naive-ui/es/auto-complete/src/interface'
 import type { TreeSelectOption } from 'naive-ui/es/tree-select/src/interface'
 import type { MentionOption } from 'naive-ui/es/mention/src/interface'
 import type { CascaderOption } from 'naive-ui/es/cascader/src/interface'
@@ -83,7 +83,8 @@ export type FormItemPropsRefs = MaybeRefs<Omit<FormItemProps, 'label' | 'rule' |
 // 通用的选项类型
 export type OptionType =
     SelectMixedOption
-    | AutoCompleteOptions
+    | AutoCompleteOption
+    | AutoCompleteGroupOption
     | TreeSelectOption
     | MentionOption
     | CascaderOption
@@ -95,10 +96,10 @@ export interface CommonComponentPropsMap {
     placeholder?: string
 
     // 日期范围组件 开始占位符
-    startPlaceholder?:string
+    startPlaceholder?: string
 
     // 日期范围组件 开始占位符
-    endPlaceholder?:string
+    endPlaceholder?: string
 
     // 选项
     options?: MaybeRef<OptionType[]>

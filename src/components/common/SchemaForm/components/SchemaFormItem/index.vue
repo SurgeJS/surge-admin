@@ -2,6 +2,7 @@
 import {
   CallbackParams,
   CallbackParamsFunction,
+  OptionType,
   Schema,
   UnwrapRefSchema
 } from '@/components/common/SchemaForm/types/type'
@@ -28,7 +29,7 @@ const {
   isTimeComponent,
   generatePlaceholder,
   isMapPlaceholderComponent,
-    isMapOptionsComponent
+  isMapOptionsComponent
 } = useSchemaFormItemUtils()
 
 // 回调参数
@@ -149,21 +150,6 @@ const FormItem = defineComponent(() => {
     }
   })
 
-  // 动态组件插槽
-  const dynamicComponentSlots = computed(() => {
-    const componentContent = schema.value.componentContent
-    if (!componentContent) return undefined
-
-    // 组件默认插槽内容
-    const defaultSlot = (slot: Schema['componentContent']) => ({ default: () => slot })
-
-    const content = callbackParamsFunction(componentContent)
-
-    if (isArray(content) || isString(content) || isVNode(content)) return defaultSlot(content)
-
-    return content
-  })
-
   // 渲染动态组件
   const renderComponent = () => {
     const component = schema.value.component
@@ -177,9 +163,38 @@ const FormItem = defineComponent(() => {
       [`onUpdate:${ bindType }`]: v => bindValue.value = v,
     }
 
+    // 选项映射 checkbox 组件
+    const optionsMapCheckboxComponent = (options: OptionType[]) => {
+      return options.map(item => (
+          <n-checkbox
+              value={ item.value }
+              disabled={ item.disabled }>
+            { item.label }
+          </n-checkbox>))
+    }
+
+    // 动态组件插槽
+    const dynamicComponentSlots = () => {
+      const componentContent = schema.value.componentContent
+      const isMapCheckbox = schema.value.component === 'checkboxGroup' && schema.value.options
+      if (!componentContent && !(isMapCheckbox)) return undefined
+      const defaultSlot = (slot: Schema['componentContent']) => ({ default: () => slot })
+
+      // 是否映射 checkbox 组件
+      if (isMapCheckbox) return  defaultSlot(optionsMapCheckboxComponent(schema.value.options!))
+
+      // 组件默认插槽内容
+
+      const content = callbackParamsFunction(componentContent)
+
+      if (isArray(content) || isString(content) || isVNode(content)) return defaultSlot(content)
+
+      return content
+    }
+
     return (
         <DynamicComponent.value
-            v-slots={ dynamicComponentSlots.value }
+            v-slots={ dynamicComponentSlots() }
             { ...modelBind }
             { ...dynamicComponentAttribute.value }>
         </DynamicComponent.value>
@@ -240,7 +255,7 @@ const FormItem = defineComponent(() => {
 </template>
 
 <style scoped lang="scss">
-:deep(.n-input-number), :deep(.n-time-picker) ,:deep(.n-date-picker){
+:deep(.n-input-number), :deep(.n-time-picker), :deep(.n-date-picker) {
   width: 100%;
 }
 </style>

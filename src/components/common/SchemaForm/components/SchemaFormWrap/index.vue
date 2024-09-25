@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import { SchemaFormCommonExpose, SchemaFormCommonProps } from '@/components/common/SchemaForm/types/type'
 import useOmitProps from '@/hooks/common/useOmitProps'
-import useExpose from '@/components/common/SchemaForm/hooks/useExpose'
+import { FormInst } from 'naive-ui'
+import { useSchemaFormContext } from '@/components/common/SchemaForm/hooks/useContext'
+import { cloneDeep } from 'lodash-es'
 
 const props = defineProps<SchemaFormCommonProps>()
+const { model } = useSchemaFormContext()!
 
 const nFormProps = useOmitProps(props, [
   'formClass',
@@ -28,7 +31,26 @@ const nFormProps = useOmitProps(props, [
   'onFinishFailed',
   'onReset',
 ])
-const { formRef, commonExpose } = useExpose()
+
+const commonExpose: SchemaFormCommonExpose = {} as SchemaFormCommonExpose
+const initModel = cloneDeep(model.value)
+const formRef = ref<FormInst>()
+
+const setExpose = () => {
+  if (!formRef.value) return
+  console.log(formRef.value)
+  commonExpose['validate'] = formRef.value.validate
+  commonExpose['restoreValidation'] = formRef.value.restoreValidation
+
+  commonExpose['resetFields'] = () => {
+    model.value = cloneDeep(initModel)
+    commonExpose.restoreValidation()
+  }
+}
+
+onMounted(() => {
+  setExpose()
+})
 
 defineExpose<SchemaFormCommonExpose>(commonExpose)
 </script>

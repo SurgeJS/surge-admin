@@ -32,12 +32,13 @@ const slots = defineSlots<SchemaFormSlots>()
 // 表单模型
 const model = defineModel<Recordable>('model', { required: true })
 const schema = defineModel<UnwrapRefSchema[]>('schema', { required: true })
+
 // 提供Schema上下文
 useProvideSchemaFormContext(props, model)
 const formProps = useOmitProps(props, [ 'schema' ])
 const formContentSlots = useOmitProps(slots, [ 'customActionButton', 'buttonAfter', 'buttonBefore' ])
 // 通用方法
-const { formRef, commonExpose } = useExpose(model)
+const { formRef, commonExpose } = useExpose()
 const { handleReset, handleSubmit } = useMethod(props, commonExpose, model)
 
 defineExpose<SchemaFormExpose>(commonExpose)

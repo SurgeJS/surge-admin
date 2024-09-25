@@ -2,6 +2,9 @@
 import { reactive } from 'vue'
 import { DefineSchema } from '@/components/common/SchemaForm/types/type'
 import { FormItemRule } from 'naive-ui'
+import useRenderIcon from '@/hooks/components/useRenderIcon'
+
+const { RenderUnoIcon } = useRenderIcon()
 
 const form = ref({
   name: {
@@ -42,6 +45,9 @@ const schema = reactive<DefineSchema<typeof form.value>[]>([
     component: 'input',
     tooltip: '这是一个Tooltip',
     placeholder: '这个placeholder会覆盖到自动生成的placeholder',
+    componentContent: {
+      prefix: () => RenderUnoIcon('i-ant-design:user-outlined')
+    },
     showRequireMark: true,
   },
   {
@@ -113,8 +119,46 @@ const schema = reactive<DefineSchema<typeof form.value>[]>([
   {
     field:'date',
     label: '日期',
+    vModelBind: 'formattedValue',
     component:'datePicker',
     showRequireMark: true,
+  },
+  {
+    field:'skill',
+    label: '技能',
+    component:'checkboxGroup',
+    options: [
+      {
+        label:'Vue',
+        value:0,
+      },
+      {
+        label:'React',
+        disabled: true,
+        value:1,
+      },
+      {
+        label:'Naive',
+        value:2,
+      },
+      {
+        label:'VueUse',
+        value:3,
+      },
+      {
+        label:'VueQuery',
+        value:4,
+      },
+      {
+        label:'Axios',
+        value:5,
+      },
+      {
+        label:'Unocss',
+        value:6,
+      },
+    ],
+    showRequireMark:true
   }
 ])
 
@@ -137,6 +181,7 @@ const schema = reactive<DefineSchema<typeof form.value>[]>([
         <schema-form
           v-model:model="form"
           v-model:schema="schema"
+          show-require-mark
           label-width="80"
         />
       </div>

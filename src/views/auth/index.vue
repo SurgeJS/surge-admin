@@ -9,11 +9,11 @@
       v-motion-pop-visible
       bordered
       size="large"
-      class="auth-card lg:w-[55vh] md:w-[60%] w-[70%] h-[60vh] transition-width"
+      class="auth-card lg:w-[500px] md:w-[60%] w-[90%] transition-width"
       content-class="h-full"
     >
       <div class="w-h-full flex overflow-hidden">
-        <div class="h-full flex-1 flex-shrink-0 p-[10px]">
+        <div class="w-h-full flex-1 flex-shrink-0 p-[10px]">
           <router-view v-slot="{ Component, route }">
             <component
               :is="Component"
