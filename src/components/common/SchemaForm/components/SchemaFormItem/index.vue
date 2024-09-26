@@ -83,13 +83,8 @@ const FormItem = defineComponent(() => {
 
   const DynamicComponent = computed(() => schema.value.component ? SCHEMA_RENDER_COMPONENTS[schema.value.component] : undefined)
 
-  const bindValue = computed({
-    get() {
-      return getModelValue(schema.value.field as string)
-    },
-    set(value) {
-      setModelValue(schema.value.field as string, value)
-    }
+  watch(model, () => {
+    console.log(model)
   })
 
   // 动态组件属性
@@ -153,10 +148,13 @@ const FormItem = defineComponent(() => {
     if (!DynamicComponent.value) return console.error(`未找到该组件：${ component }`)
 
     const bindType = schema.value?.vModelBind ? schema.value?.vModelBind : isCheckedBind(component) ? 'checked' : 'value'
-
+    console.log(getModelValue(schema.value.field as string))
     const modelBind = {
-      [bindType]: bindValue.value,
-      [`onUpdate:${ bindType }`]: v => bindValue.value = v,
+      [bindType]: getModelValue(schema.value.field as string),
+      [`onUpdate:${ bindType }`]: v => {
+        console.log(v)
+        setModelValue(schema.value.field as string, v)
+      },
     }
 
     // 选项映射 checkbox 组件
@@ -164,11 +162,12 @@ const FormItem = defineComponent(() => {
       return options.map(item => (
           <n-checkbox
               value={ item.value }
-              disabled={ item.disabled }>
+              disabled={ item.disabled }
+          >
             { item.label }
           </n-checkbox>))
     }
-  
+
     // 动态组件插槽
     const dynamicComponentSlots = () => {
       const componentContent = schema.value.componentContent
@@ -177,7 +176,7 @@ const FormItem = defineComponent(() => {
       const defaultSlot = (slot: Schema['componentContent']) => ({ default: () => slot })
 
       // 是否映射 checkbox 组件
-      if (isMapCheckbox) return  defaultSlot(optionsMapCheckboxComponent(schema.value.options!))
+      if (isMapCheckbox) return defaultSlot(optionsMapCheckboxComponent(schema.value.options!))
 
       // 组件默认插槽内容
 
@@ -197,6 +196,21 @@ const FormItem = defineComponent(() => {
     )
   }
 
+  const renderTooltip = (tooltip?:string) => {
+    return (
+        <n-tooltip>
+          {
+            {
+              default: () => tooltip,
+              trigger: () => RenderUnoIcon('i-ic:outline-help', {
+                class: 'ml-5px mb-4px'
+              })
+            }
+          }
+        </n-tooltip>
+    )
+  }
+
   const renderFormItemSlots = () => {
     // 处理默认插槽
     const defaultSlot = () => {
@@ -208,18 +222,7 @@ const FormItem = defineComponent(() => {
       const label = callbackParamsFunction(schema.value.label)
       return () => (<>
         { label }
-        {
-          schema.value.tooltip ?
-              <n-tooltip>
-                { {
-                  default: () => schema.value.tooltip,
-                  trigger: () => RenderUnoIcon('i-ic:outline-help', {
-                    class: 'ml-5px mb-4px'
-                  })
-                } }
-              </n-tooltip>
-              : undefined
-        }
+        { schema.value.tooltip ? renderTooltip(schema.value.tooltip) : undefined }
       </>)
     }
 
@@ -231,7 +234,7 @@ const FormItem = defineComponent(() => {
         isUndefined
     )
   }
-  console.log(formItemRules.value)
+  
   return () => (
       <n-form-item
           key={ schema.value.label }

@@ -107,7 +107,8 @@ const useSchemaFormItemUtils = () => {
     const generateRule = (label: Schema['label'], component: ComponentsName): FormItemRule => {
         let msg: string = `${ label }是必填项`
         if (isInputComponent(component) && typeof label === 'string') msg = `请输入${ label }`
-        if (isPickComponent(component) && typeof label === 'string') msg = `请选择${ label }`
+        else if (isPickComponent(component) && typeof label === 'string') msg = `请选择${ label }`
+        else msg = `${ label }`
         return {
             required: true,
             message: msg,

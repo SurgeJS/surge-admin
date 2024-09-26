@@ -16,7 +16,7 @@ const form = ref({
   age: undefined,
   password: undefined,
   confirmPassword: undefined,
-  status: 0,
+  status: undefined,
   skill: undefined,
   date: null,
   dateRange: [],
@@ -159,15 +159,17 @@ const schema = reactive<DefineSchema<typeof form.value>[]>([
       },
     ],
     // showRequireMark:true
-    rule:{
-      required:true,
-      type: 'array',
-      message: 'xx',
-      trigger: 'change',
-    }
+    // rule:{
+    //   required:true,
+    //   type: 'array',
+    //   message: 'xx',
+    //   trigger: 'change',
+    // }
   }
 ])
-
+const test = () => {
+  form.value.name.a.b = 111
+}
 </script>
 
 <template>
@@ -179,6 +181,7 @@ const schema = reactive<DefineSchema<typeof form.value>[]>([
   >
     <template #1>
       <div class="p-24px h-full overflow-auto">
+        <n-button type="primary" @click="test">xxx</n-button>
         <pre>{{ JSON.stringify(form, null, 2) }}</pre>
       </div>
     </template>
