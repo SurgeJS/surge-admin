@@ -38,7 +38,6 @@ const formRef = ref<FormInst>()
 
 const setExpose = () => {
   if (!formRef.value) return
-  console.log(formRef.value)
   commonExpose['validate'] = formRef.value.validate
   commonExpose['restoreValidation'] = formRef.value.restoreValidation
 

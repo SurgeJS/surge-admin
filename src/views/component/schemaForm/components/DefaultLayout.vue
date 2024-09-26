@@ -9,13 +9,13 @@ const { RenderUnoIcon } = useRenderIcon()
 const form = ref({
   name: {
     a: {
-      b: ''
+      b: undefined
     }
   },
-  email: '',
+  email: undefined,
   age: undefined,
-  password: '',
-  confirmPassword: '',
+  password: undefined,
+  confirmPassword: undefined,
   status: 0,
   skill: undefined,
   date: null,
@@ -30,7 +30,7 @@ const form = ref({
 })
 
 const emailAutoComplete = computed(() => [ '@gmail.com', '@163.com', '@qq.com' ].map(v => {
-      const prefix = form.value.email.split('@')[0]
+      const prefix = form.value.email?.split('@')[0]
       return {
         label: prefix + v,
         value: prefix + v
@@ -158,7 +158,13 @@ const schema = reactive<DefineSchema<typeof form.value>[]>([
         value:6,
       },
     ],
-    showRequireMark:true
+    // showRequireMark:true
+    rule:{
+      required:true,
+      type: 'array',
+      message: 'xx',
+      trigger: 'change',
+    }
   }
 ])
 

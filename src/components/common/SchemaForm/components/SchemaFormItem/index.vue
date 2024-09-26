@@ -72,13 +72,9 @@ const FormItem = defineComponent(() => {
     const rule = schema.value.rule
     if (!rule) {
       const isRequire = Boolean(schema.value.showRequireMark ?? schemaFormProps.showRequireMark)
-      // 自动生成校验
-      if (schemaFormProps.autoRules && isRequire && schema.value.component) {
-        const test = generateRule(schema.value.label, schema.value.component)
-        console.log(test)
-        return test
-      }
-      return undefined
+      const isAutoRules = Boolean(schemaFormProps.autoRules && isRequire && schema.value.component)
+
+      return isAutoRules ? generateRule(schema.value.label, schema.value.component!) : undefined
     }
     // 处理规则预设
     if (typeof rule === 'string') return handleRulePresets(rule)
@@ -172,7 +168,7 @@ const FormItem = defineComponent(() => {
             { item.label }
           </n-checkbox>))
     }
-
+  
     // 动态组件插槽
     const dynamicComponentSlots = () => {
       const componentContent = schema.value.componentContent
@@ -235,6 +231,7 @@ const FormItem = defineComponent(() => {
         isUndefined
     )
   }
+  console.log(formItemRules.value)
   return () => (
       <n-form-item
           key={ schema.value.label }

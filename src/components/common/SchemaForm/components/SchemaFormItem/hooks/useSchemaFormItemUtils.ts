@@ -111,7 +111,7 @@ const useSchemaFormItemUtils = () => {
         return {
             required: true,
             message: msg,
-            type:'array',
+            type:'any',
             trigger: isInputComponent(component) ? 'blur' : 'change'
         }
     }
@@ -122,7 +122,7 @@ const useSchemaFormItemUtils = () => {
         validator(_rule: FormItemRule, value: string) {
             const { requiredMessage, incorrectMessage, validator } = rulePresets[rule]
             if (!value) return Promise.reject(requiredMessage)
-            if (!validator(value)) Promise.reject(incorrectMessage)
+            if (!validator(value)) return  Promise.reject(incorrectMessage)
             return Promise.resolve()
         },
         trigger: 'blur'

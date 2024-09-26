@@ -116,15 +116,13 @@ const handleLogin = async () => {
     <n-flex
       class="w-full mt-[24px]"
       justify="space-between"
-      :wrap="false"
     >
       <n-button
         v-for="item in otherOperations"
         :key="item.path"
         type="primary"
         tertiary
-        class="flex-shrink"
-        block
+        class="flex-shrink flex-1"
         @click="router.push(item.path)"
       >
         {{ item.name }}

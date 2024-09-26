@@ -71,8 +71,11 @@ export type ComponentSlots = {
 export type RulePresets = 'mail' | 'phone' | 'landline' | 'idCard' | 'url'
 
 export type RulePresetsType = Record<RulePresets, {
-    requiredMessage: string,
-    incorrectMessage: string,
+    // 必填信息
+    requiredMessage: string
+    // 错误信息
+    incorrectMessage: string
+    // 验证
     validator(value: string): boolean
 }>
 
