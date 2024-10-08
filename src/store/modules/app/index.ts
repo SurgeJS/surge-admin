@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { AppStore } from '@/store/modules/app/type'
+import { AppStore, ThemeMode } from '@/store/modules/app/type'
 import { darkTheme, GlobalThemeOverrides, lightTheme, useOsTheme } from 'naive-ui'
 import { appCache } from '@/store/caches'
 import { setCSSVariable, temporaryClearTransition, toKebabCase } from '@/utils'
@@ -141,16 +141,20 @@ const useAppStore = defineStore('App', () => {
     }
 
     // 切换主题模式
-    const switchThemeMode = () => {
-        switch (appStore.themeMode) {
-            case 'light':
-                appStore.themeMode = 'dark'
-                break
-            case 'dark':
-                appStore.themeMode = 'system'
-                break
-            case 'system':
-                appStore.themeMode = 'light'
+    const toggleThemeMode = (mode?:ThemeMode) => {
+        if (mode) {
+            appStore.themeMode = mode
+        } else {
+            switch (appStore.themeMode) {
+                case 'light':
+                    appStore.themeMode = 'dark'
+                    break
+                case 'dark':
+                    appStore.themeMode = 'system'
+                    break
+                case 'system':
+                    appStore.themeMode = 'light'
+            }
         }
     }
 
@@ -179,16 +183,24 @@ const useAppStore = defineStore('App', () => {
         setCSSVariable(variable)
     }
 
-    // 生成主题
-    const generateTheme = (): GlobalThemeOverrides => {
+    // 更新主题
+    const updateTheme = () => {
+        // 自定义 naive 组件主题
+        const customizeOverrides = !isDark.value ? AppConstant.NAIVE_COMPONENT_LIGHT_THEME : AppConstant.NAIVE_COMPONENT_DARK_THEME
+        // 自定义主题
         const theme = isDark.value ? AppConstant.DARK_THEME : AppConstant.LIGHT_THEME
+        // 生成主题色色板
         const colors = generateColorPalette(appStore.themeColor)
+
         // 生成主题色CSS变量
         generatePaletteCSSVariables('primary', colors)
+
         // 生成主题CSS变量
         generateThemeCSSVariables(theme)
+
         const { backgroundColor, textColor, borderColor, borderRadius } = theme
-        return {
+
+        const naiveThemeOverride: GlobalThemeOverrides = {
             common: {
                 /* 主题色 */
                 primaryColor: colors[5],
@@ -225,18 +237,14 @@ const useAppStore = defineStore('App', () => {
                 textColorDisabledPrimary: 'rgba(255, 255, 255, .9)',
             }
         }
+
+        themeOverrides.value = merge(naiveThemeOverride, customizeOverrides)
     }
 
     // 监听 主题模式 | 主题颜色 | 操作系统主题 变化
     watch([ () => appStore.themeMode, () => appStore.themeColor, osTheme ], () => {
         // 临时清除全局的过渡效果
-        temporaryClearTransition(() => {
-            // 自定义 naive 组件主题
-            const customizeOverrides = !isDark.value ? AppConstant.NAIVE_COMPONENT_LIGHT_THEME : AppConstant.NAIVE_COMPONENT_DARK_THEME
-            // 映射主题
-            const mapTheme = generateTheme()
-            themeOverrides.value = merge(mapTheme, customizeOverrides)
-        })
+        temporaryClearTransition(updateTheme)
     }, { immediate: true })
 
     return {
@@ -249,8 +257,8 @@ const useAppStore = defineStore('App', () => {
         dynamicMixSidebarWidth,
         naiveTheme,
         themeOverrides,
-        switchThemeMode,
         setThemeColor,
+        toggleThemeMode,
         toggleSidebarCollapsed,
         toggleMobileSidebarVisible,
         toggleMixSidebarCollapsed,

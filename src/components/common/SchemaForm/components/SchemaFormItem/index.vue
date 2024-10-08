@@ -13,24 +13,18 @@ import { get, isArray, isFunction, isNumber, isString, isUndefined, omitBy } fro
 import useOmitProps from '@/hooks/common/useOmitProps'
 import { ColProps } from 'naive-ui'
 import useRenderIcon from '@/hooks/components/useRenderIcon'
-import useSchemaFormItemUtils
-  from '@/components/common/SchemaForm/components/SchemaFormItem/hooks/useSchemaFormItemUtils'
+import {
+  componentFunction,
+  generatePlaceholder,
+  generateRule,
+  handleRulePresets
+} from '@/components/common/SchemaForm/utils'
 
 const schema = defineModel<UnwrapRefSchema>('schema', { required: true })
 
 const slots = useSlots()
 const { schemaFormProps, model, getModelValue, setModelValue } = useSchemaFormContext()!
 const { RenderUnoIcon } = useRenderIcon()
-const {
-  generateRule,
-  handleRulePresets,
-  isCheckedBind,
-  isDateComponent,
-  isTimeComponent,
-  generatePlaceholder,
-  isMapPlaceholderComponent,
-  isMapOptionsComponent
-} = useSchemaFormItemUtils()
 
 // 回调参数
 const callbackParams = computed(() => ({
@@ -83,27 +77,25 @@ const FormItem = defineComponent(() => {
 
   const DynamicComponent = computed(() => schema.value.component ? SCHEMA_RENDER_COMPONENTS[schema.value.component] : undefined)
 
-  watch(model, () => {
-    console.log(model)
-  })
-
   // 动态组件属性
   const dynamicComponentAttribute = computed<Recordable>(() => {
     const { component, componentProps, placeholder, startPlaceholder, endPlaceholder, options } = schema.value
 
     if (!component) return {}
 
+    const { isDateComponent,isTimeComponent,isMapPlaceholder,isMapOptions } = componentFunction[component]
+
     // 需要映射的Props
     const mapProps: Recordable = {}
 
     // 处理默认日期格式
-    if (isDateComponent(component)) {
+    if (isDateComponent) {
       mapProps.format = schemaFormProps.defaultDateFormat
       mapProps.valueFormat = schemaFormProps.defaultDateValueFormat
     }
 
     // 处理默认时间格式
-    if (isTimeComponent(component)) {
+    if (isTimeComponent) {
       mapProps.format = schemaFormProps.defaultTimeFormat
       mapProps.valueFormat = schemaFormProps.defaultTimeValueFormat
     }
@@ -120,21 +112,20 @@ const FormItem = defineComponent(() => {
     }
 
     // 映射placeholder
-    if (placeholder && isMapPlaceholderComponent(component)) mapProps.placeholder = placeholder
+    if (placeholder && isMapPlaceholder) mapProps.placeholder = placeholder
 
     // 映射日期范围placeholder
     if (
         (startPlaceholder || endPlaceholder) &&
-        isDateComponent(component) &&
+        isDateComponent &&
         (componentProps as Recordable)?.type.includes('range')) {
       if (startPlaceholder) mapProps.startPlaceholder = startPlaceholder
       if (endPlaceholder) mapProps.endPlaceholder = endPlaceholder
     }
 
     // 映射 options
-    if (options && isMapOptionsComponent(component)) {
-      mapProps.options = options
-    }
+    if (options && isMapOptions) mapProps.options = options
+
     return {
       ...mapProps,
       ...componentProps
@@ -147,14 +138,13 @@ const FormItem = defineComponent(() => {
     if (!component) return
     if (!DynamicComponent.value) return console.error(`未找到该组件：${ component }`)
 
-    const bindType = schema.value?.vModelBind ? schema.value?.vModelBind : isCheckedBind(component) ? 'checked' : 'value'
-    console.log(getModelValue(schema.value.field as string))
+    const { isCheckedBind } = componentFunction[component]
+
+    const bindType = schema.value?.vModelBind ? schema.value?.vModelBind : isCheckedBind ? 'checked' : 'value'
+
     const modelBind = {
       [bindType]: getModelValue(schema.value.field as string),
-      [`onUpdate:${ bindType }`]: v => {
-        console.log(v)
-        setModelValue(schema.value.field as string, v)
-      },
+      [`onUpdate:${ bindType }`]: v => setModelValue(schema.value.field as string, v),
     }
 
     // 选项映射 checkbox 组件
@@ -196,7 +186,7 @@ const FormItem = defineComponent(() => {
     )
   }
 
-  const renderTooltip = (tooltip?:string) => {
+  const renderTooltip = (tooltip?: string) => {
     return (
         <n-tooltip>
           {
@@ -234,7 +224,7 @@ const FormItem = defineComponent(() => {
         isUndefined
     )
   }
-  
+
   return () => (
       <n-form-item
           key={ schema.value.label }

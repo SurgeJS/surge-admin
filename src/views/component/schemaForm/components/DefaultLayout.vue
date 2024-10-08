@@ -9,27 +9,27 @@ const { RenderUnoIcon } = useRenderIcon()
 const form = ref({
   name: {
     a: {
-      b: undefined
+      b: 'sad'
     }
   },
-  email: undefined,
-  age: undefined,
-  password: undefined,
-  confirmPassword: undefined,
-  status: undefined,
-  skill: undefined,
+  email: 'xxx',
+  age: null,
+  password: null,
+  confirmPassword: null,
+  status: null,
+  skill: null,
   date: null,
   dateRange: [],
-  startTime: undefined,
-  endTime: undefined,
-  area: undefined,
-  organization: undefined,
+  startTime: null,
+  endTime: null,
+  area: null,
+  organization: null,
   score: 3,
   show: true,
-  description: undefined
+  description: null
 })
 
-const emailAutoComplete = computed(() => [ '@gmail.com', '@163.com', '@qq.com' ].map(v => {
+const emailAutoComplete = computed(() => [ '@gmail.com', '@163.com', '@qq.com' ].map((v,index) => {
       const prefix = form.value.email?.split('@')[0]
       return {
         label: prefix + v,
@@ -37,7 +37,6 @@ const emailAutoComplete = computed(() => [ '@gmail.com', '@163.com', '@qq.com' ]
       }
     })
 )
-
 const schema = reactive<DefineSchema<typeof form.value>[]>([
   {
     field: 'name.a.b',
@@ -119,7 +118,7 @@ const schema = reactive<DefineSchema<typeof form.value>[]>([
   {
     field:'date',
     label: '日期',
-    vModelBind: 'formattedValue',
+    // vModelBind: 'formattedValue',
     component:'datePicker',
     showRequireMark: true,
   },
@@ -159,12 +158,12 @@ const schema = reactive<DefineSchema<typeof form.value>[]>([
       },
     ],
     // showRequireMark:true
-    // rule:{
-    //   required:true,
-    //   type: 'array',
-    //   message: 'xx',
-    //   trigger: 'change',
-    // }
+    rule:{
+      required:true,
+      type: 'array',
+      message: 'xx',
+      trigger: 'change',
+    }
   }
 ])
 const test = () => {

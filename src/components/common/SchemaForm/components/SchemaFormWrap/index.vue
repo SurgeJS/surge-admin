@@ -6,7 +6,7 @@ import { useSchemaFormContext } from '@/components/common/SchemaForm/hooks/useCo
 import { cloneDeep } from 'lodash-es'
 
 const props = defineProps<SchemaFormCommonProps>()
-const { model,setModelValue } = useSchemaFormContext()!
+const { model } = useSchemaFormContext()!
 
 const nFormProps = useOmitProps(props, [
   'formClass',
@@ -42,7 +42,7 @@ const setExpose = () => {
   commonExpose['restoreValidation'] = formRef.value.restoreValidation
 
   commonExpose['resetFields'] = () => {
-    model.value = { ...cloneDeep(initModel) }
+    model.value = cloneDeep(initModel)
     commonExpose.restoreValidation()
   }
 }

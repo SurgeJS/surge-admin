@@ -3,7 +3,7 @@
   margin: 0;
   box-sizing: border-box;
   scrollbar-width: thin;
-  scrollbar-color: theme('colors.fill.inverted') transparent;
+  scrollbar-color: theme('colors.fill.inverted') transparent!important;
 }
 
 html, body, #app {

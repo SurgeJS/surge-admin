@@ -37,7 +37,7 @@ const iconConfig = computed(() => {
   <hover-container
     :inverted="inverted"
     :tooltip="tooltip ? iconConfig.tooltip :undefined"
-    @click="appStore.switchThemeMode()"
+    @click="appStore.toggleThemeMode()"
   >
     <icon :icon="iconConfig.icon" />
   </hover-container>

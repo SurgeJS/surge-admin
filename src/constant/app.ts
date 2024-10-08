@@ -63,6 +63,7 @@ export default class AppConstant {
             base: 'rgba(60,60,60,.8)',
             secondary: 'rgba(60,60,60,.6)',
             tertiary: 'rgba(60,60,60,.4)',
+            inverted: 'rgba(100,100,100,.9)',
         },
         borderColor: {
             base: 'rgba(255,255,255,.24)',
