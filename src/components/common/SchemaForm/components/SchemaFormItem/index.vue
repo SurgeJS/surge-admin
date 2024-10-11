@@ -158,18 +158,33 @@ const FormItem = defineComponent(() => {
           </n-checkbox>))
     }
 
+    // 选项映射 radio 组件
+    const optionsMapRadioComponent = (options: OptionType[]) => {
+      return options.map(item => (
+          <n-radio
+              value={ item.value }
+              disabled={ item.disabled }
+          >
+            { item.label }
+          </n-radio>))
+    }
+
     // 动态组件插槽
     const dynamicComponentSlots = () => {
       const componentContent = schema.value.componentContent
-      const isMapCheckbox = schema.value.component === 'checkboxGroup' && schema.value.options
-      if (!componentContent && !(isMapCheckbox)) return undefined
+      const isOptionsTransformCheckbox = schema.value.component === 'checkboxGroup' && schema.value.options
+      const isOptionsTransformRadio = schema.value.component === 'radioGroup' && schema.value.options
+
+      if (!componentContent && !isOptionsTransformCheckbox && !isOptionsTransformRadio) return undefined
+
       const defaultSlot = (slot: Schema['componentContent']) => ({ default: () => slot })
 
       // 是否映射 checkbox 组件
-      if (isMapCheckbox) return defaultSlot(optionsMapCheckboxComponent(schema.value.options!))
+      if (isOptionsTransformCheckbox) return defaultSlot(optionsMapCheckboxComponent(schema.value.options!))
+      // 是否映射 radio 组件
+      if (isOptionsTransformRadio) return defaultSlot(optionsMapRadioComponent(schema.value.options!))
 
       // 组件默认插槽内容
-
       const content = callbackParamsFunction(componentContent)
 
       if (isArray(content) || isString(content) || isVNode(content)) return defaultSlot(content)

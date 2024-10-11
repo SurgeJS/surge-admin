@@ -1,6 +1,8 @@
 <script setup lang="ts">
 
 import DefaultLayout from '@/views/component/schemaForm/components/DefaultLayout.vue'
+import TwoColumnLayout from '@/views/component/schemaForm/components/TwoColumnLayout.vue'
+import ComplexLayout from '@/views/component/schemaForm/components/ComplexLayout.vue'
 
 const tabs = [
   {
@@ -9,11 +11,11 @@ const tabs = [
   },
   {
     name:'两栏布局',
-    component:DefaultLayout
+    component:TwoColumnLayout
   },
   {
     name:'复杂布局',
-    component:DefaultLayout
+    component:ComplexLayout
   },
   {
     name:'响应式表单',

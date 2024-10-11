@@ -111,7 +111,7 @@ const schema = reactive<DefineSchema<typeof form.value>[]>([
       type: 'password',
       showPasswordOn: 'click',
     },
-    showRequireMark: true,
+    colProps: 12,
   },
   {
     field: 'confirmPassword',
@@ -140,7 +140,8 @@ const schema = reactive<DefineSchema<typeof form.value>[]>([
           )
         },
       },
-    ]
+    ],
+    colProps: 12,
   },
   {
     field: 'status',
@@ -186,6 +187,36 @@ const schema = reactive<DefineSchema<typeof form.value>[]>([
     showRequireMark: true,
   },
   {
+    field: 'tags',
+    label: '标签',
+    component: 'dynamicTags',
+  },
+  {
+    field: 'color',
+    label: '颜色',
+    component: 'colorPicker',
+  },
+  {
+    field: 'mention',
+    label: '提及',
+    component: 'mention',
+    placeholder: '输入@符号进行提及',
+    options: [
+      {
+        label: 'Sleek',
+        value: 'Sleek'
+      },
+      {
+        label: '呼和浩特',
+        value: '呼和浩特'
+      },
+      {
+        label: '内蒙古',
+        value: '内蒙古'
+      }
+    ]
+  },
+  {
     field: 'skill',
     label: '技能',
     component: 'checkboxGroup',
@@ -222,36 +253,6 @@ const schema = reactive<DefineSchema<typeof form.value>[]>([
     ],
   },
   {
-    field: 'tags',
-    label: '标签',
-    component: 'dynamicTags',
-  },
-  {
-    field: 'color',
-    label: '颜色',
-    component: 'colorPicker',
-  },
-  {
-    field: 'mention',
-    label: '提及',
-    component: 'mention',
-    placeholder: '输入@符号进行提及',
-    options: [
-      {
-        label: 'Sleek',
-        value: 'Sleek'
-      },
-      {
-        label: '呼和浩特',
-        value: '呼和浩特'
-      },
-      {
-        label: '内蒙古',
-        value: '内蒙古'
-      }
-    ]
-  },
-  {
     field: 'workPlace',
     label: '工作地点',
     component: 'radioGroup',
@@ -274,26 +275,32 @@ const schema = reactive<DefineSchema<typeof form.value>[]>([
     field: 'score',
     label: '评分',
     component: 'rate',
-  },
-  {
-    field: 'schedule',
-    label: '进度',
-    component: 'slider',
+    colProps:4
   },
   {
     field: 'show',
     label: '启用',
     component: 'switch',
+    colProps:4
   },
+  {
+    field: 'schedule',
+    label: '进度',
+    component: 'slider',
+    colProps:24
+  },
+
   {
     field: 'startTime',
     label: '开始时间',
     component: 'timePicker',
+    colProps:12
   },
   {
     field: 'endTime',
     label: '结束时间',
     component: 'timePicker',
+    colProps:12
   },
   {
     field: 'userList',
@@ -304,13 +311,15 @@ const schema = reactive<DefineSchema<typeof form.value>[]>([
         value: i,
         label: `用户${ i }`,
       }
-    })
+    }),
+    colProps:24
   },
   {
     field: 'area',
     label: '地区',
     component: 'cascader',
-    options: area
+    options: area,
+    colProps:12
   },
   {
     field: 'organization',
@@ -319,7 +328,17 @@ const schema = reactive<DefineSchema<typeof form.value>[]>([
     componentProps:{
       keyField: 'value',
     },
-    options: area
+    options: area,
+    colProps:12
+  },
+  {
+    slot: 'test2',
+    colProps:12
+  },
+  {
+    label: '自定义插槽',
+    contentSlot: 'test',
+    colProps:12
   },
   {
     field: 'description',
@@ -328,13 +347,7 @@ const schema = reactive<DefineSchema<typeof form.value>[]>([
     componentProps:{
       type: 'textarea',
     },
-  },
-  {
-    slot: 'test2'
-  },
-  {
-    label: '自定义插槽',
-    contentSlot: 'test'
+    colProps:24
   },
 ])
 </script>
@@ -356,6 +369,7 @@ const schema = reactive<DefineSchema<typeof form.value>[]>([
         <schema-form
           v-model:model="form"
           v-model:schema="schema"
+          :col-props="8"
           show-require-mark
           label-width="80"
         >

@@ -16,7 +16,7 @@
   "dependencies": {
     "@ant-design/colors": "^7.1.0",
     "@iconify/utils": "^2.1.33",
-    "@tanstack/vue-query": "^5.59.1",
+    "@tanstack/vue-query": "^5.59.6",
     "@vueuse/components": "^11.1.0",
     "@vueuse/core": "^11.1.0",
     "@vueuse/motion": "^2.2.5",
@@ -28,7 +28,7 @@
     "lodash-es": "^4.17.21",
     "pinia": "^2.2.4",
     "store2": "^2.14.3",
-    "universal-cookie": "^7.2.0",
+    "universal-cookie": "^7.2.1",
     "vue": "^3.5.11",
     "vue-draggable-plus": "^0.5.3",
     "vue-router": "^4.4.5"
@@ -36,7 +36,7 @@
   "devDependencies": {
     "@eslint/js": "^9.12.0",
     "@faker-js/faker": "^8.4.1",
-    "@iconify/json": "^2.2.257",
+    "@iconify/json": "^2.2.258",
     "@iconify/types": "^2.0.0",
     "@iconify/vue": "^4.1.2",
     "@types/lodash-es": "^4.17.12",
@@ -52,7 +52,7 @@
     "sass": "^1.79.4",
     "simple-git-hooks": "^2.11.1",
     "terser": "^5.34.1",
-    "typescript": "^5.6.2",
+    "typescript": "^5.6.3",
     "typescript-eslint": "^8.8.1",
     "unocss": "^0.62.4",
     "unplugin-auto-import": "^0.18.3",

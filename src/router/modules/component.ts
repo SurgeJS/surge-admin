@@ -27,6 +27,13 @@ export default {
             meta: {
                 title: '表格'
             },
+        },
+        {
+            path: '/component/grid',
+            component: 'view',
+            meta: {
+                title: '栅格布局'
+            },
         }
     ]
 } satisfies AppRouteRecordRaw

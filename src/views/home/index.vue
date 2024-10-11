@@ -21,8 +21,11 @@ const model = ref({
   transferValue: null
 })
 const init = cloneDeep(model.value)
+const formRef = ref()
 const test = () => {
-  model.value = cloneDeep(init)
+  formRef.value?.validate((errors) => {
+    console.log(errors)
+  })
 }
 </script>
 
@@ -30,36 +33,31 @@ const test = () => {
   <div>
     <n-card>
       <n-button @click="test">xxx</n-button>
-      <icon-selector />
       <n-form
         ref="formRef"
         :model="model"
-        label-placement="top"
       >
-        <n-grid :cols="24" :x-gap="24">
-          <n-form-item-gi
-            :span="12"
-            label="Input"
-            path="inputValue"
-          >
-            <n-input v-model:value="model.inputValue" placeholder="Input" />
-          </n-form-item-gi>
-          <n-form-item-gi
-            :span="12"
-            label="Textarea"
-            path="textareaValue"
-          >
-            <n-input
-              v-model:value="model.textareaValue"
-              placeholder="Textarea"
-              type="textarea"
-              :autosize="{
-                minRows: 3,
-                maxRows: 5,
-              }"
-            />
-          </n-form-item-gi>
-        </n-grid>
+        <n-form-item
+          label="Input"
+          path="inputValue"
+          show-require-mark
+        >
+          <n-input v-model:value="model.inputValue" placeholder="Input" />
+        </n-form-item>
+        <n-form-item
+          label="Textarea"
+          path="textareaValue"
+        >
+          <n-input
+            v-model:value="model.textareaValue"
+            placeholder="Textarea"
+            type="textarea"
+            :autosize="{
+              minRows: 3,
+              maxRows: 5,
+            }"
+          />
+        </n-form-item>
       </n-form>
     </n-card>
   </div>

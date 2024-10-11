@@ -2,7 +2,7 @@ import { ComponentsName } from '@/components/common/SchemaForm/types/component'
 import { RulePresets, RulePresetsType, Schema } from '@/components/common/SchemaForm/types/type'
 import RegUtils from '@/utils/reg'
 import { FormItemRule } from 'naive-ui/es/form/src/interface'
-import { isString } from 'lodash-es'
+import { isArray, isString } from 'lodash-es'
 
 type ComponentFunction = Record<ComponentsName, {
     // 是否映射 占位符
@@ -25,9 +25,6 @@ type ComponentFunction = Record<ComponentsName, {
 
     // 组件的双向绑定是否是 Checked
     isCheckedBind?: boolean
-
-    // 规则类型
-    ruleType?: FormItemRule['type']
 }>
 
 export const componentFunction: ComponentFunction = {
@@ -35,13 +32,11 @@ export const componentFunction: ComponentFunction = {
         isInputComponent: true,
         isMapOptions: true,
         isMapPlaceholder: true,
-        ruleType: 'any'
     },
     cascader: {
         isSelectComponent: true,
         isMapOptions: true,
         isMapPlaceholder: true,
-        ruleType: 'any'
     },
     colorPicker: {
         isSelectComponent: true,
@@ -49,9 +44,7 @@ export const componentFunction: ComponentFunction = {
     checkbox: {
         isCheckedBind: true,
     },
-    checkboxGroup: {
-        isMapOptions: true,
-    },
+    checkboxGroup: {},
     datePicker: {
         isDateComponent: true,
         isMapPlaceholder: true,
@@ -77,7 +70,6 @@ export const componentFunction: ComponentFunction = {
         isCheckedBind: true,
     },
     radioGroup: {
-        isMapOptions: true,
     },
     select: {
         isSelectComponent: true,
@@ -162,12 +154,6 @@ export const generatePlaceholder = (label: Schema['label'], component: Component
     }
 }
 
-// 获取Rule类型
-export const getRuleType = (component: ComponentsName): FormItemRule['type'] => {
-    if ([ 'select', 'cascader', 'checkbox', ].includes(component)) return 'any'
-    return 'string'
-}
-
 // 生成规则
 export const generateRule = (label: Schema['label'], component: ComponentsName): FormItemRule => {
     const placeholder = defaultPlaceholder(label)
@@ -180,7 +166,14 @@ export const generateRule = (label: Schema['label'], component: ComponentsName):
     return {
         required: true,
         message,
-        type: getRuleType(component),
+        validator(rule: FormItemRule, value: any) {
+            if (value === null ||
+                value === undefined ||
+                value === '' ||
+                (isArray(value) && value.length === 0))
+                return new Error(message)
+            return true
+        },
         trigger: isInputComponent ? 'blur' : 'change'
     }
 }

@@ -212,12 +212,12 @@ const onFinishFailed = () => {
     :on-finish-failed="onFinishFailed"
   >
     <template #test>
-      <div class="text-white bg-red h-full flex-center">
+      <div class="text-white bg-primary h-full flex-center">
         这是一个<span class="text-black">包含</span>FormItem自定义插槽
       </div>
     </template>
     <template #test2>
-      <div class="text-white bg-red h-full flex-center">
+      <div class="text-white bg-primary h-full flex-center">
         这是一个<span class="text-black">不包含</span>FormItem自定义插槽
       </div>
     </template>

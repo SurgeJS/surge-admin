@@ -10,7 +10,7 @@ const [ isShow,toggleShow ] = useToggle()
     <template #extra>
       <a-button type="primary" @click="toggleShow()">{{ isShow ? '隐藏':'显示' }}</a-button>
     </template>
-    <div class="w-100px h-0px p-[10px] bg-red" />
+    <div class="w-100px h-0px p-[10px] bg-primary" />
     <a-flex justify="space-between">
       <a-card
         class="h-450px w-full"
