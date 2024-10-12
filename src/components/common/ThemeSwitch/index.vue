@@ -23,10 +23,6 @@ const iconConfig = computed(() => {
       icon = 'i-ic:baseline-wb-sunny'
       tooltip = '明亮模式'
       break
-    case 'system':
-      icon = 'i-ic:round-hdr-auto'
-      tooltip = '跟随系统'
-      break
   }
   return { icon, tooltip }
 })

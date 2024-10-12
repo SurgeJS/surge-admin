@@ -132,6 +132,7 @@ const useAppStore = defineStore('App', () => {
     // 切换主题模式跟随系统
     const toggleThemeModeFollowingSystem = (isFollow?: boolean) => {
         appStore.themeModeFollowingSystem = isFollow ?? !appStore.themeModeFollowingSystem
+        appStore.themeMode = appStore.themeModeFollowingSystem ? osTheme.value as ThemeMode : appStore.themeMode
     }
 
     // 生成色板
@@ -211,7 +212,6 @@ const useAppStore = defineStore('App', () => {
                 textColorDisabledPrimary: textColor?.base
             }
         }
-
         themeOverrides.value = merge(naiveThemeOverride, AppConstant.NAIVE_THEME_CONFIG[appStore.themeMode])
     }
 
@@ -232,20 +232,16 @@ const useAppStore = defineStore('App', () => {
         adaptNaiveTheme(colors, mergeTheme)
     }
 
-    // 监听 主题模式 & 主题颜色 & 操作系统主题 的变化
-    watch([ () => appStore.themeMode, () => appStore.themeColor,osTheme ], () => {
+    // 监听 主题模式 & 主题颜色 的变化
+    watch([ () => appStore.themeMode, () => appStore.themeColor ], () => {
         temporaryClearTransition(updateTheme)
-    }, { immediate: true })
+    },{ immediate:true })
 
-    // 监听操作系统主题 变化
-    watch(osTheme, () => {
-        if (!appStore.themeModeFollowingSystem) return
-        temporaryClearTransition(updateTheme)
-    })
-
-    watch(() => appStore.themeModeFollowingSystem, () => {
-        
-    },{ immediate: true })
+    // // 监听操作系统主题 变化
+    // watch(osTheme, () => {
+    //     if (!appStore.themeModeFollowingSystem) return
+    //     toggleThemeMode(osTheme.value as ThemeMode)
+    // })
 
     return {
         ...appStoreRefs,

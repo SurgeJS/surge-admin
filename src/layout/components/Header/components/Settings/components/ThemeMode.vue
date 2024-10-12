@@ -1,16 +1,23 @@
 <script lang="ts" setup>
 import useAppStore from '@/store/modules/app'
 
-const { toggleThemeMode,toggleThemeModeFollowingSystem } = useAppStore()
+const appStore = useAppStore()
 
-const update = (v:ThemeMode & 'system') => {
+const tab = ref('system')
+
+const update = (v: ThemeMode & 'system') => {
   if (v === 'system') {
-    toggleThemeModeFollowingSystem(true)
+    appStore.toggleThemeModeFollowingSystem(true)
   } else {
-    toggleThemeModeFollowingSystem(false)
-    toggleThemeMode(v)
+    appStore.toggleThemeModeFollowingSystem(false)
+    appStore.toggleThemeMode(v)
   }
 }
+onMounted(() => {
+  console.log(appStore)
+  tab.value = appStore.themeModeFollowingSystem ? 'system' : appStore.themeMode
+  console.log(appStore.themeModeFollowingSystem)
+})
 </script>
 
 <template>
@@ -19,6 +26,7 @@ const update = (v:ThemeMode & 'system') => {
   </n-divider>
   <n-flex>
     <n-tabs
+      v-model:value="tab"
       type="segment"
       animated
       @update:value="update"
