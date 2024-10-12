@@ -1,9 +1,8 @@
-export interface GridProps {
-    // 间距
-    gap?: number | [ number, number ]
+// export type RowGutter =
 
-    // 显示的栅格数量
-    cols?: number
+export interface RowProps {
+    // 间距
+    gutter?: number | [ number, number ]
 
     // 是否折叠
     collapsed?: boolean

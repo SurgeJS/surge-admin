@@ -1,7 +1,16 @@
 <script lang="ts" setup>
 import useAppStore from '@/store/modules/app'
 
-const appStore = useAppStore()
+const { toggleThemeMode,toggleThemeModeFollowingSystem } = useAppStore()
+
+const update = (v:ThemeMode & 'system') => {
+  if (v === 'system') {
+    toggleThemeModeFollowingSystem(true)
+  } else {
+    toggleThemeModeFollowingSystem(false)
+    toggleThemeMode(v)
+  }
+}
 </script>
 
 <template>
@@ -10,9 +19,9 @@ const appStore = useAppStore()
   </n-divider>
   <n-flex>
     <n-tabs
-      v-model:value="appStore.themeMode"
       type="segment"
       animated
+      @update:value="update"
     >
       <n-tab-pane name="light" tab="第一章">
         <template #tab>

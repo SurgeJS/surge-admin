@@ -7,9 +7,6 @@ export type LayoutMode = 'side' | 'mix-side' | 'top'
 // 布局风格: 侧边暗黑 | 侧边顶部暗黑 | 侧边顶部明亮
 export type LayoutStyle = 'side-dark' | 'side-top-dark' | 'side-top-light'
 
-// 主题模式: 明亮 | 暗黑 | 跟随系统
-export type ThemeMode = 'light' | 'dark' | 'system'
-
 export type Option<T> = {
     value: T
     label: string
@@ -52,6 +49,9 @@ export interface AppStore {
 
     // 主题模式
     themeMode: ThemeMode
+
+    // 主题模式跟随系统
+    themeModeFollowingSystem?:boolean
 
     // 是否开启页面切换动画
     isPageStartAnimation: boolean

@@ -70,7 +70,7 @@ const useTabBarStore = defineStore('TabBar', {
         // 刷新当前激活的路由
         async refresh() {
             const appStore = useAppStore()
-            appStore.setFullScreenLoading(false)
+            appStore.toggleFullScreenLoading(false)
             this.refreshFlag = false
             await asyncWait(this.refreshWaitDuration)
             this.refreshFlag = true

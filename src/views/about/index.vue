@@ -33,7 +33,7 @@ const value = ref()
 
 const test = () => {
   // b.value.test = 222
-  // appStore.setFullScreenLoading(true)
+  // appStore.toggleFullScreenLoading(true)
   console.log(value.value)
 }
 

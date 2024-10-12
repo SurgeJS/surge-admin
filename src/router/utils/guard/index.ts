@@ -9,7 +9,7 @@ const createRouterGuard = (router: Router) => {
         const appStore = useAppStore()
         window.$loadingBar?.start()
         // 跳转之前取消全局loading
-        appStore.setFullScreenLoading(false)
+        appStore.toggleFullScreenLoading(false)
         // 鉴权守卫
         createAuthGuard(to, from, next)
     })

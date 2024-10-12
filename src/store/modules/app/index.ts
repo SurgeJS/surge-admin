@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { AppStore, ThemeMode } from '@/store/modules/app/type'
+import { AppStore } from '@/store/modules/app/type'
 import { darkTheme, GlobalThemeOverrides, lightTheme, useOsTheme } from 'naive-ui'
 import { appCache } from '@/store/caches'
 import { setCSSVariable, temporaryClearTransition, toKebabCase } from '@/utils'
@@ -11,72 +11,51 @@ import { cloneDeep, merge } from 'lodash-es'
 export const initialAppStore: AppStore = {
     // 主题颜色
     themeColor: AppConstant.PRIMARY_COLOR,
-
     // 主题模式
-    themeMode: 'system',
-
+    themeMode: 'light',
+    // 主题模式跟随系统
+    themeModeFollowingSystem: true,
     // 是否开启页面切换动画
     isPageStartAnimation: true,
-
     // 页面动画
     pageAnimationMode: 'zoom-fade',
-
     // 布局模式
     layoutMode: 'side',
-
     // 布局风格
     layoutStyle: 'side-dark',
-
     // 移动端触发宽度
     mobileTriggerWidth: AppConstant.MOBILE_TRIGGER_WIDTH,
-
     // 是否移动端
     isMobile: document.body.offsetWidth <= AppConstant.MOBILE_TRIGGER_WIDTH,
-
     // 全屏loading
     fullScreenLoading: false,
-
     // 是否折叠侧边栏
     isCollapsedSidebar: false,
-
     // 是否折叠混合侧边栏
     isCollapsedMixSidebar: false,
-
     // 是否固定混合侧边栏
     isFixedMixSidebarDrawer: false,
-
     // 混合侧边栏抽屉是否可见
     mixSidebarDrawerVisible: false,
-
     // 菜单是否开启手风琴模式
     isMenuAccordion: true,
-
     // 移动端 menu 可见
     mobileSidebarVisible: false,
-
     // 侧边栏宽度
     sidebarWidth: 220,
-
     // 混合侧边栏宽度
     mixSidebarWidth: 94,
-
     // 折叠侧边栏的宽度
     collapsedSidebarWidth: 56,
-
     // 是否开启面包屑
     breadcrumbVisible: true,
-
     // 标签栏可见
     tabBarVisible: true,
-
     // 头部高度
     headerHeight: 56,
-
     // 标签栏高度
     tabBarHeight: 44,
-
     footerVisible: true,
-
     footerHeight: 40
 }
 
@@ -88,7 +67,7 @@ const useAppStore = defineStore('App', () => {
     const themeOverrides = ref<GlobalThemeOverrides>()
 
     // 是否暗黑模式
-    const isDark = computed(() => (appStore.themeMode === 'system' && osTheme.value === 'dark') || appStore.themeMode === 'dark')
+    const isDark = computed(() => (appStore.themeModeFollowingSystem && osTheme.value === 'dark') || appStore.themeMode === 'dark')
     // 是否明亮模式
     const isLight = computed(() => !isDark.value)
     // 是否反转侧边栏
@@ -132,7 +111,8 @@ const useAppStore = defineStore('App', () => {
         appStore.isFixedMixSidebarDrawer = isFixedMix ?? !appStore.isFixedMixSidebarDrawer
     }
 
-    const setFullScreenLoading = (isShow?: boolean) => {
+    // 切换全屏loading
+    const toggleFullScreenLoading = (isShow?: boolean) => {
         appStore.fullScreenLoading = isShow ?? !appStore.fullScreenLoading
     }
 
@@ -141,30 +121,26 @@ const useAppStore = defineStore('App', () => {
     }
 
     // 切换主题模式
-    const toggleThemeMode = (mode?:ThemeMode) => {
+    const toggleThemeMode = (mode?: ThemeMode) => {
         if (mode) {
             appStore.themeMode = mode
         } else {
-            switch (appStore.themeMode) {
-                case 'light':
-                    appStore.themeMode = 'dark'
-                    break
-                case 'dark':
-                    appStore.themeMode = 'system'
-                    break
-                case 'system':
-                    appStore.themeMode = 'light'
-            }
+            appStore.themeMode = appStore.themeMode === 'light' ? 'dark' : 'light'
         }
+    }
+
+    // 切换主题模式跟随系统
+    const toggleThemeModeFollowingSystem = (isFollow?: boolean) => {
+        appStore.themeModeFollowingSystem = isFollow ?? !appStore.themeModeFollowingSystem
     }
 
     // 生成色板
     const generateColorPalette = (color: string) => generate(color, {
-        theme: isDark.value ? 'dark' : 'default',
+        theme: isDark.value ? 'dark' : 'default'
     })
 
     // 生成主题css变量
-    const generateThemeCSSVariables = (theme: Theme) => {
+    const generateThemeCSSVariables = (theme: Theme & NeutralTheme) => {
         Object.keys(theme).forEach(key => {
             const variable = Object.keys(theme[key]).reduce((obj, item) => {
                 obj[`${ toKebabCase(key) }-${ item }`] = theme[key][item]
@@ -183,30 +159,21 @@ const useAppStore = defineStore('App', () => {
         setCSSVariable(variable)
     }
 
-    // 更新主题
-    const updateTheme = () => {
-        // 自定义 naive 组件主题
-        const customizeOverrides = !isDark.value ? AppConstant.NAIVE_COMPONENT_LIGHT_THEME : AppConstant.NAIVE_COMPONENT_DARK_THEME
-        // 自定义主题
-        const theme = isDark.value ? AppConstant.DARK_THEME : AppConstant.LIGHT_THEME
-        // 生成主题色色板
-        const colors = generateColorPalette(appStore.themeColor)
-
-        // 生成主题色CSS变量
-        generatePaletteCSSVariables('primary', colors)
-
-        // 生成主题CSS变量
-        generateThemeCSSVariables(theme)
-
-        const { backgroundColor, textColor, borderColor, borderRadius } = theme
-
+    // 适配 Naive 主题
+    const adaptNaiveTheme = (gradientTheme: string[], {
+        backgroundColor,
+        textColor,
+        borderColor,
+        borderRadius,
+        textSize
+    }: Theme & NeutralTheme) => {
         const naiveThemeOverride: GlobalThemeOverrides = {
             common: {
                 /* 主题色 */
-                primaryColor: colors[5],
-                primaryColorHover: colors[4],
-                primaryColorPressed: colors[5],
-                primaryColorSuppl: colors[6],
+                primaryColor: gradientTheme[5],
+                primaryColorHover: gradientTheme[4],
+                primaryColorPressed: gradientTheme[5],
+                primaryColorSuppl: gradientTheme[6],
                 /* 文字颜色 */
                 textColor1: textColor?.base,
                 textColor2: textColor?.secondary,
@@ -220,6 +187,13 @@ const useAppStore = defineStore('App', () => {
                 popoverColor: backgroundColor?.layer,
                 /* 边框颜色 */
                 borderColor: borderColor?.base,
+                /* 字体大小 */
+                fontSize: textSize?.md,
+                fontSizeMini: textSize?.sm,
+                fontSizeTiny: textSize?.sm,
+                fontSizeSmall: textSize?.sm,
+                fontSizeLarge: textSize?.lg,
+                fontSizeHuge: textSize?.lg,
                 /* 边框圆角 */
                 borderRadius: borderRadius?.md,
                 borderRadiusSmall: borderRadius?.sm
@@ -227,25 +201,51 @@ const useAppStore = defineStore('App', () => {
             Layout: {
                 textColorInverted: textColor?.inverted,
                 siderBorderColorInverted: borderColor?.inverted,
-                headerBorderColorInverted: borderColor?.inverted,
+                headerBorderColorInverted: borderColor?.inverted
             },
             Button: {
-                textColorPrimary: 'rgba(255, 255, 255, .9)',
-                textColorHoverPrimary: 'rgba(255, 255, 255, .9)',
-                textColorPressedPrimary: 'rgba(255, 255, 255, .9)',
-                textColorFocusPrimary: 'rgba(255, 255, 255, .9)',
-                textColorDisabledPrimary: 'rgba(255, 255, 255, .9)',
+                textColorPrimary: textColor?.base,
+                textColorHoverPrimary: textColor?.base,
+                textColorPressedPrimary: textColor?.base,
+                textColorFocusPrimary: textColor?.base,
+                textColorDisabledPrimary: textColor?.base
             }
         }
 
-        themeOverrides.value = merge(naiveThemeOverride, customizeOverrides)
+        themeOverrides.value = merge(naiveThemeOverride, AppConstant.NAIVE_THEME_CONFIG[appStore.themeMode])
     }
 
-    // 监听 主题模式 | 主题颜色 | 操作系统主题 变化
-    watch([ () => appStore.themeMode, () => appStore.themeColor, osTheme ], () => {
-        // 临时清除全局的过渡效果
+    // 更新主题
+    const updateTheme = () => {
+        // 中性主题
+        const neuterTheme = AppConstant.THEME_MODE_CONFIG[appStore.themeMode]
+        // 生成主题色色板
+        const colors = generateColorPalette(appStore.themeColor)
+        // 合并主题
+        const mergeTheme = merge(AppConstant.THEME, neuterTheme)
+
+        // 生成主题色CSS变量
+        generatePaletteCSSVariables('primary', colors)
+        // 生成主题CSS变量
+        generateThemeCSSVariables(mergeTheme)
+        // 适配 Naive 主题
+        adaptNaiveTheme(colors, mergeTheme)
+    }
+
+    // 监听 主题模式 & 主题颜色 & 操作系统主题 的变化
+    watch([ () => appStore.themeMode, () => appStore.themeColor,osTheme ], () => {
         temporaryClearTransition(updateTheme)
     }, { immediate: true })
+
+    // 监听操作系统主题 变化
+    watch(osTheme, () => {
+        if (!appStore.themeModeFollowingSystem) return
+        temporaryClearTransition(updateTheme)
+    })
+
+    watch(() => appStore.themeModeFollowingSystem, () => {
+        
+    },{ immediate: true })
 
     return {
         ...appStoreRefs,
@@ -259,12 +259,13 @@ const useAppStore = defineStore('App', () => {
         themeOverrides,
         setThemeColor,
         toggleThemeMode,
+        toggleThemeModeFollowingSystem,
         toggleSidebarCollapsed,
         toggleMobileSidebarVisible,
         toggleMixSidebarCollapsed,
         toggleMixSidebarDrawerVisible,
         toggleFixedMixSidebarDrawer,
-        setFullScreenLoading,
+        toggleFullScreenLoading,
         updateMobile
     }
 })

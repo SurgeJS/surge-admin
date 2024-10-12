@@ -1,26 +1,14 @@
 <script setup lang="ts">
 
+// const data = useBreakpoints({
+//   breakpointsTailwind
+// })
+// data
 </script>
 
 <template>
   <div>
-    <grid :cols="8">
-      <grid-item span="2">
-        <span class="h-100px bg-primary flex-center text-white rounded-md">1</span>
-      </grid-item>
-      <grid-item span="3">
-        <span class="h-100px bg-primary flex-center text-white rounded-md">1</span>
-      </grid-item>
-      <grid-item span="2">
-        <span class="h-100px bg-primary flex-center text-white rounded-md">1</span>
-      </grid-item>
-      <grid-item span="1">
-        <span class="h-100px bg-primary flex-center text-white rounded-md">1</span>
-      </grid-item>
-      <grid-item span="3">
-        <span class="h-100px bg-primary flex-center text-white rounded-md">1</span>
-      </grid-item>
-    </grid>
+    <p class="sm:bg-red bg-black">11</p>
   </div>
 </template>
 
