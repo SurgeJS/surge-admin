@@ -14,6 +14,7 @@ const copyCurrentConfig = () => {
 
 const resetCurrentConfig = () => {
   appStore.$patch(cloneDeep(initialAppStore))
+  appStore.initTheme()
 }
 </script>
 

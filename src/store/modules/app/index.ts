@@ -80,10 +80,18 @@ const useAppStore = defineStore('App', () => {
     const dynamicMixSidebarWidth = computed(() => appStore.isCollapsedMixSidebar ? appStore.collapsedSidebarWidth : appStore.mixSidebarWidth)
     // naive主题
     const naiveTheme = computed(() => isDark.value ? darkTheme : lightTheme)
+    // 主题色色板
+    const primaryColorsPalette = computed(()=>generateColorPalette(appStore.themeColor))
+
+
+    const updateMobile = () => {
+        appStore.isMobile = document.body.offsetWidth <= appStore.mobileTriggerWidth
+    }
 
     // 设置主题颜色
     const setThemeColor = (color: string) => {
         appStore.themeColor = color
+        temporaryClearTransition(updateTheme)
     }
 
     // 切换Sidebar折叠
@@ -116,10 +124,6 @@ const useAppStore = defineStore('App', () => {
         appStore.fullScreenLoading = isShow ?? !appStore.fullScreenLoading
     }
 
-    const updateMobile = () => {
-        appStore.isMobile = document.body.offsetWidth <= appStore.mobileTriggerWidth
-    }
-
     // 切换主题模式
     const toggleThemeMode = (mode?: ThemeMode) => {
         if (mode) {
@@ -127,12 +131,15 @@ const useAppStore = defineStore('App', () => {
         } else {
             appStore.themeMode = appStore.themeMode === 'light' ? 'dark' : 'light'
         }
+        appStore.themeModeFollowingSystem = false
+        temporaryClearTransition(updateTheme)
     }
 
     // 切换主题模式跟随系统
     const toggleThemeModeFollowingSystem = (isFollow?: boolean) => {
         appStore.themeModeFollowingSystem = isFollow ?? !appStore.themeModeFollowingSystem
-        appStore.themeMode = appStore.themeModeFollowingSystem ? osTheme.value as ThemeMode : appStore.themeMode
+        // 开启跟随系统后，设置主题模式
+        appStore.themeModeFollowingSystem && toggleThemeMode(osTheme.value as ThemeMode)
     }
 
     // 生成色板
@@ -205,11 +212,7 @@ const useAppStore = defineStore('App', () => {
                 headerBorderColorInverted: borderColor?.inverted
             },
             Button: {
-                textColorPrimary: textColor?.base,
-                textColorHoverPrimary: textColor?.base,
-                textColorPressedPrimary: textColor?.base,
-                textColorFocusPrimary: textColor?.base,
-                textColorDisabledPrimary: textColor?.base
+
             }
         }
         themeOverrides.value = merge(naiveThemeOverride, AppConstant.NAIVE_THEME_CONFIG[appStore.themeMode])
@@ -219,29 +222,23 @@ const useAppStore = defineStore('App', () => {
     const updateTheme = () => {
         // 中性主题
         const neuterTheme = AppConstant.THEME_MODE_CONFIG[appStore.themeMode]
-        // 生成主题色色板
-        const colors = generateColorPalette(appStore.themeColor)
         // 合并主题
         const mergeTheme = merge(AppConstant.THEME, neuterTheme)
 
         // 生成主题色CSS变量
-        generatePaletteCSSVariables('primary', colors)
+        generatePaletteCSSVariables('primary', primaryColorsPalette.value)
         // 生成主题CSS变量
         generateThemeCSSVariables(mergeTheme)
         // 适配 Naive 主题
-        adaptNaiveTheme(colors, mergeTheme)
+        adaptNaiveTheme(primaryColorsPalette.value, mergeTheme)
     }
 
-    // 监听 主题模式 & 主题颜色 的变化
-    watch([ () => appStore.themeMode, () => appStore.themeColor ], () => {
-        temporaryClearTransition(updateTheme)
-    },{ immediate:true })
-
-    // // 监听操作系统主题 变化
-    // watch(osTheme, () => {
-    //     if (!appStore.themeModeFollowingSystem) return
-    //     toggleThemeMode(osTheme.value as ThemeMode)
-    // })
+    // 初始化主题
+    const initTheme = () => {
+        appStore.themeModeFollowingSystem ?
+            toggleThemeMode(osTheme.value as ThemeMode) :
+            toggleThemeMode(appStore.themeMode)
+    }
 
     return {
         ...appStoreRefs,
@@ -253,6 +250,7 @@ const useAppStore = defineStore('App', () => {
         dynamicMixSidebarWidth,
         naiveTheme,
         themeOverrides,
+        primaryColorsPalette,
         setThemeColor,
         toggleThemeMode,
         toggleThemeModeFollowingSystem,
@@ -262,7 +260,8 @@ const useAppStore = defineStore('App', () => {
         toggleMixSidebarDrawerVisible,
         toggleFixedMixSidebarDrawer,
         toggleFullScreenLoading,
-        updateMobile
+        updateMobile,
+        initTheme
     }
 })
 

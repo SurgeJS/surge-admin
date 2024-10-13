@@ -13,11 +13,10 @@ const update = (v: ThemeMode & 'system') => {
     appStore.toggleThemeMode(v)
   }
 }
-onMounted(() => {
-  console.log(appStore)
-  tab.value = appStore.themeModeFollowingSystem ? 'system' : appStore.themeMode
-  console.log(appStore.themeModeFollowingSystem)
-})
+
+watch(() => appStore.themeModeFollowingSystem, (isFollow) => {
+  tab.value = isFollow ? 'system' : appStore.themeMode
+},{ immediate:true })
 </script>
 
 <template>
@@ -31,17 +30,17 @@ onMounted(() => {
       animated
       @update:value="update"
     >
-      <n-tab-pane name="light" tab="第一章">
+      <n-tab-pane name="light">
         <template #tab>
           <icon icon="i-ic:baseline-wb-sunny" />
         </template>
       </n-tab-pane>
-      <n-tab-pane name="dark" tab="第二章">
+      <n-tab-pane name="dark">
         <template #tab>
           <icon icon="i-ic:sharp-dark-mode" />
         </template>
       </n-tab-pane>
-      <n-tab-pane name="system" tab="第三章">
+      <n-tab-pane name="system">
         <template #tab>
           <icon icon="i-ic:round-hdr-auto" />
         </template>
@@ -51,25 +50,5 @@ onMounted(() => {
 </template>
 
 <style lang="scss" scoped>
-.themeSwitch {
-  background: #464e62;
 
-  &:hover {
-    background: #464e62;
-  }
-
-  &.ant-switch-checked {
-    background: #464e62;
-
-    &:hover {
-      background: #464e62;
-    }
-  }
-
-  :deep(.ant-switch-inner-checked), :deep(.ant-switch-inner-unchecked) {
-    display: flex;
-    align-items: center;
-    height: 100%;
-  }
-}
 </style>

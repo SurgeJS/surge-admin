@@ -87,7 +87,15 @@ export default class AppConstant {
     // naive 组件主题配置
     static NAIVE_THEME_CONFIG: Record<ThemeMode, GlobalThemeOverrides> = {
         light: {},
-        dark: {}
+        dark: {
+            Button:{
+                textColorPrimary: 'rgba(255, 255, 255, .9)',
+                textColorHoverPrimary: 'rgba(255, 255, 255, .9)',
+                textColorPressedPrimary: 'rgba(255, 255, 255, .9)',
+                textColorFocusPrimary: 'rgba(255, 255, 255, .9)',
+                textColorDisabledPrimary: 'rgba(255, 255, 255, .9)'
+            }
+        }
     }
 
     // 系统主题色预设
