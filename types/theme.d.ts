@@ -25,7 +25,7 @@ declare interface Theme {
     borderRadius?: ThemeBorderRadius
 
     // 屏幕断点
-    screenBreakpoint?:ScreenBreakpoint
+    breakpoints?:Breakpoints
 }
 
 // 主题模式配置
@@ -116,7 +116,7 @@ declare interface ThemeBorderRadius {
 }
 
 // 屏幕断点
-declare interface ScreenBreakpoint {
+declare interface Breakpoints {
     xs: number
 
     sm: number

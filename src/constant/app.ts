@@ -19,7 +19,7 @@ export default class AppConstant {
             md: '4px',
             lg: '8px'
         },
-        screenBreakpoint: {
+        breakpoints: {
             xs: 576,
             sm: 1200,
             md: 1200,

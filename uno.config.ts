@@ -101,6 +101,13 @@ export default defineConfig<Theme>({
             sm: 'var(--border-radius-sm)',
             md: 'var(--border-radius-md)',
             lg: 'var(--border-radius-lg)',
+        },
+        breakpoints:{
+            xs: 'var(--breakpoints-xs)',
+            sm: 'var(--breakpoints-sm)',
+            md: 'var(--breakpoints-md)',
+            lg: 'var(--breakpoints-lg)',
+            xl: 'var(--breakpoints-xl)',
         }
     },
 })

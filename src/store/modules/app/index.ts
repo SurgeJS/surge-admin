@@ -79,10 +79,9 @@ const useAppStore = defineStore('App', () => {
     // 动态混合侧边栏宽度
     const dynamicMixSidebarWidth = computed(() => appStore.isCollapsedMixSidebar ? appStore.collapsedSidebarWidth : appStore.mixSidebarWidth)
     // naive主题
-    const naiveTheme = computed(() => isDark.value ? darkTheme : lightTheme)
+    const naiveTheme = computed(() => isLight.value ? lightTheme : darkTheme )
     // 主题色色板
     const primaryColorsPalette = computed(()=>generateColorPalette(appStore.themeColor))
-
 
     const updateMobile = () => {
         appStore.isMobile = document.body.offsetWidth <= appStore.mobileTriggerWidth
@@ -139,7 +138,10 @@ const useAppStore = defineStore('App', () => {
     const toggleThemeModeFollowingSystem = (isFollow?: boolean) => {
         appStore.themeModeFollowingSystem = isFollow ?? !appStore.themeModeFollowingSystem
         // 开启跟随系统后，设置主题模式
-        appStore.themeModeFollowingSystem && toggleThemeMode(osTheme.value as ThemeMode)
+        if (appStore.themeModeFollowingSystem){
+            appStore.themeMode = osTheme.value as ThemeMode
+            temporaryClearTransition(updateTheme)
+        }
     }
 
     // 生成色板
