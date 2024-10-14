@@ -15,7 +15,7 @@ const update = (v: ThemeMode & 'system') => {
 }
 
 const railStyle = ({ focused, checked }) => {
-  return { background :'#222330' }
+  return { background :'#464e62' }
 }
 </script>
 
@@ -49,7 +49,7 @@ const railStyle = ({ focused, checked }) => {
     <context-menu label="跟随系统">
       <n-switch :rail-style="railStyle" size="large">
         <template #checked-icon>
-          <icon class="text-primary" icon="i-ic:round-hdr-auto" />
+          <icon icon="i-ic:round-hdr-auto" />
         </template>
         <template #unchecked-icon>
           <icon icon="i-ic:baseline-minus" />
