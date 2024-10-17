@@ -2,11 +2,13 @@
 import { defineConfig, presetIcons, presetUno, transformerDirectives } from 'unocss'
 import { FileSystemIconLoader } from '@iconify/utils/lib/loader/node-loaders'
 import { Theme } from '@unocss/preset-uno'
+import AppConstant from './src/constant/app'
 
+const { SCREEN_BREAKPOINTS } = AppConstant
 export default defineConfig<Theme>({
     content: {
         pipeline: {
-            exclude: [ 'node_modules', 'dist' ],
+            exclude: [ 'node_modules', 'dist' ]
         }
     },
     transformers: [
@@ -23,7 +25,7 @@ export default defineConfig<Theme>({
             },
             collections: {
                 // 加载本地SVG 使用方式: i-local:xxx
-                'local': FileSystemIconLoader('./src/assets/svg'),
+                'local': FileSystemIconLoader('./src/assets/svg')
             }
         })
     ],
@@ -47,67 +49,72 @@ export default defineConfig<Theme>({
         'bg-container': 'bg-container',
         'bg-layout': 'bg-layout',
         'bg-layer': 'bg-layer',
-        'bg-inverted': 'bg-inverted',
+        'bg-inverted': 'bg-inverted'
     },
     theme: {
         colors: {
             // 主色
-            'primary': 'var(--primary-5)',
+            primary: 'var(--primary-5)',
             // 浅主色
-            'primary-shallow': 'var(--primary-2)',
+            primaryShallow: 'var(--primary-2)',
             // 填充色
-            'fill': {
+            fill: {
                 // 一级填充色
-                'base': 'var(--fill-color-base)',
+                base: 'var(--fill-color-base)',
                 // 二级填充色
-                'secondary': 'var(--fill-color-secondary)',
+                secondary: 'var(--fill-color-secondary)',
                 // 三级填充色
-                'tertiary': 'var(--fill-color-tertiary)',
+                tertiary: 'var(--fill-color-tertiary)',
                 // 反转
-                'inverted': 'var(--fill-color-inverted)',
-            },
+                inverted: 'var(--fill-color-inverted)'
+            }
         },
         textColor: {
             // 一级文本色
-            'base': 'var(--text-color-base)',
+            base: 'var(--text-color-base)',
             // 二级级文本色
-            'secondary': 'var(--text-color-secondary)',
+            secondary: 'var(--text-color-secondary)',
             // 三级文本色
-            'tertiary': 'var(--text-color-tertiary)',
+            tertiary: 'var(--text-color-tertiary)',
             // 反转
-            'inverted': 'var(--text-color-inverted)',
+            inverted: 'var(--text-color-inverted)'
         },
         backgroundColor: {
             // 布局背景色
-            'layout': 'var(--background-color-layout)',
+            layout: 'var(--background-color-layout)',
             // 容器背景色
-            'container': 'var(--background-color-container)',
+            container: 'var(--background-color-container)',
             // 浮层背景色
-            'layer': 'var(--background-color-layer)',
+            layer: 'var(--background-color-layer)',
             // 反转
-            'inverted': 'var(--background-color-inverted)',
+            inverted: 'var(--background-color-inverted)'
         },
         borderColor: {
             // 一级边框色
-            'base': 'var(--border-color-base)',
+            base: 'var(--border-color-base)',
             // 二级边框色
-            'secondary': 'var(--border-color-secondary)',
+            secondary: 'var(--border-color-secondary)',
             // 三级边框色
-            'tertiary': 'var(--border-color-tertiary)',
+            tertiary: 'var(--border-color-tertiary)',
             // 反转
-            'inverted': 'var(--border-color-inverted)',
+            inverted: 'var(--border-color-inverted)'
         },
         borderRadius: {
             sm: 'var(--border-radius-sm)',
             md: 'var(--border-radius-md)',
-            lg: 'var(--border-radius-lg)',
+            lg: 'var(--border-radius-lg)'
         },
-        breakpoints:{
-            xs: 'var(--breakpoints-xs)',
-            sm: 'var(--breakpoints-sm)',
-            md: 'var(--breakpoints-md)',
-            lg: 'var(--breakpoints-lg)',
-            xl: 'var(--breakpoints-xl)',
+        breakpoints: {
+            xs: SCREEN_BREAKPOINTS.xs[1],
+            'lt-xs': SCREEN_BREAKPOINTS.xs[1],
+            sm: SCREEN_BREAKPOINTS.sm[1],
+            'lt-sm': SCREEN_BREAKPOINTS.sm[1],
+            md: SCREEN_BREAKPOINTS.md[1],
+            'lt-md': SCREEN_BREAKPOINTS.md[1],
+            lg: SCREEN_BREAKPOINTS.lg[1],
+            'lt-lg': SCREEN_BREAKPOINTS.lg[1],
+            xl: SCREEN_BREAKPOINTS.xl[1],
+            'lt-xl': SCREEN_BREAKPOINTS.xl[1]
         }
-    },
+    }
 })

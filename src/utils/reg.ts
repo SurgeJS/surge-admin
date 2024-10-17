@@ -9,6 +9,9 @@ class RegUtils {
   // 匹配URL
   static MATCH_URL = /^(((ht|f)tps?):\/\/)?([^!@#$%^&*?.\s-]([^!@#$%^&*?.\s]{0,63}[^!@#$%^&*?.\s])?\.)+[a-z]{2,6}\/?/
 
+  // 匹配 http 或 https 开头的 URL
+  static MATCH_TEXT_URL = /(https?:\/\/\S+)/g
+
   // 匹配邮箱
   static MATCH_EMAIL = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
@@ -26,6 +29,12 @@ class RegUtils {
 
   // 提取数字
   static extractNumbers = (str: string) => Number(str.replace(this.MATCH_GLOBAL_NON_DIGITS,''))
+
+  // 从字符串中提取Url
+  static extractUrl = (str: string) => this.extractUrls(str)[0]
+
+  // 从字符串中提取多个Url
+  static extractUrls = (str: string) => str.match(this.MATCH_TEXT_URL) || []
 
   // 在路径中去除params、query参数
   static removePathParams = (path: string) => {

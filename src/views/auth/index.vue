@@ -1,7 +1,7 @@
 <template>
-  <div class="w-h-full flex flex-center relative">
+  <div class="w-h-full flex-center relative">
     <dynamic-background />
-    <div class="absolute right-[10px] top-[10px] bg-layer p-[5px] rounded-sm flex gap-[5px]">
+    <div v-motion-roll-right class="absolute right-[10px] top-[10px] bg-layer p-[5px] rounded-sm flex gap-[5px]">
       <theme-palette />
       <theme-switch />
     </div>
@@ -9,7 +9,7 @@
       v-motion-pop-visible
       bordered
       size="large"
-      class="auth-card lg:w-[500px] md:w-[60%] w-[90%] transition-width"
+      class="auth-card w-[500px]  lt-xs:w-[90%] transition-width"
       content-class="h-full"
     >
       <div class="w-h-full flex overflow-hidden">

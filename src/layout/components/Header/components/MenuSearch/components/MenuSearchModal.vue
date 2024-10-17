@@ -192,9 +192,9 @@ watch(visible, () => {
     border: 1px solid theme('borderColor.secondary');
 
     &.active {
-      background: theme('colors.primary-shallow');
+      background: theme('colors.primaryShallow');
       color: theme('colors.primary');
-      box-shadow: 5px 5px 5px theme('colors.primary-shallow');
+      box-shadow: 5px 5px 5px theme('colors.primaryShallow');
     }
 
     svg {

@@ -10,26 +10,30 @@ export const runTacticsAction = (tacticsAction: TacticsAction[]) => tacticsActio
     return flag
 })
 
-// 设置CSS变量
-export const setCSSVariable = (variable: Recordable) => {
-    const htmlElement = document.querySelector('html')
-    if (!htmlElement) return
+// 批量设置CSS变量
+export const setCSSVariables = (variable: Recordable, el: HTMLElement = document.documentElement) => {
     Object.keys(variable).forEach(key => {
-        htmlElement.style.setProperty(`--${ key }`, variable[key])
+        if (getCSSVariable(key, el) === variable[key]) return
+        setCSSVariable(key, variable[key], el)
     })
 }
 
+// 设置Css变量
+export const setCSSVariable = (key: string, value: string, el: HTMLElement = document.documentElement) => {
+    el.style.setProperty(`--${ key }`, value)
+}
+
 // 获取CSS变量
-export const getCSSVariable = (key: string) => {
-    return getComputedStyle(document.body).getPropertyValue(`--${ key }`)
+export const getCSSVariable = (key: string, el: HTMLElement = document.documentElement) => {
+    return getComputedStyle(el).getPropertyValue(`--${ key }`)
 }
 
 // 临时清楚过渡效果
 export const temporaryClearTransition = (callback: () => void, time: number = 200) => {
-    document.body.classList.add('noTransition')
+    document.documentElement.classList.add('noTransition')
     callback()
     setTimeout(() => {
-        document.body.classList.remove('noTransition')
+        document.documentElement.classList.remove('noTransition')
     }, time)
 }
 

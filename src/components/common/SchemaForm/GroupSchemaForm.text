@@ -144,7 +144,7 @@
 <!--  align-items: center;-->
 <!--  margin-bottom: 20px;-->
 <!--  padding: 8px  0 8px 8px;-->
-<!--  background: theme('colors.primary-shallow');-->
+<!--  background: theme('colors.primaryShallow');-->
 <!--  border-radius: 6px;-->
 <!--  &-title {-->
 <!--    display: inline-flex;-->

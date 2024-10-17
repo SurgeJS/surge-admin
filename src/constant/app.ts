@@ -18,13 +18,6 @@ export default class AppConstant {
             sm: '2px',
             md: '4px',
             lg: '8px'
-        },
-        breakpoints: {
-            xs: 576,
-            sm: 1200,
-            md: 1200,
-            lg: 1200,
-            xl: 1200
         }
     }
 
@@ -88,7 +81,7 @@ export default class AppConstant {
     static NAIVE_THEME_CONFIG: Record<ThemeMode, GlobalThemeOverrides> = {
         light: {},
         dark: {
-            Button:{
+            Button: {
                 textColorPrimary: 'rgba(255, 255, 255, .9)',
                 textColorHoverPrimary: 'rgba(255, 255, 255, .9)',
                 textColorPressedPrimary: 'rgba(255, 255, 255, .9)',
@@ -96,6 +89,15 @@ export default class AppConstant {
                 textColorDisabledPrimary: 'rgba(255, 255, 255, .9)'
             }
         }
+    }
+
+    // 屏幕断点
+    static SCREEN_BREAKPOINTS: ScreenBreakpoints = {
+        xs: [ 'max', '768px' ],
+        sm: [ 'min', '768px' ],
+        md: [ 'min', '992px' ],
+        lg: [ 'min', '1200px' ],
+        xl: [ 'min', '1920px' ]
     }
 
     // 系统主题色预设

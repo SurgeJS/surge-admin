@@ -83,12 +83,12 @@ const appStore = useAppStore()
   .mixSide,
   .main {
     border-radius: 2px;
-    background: theme('colors.primary-shallow');
+    background: theme('colors.primaryShallow');
   }
 
   .header {
     height: 10px;
-    background: theme('colors.primary-shallow');
+    background: theme('colors.primaryShallow');
   }
 
   .primary {
@@ -114,7 +114,7 @@ const appStore = useAppStore()
     }
 
     div:last-of-type {
-      background: theme('colors.primary-shallow');
+      background: theme('colors.primaryShallow');
       width: 10px;
       height: 100%;
     }

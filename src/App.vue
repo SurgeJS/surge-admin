@@ -5,7 +5,6 @@ import { dateZhCN, zhCN } from 'naive-ui'
 import useAppStore from '@/store/modules/app'
 
 const appStore = useAppStore()
-
 // 全局初始化
 useGlobalInitialize()
 

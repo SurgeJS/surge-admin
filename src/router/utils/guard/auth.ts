@@ -73,7 +73,6 @@ const createAuthGuard = (to: RouteLocationNormalized, from: RouteLocationNormali
                 })
                 await handleRouteAuthMode()
                 next({ ...to, replace: true })
-                // to.redirectedFrom ? next(to.redirectedFrom) : next({ ...to, replace: true })
             }
         ],
         // 没有生成路由
@@ -83,7 +82,6 @@ const createAuthGuard = (to: RouteLocationNormalized, from: RouteLocationNormali
                 console.info('---没有生成路由---')
                 await handleRouteAuthMode()
                 next({ ...to, replace: true })
-                // to.redirectedFrom ? next(to.redirectedFrom) : next({ ...to, replace: true })
             }
         ],
         // 登录情况下不能到登录页面
@@ -98,7 +96,7 @@ const createAuthGuard = (to: RouteLocationNormalized, from: RouteLocationNormali
         [
             RegUtils.MATCH_URL.test(to.path),
             () => {
-                window.open(to.path.replace('/',''), '_blank')
+                window.open(RegUtils.extractUrl(to.path), '_blank')
                 return next(from.fullPath)
             }
         ],

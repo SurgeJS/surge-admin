@@ -39,12 +39,12 @@ const emits = defineEmits<Emits>()
   border-radius: 4px;
   cursor: pointer;
   transition: 0.2s ease-in-out;
-  border: 3px solid theme('colors.primary-shallow');
+  border: 3px solid theme('colors.primaryShallow');
   padding: 3px;
   gap: 4px;
 
   &.active {
-    box-shadow: 5px 5px 5px theme('colors.primary-shallow');
+    box-shadow: 5px 5px 5px theme('colors.primaryShallow');
     border-color: theme('colors.primary');
   }
 }

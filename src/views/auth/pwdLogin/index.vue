@@ -33,7 +33,7 @@ const form = reactive<UserModel.PasswordLoginParams>({
   password: '123456'
 })
 
-const schema = reactive<DefineSchema<UserModel.PasswordLoginParams>[]>([
+const schema = ref<DefineSchema<UserModel.PasswordLoginParams>[]>([
   {
     field: 'username',
     component: 'input',

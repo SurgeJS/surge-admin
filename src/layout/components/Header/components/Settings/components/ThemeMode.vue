@@ -4,18 +4,16 @@ import ContextMenu from '@/layout/components/Header/components/Settings/componen
 
 const appStore = useAppStore()
 
-const tab = ref('system')
-
-const update = (v: ThemeMode & 'system') => {
-  if (v === 'system') {
-    appStore.toggleThemeModeFollowingSystem(true)
-  } else {
-    appStore.toggleThemeMode(v)
-  }
+const updateFollowingSystem = (value: boolean) => {
+  appStore.toggleThemeModeFollowingSystem(value)
 }
 
-const railStyle = ({ focused, checked }) => {
-  return { background :'#464e62' }
+const updateThemeMode = (mode: ThemeMode) => {
+  appStore.toggleThemeMode(mode)
+}
+
+const railStyle = () => {
+  return { background: '#464e62' }
 }
 </script>
 
@@ -24,35 +22,51 @@ const railStyle = ({ focused, checked }) => {
     主题模式
   </n-divider>
   <n-flex>
-    <n-tabs
-      v-model:value="tab"
-      type="segment"
-      animated
-      @update:value="update"
-    >
-      <n-tab-pane name="light">
-        <template #tab>
-          <icon class="text-primary" icon="i-ic:baseline-wb-sunny" />
+    <context-menu label="主题模式">
+      <n-switch
+        :value="appStore.themeMode"
+        class="transition"
+        checked-value="dark"
+        unchecked-value="light"
+        :rail-style="railStyle"
+        @update:value="updateThemeMode"
+      >
+        <template #checked>
+          <icon
+            color="#4f60fc"
+            size="18px"
+            icon="i-ic:sharp-dark-mode"
+          />
         </template>
-      </n-tab-pane>
-      <n-tab-pane name="dark">
-        <template #tab>
-          <icon icon="i-ic:sharp-dark-mode" />
+        <template #unchecked>
+          <icon
+            color="#ffb948"
+            size="18px"
+            icon="i-ic:baseline-wb-sunny"
+          />
         </template>
-      </n-tab-pane>
-      <n-tab-pane name="system">
-        <template #tab>
-          <icon icon="i-ic:round-hdr-auto" />
-        </template>
-      </n-tab-pane>
-    </n-tabs>
+      </n-switch>
+    </context-menu>
     <context-menu label="跟随系统">
-      <n-switch :rail-style="railStyle" size="large">
-        <template #checked-icon>
-          <icon icon="i-ic:round-hdr-auto" />
+      <n-switch
+        class="transition"
+        :value="appStore.themeModeFollowingSystem"
+        :rail-style="railStyle"
+        @update:value="updateFollowingSystem"
+      >
+        <template #checked>
+          <icon
+            color="white"
+            size="18px"
+            icon="i-ic:round-hdr-auto"
+          />
         </template>
-        <template #unchecked-icon>
-          <icon icon="i-ic:baseline-minus" />
+        <template #unchecked>
+          <icon
+            color="white"
+            size="18px"
+            icon="i-ic:baseline-minus"
+          />
         </template>
       </n-switch>
     </context-menu>

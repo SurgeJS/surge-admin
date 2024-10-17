@@ -19,13 +19,10 @@ declare interface NeutralTheme {
 // 主题
 declare interface Theme {
     // 字体大小
-    textSize?: TextSize
+    textSize: TextSize
 
     // 边框圆角
-    borderRadius?: ThemeBorderRadius
-
-    // 屏幕断点
-    breakpoints?:Breakpoints
+    borderRadius: ThemeBorderRadius
 }
 
 // 主题模式配置
@@ -115,15 +112,17 @@ declare interface ThemeBorderRadius {
     lg?: string
 }
 
+declare type BreakpointType = 'max' | 'min'
+
 // 屏幕断点
-declare interface Breakpoints {
-    xs: number
+declare interface ScreenBreakpoints {
+    xs: [ BreakpointType, string ]
 
-    sm: number
+    sm: [ BreakpointType, string ]
 
-    md: number
+    md: [ BreakpointType, string ]
 
-    lg: number
+    lg: [ BreakpointType, string ]
 
-    xl: number
+    xl: [ BreakpointType, string ]
 }

@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import { AppStore } from '@/store/modules/app/type'
 import { darkTheme, GlobalThemeOverrides, lightTheme, useOsTheme } from 'naive-ui'
 import { appCache } from '@/store/caches'
-import { setCSSVariable, temporaryClearTransition, toKebabCase } from '@/utils'
+import { setCSSVariables, temporaryClearTransition, toKebabCase } from '@/utils'
 import { generate } from '@ant-design/colors'
 import AppConstant from '@/constant/app'
 import { cloneDeep, merge } from 'lodash-es'
@@ -67,7 +67,7 @@ const useAppStore = defineStore('App', () => {
     const themeOverrides = ref<GlobalThemeOverrides>()
 
     // 是否暗黑模式
-    const isDark = computed(() => (appStore.themeModeFollowingSystem && osTheme.value === 'dark') || appStore.themeMode === 'dark')
+    const isDark = computed(() =>  appStore.themeMode === 'dark')
     // 是否明亮模式
     const isLight = computed(() => !isDark.value)
     // 是否反转侧边栏
@@ -125,12 +125,7 @@ const useAppStore = defineStore('App', () => {
 
     // 切换主题模式
     const toggleThemeMode = (mode?: ThemeMode) => {
-        if (mode) {
-            appStore.themeMode = mode
-        } else {
-            appStore.themeMode = appStore.themeMode === 'light' ? 'dark' : 'light'
-        }
-        appStore.themeModeFollowingSystem = false
+        appStore.themeMode = mode ? mode : appStore.themeMode === 'light' ? 'dark' : 'light'
         temporaryClearTransition(updateTheme)
     }
 
@@ -138,10 +133,7 @@ const useAppStore = defineStore('App', () => {
     const toggleThemeModeFollowingSystem = (isFollow?: boolean) => {
         appStore.themeModeFollowingSystem = isFollow ?? !appStore.themeModeFollowingSystem
         // 开启跟随系统后，设置主题模式
-        if (appStore.themeModeFollowingSystem){
-            appStore.themeMode = osTheme.value as ThemeMode
-            temporaryClearTransition(updateTheme)
-        }
+        if (appStore.themeModeFollowingSystem) toggleThemeMode(osTheme.value as ThemeMode)
     }
 
     // 生成色板
@@ -156,7 +148,7 @@ const useAppStore = defineStore('App', () => {
                 obj[`${ toKebabCase(key) }-${ item }`] = theme[key][item]
                 return obj
             }, {})
-            setCSSVariable(variable)
+            setCSSVariables(variable)
         })
     }
 
@@ -166,7 +158,7 @@ const useAppStore = defineStore('App', () => {
             obj[`${ name }-${ i }`] = item
             return obj
         }, {})
-        setCSSVariable(variable)
+        setCSSVariables(variable)
     }
 
     // 适配 Naive 主题
