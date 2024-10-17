@@ -3,22 +3,24 @@ import { CSSProperties } from 'vue'
 import { isArray } from 'lodash-es'
 import { RowProps } from '@/components/common/Grid/types'
 
-const { gap } = defineProps<RowProps>()
+const { gutter } = defineProps<RowProps>()
 
 const rowStyle = computed<CSSProperties>(() => {
   return {
-    // gridTemplateColumns: `repeat(${ cols },minmax(0px, 1fr))`,
-    gap: isArray(gap) ? `${ gap[0] }px ${ gap[1] }px` : `${ gap }px`
+    gap: isArray(gutter) ? `${ gutter[0] }px ${ gutter[1] }px` : `${ gutter }px`
   }
 })
 </script>
 
 <template>
-  <div :style="rowStyle">
+  <div class="row" :style="rowStyle">
     <slot />
   </div>
 </template>
 
 <style scoped lang="scss">
-
+.row {
+  display: flex;
+  flex-flow: wrap;
+}
 </style>

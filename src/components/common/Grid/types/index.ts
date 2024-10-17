@@ -17,7 +17,7 @@ export interface RowProps {
     itemResponsive?: boolean
 }
 
-export interface GridItemProps {
+export interface ColProps {
     // 占据的列数，为 0 的时候会隐藏
     span?: number | string
 

@@ -126,3 +126,5 @@ declare interface ScreenBreakpoints {
 
     xl: [ BreakpointType, string ]
 }
+
+declare type BreakpointPresets = keyof ScreenBreakpoints

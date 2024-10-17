@@ -3,6 +3,15 @@ import { useGlobalInitialize } from '@/hooks/effect/useGlobalInitialize'
 import { useGlobalSubscribe } from '@/hooks/effect/useGlobalSubscribe'
 import { dateZhCN, zhCN } from 'naive-ui'
 import useAppStore from '@/store/modules/app'
+import AppConstant from '@/constant/app'
+
+
+const breakpoints = useBreakpoints(Object.keys(AppConstant.SCREEN_BREAKPOINTS).reduce((b, k) => {
+  b[k] = AppConstant.SCREEN_BREAKPOINTS[k][1]
+  return b
+}, {}))
+
+console.log(breakpoints)
 
 const appStore = useAppStore()
 // 全局初始化
