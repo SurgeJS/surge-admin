@@ -1,13 +1,15 @@
 <script setup lang="ts">
 import { CSSProperties } from 'vue'
-import { isArray } from 'lodash-es'
 import { RowProps } from '@/components/common/Grid/types'
+import { isArray } from 'lodash-es'
 
 const { gutter } = defineProps<RowProps>()
 
+const space = computed(() => isArray(gutter) ? gutter : [ gutter, 0 ])
+
 const rowStyle = computed<CSSProperties>(() => {
   return {
-    gap: isArray(gutter) ? `${ gutter[0] }px ${ gutter[1] }px` : `${ gutter }px`
+    margin: `-${ space[1] / 2 }px -${ space[0] / 2 }px -${ space[1] / 2 }px -${ space[0] / 2 }px`
   }
 })
 </script>

@@ -2,7 +2,7 @@
 
 export interface RowProps {
     // 间距
-    gutter?: number | [ number, number ]
+    gutter?: number | string | [number, number] | [string, string]
 
     // 是否折叠
     collapsed?: boolean
@@ -22,7 +22,7 @@ export interface ColProps {
     span?: number | string
 
     // 偏移
-    offset?: number
+    offset?: number | string
 
     // 栅格前缀
     prefix?: boolean
