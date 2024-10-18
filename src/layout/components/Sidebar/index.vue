@@ -26,7 +26,7 @@ const sidebarWidth = computed(() => {
 <template>
   <transition name="fold">
     <n-layout-sider
-      v-if="!appStore.isMobile && appStore.layoutMode!=='top'"
+      v-if="!appStore.isSmallScreen && appStore.layoutMode!=='top'"
       bordered
       class="layout-sidebar"
       content-class="min-w-100%! overflow-visible!"
@@ -40,7 +40,7 @@ const sidebarWidth = computed(() => {
       </transition>
     </n-layout-sider>
   </transition>
-  <mobile-sidebar v-if="appStore.isMobile" />
+  <mobile-sidebar v-if="appStore.isSmallScreen" />
 </template>
 
 <style lang="scss" scoped>

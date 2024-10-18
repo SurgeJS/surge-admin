@@ -65,12 +65,6 @@ export interface AppStore {
     // 布局风格
     layoutStyle: LayoutStyle
 
-    // 移动端触发宽度
-    mobileTriggerWidth: number
-
-    // 是否移动端
-    isMobile: boolean
-
     // 全屏loading
     fullScreenLoading: boolean
 

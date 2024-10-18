@@ -1,9 +1,6 @@
 import { GlobalThemeOverrides } from 'naive-ui'
 
 export default class AppConstant {
-    // 移动端触发宽度
-    static MOBILE_TRIGGER_WIDTH = 800
-
     // 系统主题色
     static PRIMARY_COLOR = '#6675ff'
 
@@ -93,11 +90,11 @@ export default class AppConstant {
 
     // 屏幕断点
     static SCREEN_BREAKPOINTS: ScreenBreakpoints = {
-        xs: [ 'max', '768px' ],
-        sm: [ 'min', '768px' ],
-        md: [ 'min', '992px' ],
-        lg: [ 'min', '1200px' ],
-        xl: [ 'min', '1920px' ]
+        xs: 530,
+        sm: 768,
+        md: 992,
+        lg: 1200,
+        xl: 1920
     }
 
     // 系统主题色预设

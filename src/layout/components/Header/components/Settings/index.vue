@@ -7,13 +7,11 @@ import HeaderConfig from '@/layout/components/Header/components/Settings/compone
 import FooterConfig from '@/layout/components/Header/components/Settings/components/FooterConfig.vue'
 import OtherConfig from '@/layout/components/Header/components/Settings/components/OtherConfig.vue'
 import ActionButton from '@/layout/components/Header/components/Settings/components/ActionButton.vue'
-import { ref } from 'vue'
 import ThemeColor from '@/layout/components/Header/components/Settings/components/ThemeColor.vue'
 import useAppStore from '@/store/modules/app'
+import { ref } from 'vue'
 
 const appStore = useAppStore()
-
-const width = computed(() => appStore.isMobile ? '100%' : 400)
 
 const open = ref(false)
 </script>
@@ -21,7 +19,7 @@ const open = ref(false)
 <template>
   <n-drawer
     v-model:show="open"
-    :width="width"
+    width="400"
     title="系统配置"
   >
     <n-drawer-content closable title="系统配置">

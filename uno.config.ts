@@ -104,17 +104,11 @@ export default defineConfig<Theme>({
             md: 'var(--border-radius-md)',
             lg: 'var(--border-radius-lg)'
         },
-        breakpoints: {
-            xs: SCREEN_BREAKPOINTS.xs[1],
-            'lt-xs': SCREEN_BREAKPOINTS.xs[1],
-            sm: SCREEN_BREAKPOINTS.sm[1],
-            'lt-sm': SCREEN_BREAKPOINTS.sm[1],
-            md: SCREEN_BREAKPOINTS.md[1],
-            'lt-md': SCREEN_BREAKPOINTS.md[1],
-            lg: SCREEN_BREAKPOINTS.lg[1],
-            'lt-lg': SCREEN_BREAKPOINTS.lg[1],
-            xl: SCREEN_BREAKPOINTS.xl[1],
-            'lt-xl': SCREEN_BREAKPOINTS.xl[1]
-        }
+        breakpoints: Object.keys(SCREEN_BREAKPOINTS).reduce((obj, key) => {
+            const value = `${ SCREEN_BREAKPOINTS[key] }px`
+            obj[key] = value
+            obj[`lt-${ key }`] = value
+            return obj
+        }, {})
     }
 })

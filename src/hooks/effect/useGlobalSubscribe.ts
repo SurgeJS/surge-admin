@@ -14,12 +14,6 @@ export const useGlobalSubscribe = () => {
         appCache.set(appStore.$state)
     })
 
-    // 监听窗口大小变化
-    useEventListener(window, 'resize', () => {
-        // 判断是否是移动端
-        appStore.updateMobile()
-    })
-
     // 监听操作系统主题变化
     watch(osTheme, () => {
         if (appStore.themeModeFollowingSystem) appStore.toggleThemeMode(osTheme.value as ThemeMode)

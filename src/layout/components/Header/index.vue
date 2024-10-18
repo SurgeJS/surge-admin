@@ -23,12 +23,12 @@ const authStore = useAuthStore()
     class="layout-header"
   >
     <n-flex>
-      <menu-collapsed v-if="appStore.isMobile||appStore.layoutMode==='side'" />
-      <breadcrumb v-if="appStore.layoutMode!=='top'&&appStore.breadcrumbVisible&&!appStore.isMobile" />
-      <Logo v-if="appStore.layoutMode==='top'&&!appStore.isMobile" />
+      <menu-collapsed v-if="appStore.isSmallScreen||appStore.layoutMode==='side'" />
+      <breadcrumb v-if="appStore.layoutMode!=='top'&&appStore.breadcrumbVisible&&!appStore.isSmallScreen" />
+      <Logo v-if="appStore.layoutMode==='top'&&!appStore.isSmallScreen" />
     </n-flex>
     <Menu
-      v-if="appStore.layoutMode==='top'&&!appStore.isMobile"
+      v-if="appStore.layoutMode==='top'&&!appStore.isSmallScreen"
       :routes="authStore.routes"
       :inverted="appStore.isInvertedHeader"
       responsive

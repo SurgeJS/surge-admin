@@ -6,6 +6,7 @@ import { setCSSVariables, temporaryClearTransition, toKebabCase } from '@/utils'
 import { generate } from '@ant-design/colors'
 import AppConstant from '@/constant/app'
 import { cloneDeep, merge } from 'lodash-es'
+import useBreakpoint from '@/hooks/common/useBreakpoint'
 
 // 初始APP STORE
 export const initialAppStore: AppStore = {
@@ -23,10 +24,6 @@ export const initialAppStore: AppStore = {
     layoutMode: 'side',
     // 布局风格
     layoutStyle: 'side-dark',
-    // 移动端触发宽度
-    mobileTriggerWidth: AppConstant.MOBILE_TRIGGER_WIDTH,
-    // 是否移动端
-    isMobile: document.body.offsetWidth <= AppConstant.MOBILE_TRIGGER_WIDTH,
     // 全屏loading
     fullScreenLoading: false,
     // 是否折叠侧边栏
@@ -61,13 +58,14 @@ export const initialAppStore: AppStore = {
 
 const useAppStore = defineStore('App', () => {
     const osTheme = useOsTheme()
+    const { smaller } = useBreakpoint()
 
     const appStore = reactive<AppStore>(appCache.get() || cloneDeep(initialAppStore))
     const appStoreRefs = toRefs(appStore)
     const themeOverrides = ref<GlobalThemeOverrides>()
 
     // 是否暗黑模式
-    const isDark = computed(() =>  appStore.themeMode === 'dark')
+    const isDark = computed(() => appStore.themeMode === 'dark')
     // 是否明亮模式
     const isLight = computed(() => !isDark.value)
     // 是否反转侧边栏
@@ -79,13 +77,11 @@ const useAppStore = defineStore('App', () => {
     // 动态混合侧边栏宽度
     const dynamicMixSidebarWidth = computed(() => appStore.isCollapsedMixSidebar ? appStore.collapsedSidebarWidth : appStore.mixSidebarWidth)
     // naive主题
-    const naiveTheme = computed(() => isLight.value ? lightTheme : darkTheme )
+    const naiveTheme = computed(() => isLight.value ? lightTheme : darkTheme)
     // 主题色色板
-    const primaryColorsPalette = computed(()=>generateColorPalette(appStore.themeColor))
-
-    const updateMobile = () => {
-        appStore.isMobile = document.body.offsetWidth <= appStore.mobileTriggerWidth
-    }
+    const primaryColorsPalette = computed(() => generateColorPalette(appStore.themeColor))
+    // 是否小屏幕
+    const isSmallScreen = computed(() => smaller('sm').value)
 
     // 设置主题颜色
     const setThemeColor = (color: string) => {
@@ -205,9 +201,7 @@ const useAppStore = defineStore('App', () => {
                 siderBorderColorInverted: borderColor?.inverted,
                 headerBorderColorInverted: borderColor?.inverted
             },
-            Button: {
-
-            }
+            Button: {}
         }
         themeOverrides.value = merge(naiveThemeOverride, AppConstant.NAIVE_THEME_CONFIG[appStore.themeMode])
     }
@@ -245,6 +239,7 @@ const useAppStore = defineStore('App', () => {
         naiveTheme,
         themeOverrides,
         primaryColorsPalette,
+        isSmallScreen,
         setThemeColor,
         toggleThemeMode,
         toggleThemeModeFollowingSystem,
@@ -254,7 +249,6 @@ const useAppStore = defineStore('App', () => {
         toggleMixSidebarDrawerVisible,
         toggleFixedMixSidebarDrawer,
         toggleFullScreenLoading,
-        updateMobile,
         initTheme
     }
 })

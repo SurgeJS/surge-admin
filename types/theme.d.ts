@@ -112,19 +112,15 @@ declare interface ThemeBorderRadius {
     lg?: string
 }
 
-declare type BreakpointType = 'max' | 'min'
+declare type ScreenBreakpointsType = 'min' | 'max'
 
 // 屏幕断点
 declare interface ScreenBreakpoints {
-    xs: [ BreakpointType, string ]
-
-    sm: [ BreakpointType, string ]
-
-    md: [ BreakpointType, string ]
-
-    lg: [ BreakpointType, string ]
-
-    xl: [ BreakpointType, string ]
+    xs: number
+    sm: number
+    md: number
+    lg: number
+    xl: number
 }
 
 declare type BreakpointPresets = keyof ScreenBreakpoints
