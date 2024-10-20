@@ -4,7 +4,6 @@ import { FileSystemIconLoader } from '@iconify/utils/lib/loader/node-loaders'
 import { Theme } from '@unocss/preset-uno'
 import AppConstant from './src/constant/app'
 
-const { SCREEN_BREAKPOINTS } = AppConstant
 export default defineConfig<Theme>({
     content: {
         pipeline: {
@@ -104,11 +103,9 @@ export default defineConfig<Theme>({
             md: 'var(--border-radius-md)',
             lg: 'var(--border-radius-lg)'
         },
-        breakpoints: Object.keys(SCREEN_BREAKPOINTS).reduce((obj, key) => {
-            const value = `${ SCREEN_BREAKPOINTS[key] }px`
-            obj[key] = value
-            obj[`lt-${ key }`] = value
-            return obj
-        }, {})
+        breakpoints: Object.entries(AppConstant.SCREEN_BREAKPOINTS).reduce((breakpoints, [ key,value ]) => {
+            breakpoints[key] = `${ value }px`
+            return breakpoints
+        }, {}),
     }
 })

@@ -9,7 +9,7 @@
       v-motion-pop-visible
       bordered
       size="large"
-      class="auth-card w-[500px]  lt-xs:w-[90%] transition-width"
+      class="auth-card w-[500px] max-xs:w-[90%] transition-width"
       content-class="h-full"
     >
       <div class="w-h-full flex overflow-hidden">
