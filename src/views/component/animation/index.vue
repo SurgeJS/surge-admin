@@ -3,58 +3,53 @@ const [ isShow,toggleShow ] = useToggle()
 </script>
 
 <template>
-  <a-card
+  <n-card
     class="h-full"
     title="立即执行动画"
   >
-    <template #extra>
-      <a-button type="primary" @click="toggleShow()">{{ isShow ? '隐藏':'显示' }}</a-button>
+    <template #header-extra>
+      <n-button type="primary" @click="toggleShow()">{{ isShow ? '隐藏':'显示' }}</n-button>
     </template>
-    <div class="w-100px h-0px p-[10px] bg-primary" />
-    <a-flex justify="space-between">
-      <a-card
-        class="h-450px w-full"
-        hoverable
-        title="折叠动画"
+    <n-flex class="h-full">
+      <fold-animation
+        :duration="3"
+        fixed-length
+        appear
       >
-        <a-flex gap="10">
-          <fold-animation fixed-length appear>
-            <div class="demo overflow-auto">
-              <p v-for="item in 15" :key="item">高度固定</p>
-            </div>
-          </fold-animation>
-          <fold-animation appear>
-            <div class="demo h-auto">
-              <p v-for="item in 13" :key="item">高度不固定</p>
-            </div>
-          </fold-animation>
-          <fold-animation
-            :duration="3"
-            direction="horizontal"
-            fixed-length
-            appear
-          >
-            <div class="demo overflow-auto">
-              <p v-for="item in 15" :key="item">高度固定</p>
-            </div>
-          </fold-animation>
-          <fold-animation
-            fixed-length
-            :duration="3"
-            appear
-          >
-            <div v-if="isShow" class="demo overflow-auto">
-              <p v-for="item in 13" :key="item">高度固定</p>
-            </div>
-          </fold-animation>
-        </a-flex>
-      </a-card>
-    </a-flex>
-  </a-card>
+        <div class="demo h-300px">
+          高度固定
+        </div>
+      </fold-animation>
+      <fold-animation appear>
+        <div class="demo">
+          <p class="h-500px">高度不固定</p>
+        </div>
+      </fold-animation>
+      <fold-animation
+        :duration="3"
+        direction="horizontal"
+        fixed-length
+        appear
+      >
+        <div class="demo overflow-auto w-200px">
+          <p>宽度固定</p>
+        </div>
+      </fold-animation>
+      <fold-animation
+        fixed-length
+        :duration="3"
+        appear
+      >
+        <div v-if="isShow" class="demo overflow-auto h-500px">
+          高度固定
+        </div>
+      </fold-animation>
+    </n-flex>
+  </n-card>
 </template>
 
 <style scoped lang="scss">
 .demo{
-  @apply: w-150px h-150px bg-primary rounded-sm text-white p-[10px]  text-[16px];
+  @apply: w-20% bg-primary rounded-md text-white flex-center text-[16px];
 }
 </style>

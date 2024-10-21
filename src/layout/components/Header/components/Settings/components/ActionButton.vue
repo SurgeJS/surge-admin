@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import useAppStore, { initialAppStore } from '@/store/modules/app'
 import { useClipboard, useToggle } from '@vueuse/core'
-import { cloneDeep } from 'lodash-es'
+import { cloneDeep } from 'es-toolkit'
 
 const appStore = useAppStore()
 const clipboard = useClipboard()

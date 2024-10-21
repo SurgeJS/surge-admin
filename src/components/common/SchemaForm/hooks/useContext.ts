@@ -1,7 +1,7 @@
 import { createInjectionState } from '@vueuse/core'
 import { SchemaFormCommonProps } from '@/components/common/SchemaForm/types/type'
 import { ModelRef } from 'vue'
-import { get, set } from 'lodash-es'
+import { get, set } from 'es-toolkit/compat'
 
 const [ useProvideSchemaFormContext,useSchemaFormContext ] = createInjectionState((schemaFormProps: SchemaFormCommonProps,model: ModelRef<Recordable>) => {
 

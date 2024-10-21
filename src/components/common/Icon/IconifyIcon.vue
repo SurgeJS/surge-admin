@@ -9,7 +9,7 @@
 <script lang="ts" setup>
 import { Icon } from '@iconify/vue'
 import { computed } from 'vue'
-import { isNumber } from 'lodash-es'
+import { isNumber } from 'es-toolkit/compat'
 
 export interface IconifyIconProps {
   // 图标名称 例如：mdi:account | mdi-account

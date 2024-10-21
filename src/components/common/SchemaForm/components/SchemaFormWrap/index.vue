@@ -3,7 +3,7 @@ import { SchemaFormCommonExpose, SchemaFormCommonProps } from '@/components/comm
 import useOmitProps from '@/hooks/common/useOmitProps'
 import { FormInst } from 'naive-ui'
 import { useSchemaFormContext } from '@/components/common/SchemaForm/hooks/useContext'
-import { cloneDeep } from 'lodash-es'
+import { cloneDeep } from 'es-toolkit'
 
 const props = defineProps<SchemaFormCommonProps>()
 const { model } = useSchemaFormContext()!

@@ -1,5 +1,5 @@
 import { computed } from 'vue'
-import { omit } from 'lodash-es'
+import { omit } from 'es-toolkit'
 
 /**
  * 省略属性

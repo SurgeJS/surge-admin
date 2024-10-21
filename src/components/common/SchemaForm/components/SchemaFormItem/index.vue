@@ -9,7 +9,6 @@ import {
 import { useSchemaFormContext } from '@/components/common/SchemaForm/hooks/useContext'
 import { computed, isVNode, useSlots } from 'vue'
 import { SCHEMA_RENDER_COMPONENTS } from '@/components/common/SchemaForm/utils/components'
-import { get, isArray, isFunction, isNumber, isString, isUndefined, omitBy } from 'lodash-es'
 import useOmitProps from '@/hooks/common/useOmitProps'
 import { ColProps } from 'naive-ui'
 import useRenderIcon from '@/hooks/components/useRenderIcon'
@@ -19,6 +18,8 @@ import {
   generateRule,
   handleRulePresets
 } from '@/components/common/SchemaForm/utils'
+import { isFunction, isString, isUndefined, omitBy } from 'es-toolkit'
+import { isArray, get, isNumber } from 'es-toolkit/compat'
 
 const schema = defineModel<UnwrapRefSchema>('schema', { required: true })
 

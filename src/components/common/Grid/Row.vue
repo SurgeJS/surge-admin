@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import { CSSProperties } from 'vue'
 import { RowProps } from '@/components/common/Grid/types'
-import { isArray } from 'lodash-es'
+import { useProvideGridContext } from '@/components/common/Grid/hooks/useContext'
 
-const { gutter } = defineProps<RowProps>()
+const { gutter = 0 } = defineProps<RowProps>()
 
-const space = computed(() => isArray(gutter) ? gutter : [ gutter, 0 ])
+const { space } = useProvideGridContext(gutter)
 
 const rowStyle = computed<CSSProperties>(() => {
   return {
-    margin: `-${ space[1] / 2 }px -${ space[0] / 2 }px -${ space[1] / 2 }px -${ space[0] / 2 }px`
+    margin: `-${ space.value[1] / 2 }px -${ space.value[0] / 2 }px -${ space.value[1] / 2 }px -${ space.value[0] / 2 }px`
   }
 })
 </script>

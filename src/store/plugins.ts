@@ -1,5 +1,5 @@
 import { PiniaPluginContext } from 'pinia'
-import { cloneDeep } from 'lodash-es'
+import { cloneDeep } from 'es-toolkit'
 
 const storeResetPlugin = (context: PiniaPluginContext) => {
     const { $state } = context.store

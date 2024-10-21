@@ -5,8 +5,8 @@ import { appCache } from '@/store/caches'
 import { setCSSVariables, temporaryClearTransition, toKebabCase } from '@/utils'
 import { generate } from '@ant-design/colors'
 import AppConstant from '@/constant/app'
-import { cloneDeep, merge } from 'lodash-es'
 import useBreakpoint from '@/hooks/common/useBreakpoint'
+import { cloneDeep, merge } from 'es-toolkit'
 
 // 初始APP STORE
 export const initialAppStore: AppStore = {

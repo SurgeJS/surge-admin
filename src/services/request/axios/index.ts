@@ -1,7 +1,6 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from 'axios'
 import { AxiosConfig, ResponseContent } from '@/services/request/axios/types'
-import { omit } from 'lodash-es'
-
+import { omit } from 'es-toolkit'
 
 export default class CreateAxios<RResult extends Recordable = Recordable> {
     public axiosInstance: AxiosInstance

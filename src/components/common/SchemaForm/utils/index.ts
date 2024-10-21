@@ -2,7 +2,8 @@ import { ComponentsName } from '@/components/common/SchemaForm/types/component'
 import { RulePresets, RulePresetsType, Schema } from '@/components/common/SchemaForm/types/type'
 import RegUtils from '@/utils/reg'
 import { FormItemRule } from 'naive-ui/es/form/src/interface'
-import { isArray, isString } from 'lodash-es'
+import { isArray } from 'es-toolkit/compat'
+import { isString } from 'es-toolkit'
 
 type ComponentFunction = Record<ComponentsName, {
     // 是否映射 占位符

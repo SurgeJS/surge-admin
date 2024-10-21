@@ -2,13 +2,16 @@
 
 export interface RowProps {
     // 间距
-    gutter?: number | string | [number, number] | [string, string]
+    gutter?: number | string | [ number, number ] | [ string, string ]
 
     // 是否折叠
     collapsed?: boolean
 
-    // 折叠行数
-    collapsedRows?: number
+    // 折叠后默认展示个数
+    showNumber?:string
+
+    // 折叠动画
+    foldAnimation?: boolean
 
     // 'self' 根据自身宽度进行响应式布局，'screen' 根据屏幕断点进行响应式布局
     responsive?: 'self' | 'screen'
@@ -24,9 +27,9 @@ export interface ColProps {
     // 偏移
     offset?: number | string
 
-    // 栅格前缀
-    prefix?: boolean
-
-    // 栅格后缀
+    // 后缀(不能和offset同时使用)
     suffix?: boolean
+
+    // flex 布局填充
+    flex?: number | string
 }

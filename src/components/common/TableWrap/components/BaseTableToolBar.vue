@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { densityList } from '@/components/common/TableWrap/utils/data'
 import { useBaseTableStore } from '@/components/common/TableWrap/hooks/useContext'
-import { cloneDeep } from 'lodash-es'
 import { unref } from 'vue'
 import { VueDraggable } from 'vue-draggable-plus'
+import { cloneDeep } from 'es-toolkit'
 
 const { props, currentDensity, tableColumns } = useBaseTableStore()!
 

@@ -5,8 +5,8 @@ import useTabBarStore from '@/store/modules/tabBar'
 import { useRoute, useRouter } from 'vue-router'
 import { useDebounceFn, useEventListener, useToggle } from '@vueuse/core'
 import ContextMenu from '@/layout/components/TabBar/components/ContextMenu.vue'
-import { pick } from 'lodash-es'
 import { Tab } from '@/store/modules/tabBar/type'
+import { pick } from 'es-toolkit'
 
 defineOptions({ name: 'TabBar' })
 

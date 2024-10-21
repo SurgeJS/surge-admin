@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, StyleValue } from 'vue'
-import { isNumber } from 'lodash-es'
+import { isNumber } from 'es-toolkit/compat'
 
 export interface IconProps {
   // 图标名称 例如：i-mdi:account | i-local:login
