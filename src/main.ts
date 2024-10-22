@@ -4,13 +4,13 @@ import '@/assets/index'
 import { setupRouter } from '@/router'
 import { setupStore } from '@/store'
 import setupComponents from '@/components'
-import setupPlugin from '@/utils/plugin'
+import setupPlugins from '@/utils/plugins'
 
 const bootStart = async () => {
     const app = createApp(App)
 
     // 安装插件
-    setupPlugin(app)
+    setupPlugins(app)
 
     // 安装全局组件
     setupComponents(app)

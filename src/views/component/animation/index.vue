@@ -11,11 +11,7 @@ const [ isShow,toggleShow ] = useToggle()
       <n-button type="primary" @click="toggleShow()">{{ isShow ? '隐藏':'显示' }}</n-button>
     </template>
     <n-flex class="h-full">
-      <fold-animation
-        :duration="3"
-        fixed-length
-        appear
-      >
+      <fold-animation :duration="3" appear>
         <div class="demo h-300px">
           高度固定
         </div>

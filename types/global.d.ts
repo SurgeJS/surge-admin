@@ -1,5 +1,10 @@
 import { MaybeRef } from 'vue'
-import type { DialogProviderInst, LoadingBarProviderInst, MessageProviderInst, NotificationProviderInst } from 'naive-ui'
+import type {
+    DialogProviderInst,
+    LoadingBarProviderInst,
+    MessageProviderInst,
+    NotificationProviderInst
+} from 'naive-ui'
 
 declare global {
 
