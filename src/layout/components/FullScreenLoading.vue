@@ -38,10 +38,9 @@
       float: none;
       border: 0 solid currentColor;
       box-sizing: border-box;
-      background: linear-gradient(#4244c9, 30%, #9641e5);
+      background: linear-gradient(#6675ff, 30%, #574cf5);
       white-space: nowrap;
       position: absolute;
-      opacity: .7;
       width: 20px;
       height: 20px;
       border-radius: 100%;

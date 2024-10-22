@@ -1,5 +1,10 @@
 <script setup lang="ts">
+import useAppStore from '@/store/modules/app'
 
+const store = useAppStore()
+onMounted(() => {
+  // store.toggleFullScreenLoading(true)
+})
 </script>
 
 <template>
