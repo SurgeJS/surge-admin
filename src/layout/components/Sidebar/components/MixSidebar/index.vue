@@ -104,7 +104,6 @@ watch(() => route.path, () => {
   height: 100%;
   flex-direction: column;
   justify-content: space-between;
-  padding: 7px;
   position: relative;
   transition: width .2s ease-in-out;
 
@@ -115,6 +114,7 @@ watch(() => route.path, () => {
     display: flex;
     flex-direction: column;
     gap: 7px;
+    padding: 7px;
 
     &-menu {
       width: 100%;

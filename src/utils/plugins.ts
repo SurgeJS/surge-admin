@@ -1,6 +1,6 @@
 import { App } from 'vue'
 import { VueQueryPlugin } from '@tanstack/vue-query'
-import gsap from 'gsap'
+import { gsap } from 'gsap'
 
 const setupPlugins = (app: App<Element>) => {
     app.use(VueQueryPlugin, {
@@ -10,7 +10,6 @@ const setupPlugins = (app: App<Element>) => {
     })
     // gasp插件
     gsap.registerPlugin()
-    // gsap
 }
 
 export default setupPlugins
