@@ -156,7 +156,7 @@ export const generatePlaceholder = (label: Schema['label'], component: Component
 }
 
 // 生成规则
-export const generateRule = (label: Schema['label'], component: ComponentsName): FormItemRule => {
+export const generateRule = (label: string, component: ComponentsName): FormItemRule => {
     const placeholder = defaultPlaceholder(label)
     const { isInputComponent, isSelectComponent } = componentFunction[component]
     let message: string = placeholder['default']

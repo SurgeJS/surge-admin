@@ -1,6 +1,14 @@
 <template>
   <div class="w-h-full flex-center relative">
     <dynamic-background />
+    <div class="absolute left-[10px] top-[10px] flex-y-center gap-[5px]">
+      <img
+        width="50"
+        src="/logo.svg"
+        alt=""
+      >
+      <h3 class="text-6">{{ VITE_APP_TITLE }}</h3>
+    </div>
     <div v-motion-roll-right class="absolute right-[10px] top-[10px] bg-layer p-[5px] rounded-sm flex gap-[5px]">
       <theme-palette />
       <theme-switch />
@@ -29,6 +37,9 @@
 
 <script lang="ts" setup>
 import DynamicBackground from '@/views/auth/components/DynamicBackground.vue'
+import { wrapperMetaEnv } from '@/utils/env'
+
+const { VITE_APP_TITLE } = wrapperMetaEnv()
 </script>
 
 <style lang="scss" scoped>

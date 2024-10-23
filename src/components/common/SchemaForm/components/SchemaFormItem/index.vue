@@ -19,7 +19,7 @@ import {
   handleRulePresets
 } from '@/components/common/SchemaForm/utils'
 import { isFunction, isString, isUndefined, omitBy } from 'es-toolkit'
-import { isArray, get, isNumber } from 'es-toolkit/compat'
+import { get, isArray, isNumber } from 'es-toolkit/compat'
 
 const schema = defineModel<UnwrapRefSchema>('schema', { required: true })
 
@@ -67,9 +67,9 @@ const FormItem = defineComponent(() => {
     const rule = schema.value.rule
     if (!rule) {
       const isRequire = Boolean(schema.value.showRequireMark ?? schemaFormProps.showRequireMark)
-      const isAutoRules = Boolean(schemaFormProps.autoRules && isRequire && schema.value.component)
+      const isAutoRules = Boolean(schemaFormProps.autoRules && isRequire && schema.value.component && isString(schema.value.label))
 
-      return isAutoRules ? generateRule(schema.value.label, schema.value.component!) : undefined
+      return isAutoRules ? generateRule(schema.value.label as string, schema.value.component!) : undefined
     }
     // 处理规则预设
     if (typeof rule === 'string') return handleRulePresets(rule)

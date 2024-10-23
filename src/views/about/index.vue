@@ -1,32 +1,7 @@
 <script lang="ts" setup>
-import useAppStore from '@/store/modules/app'
 import Test from './test.vue'
-import { Reactive, ref } from 'vue'
+import { ref } from 'vue'
 import { format } from 'date-fns'
-
-type Avc = Reactive<{
-  test: Ref<{ t: number }>
-  b: number
-}>
-
-const zz = ref({
-  t: 1
-})
-const aaa: Avc = {
-  test: zz
-}
-
-const appStore = useAppStore()
-const b = ref({
-  test: 1
-})
-const a = reactive<{
-  test: Ref<{ t: number }>
-  b: number
-}>({
-  test: zz,
-  z: 1
-})
 
 
 const value = ref()
@@ -51,7 +26,6 @@ console.log(format(new Date(), 'yyyy-MM-dd HH:mm:ss'))
       <n-button @click="test">test222</n-button>
       {{ value }}
       <br>
-      {{ b }}
       <span class="p-10px hover:bg-[rgba(255,255,255,.1)]">55</span>
       <span class="p-10px hover:bg-[rgba(255,255,255,.08)]">55</span>
       <span class="p-10px hover:bg-[rgba(255,255,255,.05)]">55</span>

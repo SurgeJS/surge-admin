@@ -7,12 +7,11 @@ import { vitePluginFakeServer } from 'vite-plugin-fake-server'
 import { createHtmlPlugin } from 'vite-plugin-html'
 import compress from 'vite-plugin-compression'
 import UnoCSS from 'unocss/vite'
-import Components from 'unplugin-vue-components/dist/vite'
+import Components from 'unplugin-vue-components/vite'
 import AutoImport from 'unplugin-auto-import/vite'
-import { AntDesignVueResolver } from 'unplugin-vue-components/dist/resolvers'
+import { AntDesignVueResolver, NaiveUiResolver } from 'unplugin-vue-components/resolvers'
 import devTools from 'vite-plugin-vue-devtools'
 import { getServiceAddress } from '../src/utils/env'
-import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
 // Vite 插件配置
 export const createVitePlugins = (viteEnv: ImportMetaEnv): PluginOption[] => {
     return [

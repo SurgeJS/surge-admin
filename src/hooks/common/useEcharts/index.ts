@@ -1,9 +1,9 @@
 import echarts, { ECOption } from './core'
 import { isRef, nextTick, onMounted, onUnmounted, Ref, ref, watch } from 'vue'
-import { RendererType } from 'echarts/types/src/util/types'
 import { getCSSVariable } from '@/utils'
 import { useTimeoutFn } from '@vueuse/core'
 import useAppStore from '@/store/modules/app'
+import type { RendererType } from 'echarts/types/src/util/types'
 
 type EchartsInstance = ReturnType<typeof echarts.init>
 

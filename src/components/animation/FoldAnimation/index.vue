@@ -10,7 +10,6 @@ const props = withDefaults(defineProps<FoldAnimationProps>(), {
 })
 
 const directionMap = computed(() => props.direction === 'vertical' ? 'height' : 'width')
-console.log(gsap.from())
 </script>
 
 <template>

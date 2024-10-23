@@ -1,10 +1,8 @@
-// noinspection ES6PreferShortImport
-
 import { defineConfig, loadEnv } from 'vite'
-import path from 'path'
 import { createVitePlugins } from './build/plugins'
 import { proxyConfig } from './build/proxy'
 import { wrapperMetaEnv } from './src/utils/env'
+import { fileURLToPath, URL } from 'node:url'
 
 export default defineConfig(({ mode }) => {
     const root = process.cwd()
@@ -22,8 +20,8 @@ export default defineConfig(({ mode }) => {
         resolve: {
             // 别名
             alias: {
-                '@': path.resolve(__dirname, 'src'),
-                '#': path.resolve(__dirname, 'types')
+                '@': fileURLToPath(new URL('./src', import.meta.url)),
+                '#': fileURLToPath(new URL('./types', import.meta.url))
             }
         },
         build: {

@@ -12,13 +12,11 @@ const isHide = computed(() => (appStore.isCollapsedSidebar || appStore.layoutMod
 <template>
   <div class="logo" :style="{height:`${appStore.headerHeight}px`}">
     <img
-      height="40"
-      src="../../assets/images/logo.png"
+      height="35"
+      src="/logo.svg"
       :alt="VITE_APP_TITLE"
     >
-    <!--    <n-collapse-transition class="w-auto" :show="!isHide">-->
     <span v-if="!isHide" class="logo-text">{{ VITE_APP_TITLE }}</span>
-    <!--    </n-collapse-transition>-->
   </div>
 </template>
 

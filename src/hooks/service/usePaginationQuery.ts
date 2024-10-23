@@ -3,6 +3,8 @@ import { Ref } from 'vue'
 import { ResponseContent } from '@/services/request/axios/types'
 import { isString } from 'es-toolkit'
 
+type Test <DParams extends Recordable = Recordable> = (query: PaginationParams<DParams> | DParams,...arg:any) => any
+
 
 /**
  * 分页查询Hook
@@ -17,7 +19,7 @@ const usePaginationQuery =
     (
         query: Ref<PaginationParams<DParams> | DParams>,
         queryKey: QueryKey | string,
-        asyncFn: (query: PaginationParams<DParams> | DParams) => Promise<ResponseContent<TResponse, DParams>>,
+        asyncFn: (query: PaginationParams<DParams> | DParams,...arg:any) => Promise<ResponseContent<TResponse, DParams>>,
         options?: Partial<UseQueryOptions<TResponse>>
     ) => {
         const keys = isString(queryKey) ? [ queryKey ] : queryKey
