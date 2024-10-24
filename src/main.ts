@@ -12,11 +12,11 @@ const bootStart = async () => {
     // 安装插件
     setupPlugins(app)
 
-    // 安装全局组件
-    setupComponents(app)
-
     // 挂载状态管理
     setupStore(app)
+
+    // 安装全局组件
+    setupComponents(app)
 
     // 挂载路由
     await setupRouter(app)

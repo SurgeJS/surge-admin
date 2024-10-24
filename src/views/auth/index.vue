@@ -9,12 +9,11 @@
       >
       <h3 class="text-6">{{ VITE_APP_TITLE }}</h3>
     </div>
-    <div v-motion-roll-right class="absolute right-[10px] top-[10px] bg-layer p-[5px] rounded-sm flex gap-[5px]">
+    <div class="absolute right-[10px] top-[10px] bg-layer p-[5px] rounded-sm flex gap-[5px]">
       <theme-palette />
       <theme-switch />
     </div>
     <n-card
-      v-motion-pop-visible
       bordered
       size="large"
       class="auth-card w-[500px] max-xs:w-[90%] transition-width"

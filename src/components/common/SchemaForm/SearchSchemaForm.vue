@@ -4,25 +4,29 @@ import {
   SearchSchemaFormProps,
   SearchSchemaFormSlots
 } from '@/components/common/SchemaForm/types/type'
-import initialProps from '@/components/common/SchemaForm/utils/initialProps'
 import useOmitProps from '@/hooks/common/useOmitProps'
 import useExpose from '@/components/common/SchemaForm/hooks/useExpose'
-import { take } from 'lodash-es'
 import { useProvideSchemaFormContext } from '@/components/common/SchemaForm/hooks/useContext'
 import useMethod from '@/components/common/SchemaForm/hooks/useMethod'
+import { take } from 'es-toolkit'
 
 const props = withDefaults(defineProps<SearchSchemaFormProps>(), {
-  ...initialProps,
+  autoPlaceholder: true,
+  autoRules: true,
+  hideActionButton: false,
+  labelWidth: 'auto',
+  showLabel: true,
+  showFeedback: true,
+  showRequireMark: undefined,
+  labelPlacement: 'top',
+  submitText: '搜索',
+  resetText: '重置',
+  defaultDateFormat: 'yyyy-MM-dd HH:mm:ss',
+  defaultTimeFormat: 'HH:mm:ss',
+  defaultDateValueFormat: 'yyyy-MM-dd HH:mm:ss',
+  defaultTimeValueFormat: 'HH:mm:ss',
+  colProps: 24,
   searchShowNumber: 3,
-  submitText: '查询',
-  colProps: () => ({
-    xs: 24,
-    sm: 12,
-    md: 12,
-    lg: 12,
-    xl: 8,
-    xxl: 6
-  })
 })
 const slots = defineSlots<SearchSchemaFormSlots>()
 
@@ -66,34 +70,33 @@ defineExpose<SearchSchemaFormExpose>(commonExpose)
       <template v-for="(slot,key) in formContentSlots" #[key]="scope">
         <slot :name="key" v-bind="scope||{}" />
       </template>
-      <a-col v-if="!props.hideActionButton" class="flex-auto flex-inline justify-end items-center gap-[12px]">
+      <n-col v-if="!props.hideActionButton" class="flex-auto flex-inline justify-end items-center gap-[12px]">
         <slot name="buttonBefore" />
         <slot name="customActionButton">
-          <a-button
+          <n-button
             v-if="!hideReset"
             :loading="props.resetLoading"
             @click="handleReset"
           >
             {{ props.resetText }}
-          </a-button>
-          <a-button
+          </n-button>
+          <n-button
             type="primary"
             :loading="props.submitLoading"
             @click="handleSubmit"
           >
             {{ props.submitText }}
-          </a-button>
-          <a-button
+          </n-button>
+          <n-button
             v-if="props.searchShowNumber"
-            type="link"
             @click="setExpandSearchForm()"
           >
             {{ searchExpandCollapse.text }}
             <icon :icon="searchExpandCollapse.icon" />
-          </a-button>
+          </n-button>
         </slot>
         <slot name="buttonAfter" />
-      </a-col>
+      </n-col>
     </schema-form-content>
   </schema-form-wrap>
 </template>

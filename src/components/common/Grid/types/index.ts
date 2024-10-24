@@ -1,26 +1,26 @@
-// export type RowGutter =
+export type RowAlign = 'baseline' | 'center' | 'flex-start' | 'flex-end'
+
+export type RowJustify = 'center' | 'end' | 'start' | 'space-around' | 'space-between' | 'space-evenly'
+
+// 'self' 根据自身宽度进行响应式布局，'screen' 根据屏幕断点进行响应式布局
+export type RowResponsive = 'self' | 'screen'
+
 
 export interface RowProps {
     // 间距
     gutter?: number | string | [ number, number ] | [ string, string ]
 
-    // 是否折叠
-    collapsed?: boolean
+    // 垂直对齐方式
+    align?: RowAlign | Record<BreakpointType, RowAlign>
 
-    // 折叠后默认展示个数
-    showNumber?:string
-
-    // 折叠动画
-    foldAnimation?: boolean
+    // 水平对齐方式
+    justify?: RowJustify | Record<BreakpointType, RowJustify>
 
     // 'self' 根据自身宽度进行响应式布局，'screen' 根据屏幕断点进行响应式布局
-    responsive?: 'self' | 'screen'
-
-    // 子元素是否可具有响应式宽度
-    itemResponsive?: boolean
+    responsive?: RowResponsive
 }
 
-export interface ColProps {
+export interface Col {
     // 占据的列数，为 0 的时候会隐藏
     span?: number | string
 
@@ -33,3 +33,5 @@ export interface ColProps {
     // flex 布局填充
     flex?: number | string
 }
+
+export type ColProps = Col & /* @vue-ignore */ Partial<Record<BreakpointType, (number | string) | Col>>

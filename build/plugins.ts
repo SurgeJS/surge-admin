@@ -11,6 +11,7 @@ import Components from 'unplugin-vue-components/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import { AntDesignVueResolver, NaiveUiResolver } from 'unplugin-vue-components/resolvers'
 import devTools from 'vite-plugin-vue-devtools'
+import { visualizer } from 'rollup-plugin-visualizer'
 import { getServiceAddress } from '../src/utils/env'
 // Vite 插件配置
 export const createVitePlugins = (viteEnv: ImportMetaEnv): PluginOption[] => {
@@ -74,5 +75,6 @@ export const createVitePlugins = (viteEnv: ImportMetaEnv): PluginOption[] => {
             basename: getServiceAddress('fake', viteEnv.VITE_SERVICE_CONFIG),
             enableProd: true
         }),
+        visualizer()
     ]
 }

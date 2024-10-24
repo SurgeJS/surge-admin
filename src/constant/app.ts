@@ -89,7 +89,7 @@ export default class AppConstant {
     }
 
     // 屏幕断点
-    static SCREEN_BREAKPOINTS: ScreenBreakpoints = {
+    static SCREEN_BREAKPOINTS: Breakpoints = {
         xs: 530,
         sm: 768,
         md: 992,
