@@ -1,5 +1,5 @@
 {
-  "name": "sleek-admin",
+  "name": "surge-admin",
   "private": true,
   "author": "SongPeng",
   "version": "0.0.0",
@@ -19,6 +19,7 @@
     "@tanstack/vue-query": "^5.59.16",
     "@vueuse/components": "^11.1.0",
     "@vueuse/core": "^11.1.0",
+    "ant-design-vue": "^4.2.5",
     "axios": "^1.7.7",
     "date-fns": "^3.6.0",
     "echarts": "^5.5.1",

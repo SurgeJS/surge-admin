@@ -11,7 +11,7 @@ const appStore = useAppStore()
     :style="{height:`${appStore.footerHeight}px`}"
     class="layoutFooter"
   >
-    Copyright ©2022 Sleek Admin
+    Copyright ©2022 Surge Admin
   </n-layout-footer>
 </template>
 

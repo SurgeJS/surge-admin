@@ -238,8 +238,8 @@ const schema = reactive<DefineSchema<typeof form.value>[]>([
     placeholder: '输入@符号进行提及',
     options: [
       {
-        label: 'Sleek',
-        value: 'Sleek'
+        label: 'Surge',
+        value: 'Surge'
       },
       {
         label: '呼和浩特',
