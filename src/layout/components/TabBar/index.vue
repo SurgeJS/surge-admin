@@ -66,7 +66,7 @@ useEventListener('resize', () => {
 })
 
 // 监听路由变化
-watch(() => route.path, () => {
+watch(() => route.fullPath, () => {
   tabBarStore.addTab(pick(route, [ 'meta', 'path', 'name', 'fullPath' ]))
   scrollToActive()
 }, { immediate: true })

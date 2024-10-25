@@ -1,6 +1,6 @@
 import type { Router } from 'vue-router'
 import { useTitle } from '@vueuse/core'
-import createAuthGuard from '@/router/utils/guard/auth'
+import createAuthGuard from '@/router/guard/auth.ts'
 import useAppStore from '@/store/modules/app'
 
 const createRouterGuard = (router: Router) => {

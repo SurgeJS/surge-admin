@@ -5,14 +5,19 @@ import { computed } from 'vue'
 import PageTransition from '@/layout/components/PageTransition.vue'
 import FullScreenLoading from '@/layout/components/FullScreenLoading.vue'
 
+const route = useRoute()
 const tabBarStore = useTabBarStore()
 const appStore = useAppStore()
 
 const transitionName = computed(() => appStore.isPageStartAnimation ? appStore.pageAnimationMode : undefined)
+
 </script>
 
 <template>
-  <n-layout-content content-class="flex-1 flex-shrink-0 p-[10px] pt-0">
+  <n-layout-content
+    :content-style="{paddingTop:appStore.tabBarVisible ? 0 : '10px'}"
+    content-class="flex-1 flex-shrink-0 p-[10px]"
+  >
     <n-back-top right="20" bottom="50" />
     <transition name="fade">
       <full-screen-loading v-show="appStore.fullScreenLoading" />
@@ -23,7 +28,7 @@ const transitionName = computed(() => appStore.isPageStartAnimation ? appStore.p
           <component
             :is="Component"
             v-if="tabBarStore.refreshFlag"
-            :key="route.fullPath"
+            :key="route.path"
           />
         </keep-alive>
       </page-transition>
@@ -32,10 +37,5 @@ const transitionName = computed(() => appStore.isPageStartAnimation ? appStore.p
 </template>
 
 <style lang="scss">
-.layout-main {
-  flex: 1;
-  flex-shrink: 0;
-  padding: 0 10px 5px 10px;
-  position: relative;
-}
+
 </style>

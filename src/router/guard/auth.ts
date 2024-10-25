@@ -2,9 +2,9 @@ import { NavigationGuardNext, RouteLocationNormalized } from 'vue-router'
 import useAuthStore from '@/store/modules/auth'
 import useTabBarStore from '@/store/modules/tabBar'
 import { runTacticsAction, TacticsAction } from '@/utils'
-import RouterConstant from '@/constant/router'
-import { tokenCache } from '@/store/caches'
-import RegUtils from '@/utils/reg'
+import RouterConstant from '@/constant/router.ts'
+import { tokenCache } from '@/store/caches.ts'
+import RegUtils from '@/utils/reg.ts'
 
 const createAuthGuard = (to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext) => {
     const {
@@ -18,7 +18,6 @@ const createAuthGuard = (to: RouteLocationNormalized, from: RouteLocationNormali
         isGeneratedRoutes,
         $state
     } = useAuthStore()
-
     const { initializeTabBar } = useTabBarStore()
     // 处理路由鉴权模式
     const handleRouteAuthMode = async () => {
@@ -65,7 +64,7 @@ const createAuthGuard = (to: RouteLocationNormalized, from: RouteLocationNormali
         [
             !isAuth,
             async () => {
-                console.info('---没有鉴权（没有用户信息和角色）---')
+                // console.info('---没有鉴权（没有用户信息和角色）---')
                 // 获取用户信息
                 await getUserinfo().catch(() => {
                     next(RouterConstant.LOGIN_PATH)
@@ -79,7 +78,7 @@ const createAuthGuard = (to: RouteLocationNormalized, from: RouteLocationNormali
         [
             !isGeneratedRoutes,
             async () => {
-                console.info('---没有生成路由---')
+                // console.info('---没有生成路由---')
                 await handleRouteAuthMode()
                 next({ ...to, replace: true })
             }
@@ -88,7 +87,7 @@ const createAuthGuard = (to: RouteLocationNormalized, from: RouteLocationNormali
         [
             to.path.startsWith(RouterConstant.AUTH_ROUTE),
             () => {
-                console.info('---登录情况下不能到登录页面---')
+                // console.info('---登录情况下不能到登录页面---')
                 next(from.fullPath)
             }
         ],

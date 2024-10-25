@@ -17,7 +17,7 @@ declare module 'vue-router' {
         // 忽略鉴权，用户可以直接访问
         ignoreAuth?: boolean
 
-        // 是否缓存 (对iframeSrc无效)
+        // 是否缓存 (对iframeSrc无效、菜单以外的路由无效，比如：登录、注册路由)
         keepAlive?: boolean
 
         // 是否固定在tab上

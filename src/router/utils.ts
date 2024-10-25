@@ -1,18 +1,18 @@
 // 需要权限的路由模块列表
 import { RouteRecordRaw } from 'vue-router'
-import { Sort } from '@/enums/common'
-import RegUtils from '@/utils/reg'
-import { RoleEnum } from '@/enums/auth'
+import { Sort } from '@/enums/common.ts'
+import RegUtils from '@/utils/reg.ts'
+import { RoleEnum } from '@/enums/auth.ts'
 import { pathToPascalCase } from '@/utils'
-import RouterConstant from '@/constant/router'
+import RouterConstant from '@/constant/router.ts'
 
 // 路由工具
 export class RouterUtils {
     // 前端路由模块列表
-    static readonly ROUTER_MODULES_LIST = import.meta.glob('../modules/**.ts', { eager: true })
+    static readonly ROUTER_MODULES_LIST = import.meta.glob('./modules/**.ts', { eager: true })
 
     // 静态路由模块
-    static STATIC_ROUTES = import.meta.glob('../routes/**.ts', { eager: true })
+    static STATIC_ROUTES = import.meta.glob('./routes/**.ts', { eager: true })
 
     // 页面组件
     static readonly VIEW_COMPONENTS = import.meta.glob('@/views/**/**.vue')

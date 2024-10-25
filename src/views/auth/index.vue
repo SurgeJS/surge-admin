@@ -25,7 +25,6 @@
             <component
               :is="Component"
               :key="route.fullPath"
-              v-motion-slide-visible-right
             />
           </router-view>
         </div>
