@@ -23,7 +23,7 @@
     "axios": "^1.7.7",
     "date-fns": "^3.6.0",
     "echarts": "^5.5.1",
-    "es-toolkit": "^1.25.2",
+    "es-toolkit": "^1.26.0",
     "gsap": "^3.12.5",
     "pinia": "^2.2.4",
     "store2": "^2.14.3",
@@ -60,7 +60,7 @@
     "vite-plugin-compression": "^0.5.1",
     "vite-plugin-fake-server": "^2.1.2",
     "vite-plugin-html": "^3.2.2",
-    "vite-plugin-vue-devtools": "^7.5.3",
+    "vite-plugin-vue-devtools": "^7.5.4",
     "vue-eslint-parser": "^9.4.3",
     "vue-tsc": "^2.1.6"
   },

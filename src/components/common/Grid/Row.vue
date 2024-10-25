@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { RowAlign, RowJustify, RowProps } from '@/components/common/Grid/types'
+import { RowProps } from '@/components/common/Grid/types'
 import { useProvideGridContext } from '@/components/common/Grid/hooks/useContext'
 import { CSSProperties } from 'vue'
 import useBreakpoint from '@/hooks/common/useBreakpoint.ts'
+import { isObject } from 'es-toolkit/compat'
 
 const { gutter = 0, responsive = 'screen', justify, align } = defineProps<RowProps>()
 const el = useTemplateRef<HTMLElement>('el')
@@ -18,7 +19,10 @@ const rowStyle = computed(() => {
   } as CSSProperties
 })
 
-const handleResponsive = (value:RowAlign|RowJustify) => {
+const handleResponsive = (value:RowProps['align']|RowProps['justify']) => {
+  if (isObject(value)) {
+    
+  }
 
 }
 </script>

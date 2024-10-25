@@ -3,7 +3,7 @@
   margin: 0;
   box-sizing: border-box;
   scrollbar-width: thin;
-  scrollbar-color: theme('colors.fill.inverted') transparent!important;
+  scrollbar-color: theme('colors.fill.inverted') transparent !important;
 }
 
 html, body, #app {
@@ -36,14 +36,9 @@ iframe {
 }
 
 // 清除过度效果
-.noTransition *:not(.transition,.transition *) {
-  transition: none !important;
-  animation: none !important;
-}
-:root {
-  --breakpoints-xs: 567px;
-  --breakpoints-ms: 800px;
-  --breakpoints-md: 1000px;
-  --breakpoints-lg: 1200px;
-  --breakpoints-xl: 1500px;
+.noTransition {
+  *:not(.transition,.transition *), *::before, *::after {
+    transition: none !important;
+    animation: none !important;
+  }
 }
