@@ -39,7 +39,7 @@ export const initialAppStore: AppStore = {
     // 移动端 menu 可见
     mobileSidebarVisible: false,
     // 侧边栏宽度
-    sidebarWidth: 220,
+    sidebarWidth: 240,
     // 混合侧边栏宽度
     mixSidebarWidth: 94,
     // 折叠侧边栏的宽度

@@ -37,7 +37,7 @@ iframe {
 
 // 清除过度效果
 .noTransition {
-  *:not(.transition,.transition *), *::before, *::after {
+  *:not(.transition,.transition *,.loading-container), *::before, *::after {
     transition: none !important;
     animation: none !important;
   }

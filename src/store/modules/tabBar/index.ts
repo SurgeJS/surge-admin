@@ -5,6 +5,7 @@ import { asyncWait } from '@/utils'
 import { RouteRecordNameGeneric } from 'vue-router'
 import { Tab, TabBarStore } from '@/store/modules/tabBar/type'
 import useAppStore from '@/store/modules/app'
+import { pick } from 'es-toolkit'
 
 const useTabBarStore = defineStore('TabBar', () => {
     const route = useRoute()
@@ -130,6 +131,11 @@ const useTabBarStore = defineStore('TabBar', () => {
         // 初始化固定标签
         tabBar.tabs = [ ...getRouterAffixTabs(routes) ]
     }
+
+    // 监听路由变化
+    watch(() => route.fullPath, () => {
+        addTab(pick(route, [ 'meta', 'path', 'name', 'fullPath' ]))
+    }, { immediate: true })
 
     return {
         ...tabBarRefs,
