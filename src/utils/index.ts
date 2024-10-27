@@ -72,3 +72,11 @@ export const toKebabCase = (str: string) => {
 export const hasScrollBar = (element: HTMLElement) => {
     return element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth
 }
+
+// 滚动到目标元素
+export const scrollToElement = (element: HTMLElement, behavior: ScrollBehavior = 'smooth', block: ScrollLogicalPosition = 'start') => {
+    element.scrollIntoView({
+        behavior: behavior,
+        block: block
+    })
+}

@@ -6,7 +6,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { useDebounceFn, useEventListener, useToggle } from '@vueuse/core'
 import ContextMenu from '@/layout/components/TabBar/components/ContextMenu.vue'
 import { Tab } from '@/store/modules/tabBar/type'
-import { pick } from 'es-toolkit'
+import { scrollToElement } from '@/utils'
 
 defineOptions({ name: 'TabBar' })
 
@@ -46,12 +46,8 @@ const scrollToActive = useDebounceFn(async () => {
   if (!tabBarContainer.value) return
   await nextTick()
   const container = tabBarContainer.value
-  const index = tabBarStore.getIndex(route.path)
-  const child = container.children[index] as HTMLElement
-  container.scrollTo({
-    left: child?.offsetLeft,
-    behavior: 'smooth'
-  })
+  const child = container.children[tabBarStore.getIndex(route.path)] as HTMLElement
+  scrollToElement(child)
 }, 300)
 
 const handleContextMenu = (e:MouseEvent,tab:Tab) => {
@@ -67,7 +63,6 @@ useEventListener('resize', () => {
 
 // 监听路由变化
 watch(() => route.fullPath, () => {
-  tabBarStore.addTab(pick(route, [ 'meta', 'path', 'name', 'fullPath' ]))
   scrollToActive()
 }, { immediate: true })
 
