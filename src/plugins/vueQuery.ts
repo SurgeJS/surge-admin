@@ -1,7 +1,7 @@
-import { App } from 'vue'
 import { VueQueryPlugin } from '@tanstack/vue-query'
+import { App } from 'vue'
 
-const setupPlugins = (app: App<Element>) => {
+const vueQueryPlugins = (app:App) => {
     app.use(VueQueryPlugin, {
         queryClientConfig: {
             defaultOptions: { queries: { refetchOnWindowFocus: false } }
@@ -9,4 +9,4 @@ const setupPlugins = (app: App<Element>) => {
     })
 }
 
-export default setupPlugins
+export default vueQueryPlugins

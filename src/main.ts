@@ -1,10 +1,10 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import '@/assets/index'
 import { setupRouter } from '@/router'
 import { setupStore } from '@/store'
 import setupComponents from '@/components'
-import setupPlugins from '@/utils/plugins'
+import setupPlugins from '@/plugins'
+import '@/assets/index'
 
 const bootStart = async () => {
     const app = createApp(App)

@@ -3,6 +3,7 @@ import { useGlobalInitialize } from '@/hooks/effect/useGlobalInitialize'
 import { useGlobalSubscribe } from '@/hooks/effect/useGlobalSubscribe'
 import { dateZhCN, zhCN } from 'naive-ui'
 import useAppStore from '@/store/modules/app'
+import AppConstant from '@/constant/app.ts'
 
 const appStore = useAppStore()
 // 全局初始化
@@ -20,6 +21,7 @@ useGlobalSubscribe()
     :theme-overrides="appStore.themeOverrides"
     :locale="zhCN"
     :date-locale="dateZhCN"
+    :breakpoints="AppConstant.SCREEN_BREAKPOINTS"
   >
     <app-provider>
       <router-view />

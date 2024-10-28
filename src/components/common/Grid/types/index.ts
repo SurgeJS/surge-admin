@@ -6,15 +6,17 @@ export type RowJustify = 'center' | 'end' | 'start' | 'space-around' | 'space-be
 export type RowResponsive = 'self' | 'screen'
 
 
+export type BreakpointTypeProperty <K> = Partial<Record<BreakpointType, K>>
+
 export interface RowProps {
     // 间距
     gutter?: number | string | [ number, number ] | [ string, string ]
 
     // 垂直对齐方式
-    align?: RowAlign | Record<BreakpointType, RowAlign>
+    align?: RowAlign | BreakpointTypeProperty<RowAlign>
 
     // 水平对齐方式
-    justify?: RowJustify | Record<BreakpointType, RowJustify>
+    justify?: RowJustify | BreakpointTypeProperty<RowJustify>
 
     // 'self' 根据自身宽度进行响应式布局，'screen' 根据屏幕断点进行响应式布局
     responsive?: RowResponsive
