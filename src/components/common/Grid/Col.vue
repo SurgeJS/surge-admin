@@ -4,9 +4,11 @@ import { CSSProperties } from 'vue'
 import { useGridContext } from '@/components/common/Grid/hooks/useContext'
 import { isNumber } from 'es-toolkit/compat'
 
-const { span = 24, offset = 0, flex,suffix = false } = defineProps<ColProps>()
+const { span = 24, offset = 0, flex, suffix = false, xs, sm, md, lg, xl } = defineProps<ColProps>()
 
-const { space } = useGridContext()!
+const responsive = [ xs, sm, md, lg, xl ]
+
+const { space, getBreakpointRecodValue } = useGridContext()!
 
 const flexAttribute = computed(() => {
   if (!flex) return `0 0 ${ (Number(span) / 24) * 100 }%`

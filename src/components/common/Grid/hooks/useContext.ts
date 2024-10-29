@@ -14,17 +14,23 @@ const [ useProvideGridContext, useGridContext ] = createInjectionState((props: R
 
     const space = computed(() => (isArray(props.gutter) ? props.gutter : [ props.gutter, 0 ]) as [ number, number ])
 
-    const currentBreakpoint = computed<BreakpointType>(() => {
-        const b = AppConstant.SCREEN_BREAKPOINTS
-        const w = width.value
-        if (w >= b.xl) return 'xl'
-        if (w >= b.lg) return 'lg'
-        if (w >= b.md) return 'md'
-        if (w >= b.sm) return 'sm'
-        return 'xs'
-    })
+    // 获取断定value
+    const getBreakpointRecodValue = (recod: Partial<Record<BreakpointType, any>>) => {
+        const breakpointKeys: BreakpointType[] = [ 'xl', 'lg', 'md', 'sm', 'xs' ]
+        // 遍历断点，从大到小判断当前窗口宽度是否符合条件
+        for (const key of breakpointKeys) {
+            if (recod[key]) {
+                if (key === 'xs' && width.value <= AppConstant.SCREEN_BREAKPOINTS[key]) {
+                    return recod[key]
+                } else if (width.value >= AppConstant.SCREEN_BREAKPOINTS[key]) {
+                    return recod[key]
+                }
+            }
+        }
+    }
 
-    return { props, space, rowEl,currentBreakpoint }
+
+    return { props, space, rowEl, getBreakpointRecodValue }
 })
 
 export { useProvideGridContext, useGridContext }

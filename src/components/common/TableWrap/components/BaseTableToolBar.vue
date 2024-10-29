@@ -5,7 +5,7 @@ import { unref } from 'vue'
 import { VueDraggable } from 'vue-draggable-plus'
 import { cloneDeep } from 'es-toolkit'
 
-const { props, currentDensity, tableColumns } = useBaseTableStore()!
+const { props, currentDensity, tableColumns } = useBaseTableStore([])!
 
 const initialTableColumns = cloneDeep(unref(tableColumns.value))
 

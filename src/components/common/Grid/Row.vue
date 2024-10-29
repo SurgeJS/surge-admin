@@ -4,16 +4,15 @@ import { useProvideGridContext } from '@/components/common/Grid/hooks/useContext
 import { CSSProperties } from 'vue'
 import { isString } from 'es-toolkit'
 
-const props = withDefaults(defineProps<RowProps>(),{
-  gutter:0,
-  responsive:'screen',
+const props = withDefaults(defineProps<RowProps>(), {
+  gutter: 0,
+  responsive: 'screen'
 })
 
-const { space,rowEl,currentBreakpoint } = useProvideGridContext(props)
-
+const { space, rowEl, getBreakpointRecodValue } = useProvideGridContext(props)
 const rowStyle = computed(() => {
   return {
-    'justify-content':handleResponsive(props.justify) ,
+    'justify-content': handleResponsive(props.justify),
     'align-items': handleResponsive(props.align),
     margin: `-${ space.value[1] / 2 }px -${ space.value[0] / 2 }px -${ space.value[1] / 2 }px -${ space.value[0] / 2 }px`
   } as CSSProperties
@@ -21,7 +20,8 @@ const rowStyle = computed(() => {
 
 const handleResponsive = (value: RowProps['align'] | RowProps['justify']) => {
   if (!value) return
-  return isString(value) ? value : value[currentBreakpoint.value]
+  if (isString(value)) return value
+  return getBreakpointRecodValue(value)
 }
 </script>
 
