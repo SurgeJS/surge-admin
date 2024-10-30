@@ -8,10 +8,10 @@ const props = withDefaults(defineProps<GridProps>(), {
   cols: 24,
   itemMinWidth: '0px',
   itemMaxWidth: '1fr',
-  responsive:'screen'
+  responsive: 'screen'
 })
 
-const { rowEl,responsiveCols } = useProvideGridContext(props)
+const { rowEl, responsiveCols } = useProvideGridContext(props)
 
 const gridStyle = computed<CSSProperties>(() => {
   return {
@@ -24,6 +24,20 @@ const handleStrOrNum = (value: string | number | undefined) => {
   return isNumber(value) ? `${ value }px` : value
 }
 
+const toggleCollapsed = (isCollapsed?: boolean) => {
+  if (!rowEl.value) return
+  Array.from(rowEl.value.children as HTMLCollectionOf<HTMLElement>).forEach((item) => {
+    if (isCollapsed !== undefined) {
+      item.style.display = isCollapsed ? 'none' : 'block'
+    } else {
+      item.style.display = item.style.display !== 'none' ? 'none' : 'block'
+    }
+  })
+}
+
+watch(() => props.collapsed, () => {
+  toggleCollapsed(props.collapsed)
+})
 </script>
 
 <template>
