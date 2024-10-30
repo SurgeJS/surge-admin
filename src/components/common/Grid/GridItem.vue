@@ -2,27 +2,32 @@
 import { CSSProperties } from 'vue'
 import { GridItemProps } from '@/components/common/Grid/types'
 import { useGridContext } from '@/components/common/Grid/hooks/useContext.ts'
+import { isObject } from 'es-toolkit/compat'
 
 const props = withDefaults(defineProps<GridItemProps>(), {
   span: 1,
-  suffix:false
+  suffix: false
 })
 
-const { props: gridProps } = useGridContext()!
+const { responsiveCols, getResponsiveValue } = useGridContext()!
+
+const responsiveSpan = computed(() => {
+  return Number(isObject(props.span) ? getResponsiveValue(props.span) : props.span)
+})
 
 const gridColumn = computed(() => {
   return props.suffix ?
-      `${ Number(gridProps.cols) - Number(props.span) + 1 } / span ${Number(props.span)}` :
-      `span ${ props.span } / span ${ props.span }`
+      `${ Number(responsiveCols.value) - responsiveSpan.value + 1 } / span ${ responsiveSpan.value }` :
+      `span ${ responsiveSpan.value } / span ${ responsiveSpan.value }`
 })
 
 const gridItemStyle = computed<CSSProperties>(() => {
   return {
-    'grid-column':gridColumn.value,
+    'grid-column': gridColumn.value
   }
 })
 
-const isHide = computed(()=>Number(props.span) === 0)
+const isHide = computed(() => Number(props.span) === 0)
 </script>
 
 <template>

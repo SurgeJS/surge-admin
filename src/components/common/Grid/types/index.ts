@@ -40,6 +40,6 @@ export interface GridItemProps {
     // 栅格占据的列数，为 0 的时候会隐藏,大于 Grid cols 数量的时候会错位
     span?: StrOrNum | BreakpointTypeProperty<StrOrNum>
 
-    // 栅格后缀
+    // 栅格后缀(不会被折叠)
     suffix?: boolean
 }

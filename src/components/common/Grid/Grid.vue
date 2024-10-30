@@ -8,13 +8,14 @@ const props = withDefaults(defineProps<GridProps>(), {
   cols: 24,
   itemMinWidth: '0px',
   itemMaxWidth: '1fr',
+  responsive:'screen'
 })
 
-const context = useProvideGridContext(props)
+const { rowEl,responsiveCols } = useProvideGridContext(props)
 
 const gridStyle = computed<CSSProperties>(() => {
   return {
-    'grid-template-columns': `repeat(${ props.cols }, minmax(${ handleStrOrNum(props.itemMinWidth) }, ${ handleStrOrNum(props.itemMaxWidth) }))`,
+    'grid-template-columns': `repeat(${ responsiveCols.value }, minmax(${ handleStrOrNum(props.itemMinWidth) }, ${ handleStrOrNum(props.itemMaxWidth) }))`,
     gap: `${ handleStrOrNum(props.xGap) } ${ handleStrOrNum(props.yGap) }`
   }
 })
@@ -26,7 +27,11 @@ const handleStrOrNum = (value: string | number | undefined) => {
 </script>
 
 <template>
-  <div class="grid" :style="gridStyle">
+  <div
+    ref="rowEl"
+    class="grid"
+    :style="gridStyle"
+  >
     <slot />
   </div>
 </template>
