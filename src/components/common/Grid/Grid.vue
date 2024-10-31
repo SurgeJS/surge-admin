@@ -10,8 +10,9 @@ const props = withDefaults(defineProps<GridProps>(), {
   itemMaxWidth: '1fr',
   responsive: 'screen'
 })
+const test = ref()
+const { rowEl, responsiveCols,itemConfigList } = useProvideGridContext(props)
 
-const { rowEl, responsiveCols } = useProvideGridContext(props)
 
 const gridStyle = computed<CSSProperties>(() => {
   return {
@@ -25,15 +26,11 @@ const handleStrOrNum = (value: string | number | undefined) => {
 }
 
 const toggleCollapsed = (isCollapsed?: boolean) => {
-  if (!rowEl.value) return
-  Array.from(rowEl.value.children as HTMLCollectionOf<HTMLElement>).forEach((item) => {
-    if (isCollapsed !== undefined) {
-      item.style.display = isCollapsed ? 'none' : 'block'
-    } else {
-      item.style.display = item.style.display !== 'none' ? 'none' : 'block'
-    }
-  })
 }
+const slots = useSlots()
+onMounted(() => {
+  toggleCollapsed()
+})
 
 watch(() => props.collapsed, () => {
   toggleCollapsed(props.collapsed)
@@ -46,7 +43,7 @@ watch(() => props.collapsed, () => {
     class="grid"
     :style="gridStyle"
   >
-    <slot />
+    <slot :ref="test" />
   </div>
 </template>
 

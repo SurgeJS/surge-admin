@@ -362,7 +362,7 @@ const schema = reactive<DefineSchema<typeof form.value>[]>([
     <template #1>
       <div class="p-24px h-full overflow-auto">
         <pre>{{ JSON.stringify(form, null, 2) }}</pre>
-      </div>
+      </div>  
     </template>
     <template #2>
       <div class="p-24px h-full overflow-auto">

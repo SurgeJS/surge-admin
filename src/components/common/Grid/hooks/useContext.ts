@@ -3,7 +3,17 @@ import { GridProps } from '@/components/common/Grid/types'
 import { isObject } from 'es-toolkit/compat'
 import AppConstant from '@/constant/app.ts'
 
+interface GridItemConfig {
+    suffix: Ref<boolean>
+
+    id: string
+
+    span: Ref<number>
+}
+
 const [ useProvideGridContext, useGridContext ] = createInjectionState((props: GridProps) => {
+    const itemConfigList: GridItemConfig[] = []
+
     const rowEl = ref<HTMLElement>()
 
     const { width: elWidth } = useElementSize(rowEl)
@@ -33,7 +43,7 @@ const [ useProvideGridContext, useGridContext ] = createInjectionState((props: G
         return v
     }
 
-    return { props, rowEl, width, getResponsiveValue, responsiveCols }
+    return { props, rowEl, width, responsiveCols, itemConfigList, getResponsiveValue }
 })
 
 export { useProvideGridContext, useGridContext }
