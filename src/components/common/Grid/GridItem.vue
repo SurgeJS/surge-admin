@@ -9,21 +9,13 @@ const props = withDefaults(defineProps<GridItemProps>(), {
   suffix: false
 })
 
-const id = useId()
-
-
-
-const { responsiveCols, getResponsiveValue,itemConfigList } = useGridContext()!
-
+const currentElement = useCurrentElement()
+const { responsiveCols, getResponsiveValue, itemConfigList } = useGridContext()!
 
 const responsiveSpan = computed(() => {
   return Number(isObject(props.span) ? getResponsiveValue(props.span) : props.span)
 })
 
-const test = {
-  span:responsiveSpan,
-  suffix:toRef(props.suffix)
-}
 const gridColumn = computed(() => {
   const rSpan = responsiveSpan.value
   const rCols = responsiveCols.value
@@ -39,17 +31,17 @@ const gridItemStyle = computed<CSSProperties>(() => {
 })
 
 const isHide = computed(() => Number(props.span) === 0)
-console.log(id)
-
-onMounted(() => {
-  itemConfigList.push(test)
-  console.log(itemConfigList)
+// 根据 item class 给 itemConfigList 进行Push 
+onMounted( async () => {
+  await nextTick()
+  console.dir(currentElement.value)
 })
 </script>
 
 <template>
   <div
     v-show="!isHide"
+    class="grid-item"
     :style="gridItemStyle"
   >
     <slot />

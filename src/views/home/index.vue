@@ -3,18 +3,20 @@
 const [ isShow,setShow ] = useToggle()
 console.log(1)
 console.log(1)
-console.log(1)
-console.log(1)
-console.log(1)
-console.log(1)
 </script>
 
 <template>
   <div class="w-full">
     <n-button @click="setShow()">是否折叠</n-button>
-    <grid>
-      <grid-item span="2">4</grid-item>
-      <grid-item>4</grid-item>
+    <grid
+      :cols="8"
+      x-gap="10px"
+      y-gap="10px"
+    >
+      <grid-item class="bg-red rounded-md" span="2">1</grid-item>
+      <grid-item class="bg-red rounded-md">2</grid-item>
+      <grid-item class="bg-red rounded-md" span="5">2</grid-item>
+      <grid-item class="bg-red rounded-md" span="3">2</grid-item>
     </grid>
   </div>
 </template>
