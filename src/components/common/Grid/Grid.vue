@@ -11,8 +11,7 @@ const props = withDefaults(defineProps<GridProps>(), {
   responsive: 'screen'
 })
 
-const { rowEl, responsiveCols, itemConfigList } = useProvideGridContext(props)
-
+const { rowEl, responsiveCols } = useProvideGridContext(props)
 
 const gridStyle = computed<CSSProperties>(() => {
   return {
@@ -26,15 +25,11 @@ const handleStrOrNum = (value: string | number | undefined) => {
 }
 
 const toggleCollapsed = (isCollapsed?: boolean) => {
-}
-
-const getItemList = () => {
-  return rowEl.value?.children || []
+  console.log(isCollapsed)
 }
 
 onMounted(() => {
-  console.log(rowEl.value.children[0])
-  rowEl.value.children[0].classList.add('_item-0')
+  console.log(1)
   toggleCollapsed()
 })
 

@@ -38,7 +38,7 @@
     "@iconify/json": "^2.2.266",
     "@iconify/types": "^2.0.0",
     "@iconify/vue": "^4.1.2",
-    "@types/node": "^20.17.3",
+    "@types/node": "^20.17.5",
     "@unocss/preset-uno": "^0.62.4",
     "@vitejs/plugin-legacy": "^5.4.3",
     "@vitejs/plugin-vue": "^5.1.4",
@@ -60,7 +60,7 @@
     "vite-plugin-compression": "^0.5.1",
     "vite-plugin-fake-server": "^2.1.2",
     "vite-plugin-html": "^3.2.2",
-    "vite-plugin-vue-devtools": "^7.6.1",
+    "vite-plugin-vue-devtools": "^7.6.2",
     "vue-eslint-parser": "^9.4.3",
     "vue-tsc": "^2.1.10"
   },

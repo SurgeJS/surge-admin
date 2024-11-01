@@ -1,8 +1,6 @@
 <script setup lang="ts">
 
 const [ isShow,setShow ] = useToggle()
-console.log(1)
-console.log(1)
 </script>
 
 <template>
@@ -13,10 +11,15 @@ console.log(1)
       x-gap="10px"
       y-gap="10px"
     >
-      <grid-item class="bg-red rounded-md" span="2">1</grid-item>
+      <grid-item class="bg-red rounded-md" span="2" />
+      <grid-item class="bg-red rounded-md" span="2" />
+      <grid-item class="bg-red rounded-md" span="2" />
       <grid-item class="bg-red rounded-md">2</grid-item>
-      <grid-item class="bg-red rounded-md" span="5">2</grid-item>
-      <grid-item class="bg-red rounded-md" span="3">2</grid-item>
+      <grid-item class="bg-red rounded-md" span="5" />
+      <grid-item class="bg-red rounded-md" span="3" />
+      <grid-item class="bg-red rounded-md" span="3" />
+      <grid-item class="bg-red rounded-md" span="3" />
+      <grid-item class="bg-red rounded-md" :span="{xs:8,md:4}" />
     </grid>
   </div>
 </template>
