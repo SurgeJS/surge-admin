@@ -8,18 +8,24 @@ const [ isShow,setShow ] = useToggle()
     <n-button @click="setShow()">是否折叠</n-button>
     <grid
       :cols="8"
-      x-gap="10px"
-      y-gap="10px"
+      :x-gap="10"
+      :y-gap="10"
     >
-      <grid-item class="bg-red rounded-md" span="2" />
-      <grid-item class="bg-red rounded-md" span="2" />
-      <grid-item class="bg-red rounded-md" span="2" />
-      <grid-item class="bg-red rounded-md">2</grid-item>
-      <grid-item class="bg-red rounded-md" span="5" />
-      <grid-item class="bg-red rounded-md" span="3" />
-      <grid-item class="bg-red rounded-md" span="3" />
-      <grid-item class="bg-red rounded-md" span="3" />
-      <grid-item class="bg-red rounded-md" :span="{xs:8,md:4}" />
+      <grid-item
+        class="bg-red rounded-md"
+        :span="4"
+        :offset="4"
+      >
+        test
+      </grid-item>
+      <grid-item class="bg-red rounded-md" :span="6" />
+      <grid-item
+        class="bg-red rounded-md"
+        :span="2"
+      />
+      <grid-item class="bg-red rounded-md" />
+      <grid-item class="bg-red rounded-md" :span="5" />
+      <grid-item class="bg-red rounded-md" :span="3" />
     </grid>
   </div>
 </template>
