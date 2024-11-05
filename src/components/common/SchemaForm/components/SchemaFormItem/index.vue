@@ -240,7 +240,10 @@ const FormItem = defineComponent(() => {
         isUndefined
     )
   }
-  console.log(formItemRef)
+
+  watchEffect(() => {
+    // if ()
+  })
   return () => (
       <n-form-item
           ref={ formItemRef }

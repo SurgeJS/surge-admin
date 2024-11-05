@@ -208,8 +208,6 @@ export interface SchemaFormCommonProps extends Partial<Omit<FormSetupProps, 'onS
     // 标签文字溢出省略(设置固定宽度时有效)
     labelOverflowOmitted?: boolean
 
-    test:boolean
-
     // 提交Loading
     submitLoading?: boolean
 
