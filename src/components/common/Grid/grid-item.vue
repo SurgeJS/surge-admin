@@ -14,7 +14,15 @@ const props = withDefaults(defineProps<GridItemProps>(), {
 
 const el = ref<HTMLElement>()
 
-const { responsiveCols, width,responsiveYGap, setItemMap,removeItemMap  } = useGridContext()!
+const {
+  isOverflow,
+  displayIndexList,
+  responsiveCols,
+  width,
+  responsiveYGap,
+  setItemMap,
+  removeItemMap
+} = useGridContext()!
 const index = useElementIndex(el)
 const responsiveSpan = useResponsivePropsValue(width, props, 'span')
 const responsiveOffset = useResponsivePropsValue(width, props, 'offset')
@@ -24,6 +32,8 @@ const itemData = computed(() => resolveItemData(responsiveCols.value, {
   offset: responsiveOffset.value,
   suffix: props.suffix
 }))
+
+const isDisplay = computed(() => displayIndexList.value.includes(index.value))
 
 const gridColumnAttribute = computed(() => {
   const { suffix, span } = itemData.value
@@ -43,7 +53,8 @@ const marginLeftAttribute = computed(() => {
 
 const gridItemStyle = computed<CSSProperties>(() => ({
   'grid-column': gridColumnAttribute.value,
-  'margin-left': marginLeftAttribute.value
+  'margin-left': marginLeftAttribute.value,
+  'display': (!isDisplay.value || itemData.value.span === 0) ? 'none' : undefined
 }))
 
 watchEffect(() => {
@@ -65,8 +76,7 @@ onUnmounted(() => {
     class="grid-item"
     :style="gridItemStyle"
   >
-    <span>{{ index }}</span>
-    <slot />
+    <slot :overflow="isOverflow" />
   </div>
 </template>
 

@@ -2,33 +2,25 @@
 import { CSSProperties } from 'vue'
 import { GridProps } from '@/components/common/Grid/types'
 import { useProvideGridContext } from '@/components/common/Grid/hooks/use-context.ts'
+import { setItemVisible } from '@/components/common/Grid/utils'
 
 const props = withDefaults(defineProps<GridProps>(), {
   cols: 24,
+  collapsedRows: 1,
   responsive: 'screen'
 })
 
-const { rowEl,itemDataMap,itemDataList, responsiveCols, responsiveXGap, responsiveYGap } = useProvideGridContext(props)
+const { rowEl,isOverflow,displayIndexList, itemDataList, responsiveCols, responsiveXGap, responsiveYGap } = useProvideGridContext(props)
 
 const gridStyle = computed<CSSProperties>(() => ({
   'grid-template-columns': `repeat(${ responsiveCols.value }, minmax(0px, 1fr))`,
   gap: `${ responsiveXGap.value }px ${ responsiveYGap.value }px`
 }))
 
-const toggleCollapsed = (isCollapsed?: boolean) => {
-  console.log(isCollapsed)
-}
-
-onMounted(() => {
-  console.log(itemDataMap)
-  setTimeout(() => {
-    console.log(itemDataList.value)
-  },2000)
-  toggleCollapsed()
-})
-
-watch(() => props.collapsed, () => {
-  toggleCollapsed(props.collapsed)
+watchEffect(() => {
+  const itemVisible = setItemVisible(responsiveCols.value, props.collapsed, props.collapsedRows, itemDataList.value)
+  isOverflow.value = itemVisible.overflow
+  displayIndexList.value = itemVisible.displayIndexList
 })
 </script>
 

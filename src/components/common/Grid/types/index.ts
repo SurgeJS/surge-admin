@@ -14,7 +14,7 @@ export interface GridProps {
     // 是否折叠
     collapsed?: boolean
 
-    // 默认展示的行数
+    // 折叠时显示的行数
     collapsedRows?: number
 
     // 'self' 根据自身宽度进行响应式布局，'screen' 根据屏幕断点进行响应式布局
@@ -38,7 +38,7 @@ export interface GridItemProps {
     suffix?: boolean
 }
 
-export interface GridItemData extends GridItemProps {
+export interface GridItemData {
     span: number
 
     offset: number

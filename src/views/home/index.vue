@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-const [ isShow,setShow ] = useToggle()
+const [ isShow, setShow ] = useToggle()
 </script>
 
 <template>
@@ -10,22 +10,48 @@ const [ isShow,setShow ] = useToggle()
       :cols="8"
       :x-gap="10"
       :y-gap="10"
+      :collapsed-rows="2"
+      :collapsed="isShow"
     >
+      <grid-item :span="{xs:8,sm:4,md:2}" class="bg-red rounded-md">1</grid-item>
+      <grid-item class="bg-red rounded-md">1</grid-item>
+      <grid-item class="bg-red rounded-md">1</grid-item>
+      <grid-item class="bg-red rounded-md">1</grid-item>
+      <grid-item class="bg-red rounded-md">1</grid-item>
+      <grid-item class="bg-red rounded-md">1</grid-item>
+      <grid-item class="bg-red rounded-md">1</grid-item>
+      <grid-item class="bg-red rounded-md">1</grid-item>
+      <grid-item class="bg-red rounded-md">1</grid-item>
+      <grid-item class="bg-red rounded-md">1</grid-item>
+      <grid-item class="bg-red rounded-md">1</grid-item>
+      <grid-item class="bg-red rounded-md">1</grid-item>
+      <grid-item class="bg-red rounded-md">1</grid-item>
+      <grid-item class="bg-red rounded-md">1</grid-item>
+      <grid-item class="bg-red rounded-md">1</grid-item>
+      <grid-item class="bg-red rounded-md">1</grid-item>
+      <grid-item class="bg-red rounded-md">1</grid-item>
+      <grid-item class="bg-red rounded-md">1</grid-item>
+      <grid-item class="bg-red rounded-md">1</grid-item>
+      <grid-item class="bg-red rounded-md">1</grid-item>
+      <grid-item class="bg-red rounded-md">1</grid-item>
+      <grid-item class="bg-red rounded-md">1</grid-item>
+      <grid-item class="bg-red rounded-md">1</grid-item>
+      <grid-item class="bg-red rounded-md">1</grid-item>
+      <grid-item class="bg-red rounded-md">1</grid-item>
+      <grid-item class="bg-red rounded-md">1</grid-item>
+      <grid-item class="bg-red rounded-md">2</grid-item>
+      <grid-item class="bg-red rounded-md">2</grid-item>
+      <grid-item class="bg-red rounded-md">2</grid-item>
+      <grid-item class="bg-red rounded-md">2</grid-item>
+      <grid-item class="bg-red rounded-md">2</grid-item>
+      <grid-item class="bg-red rounded-md">2</grid-item>
       <grid-item
         class="bg-red rounded-md"
-        :span="4"
-        :offset="4"
+        suffix
+        #="{overflow}"
       >
-        test
+        {{ overflow }}
       </grid-item>
-      <grid-item class="bg-red rounded-md" :span="6" />
-      <grid-item
-        class="bg-red rounded-md"
-        :span="2"
-      />
-      <grid-item class="bg-red rounded-md" />
-      <grid-item class="bg-red rounded-md" :span="5" />
-      <grid-item class="bg-red rounded-md" :span="3" />
     </grid>
   </div>
 </template>

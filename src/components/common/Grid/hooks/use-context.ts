@@ -1,16 +1,18 @@
 import { createInjectionState } from '@vueuse/core'
-import { GridItemData, GridItemProps, GridProps } from '@/components/common/Grid/types'
+import { GridItemData, GridProps } from '@/components/common/Grid/types'
 import useResponsivePropsValue from '@/components/common/Grid/hooks/use-responsive-props-value.ts'
 
 const [ useProvideGridContext, useGridContext ] = createInjectionState((props: GridProps) => {
     const rowEl = ref<HTMLElement>()
-    const itemDataMap = reactive<Map<number, GridItemProps>>(new Map())
+    const isOverflow = ref(false)
+    const displayIndexList = ref<number[]>([])
+    const itemDataMap = reactive<Map<number, GridItemData>>(new Map())
 
     const { width: elWidth } = useElementSize(rowEl)
     const { width: windowsWidth } = useWindowSize()
 
     const width = computed(() => props.responsive === 'screen' ? windowsWidth.value : elWidth.value)
-    const itemDataList = computed(() => Array.from(itemDataMap.entries()).map(([ , itemData ]) => itemData))
+    const itemDataList = computed<GridItemData[]>(() => Array.from(itemDataMap.entries()).map(([ , itemData ]) => itemData))
 
     const responsiveCols = useResponsivePropsValue(width, props, 'cols')
     const responsiveXGap = useResponsivePropsValue(width, props, 'xGap')
@@ -26,6 +28,8 @@ const [ useProvideGridContext, useGridContext ] = createInjectionState((props: G
     return {
         props,
         rowEl,
+        isOverflow,
+        displayIndexList,
         width,
         itemDataMap,
         itemDataList,
