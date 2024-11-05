@@ -68,7 +68,7 @@ const form = ref({
   mention: null,
   workPlace: 0,
   schedule: 50,
-  userList: [],
+  userList: []
 })
 
 const emailAutoComplete = computed(() => [ '@gmail.com', '@163.com', '@qq.com' ].map((v) => {
@@ -89,7 +89,7 @@ const schema = reactive<DefineSchema<typeof form.value>[]>([
     componentContent: {
       prefix: () => RenderUnoIcon('i-ant-design:user-outlined')
     },
-    showRequireMark: false,
+    showRequireMark: false
   },
   {
     field: 'email',
@@ -109,9 +109,9 @@ const schema = reactive<DefineSchema<typeof form.value>[]>([
     component: 'input',
     componentProps: {
       type: 'password',
-      showPasswordOn: 'click',
+      showPasswordOn: 'click'
     },
-    colProps: 12,
+    gridItemProps: 12
   },
   {
     field: 'confirmPassword',
@@ -138,10 +138,10 @@ const schema = reactive<DefineSchema<typeof form.value>[]>([
               && form.value.password.startsWith(value)
               && form.value.password.length >= value.length
           )
-        },
-      },
+        }
+      }
     ],
-    colProps: 12,
+    gridItemProps: 12
   },
   {
     field: 'status',
@@ -150,11 +150,11 @@ const schema = reactive<DefineSchema<typeof form.value>[]>([
     options: [
       {
         label: '未完成',
-        value: 0,
+        value: 0
       },
       {
         label: '已完成',
-        value: 1,
+        value: 1
       }
     ]
   },
@@ -168,15 +168,15 @@ const schema = reactive<DefineSchema<typeof form.value>[]>([
     options: [
       {
         label: '读书',
-        value: 0,
+        value: 0
       },
       {
         label: '游戏',
-        value: 1,
+        value: 1
       },
       {
         label: '写代码',
-        value: 2,
+        value: 2
       }
     ]
   },
@@ -184,17 +184,17 @@ const schema = reactive<DefineSchema<typeof form.value>[]>([
     field: 'date',
     label: '日期',
     component: 'datePicker',
-    showRequireMark: true,
+    showRequireMark: true
   },
   {
     field: 'tags',
     label: '标签',
-    component: 'dynamicTags',
+    component: 'dynamicTags'
   },
   {
     field: 'color',
     label: '颜色',
-    component: 'colorPicker',
+    component: 'colorPicker'
   },
   {
     field: 'mention',
@@ -223,34 +223,34 @@ const schema = reactive<DefineSchema<typeof form.value>[]>([
     options: [
       {
         label: 'Vue',
-        value: 0,
+        value: 0
       },
       {
         label: 'React',
         disabled: true,
-        value: 1,
+        value: 1
       },
       {
         label: 'Naive',
-        value: 2,
+        value: 2
       },
       {
         label: 'VueUse',
-        value: 3,
+        value: 3
       },
       {
         label: 'VueQuery',
-        value: 4,
+        value: 4
       },
       {
         label: 'Axios',
-        value: 5,
+        value: 5
       },
       {
         label: 'Unocss',
-        value: 6,
-      },
-    ],
+        value: 6
+      }
+    ]
   },
   {
     field: 'workPlace',
@@ -275,32 +275,32 @@ const schema = reactive<DefineSchema<typeof form.value>[]>([
     field: 'score',
     label: '评分',
     component: 'rate',
-    colProps:4
+    gridItemProps: 4
   },
   {
     field: 'show',
     label: '启用',
     component: 'switch',
-    colProps:4
+    gridItemProps: 4
   },
   {
     field: 'schedule',
     label: '进度',
     component: 'slider',
-    colProps:24
+    gridItemProps: 24
   },
 
   {
     field: 'startTime',
     label: '开始时间',
     component: 'timePicker',
-    colProps:12
+    gridItemProps: 12
   },
   {
     field: 'endTime',
     label: '结束时间',
     component: 'timePicker',
-    colProps:12
+    gridItemProps: 12
   },
   {
     field: 'userList',
@@ -309,46 +309,46 @@ const schema = reactive<DefineSchema<typeof form.value>[]>([
     options: Array.from({ length: 100 }, (v, i) => {
       return {
         value: i,
-        label: `用户${ i }`,
+        label: `用户${ i }`
       }
     }),
-    colProps:24
+    gridItemProps: 24
   },
   {
     field: 'area',
     label: '地区',
     component: 'cascader',
     options: area,
-    colProps:12
+    gridItemProps: 12
   },
   {
     field: 'organization',
     label: '组织机构',
     component: 'treeSelect',
-    componentProps:{
-      keyField: 'value',
+    componentProps: {
+      keyField: 'value'
     },
     options: area,
-    colProps:12
+    gridItemProps: 12
   },
   {
     slot: 'test2',
-    colProps:12
+    gridItemProps: 12
   },
   {
     label: '自定义插槽',
     contentSlot: 'test',
-    colProps:12
+    gridItemProps: 12
   },
   {
     field: 'description',
     label: '描述',
     component: 'input',
-    componentProps:{
-      type: 'textarea',
+    componentProps: {
+      type: 'textarea'
     },
-    colProps:24
-  },
+    gridItemProps: 24
+  }
 ])
 </script>
 
@@ -362,14 +362,14 @@ const schema = reactive<DefineSchema<typeof form.value>[]>([
     <template #1>
       <div class="p-24px h-full overflow-auto">
         <pre>{{ JSON.stringify(form, null, 2) }}</pre>
-      </div>  
+      </div>
     </template>
     <template #2>
       <div class="p-24px h-full overflow-auto">
         <schema-form
           v-model:model="form"
           v-model:schema="schema"
-          :col-props="8"
+          :grid-item-props="8"
           show-require-mark
           label-width="80"
         >

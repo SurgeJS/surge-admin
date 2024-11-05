@@ -1,15 +1,6 @@
 import { ComponentsName, ComponentsNameRef, ComponentsProps } from '@/components/common/SchemaForm/types/component'
 import { MaybeRef, UnwrapRef, VNode } from 'vue'
-import {
-    ColProps,
-    DrawerProps,
-    FormInst,
-    FormItemProps,
-    FormItemRule,
-    ModalProps,
-    RowProps,
-    StepsProps,
-} from 'naive-ui'
+import { DrawerProps, FormInst, FormItemProps, FormItemRule, ModalProps, StepsProps } from 'naive-ui'
 import { FormSetupProps } from 'naive-ui/es/form/src/Form'
 import type { SelectMixedOption } from 'naive-ui/es/select/src/interface'
 import { AutoCompleteGroupOption, AutoCompleteOption } from 'naive-ui/es/auto-complete/src/interface'
@@ -17,6 +8,7 @@ import type { TreeSelectOption } from 'naive-ui/es/tree-select/src/interface'
 import type { MentionOption } from 'naive-ui/es/mention/src/interface'
 import type { CascaderOption } from 'naive-ui/es/cascader/src/interface'
 import type { Option } from 'naive-ui/es/transfer/src/interface'
+import { GridItemProps, GridProps } from '@/components/common/Grid/types'
 
 // 回调参数
 export interface CallbackParams<
@@ -139,8 +131,8 @@ export interface Schema<
     // formItem 插槽
     contentSlot?: MaybeRef<string>
 
-    // 列属性
-    colProps?: MaybeRef<number | ColProps>
+    // grid item组件属性
+    gridItemProps?: MaybeRef<number | GridItemProps>
 
     // 规则
     rule?: MaybeRef<RulePresets | FormItemRule | FormItemRule[]>
@@ -177,11 +169,11 @@ export interface SchemaFormCommonProps extends Partial<Omit<FormSetupProps, 'onS
     // 模型
     model: Recordable
 
-    // 列属性
-    colProps?: number | ColProps
+    // grid item组件属性
+    gridItemProps?: number | GridItemProps
 
-    // 行属性
-    rowProps?: RowProps
+    // grid组件属性
+    gridProps?: GridProps
 
     // 是否隐藏操作按钮
     hideActionButton?: boolean

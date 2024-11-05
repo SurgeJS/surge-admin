@@ -14,7 +14,8 @@ const { rowEl,isOverflow,displayIndexList, itemDataList, responsiveCols, respons
 
 const gridStyle = computed<CSSProperties>(() => ({
   'grid-template-columns': `repeat(${ responsiveCols.value }, minmax(0px, 1fr))`,
-  gap: `${ responsiveXGap.value }px ${ responsiveYGap.value }px`
+  'row-gap': `${ responsiveXGap.value }px`,
+  'column-gap': `${ responsiveYGap.value }px`,
 }))
 
 watchEffect(() => {

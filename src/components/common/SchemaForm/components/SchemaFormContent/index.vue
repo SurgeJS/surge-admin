@@ -3,16 +3,12 @@ import SchemaFormItem from '@/components/common/SchemaForm/components/SchemaForm
 import { SchemaFormContent } from '@/components/common/SchemaForm/components/SchemaFormContent/types/type'
 import { useSchemaFormContext } from '@/components/common/SchemaForm/hooks/useContext'
 
-const { rowGutter = 12 } = defineProps<SchemaFormContent>()
+const { schema } = defineProps<SchemaFormContent>()
 const { schemaFormProps } = useSchemaFormContext()!
 </script>
 
 <template>
-  <n-row
-    class="w-full"
-    :gutter="rowGutter"
-    v-bind="schemaFormProps.rowProps"
-  >
+  <grid v-bind="schemaFormProps.gridProps">
     <template
       v-for="config in schema"
       :key="config.field||config.slot"
@@ -29,7 +25,7 @@ const { schemaFormProps } = useSchemaFormContext()!
       </schema-form-item>
     </template>
     <slot />
-  </n-row>
+  </grid>
 </template>
 
 <style scoped lang="scss">

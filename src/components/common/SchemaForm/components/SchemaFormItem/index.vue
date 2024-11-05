@@ -10,7 +10,6 @@ import { useSchemaFormContext } from '@/components/common/SchemaForm/hooks/useCo
 import { computed, isVNode, useSlots } from 'vue'
 import { SCHEMA_RENDER_COMPONENTS } from '@/components/common/SchemaForm/utils/components'
 import useOmitProps from '@/hooks/common/useOmitProps'
-import { ColProps } from 'naive-ui'
 import useRenderIcon from '@/hooks/components/useRenderIcon'
 import {
   componentFunction,
@@ -20,6 +19,7 @@ import {
 } from '@/components/common/SchemaForm/utils'
 import { isFunction, isString, isUndefined, omitBy } from 'es-toolkit'
 import { get, isArray, isNumber } from 'es-toolkit/compat'
+import { GridItemProps } from '@/components/common/Grid/types'
 
 const schema = defineModel<UnwrapRefSchema>('schema', { required: true })
 
@@ -37,9 +37,9 @@ const callbackParams = computed(() => ({
 
 const isHide = computed(() => callbackParamsFunction<boolean | undefined>(schema.value.hide) ?? true)
 
-const colPropsMap = computed(() => {
-  const colP = schema.value.colProps || schemaFormProps.colProps
-  return (isNumber(colP) ? { span: colP } : colP) as ColProps
+const gridItemPropsMap = computed(() => {
+  const item = schema.value.gridItemProps || schemaFormProps.gridItemProps
+  return (isNumber(item) ? { span: item } : item) as GridItemProps
 })
 
 // 执行回调函数并返回原值
@@ -57,7 +57,7 @@ const FormItem = defineComponent(() => {
     'hide',
     'rule',
     'tooltip',
-    'colProps',
+    'gridItemProps',
     'contentSlot',
     'slot'
   ])
@@ -254,10 +254,10 @@ const FormItem = defineComponent(() => {
 </script>
 
 <template>
-  <n-col v-if="isHide" v-bind="colPropsMap">
+  <grid-item v-if="isHide" v-bind="gridItemPropsMap">
     <form-item v-if="!schema.slot" />
     <slot v-else :name="schema.slot" />
-  </n-col>
+  </grid-item>
 </template>
 
 <style scoped lang="scss">

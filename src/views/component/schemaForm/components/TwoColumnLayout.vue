@@ -356,7 +356,7 @@ const schema = reactive<DefineSchema<typeof form.value>[]>([
         <schema-form
           v-model:model="form"
           v-model:schema="schema"
-          :col-props="12"
+          :grid-item-props="12"
           show-require-mark
           label-width="80"
         >

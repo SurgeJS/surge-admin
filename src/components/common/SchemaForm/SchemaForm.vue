@@ -25,14 +25,17 @@ const props = withDefaults(defineProps<SchemaFormProps>(), {
   defaultTimeFormat: 'HH:mm:ss',
   defaultDateValueFormat: 'yyyy-MM-dd HH:mm:ss',
   defaultTimeValueFormat: 'HH:mm:ss',
-  colProps: 24
+  gridProps:()=>({
+    cols:24,
+    yGap:12,
+  }),
+  gridItemProps: 24
 })
 const slots = defineSlots<SchemaFormSlots>()
 
 // 表单模型
 const model = defineModel<Recordable>('model', { required: true })
 const schema = defineModel<UnwrapRefSchema[]>('schema', { required: true })
-
 // 提供Schema上下文
 useProvideSchemaFormContext(props, model)
 const formProps = useOmitProps(props, [ 'schema' ])
@@ -54,32 +57,31 @@ defineExpose<SchemaFormExpose>(commonExpose)
       <template v-for="(slot,key) in formContentSlots" #[key]="scope">
         <slot :name="key" v-bind="scope||{}" />
       </template>
-      <n-col
+      <grid-item
         v-if="!props.hideActionButton"
+        suffix
         :span="24"
-        class="flex-inline justify-end"
+        class="flex justify-end items-center gap-[12px] "
       >
-        <div class="flex-inline  items-center gap-[12px] ">
-          <slot name="buttonBefore" />
-          <slot name="customActionButton">
-            <n-button
-              v-if="!hideReset"
-              :loading="props.resetLoading"
-              @click="handleReset"
-            >
-              {{ props.resetText }}
-            </n-button>
-            <n-button
-              type="primary"
-              :loading="props.submitLoading"
-              @click="handleSubmit"
-            >
-              {{ props.submitText }}
-            </n-button>
-          </slot>
-          <slot name="buttonAfter" />
-        </div>
-      </n-col>
+        <slot name="buttonBefore" />
+        <slot name="customActionButton">
+          <n-button
+            v-if="!hideReset"
+            :loading="props.resetLoading"
+            @click="handleReset"
+          >
+            {{ props.resetText }}
+          </n-button>
+          <n-button
+            type="primary"
+            :loading="props.submitLoading"
+            @click="handleSubmit"
+          >
+            {{ props.submitText }}
+          </n-button>
+        </slot>
+        <slot name="buttonAfter" />
+      </grid-item>
     </schema-form-content>
   </schema-form-wrap>
 </template>

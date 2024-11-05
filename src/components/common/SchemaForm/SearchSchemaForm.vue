@@ -2,7 +2,8 @@
 import {
   SearchSchemaFormExpose,
   SearchSchemaFormProps,
-  SearchSchemaFormSlots
+  SearchSchemaFormSlots,
+  UnwrapRefSchema
 } from '@/components/common/SchemaForm/types/type'
 import useOmitProps from '@/hooks/common/useOmitProps'
 import useExpose from '@/components/common/SchemaForm/hooks/useExpose'
@@ -25,7 +26,7 @@ const props = withDefaults(defineProps<SearchSchemaFormProps>(), {
   defaultTimeFormat: 'HH:mm:ss',
   defaultDateValueFormat: 'yyyy-MM-dd HH:mm:ss',
   defaultTimeValueFormat: 'HH:mm:ss',
-  colProps: 24,
+  gridItemProps: 24,
   searchShowNumber: 3,
 })
 const slots = defineSlots<SearchSchemaFormSlots>()
@@ -66,11 +67,11 @@ defineExpose<SearchSchemaFormExpose>(commonExpose)
     v-bind="formProps"
     :model="model"
   >
-    <schema-form-content :row-gutter="[12,12]" :schema="searchSchemas">
+    <schema-form-content :schema="searchSchemas as UnwrapRefSchema[]">
       <template v-for="(slot,key) in formContentSlots" #[key]="scope">
         <slot :name="key" v-bind="scope||{}" />
       </template>
-      <n-col v-if="!props.hideActionButton" class="flex-auto flex-inline justify-end items-center gap-[12px]">
+      <grid-item v-if="!props.hideActionButton" suffix>
         <slot name="buttonBefore" />
         <slot name="customActionButton">
           <n-button
@@ -96,7 +97,7 @@ defineExpose<SearchSchemaFormExpose>(commonExpose)
           </n-button>
         </slot>
         <slot name="buttonAfter" />
-      </n-col>
+      </grid-item>
     </schema-form-content>
   </schema-form-wrap>
 </template>
