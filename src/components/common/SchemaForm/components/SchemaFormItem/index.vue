@@ -48,6 +48,8 @@ const callbackParamsFunction = <T = never>(value: T | CallbackParamsFunction<any
     : value
 
 const FormItem = defineComponent(() => {
+  const formItemRef = ref<ComponentPublicInstance>()
+
   const formItemProps = useOmitProps(schema.value, [
     'field',
     'component',
@@ -238,9 +240,10 @@ const FormItem = defineComponent(() => {
         isUndefined
     )
   }
+  console.log(formItemRef)
   return () => (
       <n-form-item
-          key={ schema.value.label }
+          ref={ formItemRef }
           rule={ formItemRules.value }
           path={ schema.value.field }
           { ...formItemProps.value }
