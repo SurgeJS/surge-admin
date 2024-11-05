@@ -84,7 +84,7 @@ const FormItem = defineComponent(() => {
 
     if (!component) return {}
 
-    const { isDateComponent,isTimeComponent,isMapPlaceholder,isMapOptions } = componentFunction[component]
+    const { isDateComponent, isTimeComponent, isMapPlaceholder, isMapOptions } = componentFunction[component]
 
     // 需要映射的Props
     const mapProps: Recordable = {}
@@ -145,7 +145,7 @@ const FormItem = defineComponent(() => {
 
     const modelBind = {
       [bindType]: getModelValue(schema.value.field as string),
-      [`onUpdate:${ bindType }`]: v => setModelValue(schema.value.field as string, v),
+      [`onUpdate:${ bindType }`]: v => setModelValue(schema.value.field as string, v)
     }
 
     // 选项映射 checkbox 组件
@@ -205,14 +205,12 @@ const FormItem = defineComponent(() => {
   const renderTooltip = (tooltip?: string) => {
     return (
         <n-tooltip>
-          {
-            {
-              default: () => tooltip,
-              trigger: () => RenderUnoIcon('i-ic:outline-help', {
-                class: 'ml-5px mb-4px'
-              })
-            }
-          }
+          { {
+            default: () => tooltip,
+            trigger: () => RenderUnoIcon('i-ic:outline-help', {
+              class: 'ml-5px mb-4px'
+            })
+          } }
         </n-tooltip>
     )
   }
@@ -240,7 +238,6 @@ const FormItem = defineComponent(() => {
         isUndefined
     )
   }
-
   return () => (
       <n-form-item
           key={ schema.value.label }

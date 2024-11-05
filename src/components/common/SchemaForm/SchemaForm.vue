@@ -13,11 +13,12 @@ import useMethod from '@/components/common/SchemaForm/hooks/useMethod'
 const props = withDefaults(defineProps<SchemaFormProps>(), {
   autoPlaceholder: true,
   autoRules: true,
+  autoLabelWidth:true,
   hideActionButton: false,
-  labelWidth: 'auto',
   showLabel: true,
   showFeedback: true,
   showRequireMark: undefined,
+  labelOverflowOmitted: false,
   labelPlacement: 'top',
   submitText: '提交',
   resetText: '重置',

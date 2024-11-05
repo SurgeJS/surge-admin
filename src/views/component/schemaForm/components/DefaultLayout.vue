@@ -356,8 +356,9 @@ const schema = reactive<DefineSchema<typeof form.value>[]>([
         <schema-form
           v-model:model="form"
           v-model:schema="schema"
+          label-placement="left"
+          label-width="auto"
           show-require-mark
-          label-width="80"
         >
           <template #test>
             <div class="text-white bg-primary h-full flex-center w-full p-5">

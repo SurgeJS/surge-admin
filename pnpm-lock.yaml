@@ -85,11 +85,11 @@ importers:
         specifier: ^5.4.3
         version: 5.4.3(terser@5.36.0)(vite@5.4.10(@types/node@20.17.6)(sass@1.80.6)(terser@5.36.0))
       '@vitejs/plugin-vue':
-        specifier: ^5.1.4
-        version: 5.1.4(vite@5.4.10(@types/node@20.17.6)(sass@1.80.6)(terser@5.36.0))(vue@3.5.12(typescript@5.6.3))
+        specifier: https://pkg.pr.new/vitejs/vite-plugin-vue/@vitejs/plugin-vue@446
+        version: https://pkg.pr.new/vitejs/vite-plugin-vue/@vitejs/plugin-vue@446(vite@5.4.10(@types/node@20.17.6)(sass@1.80.6)(terser@5.36.0))(vue@3.5.12(typescript@5.6.3))
       '@vitejs/plugin-vue-jsx':
-        specifier: ^4.0.1
-        version: 4.0.1(vite@5.4.10(@types/node@20.17.6)(sass@1.80.6)(terser@5.36.0))(vue@3.5.12(typescript@5.6.3))
+        specifier: https://pkg.pr.new/vitejs/vite-plugin-vue/@vitejs/plugin-vue-jsx@446
+        version: https://pkg.pr.new/vitejs/vite-plugin-vue/@vitejs/plugin-vue-jsx@446(vite@5.4.10(@types/node@20.17.6)(sass@1.80.6)(terser@5.36.0))(vue@3.5.12(typescript@5.6.3))
       eslint:
         specifier: ^9.14.0
         version: 9.14.0(jiti@2.3.3)
@@ -1665,15 +1665,17 @@ packages:
       terser: ^5.4.0
       vite: ^5.0.0
 
-  '@vitejs/plugin-vue-jsx@4.0.1':
-    resolution: {integrity: sha512-7mg9HFGnFHMEwCdB6AY83cVK4A6sCqnrjFYF4WIlebYAQVVJ/sC/CiTruVdrRlhrFoeZ8rlMxY9wYpPTIRhhAg==}
+  '@vitejs/plugin-vue-jsx@https://pkg.pr.new/vitejs/vite-plugin-vue/@vitejs/plugin-vue-jsx@446':
+    resolution: {tarball: https://pkg.pr.new/vitejs/vite-plugin-vue/@vitejs/plugin-vue-jsx@446}
+    version: 4.0.1
     engines: {node: ^18.0.0 || >=20.0.0}
     peerDependencies:
       vite: ^5.0.0
       vue: ^3.0.0
 
-  '@vitejs/plugin-vue@5.1.4':
-    resolution: {integrity: sha512-N2XSI2n3sQqp5w7Y/AN/L2XDjBIRGqXko+eDp42sydYSBeJuSm5a1sLf8zakmo8u7tA8NmBgoDLA1HeOESjp9A==}
+  '@vitejs/plugin-vue@https://pkg.pr.new/vitejs/vite-plugin-vue/@vitejs/plugin-vue@446':
+    resolution: {tarball: https://pkg.pr.new/vitejs/vite-plugin-vue/@vitejs/plugin-vue@446}
+    version: 5.1.4
     engines: {node: ^18.0.0 || >=20.0.0}
     peerDependencies:
       vite: ^5.0.0
@@ -5073,7 +5075,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@vitejs/plugin-vue-jsx@4.0.1(vite@5.4.10(@types/node@20.17.6)(sass@1.80.6)(terser@5.36.0))(vue@3.5.12(typescript@5.6.3))':
+  '@vitejs/plugin-vue-jsx@https://pkg.pr.new/vitejs/vite-plugin-vue/@vitejs/plugin-vue-jsx@446(vite@5.4.10(@types/node@20.17.6)(sass@1.80.6)(terser@5.36.0))(vue@3.5.12(typescript@5.6.3))':
     dependencies:
       '@babel/core': 7.26.0
       '@babel/plugin-transform-typescript': 7.25.9(@babel/core@7.26.0)
@@ -5083,7 +5085,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@vitejs/plugin-vue@5.1.4(vite@5.4.10(@types/node@20.17.6)(sass@1.80.6)(terser@5.36.0))(vue@3.5.12(typescript@5.6.3))':
+  '@vitejs/plugin-vue@https://pkg.pr.new/vitejs/vite-plugin-vue/@vitejs/plugin-vue@446(vite@5.4.10(@types/node@20.17.6)(sass@1.80.6)(terser@5.36.0))(vue@3.5.12(typescript@5.6.3))':
     dependencies:
       vite: 5.4.10(@types/node@20.17.6)(sass@1.80.6)(terser@5.36.0)
       vue: 3.5.12(typescript@5.6.3)

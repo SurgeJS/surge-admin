@@ -21,6 +21,8 @@ const nFormProps = useOmitProps(props, [
   'defaultTimeValueFormat',
   'autoPlaceholder',
   'autoRules',
+  'autoLabelWidth',
+  'labelOverflowOmitted',
   'submitLoading',
   'submitText',
   'resetLoading',

@@ -3,6 +3,7 @@
 import DefaultLayout from '@/views/component/schemaForm/components/DefaultLayout.vue'
 import TwoColumnLayout from '@/views/component/schemaForm/components/TwoColumnLayout.vue'
 import ComplexLayout from '@/views/component/schemaForm/components/ComplexLayout.vue'
+import SearchForm from '@/views/component/schemaForm/components/SearchForm.vue'
 
 const tabs = [
   {
@@ -23,7 +24,7 @@ const tabs = [
   },
   {
     name:'查询表单',
-    component:DefaultLayout
+    component:SearchForm
   },
   {
     name:'分组表单',

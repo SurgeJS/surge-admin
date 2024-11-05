@@ -15,19 +15,34 @@ const props = withDefaults(defineProps<SearchSchemaFormProps>(), {
   autoPlaceholder: true,
   autoRules: true,
   hideActionButton: false,
-  labelWidth: 'auto',
   showLabel: true,
   showFeedback: true,
   showRequireMark: undefined,
-  labelPlacement: 'top',
+  labelAlign: 'right',
+  labelPlacement: 'left',
+  labelWidth: 'auto',
+  inline: true,
   submitText: '搜索',
   resetText: '重置',
   defaultDateFormat: 'yyyy-MM-dd HH:mm:ss',
   defaultTimeFormat: 'HH:mm:ss',
   defaultDateValueFormat: 'yyyy-MM-dd HH:mm:ss',
   defaultTimeValueFormat: 'HH:mm:ss',
-  gridItemProps: 24,
-  searchShowNumber: 3,
+  gridItemProps: () => ({
+    span: {
+      xs: 24,
+      sm: 12,
+      md: 8,
+      lg: 6,
+      xl: 4
+    }
+  }),
+  gridProps: () => ({
+    cols: 24,
+    yGap: 12,
+    responsive:'self'
+  }),
+  searchShowNumber: 5
 })
 const slots = defineSlots<SearchSchemaFormSlots>()
 
@@ -71,7 +86,12 @@ defineExpose<SearchSchemaFormExpose>(commonExpose)
       <template v-for="(slot,key) in formContentSlots" #[key]="scope">
         <slot :name="key" v-bind="scope||{}" />
       </template>
-      <grid-item v-if="!props.hideActionButton" suffix>
+      <grid-item
+        v-if="!props.hideActionButton"
+        :span="4"
+        suffix
+        class="flex-inline justify-end  gap-[12px]"
+      >
         <slot name="buttonBefore" />
         <slot name="customActionButton">
           <n-button
@@ -90,6 +110,7 @@ defineExpose<SearchSchemaFormExpose>(commonExpose)
           </n-button>
           <n-button
             v-if="props.searchShowNumber"
+            tertiary
             @click="setExpandSearchForm()"
           >
             {{ searchExpandCollapse.text }}

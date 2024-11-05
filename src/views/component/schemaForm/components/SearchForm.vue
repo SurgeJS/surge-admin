@@ -111,7 +111,7 @@ const schema = reactive<DefineSchema<typeof form.value>[]>([
       type: 'password',
       showPasswordOn: 'click'
     },
-    gridItemProps: 12
+    showRequireMark: true
   },
   {
     field: 'confirmPassword',
@@ -140,8 +140,7 @@ const schema = reactive<DefineSchema<typeof form.value>[]>([
           )
         }
       }
-    ],
-    gridItemProps: 12
+    ]
   },
   {
     field: 'status',
@@ -187,36 +186,6 @@ const schema = reactive<DefineSchema<typeof form.value>[]>([
     showRequireMark: true
   },
   {
-    field: 'tags',
-    label: '标签',
-    component: 'dynamicTags'
-  },
-  {
-    field: 'color',
-    label: '颜色',
-    component: 'colorPicker'
-  },
-  {
-    field: 'mention',
-    label: '提及',
-    component: 'mention',
-    placeholder: '输入@符号进行提及',
-    options: [
-      {
-        label: 'Surge',
-        value: 'Surge'
-      },
-      {
-        label: '呼和浩特',
-        value: '呼和浩特'
-      },
-      {
-        label: '内蒙古',
-        value: '内蒙古'
-      }
-    ]
-  },
-  {
     field: 'skill',
     label: '技能',
     component: 'checkboxGroup',
@@ -253,6 +222,36 @@ const schema = reactive<DefineSchema<typeof form.value>[]>([
     ]
   },
   {
+    field: 'tags',
+    label: '标签',
+    component: 'dynamicTags'
+  },
+  {
+    field: 'color',
+    label: '颜色',
+    component: 'colorPicker'
+  },
+  {
+    field: 'mention',
+    label: '提及',
+    component: 'mention',
+    placeholder: '输入@符号进行提及',
+    options: [
+      {
+        label: 'Surge',
+        value: 'Surge'
+      },
+      {
+        label: '呼和浩特',
+        value: '呼和浩特'
+      },
+      {
+        label: '内蒙古',
+        value: '内蒙古'
+      }
+    ]
+  },
+  {
     field: 'workPlace',
     label: '工作地点',
     component: 'radioGroup',
@@ -274,33 +273,27 @@ const schema = reactive<DefineSchema<typeof form.value>[]>([
   {
     field: 'score',
     label: '评分',
-    component: 'rate',
-    gridItemProps: 4
-  },
-  {
-    field: 'show',
-    label: '启用',
-    component: 'switch',
-    gridItemProps: 4
+    component: 'rate'
   },
   {
     field: 'schedule',
     label: '进度',
-    component: 'slider',
-    gridItemProps: 24
+    component: 'slider'
   },
-
+  {
+    field: 'show',
+    label: '启用',
+    component: 'switch'
+  },
   {
     field: 'startTime',
     label: '开始时间',
-    component: 'timePicker',
-    gridItemProps: 12
+    component: 'timePicker'
   },
   {
     field: 'endTime',
     label: '结束时间',
-    component: 'timePicker',
-    gridItemProps: 12
+    component: 'timePicker'
   },
   {
     field: 'userList',
@@ -311,15 +304,13 @@ const schema = reactive<DefineSchema<typeof form.value>[]>([
         value: i,
         label: `用户${ i }`
       }
-    }),
-    gridItemProps: 24
+    })
   },
   {
     field: 'area',
     label: '地区',
     component: 'cascader',
-    options: area,
-    gridItemProps: 12
+    options: area
   },
   {
     field: 'organization',
@@ -328,17 +319,7 @@ const schema = reactive<DefineSchema<typeof form.value>[]>([
     componentProps: {
       keyField: 'value'
     },
-    options: area,
-    gridItemProps: 12
-  },
-  {
-    slot: 'test2',
-    gridItemProps: 12
-  },
-  {
-    label: '自定义插槽',
-    contentSlot: 'test',
-    gridItemProps: 12
+    options: area
   },
   {
     field: 'description',
@@ -346,8 +327,14 @@ const schema = reactive<DefineSchema<typeof form.value>[]>([
     component: 'input',
     componentProps: {
       type: 'textarea'
-    },
-    gridItemProps: 24
+    }
+  },
+  {
+    slot: 'test2'
+  },
+  {
+    label: '自定义插槽',
+    contentSlot: 'test'
   }
 ])
 </script>
@@ -366,23 +353,11 @@ const schema = reactive<DefineSchema<typeof form.value>[]>([
     </template>
     <template #2>
       <div class="p-24px h-full overflow-auto">
-        <schema-form
+        <search-schema-form
           v-model:model="form"
           v-model:schema="schema"
-          :grid-item-props="8"
           show-require-mark
-        >
-          <template #test>
-            <div class="text-white bg-primary h-full flex-center w-full p-5">
-              这是一个<span class="text-black">包含</span>FormItem自定义插槽
-            </div>
-          </template>
-          <template #test2>
-            <div class="text-white bg-primary h-full flex-center p-5">
-              这是一个<span class="text-black">不包含</span>FormItem自定义插槽
-            </div>
-          </template>
-        </schema-form>
+        />
       </div>
     </template>
   </n-split>

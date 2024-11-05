@@ -37,6 +37,7 @@ watchEffect(() => {
 
 <style scoped lang="scss">
 .grid {
+  width: 100%;
   display: grid;
 }
 </style>

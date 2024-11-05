@@ -358,7 +358,6 @@ const schema = reactive<DefineSchema<typeof form.value>[]>([
           v-model:schema="schema"
           :grid-item-props="12"
           show-require-mark
-          label-width="80"
         >
           <template #test>
             <div class="text-white bg-primary h-full flex-center w-full p-5">

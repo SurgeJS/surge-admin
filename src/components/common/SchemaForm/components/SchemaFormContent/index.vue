@@ -16,7 +16,7 @@ const { schemaFormProps } = useSchemaFormContext()!
       <schema-form-item
         v-if="config.component||config.contentSlot||config.slot"
         ref="formItemsRef"
-        :schema="config as any"
+        :schema="config"
       >
         <slot v-if="config.contentSlot" :name="config.contentSlot" />
         <template v-if="config.slot" #[config.slot]="scope">

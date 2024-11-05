@@ -15,8 +15,11 @@ export interface CallbackParams<
     TForm extends Recordable = Recordable,
     DComponentsName extends ComponentsName = ComponentsName> {
     schema: DefineSchema<TForm, DComponentsName>;
+
     value: any;
+
     model: TForm;
+
     field: keyof TForm;
 }
 
@@ -25,6 +28,7 @@ export interface GroupCallbackParams<
     TForm extends Recordable = Recordable,
     DComponentsName extends ComponentsName = ComponentsName> {
     group: GroupSchemaType<TForm, DComponentsName>
+
     model: TForm;
 }
 
@@ -65,8 +69,10 @@ export type RulePresets = 'mail' | 'phone' | 'landline' | 'idCard' | 'url'
 export type RulePresetsType = Record<RulePresets, {
     // 必填信息
     requiredMessage: string
+
     // 错误信息
     incorrectMessage: string
+
     // 验证
     validator(value: string): boolean
 }>
@@ -195,6 +201,14 @@ export interface SchemaFormCommonProps extends Partial<Omit<FormSetupProps, 'onS
 
     // 自动规则校验 (当required为真的时候，会根据label自动生成校验提示信息,label的类型为string才会生效，优先级最低)
     autoRules?: boolean
+
+    // 自动标签宽度 (优先级最低)
+    autoLabelWidth?: boolean
+
+    // 标签文字溢出省略(设置固定宽度时有效)
+    labelOverflowOmitted?: boolean
+
+    test:boolean
 
     // 提交Loading
     submitLoading?: boolean
