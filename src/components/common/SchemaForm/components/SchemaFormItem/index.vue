@@ -249,7 +249,6 @@ const FormItem = defineComponent(() => {
   })
 
   watch([ formItemRef,() => schema.value.label ], async () => {
-    console.log(1)
     await nextTick()
     if (!formItemRef.value) return
     const label = formItemRef.value.$el.querySelector('.n-form-item-label')
