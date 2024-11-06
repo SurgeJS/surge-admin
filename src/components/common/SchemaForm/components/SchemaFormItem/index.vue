@@ -241,33 +241,30 @@ const FormItem = defineComponent(() => {
     )
   }
 
-  const labelActualWidth = computed(() => {
-    if (!formItemRef.value) return
-    const label = formItemRef.value.$el.querySelector('.n-form-item-label')
-    return label.clientWidth
-  })
-
-  const labelWidth = computed(() => {
+  const labelWidthComputed = computed(() => {
     if (schema.value.labelWidth) return schema.value.labelWidth
     if (schemaFormProps.labelWidth) return schemaFormProps.labelWidth
-    if (schemaFormProps.autoLabelWidth && maxLabelWidth.value && labelActualWidth.value) return `${ maxLabelWidth.value }px`
+    if (schemaFormProps.autoLabelWidth && maxLabelWidth.value) return `${ maxLabelWidth.value }px`
     return undefined
   })
 
-  watchEffect( async () => {
+  watch([ formItemRef,() => schema.value.label ], async () => {
+    console.log(1)
     await nextTick()
-    if (labelActualWidth.value > maxLabelWidth.value) {
-      maxLabelWidth.value = labelActualWidth.value
+    if (!formItemRef.value) return
+    const label = formItemRef.value.$el.querySelector('.n-form-item-label')
+    if (label.clientWidth > maxLabelWidth.value) {
+      maxLabelWidth.value = label.clientWidth
     }
   })
-  console.log(labelWidth.value)
   return () => (
       <n-form-item
           { ...formItemProps.value }
           ref={ formItemRef }
           rule={ formItemRules.value }
           path={ schema.value.field }
-          label-width={ labelWidth.value }
+          label-style={ { minWidth: labelWidthComputed.value } }
+          label-width={ undefined }
           v-slots={ renderFormItemSlots() }
       />
   )
@@ -285,4 +282,12 @@ const FormItem = defineComponent(() => {
 :deep(.n-input-number), :deep(.n-time-picker), :deep(.n-date-picker) {
   width: 100%;
 }
+
+//:deep(.feedback) {
+//min-height: 18px;
+//height: 18px;
+//padding: 2px 0 0 0;
+//font-size: 12px;
+//line-height: 1;
+//}
 </style>

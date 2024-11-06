@@ -58,7 +58,7 @@ const { formRef, commonExpose } = useExpose()
 const { handleReset, handleSubmit } = useMethod(props, commonExpose, model)
 
 // 是否展开搜索表单
-const [ isExpandSearchForm, setExpandSearchForm ] = useToggle()
+const [ isExpandSearchForm, toggleExpandSearchForm ] = useToggle()
 
 // 搜索Schema
 const searchSchemas = computed(() => {
@@ -110,11 +110,14 @@ defineExpose<SearchSchemaFormExpose>(commonExpose)
           </n-button>
           <n-button
             v-if="props.searchShowNumber"
-            tertiary
-            @click="setExpandSearchForm()"
+            quaternary
+            type="primary"
+            @click="toggleExpandSearchForm()"
           >
+            <template #icon>
+              <icon :icon="searchExpandCollapse.icon" />
+            </template>
             {{ searchExpandCollapse.text }}
-            <icon :icon="searchExpandCollapse.icon" />
           </n-button>
         </slot>
         <slot name="buttonAfter" />
