@@ -80,12 +80,12 @@ const emailAutoComplete = computed(() => [ '@gmail.com', '@163.com', '@qq.com' ]
     })
 )
 
-const test = ref('aaaa')
+const test = ref('aa')
 const schema = reactive<DefineSchema<typeof form.value>[]>([
   {
     field: 'name.a.b',
-    // label: test,
-    label: 'test',
+    label: test,
+    // label: 'test',
     component: 'input',
     tooltip: '这是一个Tooltip',
     placeholder: '这个placeholder会覆盖到自动生成的placeholder',
@@ -344,7 +344,7 @@ const schema = reactive<DefineSchema<typeof form.value>[]>([
 
 <template>
   <div>
-    <n-button @click="test='5656'">test</n-button>
+    <n-button @click="test='55555555555555555555'">test</n-button>
     <search-schema-form
       v-model:model="form"
       v-model:schema="schema"

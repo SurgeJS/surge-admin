@@ -24,7 +24,7 @@ import { GridItemProps } from '@/components/common/Grid/types'
 const schema = defineModel<UnwrapRefSchema>('schema', { required: true })
 
 const slots = useSlots()
-const { schemaFormProps, model, getModelValue, setModelValue } = useSchemaFormContext()!
+const { schemaFormProps, model, getModelValue, setModelValue, maxLabelWidth } = useSchemaFormContext()!
 const { RenderUnoIcon } = useRenderIcon()
 
 // 回调参数
@@ -241,15 +241,33 @@ const FormItem = defineComponent(() => {
     )
   }
 
-  watchEffect(() => {
-    // if ()
+  const labelActualWidth = computed(() => {
+    if (!formItemRef.value) return
+    const label = formItemRef.value.$el.querySelector('.n-form-item-label')
+    return label.clientWidth
   })
+
+  const labelWidth = computed(() => {
+    if (schema.value.labelWidth) return schema.value.labelWidth
+    if (schemaFormProps.labelWidth) return schemaFormProps.labelWidth
+    if (schemaFormProps.autoLabelWidth && maxLabelWidth.value && labelActualWidth.value) return `${ maxLabelWidth.value }px`
+    return undefined
+  })
+
+  watchEffect( async () => {
+    await nextTick()
+    if (labelActualWidth.value > maxLabelWidth.value) {
+      maxLabelWidth.value = labelActualWidth.value
+    }
+  })
+  console.log(labelWidth.value)
   return () => (
       <n-form-item
+          { ...formItemProps.value }
           ref={ formItemRef }
           rule={ formItemRules.value }
           path={ schema.value.field }
-          { ...formItemProps.value }
+          label-width={ labelWidth.value }
           v-slots={ renderFormItemSlots() }
       />
   )
