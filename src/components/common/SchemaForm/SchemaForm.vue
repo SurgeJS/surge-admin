@@ -1,14 +1,10 @@
 <script setup lang="ts">
-import {
-  SchemaFormExpose,
-  SchemaFormProps,
-  SchemaFormSlots,
-  UnwrapRefSchema
-} from '@/components/common/SchemaForm/types/type'
+import { UnwrapRefSchema } from '@/components/common/SchemaForm/types/common.ts'
 import useOmitProps from '@/hooks/common/useOmitProps'
 import useExpose from '@/components/common/SchemaForm/hooks/useExpose'
 import { useProvideSchemaFormContext } from '@/components/common/SchemaForm/hooks/useContext'
 import useMethod from '@/components/common/SchemaForm/hooks/useMethod'
+import { SchemaFormExpose, SchemaFormProps, SchemaFormSlots } from '@/components/common/SchemaForm/types/base.ts'
 
 const props = withDefaults(defineProps<SchemaFormProps>(), {
   autoPlaceholder: true,

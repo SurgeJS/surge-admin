@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { reactive } from 'vue'
-import { DefineSchema } from '@/components/common/SchemaForm/types/type'
+import { DefineSchema } from '@/components/common/SchemaForm/types/common.ts'
 import { FormItemRule } from 'naive-ui'
 import useRenderIcon from '@/hooks/components/useRenderIcon'
 
@@ -356,8 +356,6 @@ const schema = reactive<DefineSchema<typeof form.value>[]>([
         <schema-form
           v-model:model="form"
           v-model:schema="schema"
-          label-placement="left"
-          label-width="auto"
           show-require-mark
         >
           <template #test>

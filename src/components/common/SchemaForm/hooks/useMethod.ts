@@ -1,5 +1,5 @@
 import { ModelRef } from 'vue'
-import { SchemaFormCommonExpose, SchemaFormCommonProps } from '@/components/common/SchemaForm/types/type'
+import { SchemaFormCommonExpose, SchemaFormCommonProps } from '@/components/common/SchemaForm/types/common.ts'
 
 const useMethod = (props: SchemaFormCommonProps, expose: SchemaFormCommonExpose, model: ModelRef<Recordable>) => {
     const handleSubmit = () => {

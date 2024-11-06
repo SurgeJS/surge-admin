@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { SchemaFormCommonExpose, SchemaFormCommonProps } from '@/components/common/SchemaForm/types/type'
+import { SchemaFormCommonExpose, SchemaFormCommonProps } from '@/components/common/SchemaForm/types/common.ts'
 import useOmitProps from '@/hooks/common/useOmitProps'
 import { FormInst } from 'naive-ui'
 import { useSchemaFormContext } from '@/components/common/SchemaForm/hooks/useContext'

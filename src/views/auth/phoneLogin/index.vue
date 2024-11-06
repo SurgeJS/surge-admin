@@ -2,7 +2,7 @@
 
 import RouterConstant from '@/constant/router'
 import { reactive } from 'vue'
-import { DefineSchema } from '@/components/common/SchemaForm/types/type'
+import { DefineSchema } from '@/components/common/SchemaForm/types/common.ts'
 import OtherLogins from '@/views/auth/components/OtherLogins.vue'
 
 const [ loading ] = useToggle()

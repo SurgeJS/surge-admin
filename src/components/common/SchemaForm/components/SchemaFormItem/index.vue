@@ -5,7 +5,7 @@ import {
   OptionType,
   Schema,
   UnwrapRefSchema
-} from '@/components/common/SchemaForm/types/type'
+} from '@/components/common/SchemaForm/types/common.ts'
 import { useSchemaFormContext } from '@/components/common/SchemaForm/hooks/useContext'
 import { computed, isVNode, useSlots } from 'vue'
 import { SCHEMA_RENDER_COMPONENTS } from '@/components/common/SchemaForm/utils/components'
@@ -20,12 +20,15 @@ import {
 import { isFunction, isString, isUndefined, omitBy } from 'es-toolkit'
 import { get, isArray, isNumber } from 'es-toolkit/compat'
 import { GridItemProps } from '@/components/common/Grid/types'
+import useElementIndex from '@/hooks/common/use-element-index.ts'
 
 const schema = defineModel<UnwrapRefSchema>('schema', { required: true })
 
 const slots = useSlots()
-const { schemaFormProps, model, getModelValue, setModelValue, maxLabelWidth } = useSchemaFormContext()!
+const { schemaFormProps, model, getModelValue, setModelValue, maxLabelWidth, itemsLabelMap } = useSchemaFormContext()!
 const { RenderUnoIcon } = useRenderIcon()
+const itemEl = useCurrentElement<HTMLElement>()
+const index = useElementIndex(itemEl)
 
 // 回调参数
 const callbackParams = computed(() => ({
@@ -48,8 +51,6 @@ const callbackParamsFunction = <T = never>(value: T | CallbackParamsFunction<any
     : value
 
 const FormItem = defineComponent(() => {
-  const formItemRef = ref<ComponentPublicInstance>()
-
   const formItemProps = useOmitProps(schema.value, [
     'field',
     'component',
@@ -241,32 +242,36 @@ const FormItem = defineComponent(() => {
     )
   }
 
-  const labelWidthComputed = computed(() => {
+  const labelWidth = computed(() => {
     if (schema.value.labelWidth) return schema.value.labelWidth
     if (schemaFormProps.labelWidth) return schemaFormProps.labelWidth
-    if (schemaFormProps.autoLabelWidth && maxLabelWidth.value) return `${ maxLabelWidth.value }px`
-    return undefined
+    return schemaFormProps.autoLabelWidth && maxLabelWidth.value ? `${ maxLabelWidth.value }px` : undefined
   })
 
-  watch([ formItemRef,() => schema.value.label ], async () => {
-    await nextTick()
-    if (!formItemRef.value) return
-    const label = formItemRef.value.$el.querySelector('.n-form-item-label')
-    if (label.clientWidth > maxLabelWidth.value) {
-      maxLabelWidth.value = label.clientWidth
-    }
-  })
   return () => (
       <n-form-item
           { ...formItemProps.value }
-          ref={ formItemRef }
           rule={ formItemRules.value }
           path={ schema.value.field }
-          label-style={ { minWidth: labelWidthComputed.value } }
+          label-style={ { minWidth: labelWidth.value } }
           label-width={ undefined }
           v-slots={ renderFormItemSlots() }
       />
   )
+})
+
+// 添加 item label width
+watch([ itemEl, () => schema.value.label ], async () => {
+  await nextTick()
+  if (!itemEl.value || index.value === -1) return
+  const label = itemEl.value.querySelector('.n-form-item-label')
+  if (!label) return
+  itemsLabelMap.set(index.value, label.clientWidth)
+})
+
+onUnmounted(() => {
+  // 删除 item label width
+  itemsLabelMap.delete(index.value)
 })
 </script>
 
@@ -281,12 +286,4 @@ const FormItem = defineComponent(() => {
 :deep(.n-input-number), :deep(.n-time-picker), :deep(.n-date-picker) {
   width: 100%;
 }
-
-//:deep(.feedback) {
-//min-height: 18px;
-//height: 18px;
-//padding: 2px 0 0 0;
-//font-size: 12px;
-//line-height: 1;
-//}
 </style>

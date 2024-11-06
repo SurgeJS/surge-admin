@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import {
-  SearchSchemaFormExpose,
-  SearchSchemaFormProps,
-  SearchSchemaFormSlots,
-  UnwrapRefSchema
-} from '@/components/common/SchemaForm/types/type'
+import { UnwrapRefSchema } from '@/components/common/SchemaForm/types/common.ts'
 import useOmitProps from '@/hooks/common/useOmitProps'
 import useExpose from '@/components/common/SchemaForm/hooks/useExpose'
 import { useProvideSchemaFormContext } from '@/components/common/SchemaForm/hooks/useContext'
 import useMethod from '@/components/common/SchemaForm/hooks/useMethod'
 import { take } from 'es-toolkit'
+import {
+  SearchSchemaFormExpose,
+  SearchSchemaFormProps,
+  SearchSchemaFormSlots
+} from '@/components/common/SchemaForm/types/search.ts'
 
 const props = withDefaults(defineProps<SearchSchemaFormProps>(), {
   autoPlaceholder: true,
@@ -42,7 +42,7 @@ const props = withDefaults(defineProps<SearchSchemaFormProps>(), {
     yGap: 12,
     responsive:'self'
   }),
-  searchShowNumber: 5
+  searchShowNumber: 3
 })
 const slots = defineSlots<SearchSchemaFormSlots>()
 
@@ -90,7 +90,7 @@ defineExpose<SearchSchemaFormExpose>(commonExpose)
         v-if="!props.hideActionButton"
         :span="4"
         suffix
-        class="flex-inline justify-end  gap-[12px]"
+        class="flex-inline justify-end gap-[12px]"
       >
         <slot name="buttonBefore" />
         <slot name="customActionButton">

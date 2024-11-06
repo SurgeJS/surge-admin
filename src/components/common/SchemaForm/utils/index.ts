@@ -1,5 +1,5 @@
 import { ComponentsName } from '@/components/common/SchemaForm/types/component'
-import { RulePresets, RulePresetsType, Schema } from '@/components/common/SchemaForm/types/type'
+import { RulePresets, RulePresetsType, Schema } from '@/components/common/SchemaForm/types/common.ts'
 import RegUtils from '@/utils/reg'
 import { FormItemRule } from 'naive-ui/es/form/src/interface'
 import { isArray } from 'es-toolkit/compat'

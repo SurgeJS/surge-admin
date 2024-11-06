@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { reactive } from 'vue'
-import { DefineSchema } from '@/components/common/SchemaForm/types/type'
+import { DefineSchema } from '@/components/common/SchemaForm/types/common.ts'
 import { FormItemRule } from 'naive-ui'
 import useRenderIcon from '@/hooks/components/useRenderIcon'
 
@@ -357,7 +357,11 @@ const schema = reactive<DefineSchema<typeof form.value>[]>([
           v-model:model="form"
           v-model:schema="schema"
           show-require-mark
-        />
+        >
+          <template #customActionButton="{test}">
+            {{ test }}
+          </template>
+        </search-schema-form>
       </div>
     </template>
   </n-split>

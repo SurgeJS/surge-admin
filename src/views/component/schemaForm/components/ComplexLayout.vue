@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { reactive } from 'vue'
-import { DefineSchema } from '@/components/common/SchemaForm/types/type'
+import { DefineSchema } from '@/components/common/SchemaForm/types/common.ts'
 import { FormItemRule } from 'naive-ui'
 import useRenderIcon from '@/hooks/components/useRenderIcon'
 

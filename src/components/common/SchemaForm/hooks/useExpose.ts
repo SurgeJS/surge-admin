@@ -1,4 +1,4 @@
-import { SchemaFormCommonExpose } from '@/components/common/SchemaForm/types/type'
+import { SchemaFormCommonExpose } from '@/components/common/SchemaForm/types/common.ts'
 
 const useExpose = () => {
     const formRef = ref<SchemaFormCommonExpose>()
