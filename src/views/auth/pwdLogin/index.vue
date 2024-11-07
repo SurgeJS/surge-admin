@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { reactive } from 'vue'
-import { DefineSchema, SchemaFormExpose } from '@/components/common/SchemaForm/types/common.ts'
+import { DefineSchema } from '@/components/common/SchemaForm/types/common.ts'
 import useAuthStore from '@/store/modules/auth'
 import useRenderIcon from '@/hooks/components/useRenderIcon'
 import OtherLogins from '@/views/auth/components/OtherLogins.vue'
+import { SchemaFormExpose } from '@/components/common/SchemaForm/types/base.ts'
 
 const authStore = useAuthStore()
 
