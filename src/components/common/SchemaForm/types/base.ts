@@ -15,4 +15,5 @@ export interface SchemaFormExpose extends SchemaFormCommonExpose {
 }
 
 export interface SchemaFormSlots extends SchemaFormCommonSlots {
+
 }

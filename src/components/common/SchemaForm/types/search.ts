@@ -11,7 +11,7 @@ export interface SearchSchemaFormProps extends SchemaFormCommonProps {
     // schema 配置
     schema: DefineSchema[]
 
-    // 是否开启折叠
+    // 是否开启折叠(关闭后折叠按钮不在显示)
     enableCollapsed?: boolean
 
     // 查询表单默认展示个数
@@ -20,14 +20,17 @@ export interface SearchSchemaFormProps extends SchemaFormCommonProps {
     // 是否折叠
     collapsed?: boolean
 
-    // 隐藏折叠按钮
-    hideCollapsedBtn?: boolean
+    // 折叠文字 (默认:展开)
+    collapsedText?: string
+
+    // 未折叠文字 (默认:收起)
+    unCollapsedText?: string
 }
 
 export interface SearchSchemaFormExpose extends SchemaFormCommonExpose {
+    toggleCollapsed(isCollapsed: boolean): void
 }
 
-export type SearchSchemaFormSlots  =  SchemaFormCommonSlots & {
-    // 自定义操作按钮
-    customActionButton(params: { test: number }): any
+export interface SearchSchemaFormSlots  extends  SchemaFormCommonSlots  {
+
 }

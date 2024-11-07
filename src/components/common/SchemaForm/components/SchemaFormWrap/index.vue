@@ -4,9 +4,11 @@ import useOmitProps from '@/hooks/common/useOmitProps'
 import { FormInst } from 'naive-ui'
 import { useSchemaFormContext } from '@/components/common/SchemaForm/hooks/useContext'
 import { cloneDeep } from 'es-toolkit'
+import { scrollToElement } from '@/utils'
+import { FormValidateCallback, ShouldRuleBeApplied } from 'naive-ui/es/form/src/interface'
 
 const props = defineProps<SchemaFormCommonProps>()
-const { model } = useSchemaFormContext()!
+const { model, itemsDataMap } = useSchemaFormContext()!
 
 const nFormProps = useOmitProps(props, [
   'formClass',
@@ -22,7 +24,7 @@ const nFormProps = useOmitProps(props, [
   'autoPlaceholder',
   'autoRules',
   'autoLabelWidth',
-  'labelOverflowOmitted',
+  'autoScrollToFailField',
   'submitLoading',
   'submitText',
   'resetLoading',
@@ -31,21 +33,37 @@ const nFormProps = useOmitProps(props, [
   'onSubmit',
   'onFinish',
   'onFinishFailed',
-  'onReset',
+  'onReset'
 ])
 
 const commonExpose: SchemaFormCommonExpose = {} as SchemaFormCommonExpose
 const initModel = cloneDeep(model.value)
 const formRef = ref<FormInst>()
-
 const setExpose = () => {
   if (!formRef.value) return
-  commonExpose['validate'] = formRef.value.validate
+  commonExpose['validate'] = async (callback?: FormValidateCallback, shouldRuleBeApplied?: ShouldRuleBeApplied) => {
+    return formRef.value!.validate((errors, extra) => {
+      callback?.(errors, extra)
+      if (props.autoScrollToFailField) {
+        // 第一个校验未通过的字段
+        const firstVerificationFailedField = errors?.[0]?.[0]?.field
+        // 滚动第一个校验未通过的字段
+        firstVerificationFailedField && commonExpose.scrollToField(firstVerificationFailedField)
+      }
+    }, shouldRuleBeApplied)
+  }
+
   commonExpose['restoreValidation'] = formRef.value.restoreValidation
 
   commonExpose['resetFields'] = () => {
     model.value = cloneDeep(initModel)
     commonExpose.restoreValidation()
+  }
+
+  commonExpose['scrollToField'] = (field: string) => {
+    const item = [ ...itemsDataMap.values() ].find(item => item.field === field)
+    if (!item) return console.error(`未找到该${ field }对应的item`)
+    scrollToElement(item?.el)
   }
 }
 

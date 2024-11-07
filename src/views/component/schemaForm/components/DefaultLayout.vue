@@ -3,6 +3,7 @@ import { reactive } from 'vue'
 import { DefineSchema } from '@/components/common/SchemaForm/types/common.ts'
 import { FormItemRule } from 'naive-ui'
 import useRenderIcon from '@/hooks/components/useRenderIcon'
+import { SchemaFormExpose } from '@/components/common/SchemaForm/types/base.ts'
 
 const { RenderUnoIcon } = useRenderIcon()
 
@@ -337,6 +338,11 @@ const schema = reactive<DefineSchema<typeof form.value>[]>([
     contentSlot: 'test'
   },
 ])
+
+const test = ref<SchemaFormExpose>()
+const to = () => {
+  test.value?.scrollToField('userList')
+}
 </script>
 
 <template>
@@ -347,6 +353,7 @@ const schema = reactive<DefineSchema<typeof form.value>[]>([
     :min="0.25"
   >
     <template #1>
+      <n-button @click="to">test</n-button>
       <div class="p-24px h-full overflow-auto">
         <pre>{{ JSON.stringify(form, null, 2) }}</pre>
       </div>
@@ -354,6 +361,7 @@ const schema = reactive<DefineSchema<typeof form.value>[]>([
     <template #2>
       <div class="p-24px h-full overflow-auto">
         <schema-form
+          ref="test"
           v-model:model="form"
           v-model:schema="schema"
           show-require-mark

@@ -1,14 +1,12 @@
 <script setup lang="ts">
 import SchemaFormItem from '@/components/common/SchemaForm/components/SchemaFormItem/index.vue'
 import { SchemaFormContent } from '@/components/common/SchemaForm/components/SchemaFormContent/types/type'
-import { useSchemaFormContext } from '@/components/common/SchemaForm/hooks/useContext'
 
-const { schema } = defineProps<SchemaFormContent>()
-const { schemaFormProps } = useSchemaFormContext()!
+const { schema,gridProps } = defineProps<SchemaFormContent>()
 </script>
 
 <template>
-  <grid v-bind="schemaFormProps.gridProps">
+  <grid v-bind="gridProps">
     <template
       v-for="config in schema"
       :key="config.field||config.slot"

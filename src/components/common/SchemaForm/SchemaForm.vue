@@ -9,7 +9,8 @@ import { SchemaFormExpose, SchemaFormProps, SchemaFormSlots } from '@/components
 const props = withDefaults(defineProps<SchemaFormProps>(), {
   autoPlaceholder: true,
   autoRules: true,
-  autoLabelWidth:true,
+  autoLabelWidth: true,
+  autoScrollToFailField: true,
   hideActionButton: false,
   showLabel: true,
   showFeedback: true,
@@ -22,9 +23,9 @@ const props = withDefaults(defineProps<SchemaFormProps>(), {
   defaultTimeFormat: 'HH:mm:ss',
   defaultDateValueFormat: 'yyyy-MM-dd HH:mm:ss',
   defaultTimeValueFormat: 'HH:mm:ss',
-  gridProps:()=>({
-    cols:24,
-    yGap:12,
+  gridProps: () => ({
+    cols: 24,
+    yGap: 12
   }),
   gridItemProps: 24
 })
@@ -33,6 +34,7 @@ const slots = defineSlots<SchemaFormSlots>()
 // 表单模型
 const model = defineModel<Recordable>('model', { required: true })
 const schema = defineModel<UnwrapRefSchema[]>('schema', { required: true })
+console.log(props)
 // 提供Schema上下文
 useProvideSchemaFormContext(props, model)
 const formProps = useOmitProps(props, [ 'schema' ])
@@ -50,7 +52,7 @@ defineExpose<SchemaFormExpose>(commonExpose)
     v-bind="formProps"
     :model="model"
   >
-    <schema-form-content :schema="schema">
+    <schema-form-content :schema="schema" :grid-props="gridProps">
       <template v-for="(slot,key) in formContentSlots" #[key]="scope">
         <slot :name="key" v-bind="scope||{}" />
       </template>

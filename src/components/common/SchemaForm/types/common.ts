@@ -10,11 +10,22 @@ import type { CascaderOption } from 'naive-ui/es/cascader/src/interface'
 import type { Option } from 'naive-ui/es/transfer/src/interface'
 import { GridItemProps, GridProps } from '@/components/common/Grid/types'
 
+export interface SchemaItemData {
+    // item 元素
+    el: HTMLElement
+
+    // 字段
+    field: string
+
+    // item 标签宽度
+    labelWidth: number
+}
+
 // 回调参数
 export interface CallbackParams<
     TForm extends Recordable = Recordable,
     DComponentsName extends ComponentsName = ComponentsName> {
-    schema: DefineSchema<TForm, DComponentsName>;
+    schema: UnwrapRefSchema<TForm, DComponentsName>;
 
     value: any;
 
@@ -180,6 +191,9 @@ export interface SchemaFormCommonProps extends Partial<Omit<FormSetupProps, 'onS
     // 默认时间组件值格式
     defaultTimeValueFormat?: DateFormat
 
+    // 自动滚动到校验失败的字段
+    autoScrollToFailField?: boolean
+
     // 自动placeholder (item的label的类型为string才会生效，优先级最低)
     autoPlaceholder?: boolean
 
@@ -188,9 +202,6 @@ export interface SchemaFormCommonProps extends Partial<Omit<FormSetupProps, 'onS
 
     // 自动标签宽度 (优先级最低)
     autoLabelWidth?: boolean
-
-    // 标签文字溢出省略(设置固定宽度时有效)
-    labelOverflowOmitted?: boolean
 
     // 提交Loading
     submitLoading?: boolean
@@ -234,5 +245,9 @@ export interface SchemaFormCommonSlots {
 
 // 通用方法
 export interface SchemaFormCommonExpose extends FormInst {
+    // 重置
     resetFields(): void
+
+    // 滚动到字段
+    scrollToField(field: string): void
 }

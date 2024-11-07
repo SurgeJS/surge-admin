@@ -40,40 +40,47 @@ const props = withDefaults(defineProps<SearchSchemaFormProps>(), {
   gridProps: () => ({
     cols: 24,
     yGap: 12,
-    responsive:'self'
+    responsive: 'self'
   }),
-  searchShowNumber: 3
+  searchShowNumber: 3,
+  enableCollapsed: true,
+  collapsedText: '展开',
+  unCollapsedText: '收起'
 })
 const slots = defineSlots<SearchSchemaFormSlots>()
 
 // 表单模型
 const model = defineModel<Recordable>('model', { required: true })
+const schema = defineModel<UnwrapRefSchema[]>('schema', { required: true })
+// 是否折叠
+const collapsed = defineModel<boolean>('collapsed', { default: true })
+
 // 提供Schema上下文
 useProvideSchemaFormContext(props, model)
-const formProps = useOmitProps(props, [ 'searchShowNumber', 'schema' ])
+const formProps = useOmitProps(props, [ 'searchShowNumber', 'schema','collapsed','enableCollapsed','collapsedText','unCollapsedText' ])
 const formContentSlots = useOmitProps(slots, [ 'customActionButton', 'buttonAfter', 'buttonBefore' ])
 
 // 通用方法
 const { formRef, commonExpose } = useExpose()
 const { handleReset, handleSubmit } = useMethod(props, commonExpose, model)
 
-// 是否展开搜索表单
-const [ isExpandSearchForm, toggleExpandSearchForm ] = useToggle()
-
 // 搜索Schema
 const searchSchemas = computed(() => {
-  if (!props.searchShowNumber) return props.schema
-  if (isExpandSearchForm.value) return props.schema
-  return take(props.schema, props.searchShowNumber)
+  if (!props.enableCollapsed || !collapsed.value) return schema.value
+  return take(schema.value, props.searchShowNumber)
 })
 
 // 展开收起文案
-const searchExpandCollapse = computed(() => ({
-  text: isExpandSearchForm.value ? '收起' : '展开',
-  icon: isExpandSearchForm.value ? 'i-ic:outline-keyboard-arrow-up' : 'i-ic:outline-keyboard-arrow-down'
+const text = computed(() => ({
+  text: !collapsed.value ? props.unCollapsedText : props.collapsedText,
+  icon: !collapsed.value ? 'i-ic:outline-keyboard-arrow-up' : 'i-ic:outline-keyboard-arrow-down'
 }))
 
-defineExpose<SearchSchemaFormExpose>(commonExpose)
+const toggleCollapsed = (isCollapsed?: boolean) => {
+  collapsed.value = isCollapsed || !collapsed.value
+}
+
+defineExpose<SearchSchemaFormExpose>({ ...commonExpose, toggleCollapsed })
 </script>
 
 <template>
@@ -82,7 +89,7 @@ defineExpose<SearchSchemaFormExpose>(commonExpose)
     v-bind="formProps"
     :model="model"
   >
-    <schema-form-content :schema="searchSchemas as UnwrapRefSchema[]">
+    <schema-form-content :schema="searchSchemas as UnwrapRefSchema[]" :grid-props="gridProps">
       <template v-for="(slot,key) in formContentSlots" #[key]="scope">
         <slot :name="key" v-bind="scope||{}" />
       </template>
@@ -99,6 +106,9 @@ defineExpose<SearchSchemaFormExpose>(commonExpose)
             :loading="props.resetLoading"
             @click="handleReset"
           >
+            <template #icon>
+              <icon icon="i-ic:sharp-restart-alt" />
+            </template>
             {{ props.resetText }}
           </n-button>
           <n-button
@@ -106,18 +116,21 @@ defineExpose<SearchSchemaFormExpose>(commonExpose)
             :loading="props.submitLoading"
             @click="handleSubmit"
           >
+            <template #icon>
+              <icon icon="i-ic:twotone-search" />
+            </template>
             {{ props.submitText }}
           </n-button>
           <n-button
-            v-if="props.searchShowNumber"
-            quaternary
+            v-if="props.enableCollapsed"
             type="primary"
-            @click="toggleExpandSearchForm()"
+            tertiary
+            @click="toggleCollapsed()"
           >
             <template #icon>
-              <icon :icon="searchExpandCollapse.icon" />
+              <icon :icon="text.icon" />
             </template>
-            {{ searchExpandCollapse.text }}
+            {{ text.text }}
           </n-button>
         </slot>
         <slot name="buttonAfter" />

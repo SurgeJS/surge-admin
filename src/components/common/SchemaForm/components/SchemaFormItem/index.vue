@@ -25,7 +25,7 @@ import useElementIndex from '@/hooks/common/use-element-index.ts'
 const schema = defineModel<UnwrapRefSchema>('schema', { required: true })
 
 const slots = useSlots()
-const { schemaFormProps, model, getModelValue, setModelValue, maxLabelWidth, itemsLabelMap } = useSchemaFormContext()!
+const { schemaFormProps, model, getModelValue, setModelValue, maxLabelWidth, itemsDataMap } = useSchemaFormContext()!
 const { RenderUnoIcon } = useRenderIcon()
 const itemEl = useCurrentElement<HTMLElement>()
 const index = useElementIndex(itemEl)
@@ -250,6 +250,7 @@ const FormItem = defineComponent(() => {
 
   return () => (
       <n-form-item
+          feedback-class="feedback"
           { ...formItemProps.value }
           rule={ formItemRules.value }
           path={ schema.value.field }
@@ -265,13 +266,17 @@ watch([ itemEl, () => schema.value.label ], async () => {
   await nextTick()
   if (!itemEl.value || index.value === -1) return
   const label = itemEl.value.querySelector('.n-form-item-label')
-  if (!label) return
-  itemsLabelMap.set(index.value, label.clientWidth)
+  if (!label || !schema.value.field) return
+  itemsDataMap.set(index.value, {
+    el: itemEl.value,
+    field: schema.value.field as string,
+    labelWidth: label.clientWidth
+  })
 })
 
 onUnmounted(() => {
-  // 删除 item label width
-  itemsLabelMap.delete(index.value)
+  // 删除 item
+  itemsDataMap.delete(index.value)
 })
 </script>
 
@@ -285,5 +290,18 @@ onUnmounted(() => {
 <style scoped lang="scss">
 :deep(.n-input-number), :deep(.n-time-picker), :deep(.n-date-picker) {
   width: 100%;
+}
+
+:deep(.feedback) {
+  min-height: 20px;
+  height: 20px;
+  font-size: 12px;
+  padding-top: 2px !important;
+}
+
+:deep(.n-form-item-label__text) {
+  white-space: nowrap; /* 防止文本换行 */
+  overflow: hidden; /* 超出部分隐藏 */
+  text-overflow: ellipsis; /* 溢出的文本显示省略号 */
 }
 </style>

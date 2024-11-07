@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { reactive } from 'vue'
 import { DefineSchema } from '@/components/common/SchemaForm/types/common.ts'
-import { FormItemRule } from 'naive-ui'
 import useRenderIcon from '@/hooks/components/useRenderIcon'
 
 const { RenderUnoIcon } = useRenderIcon()
@@ -48,27 +47,15 @@ const form = ref({
     }
   },
   email: 'xxx',
-  age: null,
-  password: '',
-  confirmPassword: '',
   status: null,
-  skill: null,
   date: null,
-  dateRange: [],
   startTime: null,
   endTime: null,
   area: null,
   organization: null,
-  score: null,
-  show: true,
   description: null,
   like: [],
-  tags: [ '小菜鸡', '码农' ],
-  color: null,
-  mention: null,
-  workPlace: 0,
-  schedule: 50,
-  userList: []
+  mention: null
 })
 
 const emailAutoComplete = computed(() => [ '@gmail.com', '@163.com', '@qq.com' ].map((v) => {
@@ -82,14 +69,8 @@ const emailAutoComplete = computed(() => [ '@gmail.com', '@163.com', '@qq.com' ]
 const schema = reactive<DefineSchema<typeof form.value>[]>([
   {
     field: 'name.a.b',
-    label: '名称',
+    label: '用户昵称',
     component: 'input',
-    tooltip: '这是一个Tooltip',
-    placeholder: '这个placeholder会覆盖到自动生成的placeholder',
-    componentContent: {
-      prefix: () => RenderUnoIcon('i-ant-design:user-outlined')
-    },
-    showRequireMark: false
   },
   {
     field: 'email',
@@ -97,50 +78,6 @@ const schema = reactive<DefineSchema<typeof form.value>[]>([
     component: 'autoComplete',
     options: emailAutoComplete,
     rule: 'mail'
-  },
-  {
-    field: 'age',
-    label: '年龄',
-    component: 'inputNumber'
-  },
-  {
-    field: 'password',
-    label: '密码',
-    component: 'input',
-    componentProps: {
-      type: 'password',
-      showPasswordOn: 'click'
-    },
-    showRequireMark: true
-  },
-  {
-    field: 'confirmPassword',
-    label: '确认密码',
-    component: 'input',
-    first: true,
-    componentProps: {
-      type: 'password',
-      showPasswordOn: 'click',
-      disabled: computed(() => !form.value.password)
-    },
-    rule: [
-      {
-        required: true,
-        message: '请再次输入密码',
-        trigger: 'blur'
-      },
-      {
-        message: '俩次输入密码不一致',
-        trigger: [ 'blur', 'input' ],
-        validator: (rule: FormItemRule, value: string) => {
-          return (
-              !!form.value.password
-              && form.value.password.startsWith(value)
-              && form.value.password.length >= value.length
-          )
-        }
-      }
-    ]
   },
   {
     field: 'status',
@@ -186,52 +123,6 @@ const schema = reactive<DefineSchema<typeof form.value>[]>([
     showRequireMark: true
   },
   {
-    field: 'skill',
-    label: '技能',
-    component: 'checkboxGroup',
-    options: [
-      {
-        label: 'Vue',
-        value: 0
-      },
-      {
-        label: 'React',
-        disabled: true,
-        value: 1
-      },
-      {
-        label: 'Naive',
-        value: 2
-      },
-      {
-        label: 'VueUse',
-        value: 3
-      },
-      {
-        label: 'VueQuery',
-        value: 4
-      },
-      {
-        label: 'Axios',
-        value: 5
-      },
-      {
-        label: 'Unocss',
-        value: 6
-      }
-    ]
-  },
-  {
-    field: 'tags',
-    label: '标签',
-    component: 'dynamicTags'
-  },
-  {
-    field: 'color',
-    label: '颜色',
-    component: 'colorPicker'
-  },
-  {
     field: 'mention',
     label: '提及',
     component: 'mention',
@@ -271,21 +162,6 @@ const schema = reactive<DefineSchema<typeof form.value>[]>([
     ]
   },
   {
-    field: 'score',
-    label: '评分',
-    component: 'rate'
-  },
-  {
-    field: 'schedule',
-    label: '进度',
-    component: 'slider'
-  },
-  {
-    field: 'show',
-    label: '启用',
-    component: 'switch'
-  },
-  {
     field: 'startTime',
     label: '开始时间',
     component: 'timePicker'
@@ -294,17 +170,6 @@ const schema = reactive<DefineSchema<typeof form.value>[]>([
     field: 'endTime',
     label: '结束时间',
     component: 'timePicker'
-  },
-  {
-    field: 'userList',
-    label: '用户',
-    component: 'transfer',
-    options: Array.from({ length: 100 }, (v, i) => {
-      return {
-        value: i,
-        label: `用户${ i }`
-      }
-    })
   },
   {
     field: 'area',
@@ -327,14 +192,8 @@ const schema = reactive<DefineSchema<typeof form.value>[]>([
     component: 'input',
     componentProps: {
       type: 'textarea'
-    }
-  },
-  {
-    slot: 'test2'
-  },
-  {
-    label: '自定义插槽',
-    contentSlot: 'test'
+    },
+    gridItemProps: 24
   }
 ])
 </script>
@@ -356,12 +215,7 @@ const schema = reactive<DefineSchema<typeof form.value>[]>([
         <search-schema-form
           v-model:model="form"
           v-model:schema="schema"
-          show-require-mark
-        >
-          <template #customActionButton="{test}">
-            {{ test }}
-          </template>
-        </search-schema-form>
+        />
       </div>
     </template>
   </n-split>
