@@ -191,7 +191,7 @@ export interface SchemaFormCommonProps extends Partial<Omit<FormSetupProps, 'onS
     // 默认时间组件值格式
     defaultTimeValueFormat?: DateFormat
 
-    // 自动滚动到校验失败的字段
+    // 校验失败时自动滚动到对应的字段
     autoScrollToFailField?: boolean
 
     // 自动placeholder (item的label的类型为string才会生效，优先级最低)

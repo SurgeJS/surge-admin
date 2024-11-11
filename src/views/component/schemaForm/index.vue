@@ -4,6 +4,7 @@ import DefaultLayout from '@/views/component/schemaForm/components/DefaultLayout
 import TwoColumnLayout from '@/views/component/schemaForm/components/TwoColumnLayout.vue'
 import ComplexLayout from '@/views/component/schemaForm/components/ComplexLayout.vue'
 import SearchForm from '@/views/component/schemaForm/components/SearchForm.vue'
+import PopupForm from '@/views/component/schemaForm/components/PopupForm.vue'
 
 const tabs = [
   {
@@ -32,7 +33,7 @@ const tabs = [
   },
   {
     name:'弹框&抽屉表单',
-    component:DefaultLayout
+    component:PopupForm
   },
 ]
 </script>

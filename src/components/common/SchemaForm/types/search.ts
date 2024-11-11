@@ -1,15 +1,14 @@
 /* --------------搜索表单-------------- */
 
 import {
-    DefineSchema,
     SchemaFormCommonExpose,
     SchemaFormCommonProps,
-    SchemaFormCommonSlots
+    SchemaFormCommonSlots, UnwrapRefSchema
 } from '@/components/common/SchemaForm/types/common.ts'
 
 export interface SearchSchemaFormProps extends SchemaFormCommonProps {
     // schema 配置
-    schema: DefineSchema[]
+    schema: UnwrapRefSchema[]
 
     // 是否开启折叠(关闭后折叠按钮不在显示)
     enableCollapsed?: boolean

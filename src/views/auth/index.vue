@@ -16,7 +16,7 @@
     <n-card
       bordered
       size="large"
-      class="auth-card w-[500px] max-xs:w-[90%] transition-width"
+      class="auth-card w-[500px] max-xs:w-[90%]"
       content-class="h-full"
     >
       <div class="w-h-full flex overflow-hidden">
@@ -43,6 +43,11 @@ const { VITE_APP_TITLE } = wrapperMetaEnv()
 <style lang="scss" scoped>
 .auth-card {
   box-shadow: 0 0 50px -30px theme('colors.primary');
+  transition: .5s ease-in-out;
+
+  &:hover {
+    box-shadow: 0 0 50px -10px theme('colors.primary');
+  }
 }
 </style>
 

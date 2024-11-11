@@ -1,18 +1,18 @@
 /* --------------弹框表单-------------- */
 
 import {
-    DefineSchema,
     SchemaFormCommonExpose,
     SchemaFormCommonProps,
-    SchemaFormCommonSlots
+    SchemaFormCommonSlots,
+    UnwrapRefSchema
 } from '@/components/common/SchemaForm/types/common.ts'
-import { DrawerProps, ModalProps } from 'naive-ui'
+import { CardProps, DrawerContentProps, DrawerProps, ModalProps } from 'naive-ui'
 
 export type PopupType = 'drawer' | 'modal'
 
 export interface PopupSchemaFormProps extends SchemaFormCommonProps {
     // schema 配置
-    schema: DefineSchema[]
+    schema: UnwrapRefSchema[]
 
     visible?: boolean
 
@@ -20,13 +20,25 @@ export interface PopupSchemaFormProps extends SchemaFormCommonProps {
     popupType?: PopupType
 
     // 弹框标题
-    popupTitle?: string
+    title?: string
+
+    // 宽度
+    width?: string
+
+    // 高度
+    height?: string
 
     // 抽屉属性
     drawerProps?: DrawerProps
 
+    // 抽屉内容属性
+    drawerContentProps?: DrawerContentProps
+
     // 模态框属性
     modalProps?: ModalProps
+
+    // 模态框卡片属性
+    modalCardProps?: CardProps
 
     // 点击遮罩层是否关闭模态框和抽屉
     maskClosable?: boolean
@@ -57,6 +69,6 @@ export interface PopupSchemaFormSlots extends SchemaFormCommonSlots {
     // 表单后
     popupFormAfter(): any
 
-    // 弹框头部
+    // 弹框底部
     popupFooter(): any
 }
