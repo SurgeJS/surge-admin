@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { UnwrapRefSchema } from '@/components/common/SchemaForm/types/common.ts'
+import { UnwrapSchema } from '@/components/common/SchemaForm/types/common.ts'
 import useOmitProps from '@/hooks/common/useOmitProps'
 import useExpose from '@/components/common/SchemaForm/hooks/useExpose'
 import { useProvideSchemaFormContext } from '@/components/common/SchemaForm/hooks/useContext'
@@ -33,8 +33,8 @@ const slots = defineSlots<SchemaFormSlots>()
 
 // 表单模型
 const model = defineModel<Recordable>('model', { required: true })
-const schema = defineModel<UnwrapRefSchema[]>('schema', { required: true })
-console.log(props)
+const schema = defineModel<UnwrapSchema[]>('schema', { required: true })
+
 // 提供Schema上下文
 useProvideSchemaFormContext(props, model)
 const formProps = useOmitProps(props, [ 'schema' ])

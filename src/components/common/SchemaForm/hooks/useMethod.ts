@@ -3,7 +3,6 @@ import { SchemaFormCommonExpose, SchemaFormCommonProps } from '@/components/comm
 
 const useMethod = (props: SchemaFormCommonProps, expose: SchemaFormCommonExpose, model: ModelRef<Recordable>) => {
     const handleSubmit = () => {
-        console.log(expose)
         if (props.onSubmit) {
             props.onSubmit(expose.validate, model.value)
         } else {

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { UnwrapRefSchema } from '@/components/common/SchemaForm/types/common.ts'
+import { UnwrapSchema } from '@/components/common/SchemaForm/types/common.ts'
 import useOmitProps from '@/hooks/common/useOmitProps'
 import useExpose from '@/components/common/SchemaForm/hooks/useExpose'
 import { useProvideSchemaFormContext } from '@/components/common/SchemaForm/hooks/useContext'
@@ -51,7 +51,7 @@ const slots = defineSlots<SearchSchemaFormSlots>()
 
 // 表单模型
 const model = defineModel<Recordable>('model', { required: true })
-const schema = defineModel<UnwrapRefSchema[]>('schema', { required: true })
+const schema = defineModel<UnwrapSchema[]>('schema', { required: true })
 // 是否折叠
 const collapsed = defineModel<boolean>('collapsed', { default: true })
 
@@ -89,7 +89,7 @@ defineExpose<SearchSchemaFormExpose>({ ...commonExpose, toggleCollapsed })
     v-bind="formProps"
     :model="model"
   >
-    <schema-form-content :schema="searchSchemas as UnwrapRefSchema[]" :grid-props="gridProps">
+    <schema-form-content :schema="searchSchemas as UnwrapSchema[]" :grid-props="gridProps">
       <template v-for="(slot,key) in formContentSlots" #[key]="scope">
         <slot :name="key" v-bind="scope||{}" />
       </template>
@@ -124,7 +124,7 @@ defineExpose<SearchSchemaFormExpose>({ ...commonExpose, toggleCollapsed })
           <n-button
             v-if="props.enableCollapsed"
             type="primary"
-            tertiary
+            text
             @click="toggleCollapsed()"
           >
             <template #icon>

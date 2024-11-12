@@ -15,7 +15,7 @@ export interface GridProps {
     collapsed?: boolean
 
     // 折叠时显示的行数
-    collapsedRows?: number
+    notCollapsedRows?: number
 
     // 'self' 根据自身宽度进行响应式布局，'screen' 根据屏幕断点进行响应式布局
     responsive?: RowResponsive

@@ -5,6 +5,7 @@ import TwoColumnLayout from '@/views/component/schemaForm/components/TwoColumnLa
 import ComplexLayout from '@/views/component/schemaForm/components/ComplexLayout.vue'
 import SearchForm from '@/views/component/schemaForm/components/SearchForm.vue'
 import PopupForm from '@/views/component/schemaForm/components/PopupForm.vue'
+import GroupForm from '@/views/component/schemaForm/components/GroupForm.vue'
 
 const tabs = [
   {
@@ -29,7 +30,7 @@ const tabs = [
   },
   {
     name:'分组表单',
-    component:DefaultLayout
+    component:GroupForm
   },
   {
     name:'弹框&抽屉表单',

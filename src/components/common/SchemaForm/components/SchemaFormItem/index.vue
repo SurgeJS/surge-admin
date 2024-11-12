@@ -4,7 +4,7 @@ import {
   CallbackParamsFunction,
   OptionType,
   Schema,
-  UnwrapRefSchema
+  UnwrapSchema
 } from '@/components/common/SchemaForm/types/common.ts'
 import { useSchemaFormContext } from '@/components/common/SchemaForm/hooks/useContext'
 import { computed, isVNode, useSlots } from 'vue'
@@ -21,14 +21,19 @@ import { isFunction, isString, isUndefined, omitBy } from 'es-toolkit'
 import { get, isArray, isNumber } from 'es-toolkit/compat'
 import { GridItemProps } from '@/components/common/Grid/types'
 import useElementIndex from '@/hooks/common/use-element-index.ts'
+import { SchemaFormItemProps } from '@/components/common/SchemaForm/components/SchemaFormItem/types/type.ts'
 
-const schema = defineModel<UnwrapRefSchema>('schema', { required: true })
+const props = defineProps<SchemaFormItemProps>()
+const schema = defineModel<UnwrapSchema>('schema', { required: true })
 
 const slots = useSlots()
 const { schemaFormProps, model, getModelValue, setModelValue, maxLabelWidth, itemsDataMap } = useSchemaFormContext()!
 const { RenderUnoIcon } = useRenderIcon()
 const itemEl = useCurrentElement<HTMLElement>()
 const index = useElementIndex(itemEl)
+
+// 唯一标识
+const uniqueIdentifier = computed(() => `${ props.id }-${ index.value }`)
 
 // 回调参数
 const callbackParams = computed(() => ({
@@ -245,9 +250,8 @@ const FormItem = defineComponent(() => {
   const labelWidth = computed(() => {
     if (schema.value.labelWidth) return schema.value.labelWidth
     if (schemaFormProps.labelWidth) return schemaFormProps.labelWidth
-    return schemaFormProps.autoLabelWidth && maxLabelWidth.value ? `${ maxLabelWidth.value }px` : undefined
+    return schemaFormProps.autoLabelWidth && maxLabelWidth.value && schemaFormProps.labelPlacement !== 'top' ? `${ maxLabelWidth.value }px` : undefined
   })
-
   return () => (
       <n-form-item
           feedback-class="feedback"
@@ -264,10 +268,10 @@ const FormItem = defineComponent(() => {
 // 添加 item label width
 watch([ itemEl, () => schema.value.label ], async () => {
   await nextTick()
-  if (!itemEl.value || index.value === -1) return
+  if (!itemEl.value || index.value === -1 || props.id === undefined) return
   const label = itemEl.value.querySelector('.n-form-item-label')
   if (!label || !schema.value.field) return
-  itemsDataMap.set(index.value, {
+  itemsDataMap.set(uniqueIdentifier.value, {
     el: itemEl.value,
     field: schema.value.field as string,
     labelWidth: label.clientWidth
@@ -276,7 +280,7 @@ watch([ itemEl, () => schema.value.label ], async () => {
 
 onUnmounted(() => {
   // 删除 item
-  itemsDataMap.delete(index.value)
+  itemsDataMap.delete(uniqueIdentifier.value)
 })
 </script>
 

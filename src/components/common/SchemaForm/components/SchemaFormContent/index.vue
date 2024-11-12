@@ -3,6 +3,7 @@ import SchemaFormItem from '@/components/common/SchemaForm/components/SchemaForm
 import { SchemaFormContent } from '@/components/common/SchemaForm/components/SchemaFormContent/types/type'
 
 const { schema,gridProps } = defineProps<SchemaFormContent>()
+const id = useId()
 </script>
 
 <template>
@@ -13,6 +14,7 @@ const { schema,gridProps } = defineProps<SchemaFormContent>()
     >
       <schema-form-item
         v-if="config.component||config.contentSlot||config.slot"
+        :id="id"
         ref="formItemsRef"
         :schema="config"
       >

@@ -25,7 +25,7 @@ export interface SchemaItemData {
 export interface CallbackParams<
     TForm extends Recordable = Recordable,
     DComponentsName extends ComponentsName = ComponentsName> {
-    schema: UnwrapRefSchema<TForm, DComponentsName>;
+    schema: UnwrapSchema<TForm, DComponentsName>;
 
     value: any;
 
@@ -152,7 +152,7 @@ export type DefineSchema<
     = DComponentsName extends ComponentsNameRef ? Schema<TForm, DComponentsName> : never;
 
 // 解包 JSON 格式配置
-export type UnwrapRefSchema<
+export type UnwrapSchema<
     TForm extends Recordable = any,
     DComponentsName extends ComponentsNameRef = ComponentsNameRef>
     = UnwrapRef<DefineSchema<TForm, DComponentsName>>

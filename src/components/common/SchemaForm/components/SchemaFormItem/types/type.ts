@@ -1,7 +1,12 @@
-import { Schema } from '@/components/common/SchemaForm/types/common.ts'
+import { UnwrapSchema } from '@/components/common/SchemaForm/types/common.ts'
+import { GridItemProps } from '@/components/common/Grid/types'
 
 export interface SchemaFormItemProps {
-    schema: Schema
+    schema: UnwrapSchema
+
+    id: string
 
     disable?: boolean
+
+    gridItemProps?:GridItemProps
 }

@@ -202,30 +202,26 @@ const schema = reactive<DefineSchema<typeof form.value>[]>([
 </script>
 
 <template>
-  <n-split
-    direction="horizontal"
-    :default-size="0.25"
-    :max="0.75"
-    :min="0.25"
-  >
-    <template #1>
-      <div class="p-24px h-full overflow-auto">
-        <pre>{{ JSON.stringify(form, null, 2) }}</pre>
-      </div>
-    </template>
-    <template #2>
-      <div class="p-24px h-full overflow-auto">
-        <n-button @click="toggleVisible1()">打开模态框</n-button>
-        <popup-schema-form
-          v-model:model="form"
-          v-model:schema="schema"
-          v-model:visible="visible1"
-          title="标题"
-          popup-type="modal"
-        />
-      </div>
-    </template>
-  </n-split>
+  <n-flex>
+    <n-button @click="toggleVisible1()">打开模态框</n-button>
+    <n-button @click="toggleVisible2()">打开抽屉</n-button>
+  </n-flex>
+  <popup-schema-form
+    v-model:model="form"
+    v-model:schema="schema"
+    v-model:visible="visible1"
+    title="模态框"
+    popup-type="modal"
+    :close-confirm="false"
+    :grid-item-props="12"
+  />
+
+  <popup-schema-form
+    v-model:model="form"
+    v-model:schema="schema"
+    v-model:visible="visible2"
+    title="抽屉"
+  />
 </template>
 
 <style scoped lang="scss">

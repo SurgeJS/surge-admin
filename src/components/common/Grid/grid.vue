@@ -6,7 +6,7 @@ import { setItemVisible } from '@/components/common/Grid/utils'
 
 const props = withDefaults(defineProps<GridProps>(), {
   cols: 24,
-  collapsedRows: 1,
+  notCollapsedRows: 1,
   responsive: 'screen'
 })
 
@@ -19,7 +19,7 @@ const gridStyle = computed<CSSProperties>(() => ({
 }))
 
 watchEffect(() => {
-  const itemVisible = setItemVisible(responsiveCols.value, props.collapsed, props.collapsedRows, itemDataList.value)
+  const itemVisible = setItemVisible(responsiveCols.value, props.collapsed, props.notCollapsedRows, itemDataList.value)
   isOverflow.value = itemVisible.overflow
   displayIndexList.value = itemVisible.displayIndexList
 })

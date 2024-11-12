@@ -3,12 +3,12 @@ import {
     SchemaFormCommonExpose,
     SchemaFormCommonProps,
     SchemaFormCommonSlots,
-    UnwrapRefSchema
+    UnwrapSchema
 } from '@/components/common/SchemaForm/types/common.ts'
 
 export interface SchemaFormProps extends SchemaFormCommonProps {
     // schema 配置
-    schema: UnwrapRefSchema[]
+    schema: UnwrapSchema[]
 }
 
 export interface SchemaFormExpose extends SchemaFormCommonExpose {

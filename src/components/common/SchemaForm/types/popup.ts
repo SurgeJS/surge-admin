@@ -4,7 +4,7 @@ import {
     SchemaFormCommonExpose,
     SchemaFormCommonProps,
     SchemaFormCommonSlots,
-    UnwrapRefSchema
+    UnwrapSchema
 } from '@/components/common/SchemaForm/types/common.ts'
 import { CardProps, DrawerContentProps, DrawerProps, ModalProps } from 'naive-ui'
 
@@ -12,7 +12,7 @@ export type PopupType = 'drawer' | 'modal'
 
 export interface PopupSchemaFormProps extends SchemaFormCommonProps {
     // schema 配置
-    schema: UnwrapRefSchema[]
+    schema: UnwrapSchema[]
 
     visible?: boolean
 

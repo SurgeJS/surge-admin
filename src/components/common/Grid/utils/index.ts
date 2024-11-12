@@ -12,10 +12,10 @@ export const resolveItemData = (cols: number, props: GridItemData): GridItemData
     }
 }
 
-export const setItemVisible = (cols: number, collapsed: boolean, collapsedRows: number, itemDataList: GridItemData[]) => {
+export const setItemVisible = (cols: number, collapsed: boolean, notCollapsedRows: number, itemDataList: GridItemData[]) => {
     let displayIndexList: number[] = []
 
-    const isOverflow = (span: number) => Math.ceil(span / cols) > collapsedRows
+    const isOverflow = (span: number) => Math.ceil(span / cols) > notCollapsedRows
 
     if (collapsed) {
         let spanSum = itemDataList.reduce((num, item, index) => {
