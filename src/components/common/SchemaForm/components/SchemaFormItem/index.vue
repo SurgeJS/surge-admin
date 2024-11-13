@@ -46,7 +46,7 @@ const callbackParams = computed(() => ({
 const isHide = computed(() => callbackParamsFunction<boolean | undefined>(schema.value.hide) ?? true)
 
 const gridItemPropsMap = computed(() => {
-  const item = schema.value.gridItemProps || schemaFormProps.gridItemProps
+  const item = schema.value.gridItemProps || props.gridItemProps || schemaFormProps.gridItemProps
   return (isNumber(item) ? { span: item } : item) as GridItemProps
 })
 

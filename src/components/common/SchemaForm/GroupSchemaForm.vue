@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
 import useOmitProps from '@/hooks/common/useOmitProps'
 import useExpose from '@/components/common/SchemaForm/hooks/useExpose'
 import { useProvideSchemaFormContext } from '@/components/common/SchemaForm/hooks/useContext'

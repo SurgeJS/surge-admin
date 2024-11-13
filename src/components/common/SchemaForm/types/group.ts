@@ -9,8 +9,7 @@ import {
     SchemaFormCommonSlots
 } from '@/components/common/SchemaForm/types/common.ts'
 import { UnwrapRef } from 'vue'
-import { GridItemProps, GridProps } from 'naive-ui'
-
+import { GridItemProps, GridProps } from '@/components/common/Grid/types'
 
 // 回调参数
 export interface GroupCallbackParams<
@@ -56,7 +55,6 @@ export interface DefineGroupSchema<
     // 禁用表单
     disabled?: MaybeRef<boolean>
 
-    // TODO:未完成
     // grid item组件属性
     gridItemProps?: MaybeRef<number | GridItemProps>
 

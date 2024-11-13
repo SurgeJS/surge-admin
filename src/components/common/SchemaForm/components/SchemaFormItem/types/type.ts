@@ -8,5 +8,5 @@ export interface SchemaFormItemProps {
 
     disable?: boolean
 
-    gridItemProps?: GridItemProps
+    gridItemProps?: GridItemProps | number
 }

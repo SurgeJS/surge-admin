@@ -71,6 +71,7 @@ const schema = reactive<DefineGroupSchema<typeof form.value>[]>([
   {
     title:'用户信息',
     helpMessage: '用户信息',
+    gridItemProps: 12,
     form:[
       {
         field: 'name.a.b',
@@ -170,6 +171,7 @@ const schema = reactive<DefineGroupSchema<typeof form.value>[]>([
   },
   {
     title:'企业信息',
+    gridItemProps: 8,
     form:[
       {
         field: 'email',
@@ -212,18 +214,6 @@ const schema = reactive<DefineGroupSchema<typeof form.value>[]>([
         },
         gridItemProps: 24
       },
-      {
-        component: 'input',
-        componentProps: {
-          type: 'password'
-        },
-      },
-      {
-        component: 'select',
-        componentProps: {
-
-        }
-      }
     ]
   }
 ])

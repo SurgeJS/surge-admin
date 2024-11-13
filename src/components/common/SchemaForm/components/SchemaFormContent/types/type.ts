@@ -6,5 +6,5 @@ export interface SchemaFormContent {
 
     gridProps: GridProps
 
-    gridItemProps?: GridItemProps
+    gridItemProps?: number | GridItemProps
 }
