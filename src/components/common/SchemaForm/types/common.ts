@@ -87,9 +87,12 @@ export type OptionType =
     | Option
 
 // 常用组件属性映射
-export interface CommonComponentPropsMap {
+export interface CommonComponentPropsMap<
+    TForm extends Recordable = any,
+    DComponentsName extends ComponentsNameRef = ComponentsNameRef
+> {
     // 占位符
-    placeholder?: string
+    placeholder?: MaybeRef<string>
 
     // 日期范围组件 开始占位符
     startPlaceholder?: string
@@ -99,13 +102,17 @@ export interface CommonComponentPropsMap {
 
     // 选项
     options?: MaybeRef<OptionType[]>
+
+    // TODO:未完成
+    // 禁用
+    disabled?: MaybeRef<boolean> | CallbackParamsFunction<TForm, UnwrapRef<DComponentsName>, boolean>
 }
 
 // Schema配置
 export interface Schema<
     TForm extends Recordable = any,
     DComponentsName extends ComponentsNameRef = ComponentsNameRef
-> extends FormItemPropsRefs, CommonComponentPropsMap {
+> extends FormItemPropsRefs, CommonComponentPropsMap<TForm,DComponentsName> {
     // 字段
     field?: MaybeRef<keyof TForm | string>
 

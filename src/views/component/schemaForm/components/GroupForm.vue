@@ -172,6 +172,7 @@ const schema = reactive<DefineGroupSchema<typeof form.value>[]>([
   {
     title:'企业信息',
     gridItemProps: 8,
+    disabled: true,
     form:[
       {
         field: 'email',

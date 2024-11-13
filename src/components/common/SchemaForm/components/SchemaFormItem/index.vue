@@ -88,7 +88,7 @@ const FormItem = defineComponent(() => {
 
   // 动态组件属性
   const dynamicComponentAttribute = computed<Recordable>(() => {
-    const { component, componentProps, placeholder, startPlaceholder, endPlaceholder, options } = schema.value
+    const { component, componentProps, placeholder, startPlaceholder, endPlaceholder, options,disabled } = schema.value
 
     if (!component) return {}
 
@@ -134,6 +134,11 @@ const FormItem = defineComponent(() => {
 
     // 映射 options
     if (options && isMapOptions) mapProps.options = options
+
+    // 禁用
+    if (disabled !== undefined || props.disabled !== undefined) {
+      mapProps.disabled = callbackParamsFunction(disabled) ?? props.disabled
+    }
 
     return {
       ...mapProps,

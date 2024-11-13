@@ -6,7 +6,7 @@ export interface SchemaFormItemProps {
 
     id: string
 
-    disable?: boolean
+    disabled?: boolean
 
     gridItemProps?: GridItemProps | number
 }

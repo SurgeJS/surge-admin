@@ -149,6 +149,7 @@ defineExpose<GroupSchemaFormExpose>({
         <schema-form-content
           class="px-5px"
           :schema="config.form"
+          :disabled="config.disabled"
           :grid-item-props="config.gridItemProps"
           :grid-props="handleGridPropsMap(config)"
         >
@@ -213,11 +214,10 @@ defineExpose<GroupSchemaFormExpose>({
     }
 
     &-name {
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 500;
       position: relative;
       letter-spacing: 1px;
-      line-height: 40px;
     }
   }
 }

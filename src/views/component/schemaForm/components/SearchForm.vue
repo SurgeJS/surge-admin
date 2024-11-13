@@ -71,6 +71,9 @@ const schema = reactive<DefineSchema<typeof form.value>[]>([
     field: 'name.a.b',
     label: '用户昵称',
     component: 'input',
+    disabled({ model }) {
+      return model.email.length > 10
+    }
   },
   {
     field: 'email',

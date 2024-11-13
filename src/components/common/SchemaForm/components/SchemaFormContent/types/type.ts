@@ -7,4 +7,6 @@ export interface SchemaFormContent {
     gridProps: GridProps
 
     gridItemProps?: number | GridItemProps
+
+    disabled?: boolean
 }
