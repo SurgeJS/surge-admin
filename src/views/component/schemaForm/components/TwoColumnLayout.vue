@@ -342,9 +342,9 @@ const schema = reactive<DefineSchema<typeof form.value>[]>([
 <template>
   <n-split
     direction="horizontal"
-    :default-size="0.25"
-    :max="0.75"
-    :min="0.25"
+    :default-size="0.20"
+    :max="0.80"
+    :min="0.20"
   >
     <template #1>
       <div class="p-24px h-full overflow-auto">

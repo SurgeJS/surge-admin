@@ -72,8 +72,12 @@ const getGroupExpandCollapseText = (config: UnwrapGroupSchema) => {
   }
 }
 
-const toggleCollapse = (config: UnwrapGroupSchema) => {
-  config.collapsed = !config.collapsed
+const toggleCollapse = (config: UnwrapGroupSchema, isCollapsed?: boolean) => {
+  config.collapsed = isCollapsed ?? !config.collapsed
+}
+
+const toggleCollapseByIndex = (index: number, isCollapsed?: boolean) => {
+  toggleCollapse(groupSchema.value[index], isCollapsed)
 }
 
 const handleGridPropsMap = (config: UnwrapGroupSchema): GridProps => {
@@ -93,7 +97,10 @@ watchEffect(() => {
   })
 })
 
-defineExpose<GroupSchemaFormExpose>(commonExpose)
+defineExpose<GroupSchemaFormExpose>({
+  ...commonExpose,
+  toggleCollapsed: toggleCollapseByIndex
+})
 </script>
 
 <template>
@@ -121,22 +128,29 @@ defineExpose<GroupSchemaFormExpose>(commonExpose)
               {{ config.helpMessage }}
             </n-tooltip>
           </div>
-          <n-button
-            v-if="!config.isHidCollapseButton"
-            :disabled="false"
-            text
-            type="primary"
-            @click="toggleCollapse(config)"
+          <slot
+            name="collapsedButton"
+            :config="config"
+            :toggle-collapsed="toggleCollapse"
           >
-            <template #icon>
-              <icon :icon="getGroupExpandCollapseText(config).icon" />
-            </template>
-            {{ getGroupExpandCollapseText(config).text }}
-          </n-button>
+            <n-button
+              v-if="!config.isHidCollapseButton"
+              :disabled="false"
+              text
+              type="primary"
+              @click="toggleCollapse(config)"
+            >
+              <template #icon>
+                <icon :icon="getGroupExpandCollapseText(config).icon" />
+              </template>
+              {{ getGroupExpandCollapseText(config).text }}
+            </n-button>
+          </slot>
         </div>
         <schema-form-content
-          class="px-10px"
+          class="px-5px"
           :schema="config.form"
+          :grid-item-props="config.gridItemProps"
           :grid-props="handleGridPropsMap(config)"
         >
           <template v-for="(slot,key) in formContentSlots" #[key]="scope">
@@ -188,21 +202,23 @@ defineExpose<GroupSchemaFormExpose>(commonExpose)
     display: inline-flex;
     align-items: center;
     line-height: 20px;
-    gap: 5px;
+    gap: 7px;
 
     &-placeholder {
       display: inline-block;
-      height: 20px;
+      height: 25px;
       width: 4px;
       background: theme('colors.primary');
       border-radius: theme('borderRadius.md');
+      flex-shrink: 0;
     }
 
     &-name {
       font-size: 16px;
-      font-weight: 600;
+      font-weight: 500;
       position: relative;
       letter-spacing: 1px;
+      line-height: 40px;
     }
   }
 }

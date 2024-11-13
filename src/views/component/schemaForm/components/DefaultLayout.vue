@@ -348,9 +348,9 @@ const to = () => {
 <template>
   <n-split
     direction="horizontal"
-    :default-size="0.25"
-    :max="0.75"
-    :min="0.25"
+    :default-size="0.20"
+    :max="0.80"
+    :min="0.20"
   >
     <template #1>
       <n-button @click="to">test</n-button>

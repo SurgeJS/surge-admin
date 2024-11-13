@@ -97,43 +97,38 @@ defineExpose<SearchSchemaFormExpose>({ ...commonExpose, toggleCollapsed })
         v-if="!props.hideActionButton"
         :span="4"
         suffix
-        class="flex-inline justify-end gap-[12px]"
       >
-        <slot name="buttonBefore" />
-        <slot name="customActionButton">
-          <n-button
-            v-if="!hideReset"
-            :loading="props.resetLoading"
-            @click="handleReset"
-          >
-            <template #icon>
-              <icon icon="i-ic:sharp-restart-alt" />
-            </template>
-            {{ props.resetText }}
-          </n-button>
-          <n-button
-            type="primary"
-            :loading="props.submitLoading"
-            @click="handleSubmit"
-          >
-            <template #icon>
-              <icon icon="i-ic:twotone-search" />
-            </template>
-            {{ props.submitText }}
-          </n-button>
-          <n-button
-            v-if="props.enableCollapsed"
-            type="primary"
-            text
-            @click="toggleCollapsed()"
-          >
-            <template #icon>
-              <icon :icon="text.icon" />
-            </template>
-            {{ text.text }}
-          </n-button>
-        </slot>
-        <slot name="buttonAfter" />
+        <div class="flex-inline justify-end gap-[12px]">
+          <slot name="buttonBefore" />
+          <slot name="customActionButton">
+            <n-button
+              v-if="!hideReset"
+              :loading="props.resetLoading"
+              @click="handleReset"
+            >
+              {{ props.resetText }}
+            </n-button>
+            <n-button
+              type="primary"
+              :loading="props.submitLoading"
+              @click="handleSubmit"
+            >
+              {{ props.submitText }}
+            </n-button>
+            <n-button
+              v-if="props.enableCollapsed"
+              type="primary"
+              text
+              @click="toggleCollapsed()"
+            >
+              <template #icon>
+                <icon :icon="text.icon" />
+              </template>
+              {{ text.text }}
+            </n-button>
+          </slot>
+          <slot name="buttonAfter" />
+        </div>
       </grid-item>
     </schema-form-content>
   </schema-form-wrap>

@@ -2,7 +2,7 @@
 import SchemaFormItem from '@/components/common/SchemaForm/components/SchemaFormItem/index.vue'
 import { SchemaFormContent } from '@/components/common/SchemaForm/components/SchemaFormContent/types/type'
 
-const { schema,gridProps } = defineProps<SchemaFormContent>()
+const { schema,gridProps,gridItemProps } = defineProps<SchemaFormContent>()
 const id = useId()
 </script>
 
@@ -16,6 +16,7 @@ const id = useId()
         v-if="config.component||config.contentSlot||config.slot"
         :id="id"
         ref="formItemsRef"
+        :grid-item-props="gridItemProps"
         :schema="config"
       >
         <slot v-if="config.contentSlot" :name="config.contentSlot" />

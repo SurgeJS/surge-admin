@@ -87,13 +87,16 @@ export interface GroupSchemaFormProps extends SchemaFormCommonProps {
 }
 
 export interface GroupSchemaFormExpose extends SchemaFormCommonExpose {
+    toggleCollapsed: (index: number, isCollapsed?: boolean) => void
 }
 
 export interface GroupSchemaFormSlots extends SchemaFormCommonSlots {
     // 自定义group标题
     groupTitle(props: { groupSchema: UnwrapGroupSchema }): any
 
-    // TODO:未完成
     // 自定义折叠按钮
-    collapsedButton(props: { isCollapsed: boolean, notCollapsedRows: number }): any
+    collapsedButton(props: {
+        config: UnwrapGroupSchema,
+        toggleCollapsed: (config: UnwrapGroupSchema,isCollapsed:boolean) => void
+    }): any
 }

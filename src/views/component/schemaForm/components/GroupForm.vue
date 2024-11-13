@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { reactive } from 'vue'
 import useRenderIcon from '@/hooks/components/useRenderIcon'
-import { DefineGroupSchema } from '@/components/common/SchemaForm/types/group.ts'
+import { DefineGroupSchema, GroupSchemaFormExpose } from '@/components/common/SchemaForm/types/group.ts'
 
 const { RenderUnoIcon } = useRenderIcon()
 
@@ -57,6 +57,7 @@ const form = ref({
   like: [],
   mention: null
 })
+const schemaForm = ref<GroupSchemaFormExpose>()
 
 const emailAutoComplete = computed(() => [ '@gmail.com', '@163.com', '@qq.com' ].map((v) => {
       const prefix = form.value.email?.split('@')[0]
@@ -210,6 +211,18 @@ const schema = reactive<DefineGroupSchema<typeof form.value>[]>([
           type: 'textarea'
         },
         gridItemProps: 24
+      },
+      {
+        component: 'input',
+        componentProps: {
+          type: 'password'
+        },
+      },
+      {
+        component: 'select',
+        componentProps: {
+
+        }
       }
     ]
   }
@@ -219,9 +232,9 @@ const schema = reactive<DefineGroupSchema<typeof form.value>[]>([
 <template>
   <n-split
     direction="horizontal"
-    :default-size="0.25"
-    :max="0.75"
-    :min="0.25"
+    :default-size="0.20"
+    :max="0.80"
+    :min="0.20"
   >
     <template #1>
       <div class="p-24px h-full overflow-auto">
@@ -230,10 +243,18 @@ const schema = reactive<DefineGroupSchema<typeof form.value>[]>([
     </template>
     <template #2>
       <div class="p-24px h-full overflow-auto">
+        <n-flex class="mb-5">
+          <n-button @click="schemaForm?.toggleCollapsed(1)">切换第二组表单的展开和收起</n-button>
+        </n-flex>
         <group-schema-form
+          ref="schemaForm"
           v-model:model="form"
           v-model:schema="schema"
-        />
+        >
+          <!--          <template #collapsedButton="{config,toggleCollapsed}">-->
+          <!--            <n-button @click="toggleCollapsed(config)">{{ config.collapsed ? '展开' : '折叠' }}</n-button>-->
+          <!--          </template>-->
+        </group-schema-form>
       </div>
     </template>
   </n-split>
