@@ -6,7 +6,7 @@ import useAppStore from '@/store/modules/app'
 import AppConstant from '@/constant/app.ts'
 
 const appStore = useAppStore()
-console.log(appStore)
+
 // 全局初始化
 useGlobalInitialize()
 
