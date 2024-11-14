@@ -112,7 +112,7 @@ defineExpose<GroupSchemaFormExpose>({
       <template v-if="handleGroupHide">
         <div class="schemaForm-groupHeader">
           <div class="schemaForm-groupHeader-title">
-            <slot name="groupTitle" :group-schema="config">
+            <slot name="groupTitle" :config="config">
               <span class="schemaForm-groupHeader-title-placeholder" />
               <span class="schemaForm-groupHeader-title-name">{{ config.title }}</span>
             </slot>

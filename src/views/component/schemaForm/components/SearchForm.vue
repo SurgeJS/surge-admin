@@ -1,9 +1,6 @@
 <script setup lang="ts">
 import { reactive } from 'vue'
 import { DefineSchema } from '@/components/common/SchemaForm/types/common.ts'
-import useRenderIcon from '@/hooks/components/useRenderIcon'
-
-const { RenderUnoIcon } = useRenderIcon()
 
 const area = [
   {
@@ -57,6 +54,9 @@ const form = ref({
   like: [],
   mention: null
 })
+const num = ref(3)
+const [ isEnableCollapsed,toggleEnableCollapsed ] = useToggle()
+const [ isCollapsed,toggleCollapsed ] = useToggle()
 
 const emailAutoComplete = computed(() => [ '@gmail.com', '@163.com', '@qq.com' ].map((v) => {
       const prefix = form.value.email?.split('@')[0]
@@ -64,8 +64,7 @@ const emailAutoComplete = computed(() => [ '@gmail.com', '@163.com', '@qq.com' ]
         label: prefix + v,
         value: prefix + v
       }
-    })
-)
+    }))
 const schema = reactive<DefineSchema<typeof form.value>[]>([
   {
     field: 'name.a.b',
@@ -99,7 +98,7 @@ const schema = reactive<DefineSchema<typeof form.value>[]>([
   },
   {
     field: 'like',
-    label: '喜欢什么呢？',
+    label: '喜欢的',
     component: 'select',
     componentProps: {
       multiple: true
@@ -215,9 +214,17 @@ const schema = reactive<DefineSchema<typeof form.value>[]>([
     </template>
     <template #2>
       <div class="p-24px h-full overflow-auto">
+        <n-flex class="mb-5">
+          <n-button @click="toggleEnableCollapsed()"> {{ isEnableCollapsed ? '关闭':'开启' }} 折叠功能</n-button>
+          <n-button @click="num = 5">将折叠后的默认展示数量改为5</n-button>
+          <n-button @click="toggleCollapsed()">自己控制折叠,折叠状态：{{ isCollapsed }}</n-button>
+        </n-flex>
         <search-schema-form
           v-model:model="form"
           v-model:schema="schema"
+          :enable-collapsed="isEnableCollapsed"
+          :search-show-number="num"
+          :collapsed="isCollapsed"
         />
       </div>
     </template>

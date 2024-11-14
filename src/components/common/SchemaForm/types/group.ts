@@ -90,7 +90,7 @@ export interface GroupSchemaFormExpose extends SchemaFormCommonExpose {
 
 export interface GroupSchemaFormSlots extends SchemaFormCommonSlots {
     // 自定义group标题
-    groupTitle(props: { groupSchema: UnwrapGroupSchema }): any
+    groupTitle(props: { config: UnwrapGroupSchema }): any
 
     // 自定义折叠按钮
     collapsedButton(props: {

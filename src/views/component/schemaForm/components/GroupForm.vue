@@ -58,6 +58,7 @@ const form = ref({
   mention: null
 })
 const schemaForm = ref<GroupSchemaFormExpose>()
+const [ isDisabled,toggleDisabled ] = useToggle()
 
 const emailAutoComplete = computed(() => [ '@gmail.com', '@163.com', '@qq.com' ].map((v) => {
       const prefix = form.value.email?.split('@')[0]
@@ -172,14 +173,63 @@ const schema = reactive<DefineGroupSchema<typeof form.value>[]>([
   {
     title:'企业信息',
     gridItemProps: 8,
-    disabled: true,
+    disabled: isDisabled,
     form:[
       {
         field: 'email',
         label: '邮箱',
         component: 'autoComplete',
         options: emailAutoComplete,
-        rule: 'mail'
+        rule: 'mail',
+        disabled:false
+      },
+      {
+        field: 'startTime',
+        label: '开始时间',
+        component: 'timePicker'
+      },
+      {
+        field: 'endTime',
+        label: '结束时间',
+        component: 'timePicker'
+      },
+      {
+        field: 'area',
+        label: '地区',
+        component: 'cascader',
+        options: area
+      },
+      {
+        field: 'organization',
+        label: '组织机构',
+        component: 'treeSelect',
+        componentProps: {
+          keyField: 'value'
+        },
+        options: area
+      },
+      {
+        field: 'description',
+        label: '描述',
+        component: 'input',
+        componentProps: {
+          type: 'textarea'
+        },
+        gridItemProps: 24
+      },
+    ]
+  },
+  {
+    title:'自定义标题',
+    gridItemProps: 12,
+    form:[
+      {
+        field: 'email',
+        label: '邮箱',
+        component: 'autoComplete',
+        options: emailAutoComplete,
+        rule: 'mail',
+        disabled:false
       },
       {
         field: 'startTime',
@@ -236,12 +286,22 @@ const schema = reactive<DefineGroupSchema<typeof form.value>[]>([
       <div class="p-24px h-full overflow-auto">
         <n-flex class="mb-5">
           <n-button @click="schemaForm?.toggleCollapsed(1)">切换第二组表单的展开和收起</n-button>
+          <n-button @click="toggleDisabled()">切换第二组表单是否禁用</n-button>
         </n-flex>
         <group-schema-form
           ref="schemaForm"
           v-model:model="form"
           v-model:schema="schema"
+          :on-finish="model => {
+            console.log(model)
+          }"
+          :on-finish-failed="error => {
+            console.log(error)
+          }"
         >
+          <template #groupTitle="{config}">
+            <span v-if="config.title === '自定义标题'">自定义标题</span>
+          </template>
           <!--          <template #collapsedButton="{config,toggleCollapsed}">-->
           <!--            <n-button @click="toggleCollapsed(config)">{{ config.collapsed ? '展开' : '折叠' }}</n-button>-->
           <!--          </template>-->

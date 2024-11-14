@@ -98,7 +98,7 @@ defineExpose<SearchSchemaFormExpose>({ ...commonExpose, toggleCollapsed })
         :span="4"
         suffix
       >
-        <div class="flex-inline justify-end gap-[12px]">
+        <div class="flex justify-end gap-[12px]">
           <slot name="buttonBefore" />
           <slot name="customActionButton">
             <n-button
