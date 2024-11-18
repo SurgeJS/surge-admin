@@ -60,9 +60,16 @@ export const createVitePlugins = (viteEnv: ImportMetaEnv): PluginOption[] => {
                         'useNotification',
                         'useLoadingBar'
                     ]
-                }
+                },
+                // 'src/directives'
             ],
-            dts: 'types/auto-imports.d.ts'
+            dts: 'types/auto-imports.d.ts',
+            dirs: ['src/directives/**'],
+            vueDirectives: {
+                isDirective(form, entry) {
+                    return form.includes('src/directives')
+                },
+            },
         }),
         // 打包压缩
         viteEnv.VITE_BUILD_COMPRESS !== 'none' && compress({

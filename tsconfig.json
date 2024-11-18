@@ -1,15 +1,22 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
-    "module": "ESNext",
-    "skipLibCheck": true,
-    "jsx": "preserve",
-    "jsxImportSource": "vue",
     "baseUrl": ".",
-    "moduleResolution": "bundler",
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "module": "ESNext",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "skipLibCheck": true,
+
+    /* Bundler mode */
+    "moduleResolution": "Bundler",
     "allowImportingTsExtensions": true,
     "isolatedModules": true,
+    "moduleDetection": "force",
     "noEmit": true,
+    "jsx": "preserve",
+    "jsxImportSource": "vue",
+
+    /* Linting */
     "strict": true,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
@@ -20,7 +27,7 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
-    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+
     "types": ["vite/client", "node"],
     "typeRoots": ["./node_modules/@types/", "./types", "./node_modules"],
     "paths": {
